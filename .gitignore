@@ -1,0 +1,6 @@
+/tmp/**/*
+*~
+.swap*
+.eprj
+.DS_Store
+
