@@ -17,7 +17,7 @@
 
     </head>
     <body>
-        <div id="container">
+        <div id="container" class="container showgrid">
             <div id="header" class="span-24 last">
                 <h1><?php echo __('Adress Social Contact'); ?></h1>
                 <?php echo $this->Session->flash(); ?>
