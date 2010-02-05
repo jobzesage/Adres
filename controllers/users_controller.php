@@ -11,10 +11,13 @@ class UsersController extends AppController {
     public function index(){}
     
     
-    public function login(){}
+    public function login(){
+        $this->layout = null;
+    }
     
-    
-    public function logout(){}
+    public function logout(){
+        $this->redirect($this->Auth->logout());
+    }
         
     
 }

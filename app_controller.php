@@ -11,10 +11,9 @@ abstract class AppController extends Controller {
     public $components = array('Auth','Session','Cookie','RequestHandler','Security');
     
     
-    
     public function beforeFilter() {
         
-        $this->Auth->fields = array(
+       $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
@@ -29,18 +28,13 @@ abstract class AppController extends Controller {
 
         parent::beforeFilter();
         
-        //parse extentions ajax.
-        $this->_parseExtentions();
-
         $this->Security->blackHoleCallback = 'blackHole';
     }
 
     
-    /**
-     *This will display error messages when session is auto logged out
-     *
-     *@return void
-     */
+
+
+
     public function autoLogoutMessage(){
     
         if(!$this->Session->check('logging_out_time') and $this->Session->valid()){
@@ -54,6 +48,30 @@ abstract class AppController extends Controller {
         }
     }
 
+    
+    public function isAuthenticated() {
+        return !!$this->Auth->user('id');
+    }
+
+    
+    
+    public function beforeRender(){
+        if($this->isAuthenticated()){
+            //TODO apply some redirection logic
+        } 
+    }
+
+
+    final public function hashPasswords($data) {
+        $userModel = $this->Auth->userModel;
+        $fields = $this->Auth->fields;
+        if (is_array($data) && isset($data[$userModel])) {
+            if (isset($data[$userModel][$fields['username']]) && isset($data[$userModel][$fields['password']])) {
+                $data[$userModel][$fields['password']] = Security::hash($data[$userModel][$fields['password']], null ,false);
+            }
+        }
+        return $data;
+    }
 
 }
 ?>
