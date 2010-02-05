@@ -1,26 +1,27 @@
 <?php
-
-
 class UsersController extends AppController {
     
     public $name ='Users';
 
-
-
-    public function beforeFilter(){}
-
-
     public function index(){}
-    
-    
-    public function login(){
+
+    public function register(){
         $this->layout = null;
+    
+    }
+
+    public function login() {
+        $this->layout = null;
+        if(isset($this->data)){
+            var_dump($this->data);    
+        } 
+    }
+
+    public function logout() {
+        
     }
     
-    public function logout(){
-        $this->redirect($this->Auth->logout());
-    }
-        
+    
     
 }
 ?>

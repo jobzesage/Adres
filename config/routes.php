@@ -7,13 +7,14 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 
-   #Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+    #Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
     Router::connect('/register', array('controller' => 'user', 'action' => 'register'));
 
     Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 
-    #Router::connect('/login', array('controller' => 'users', 'action' => 'display', 'home'));
+    Router::connect('/', array('controller' => 'users', 'action' => 'register' ));
+
 
 
 /**

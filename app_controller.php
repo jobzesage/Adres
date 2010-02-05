@@ -17,7 +17,7 @@ abstract class AppController extends Controller {
             'username' => 'username',
             'password' => 'password'
         );
-
+        $this->Auth->allow('*');
         $this->Auth->userScope = array('User.active' => 1);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
