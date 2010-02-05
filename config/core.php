@@ -1,26 +1,5 @@
 <?php
 /**
- * This is core configuration file.
- *
- * Use it to configure core behavior of Cake.
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2009, Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2009, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       cake
- * @subpackage    cake.app.config
- * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
-
-/**
  * CakePHP Debug Level:
  *
  * Production Mode:
@@ -209,7 +188,7 @@
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipher_seed', '76859309657453542496749683645');
+	Configure::write('Security.cipher_seed', 68590957453524974963645);
 
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
@@ -241,11 +220,7 @@
  */
 	date_default_timezone_set('UTC');
 
-/**
- * If you are on PHP 5.3 uncomment this line and correct your server timezone
- * to fix the date & time related errors.
- */
-	//date_default_timezone_set('UTC');
+
 /**
  *
  * Cache Engine Configuration
