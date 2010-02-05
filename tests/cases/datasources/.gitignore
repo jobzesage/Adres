@@ -1,0 +1,9 @@
+_Store
+._*
+Icon?
+config/database.php
+tmp/**/*
+.eprj
+*.swp
+*~
+nbproject/*

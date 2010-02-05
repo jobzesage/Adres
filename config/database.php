@@ -2,11 +2,11 @@
 class DATABASE_CONFIG {
 
 	var $default= array(
-		'driver' => 'mysqli',
+		'driver' => 'mysql',
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '',
+		'password' => 'toor',
 		'database' => 'adres_development',
 	);
 }
