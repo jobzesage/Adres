@@ -1,33 +1,8 @@
 <?php
-/**
- * CakePHP Debug Level:
- *
- * Production Mode:
- * 	0: No error messages, errors, or warnings shown. Flash messages redirect.
- *
- * Development Mode:
- * 	1: Errors and warnings shown, model caches refreshed, flash messages halted.
- * 	2: As in 1, but also with full debug messages and SQL output.
- * 	3: As in 2, but also with full controller dump.
- *
- * In production mode, flash messages redirect after a time interval.
- * In development mode, you need to click the flash message to continue.
- */
+
 	Configure::write('debug', 2);
 
-/**
- * CakePHP Log Level:
- *
- * In case of Production Mode CakePHP gives you the possibility to continue logging errors.
- *
- * The following parameters can be used:
- *  Boolean: Set true/false to activate/deactivate logging
- *    Configure::write('log', true);
- *
- *  Integer: Use built-in PHP constants to set the error level (see error_reporting)
- *    Configure::write('log', E_ERROR | E_WARNING);
- *    Configure::write('log', E_ALL ^ E_NOTICE);
- */
+
 	Configure::write('log', true);
 
 /**
@@ -35,30 +10,10 @@
  */
 	Configure::write('App.encoding', 'UTF-8');
 
-/**
- * To configure CakePHP *not* to use mod_rewrite and to
- * use CakePHP pretty URLs, remove these .htaccess
- * files:
- *
- * /.htaccess
- * /app/.htaccess
- * /app/webroot/.htaccess
- *
- * And uncomment the App.baseUrl below:
- */
+
 	//Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 
-/**
- * Uncomment the define below to use CakePHP admin routes.
- *
- * The value of the define determines the name of the route
- * and its associated controller actions:
- *
- * 'admin' -> admin_index() and /admin/controller/index
- * 'superuser' -> superuser_index() and /superuser/controller/index
- *
- * [Note Routing.admin is deprecated in 1.3.  Use Routing.prefixes instead]
- */
+
 	//Configure::write('Routing.admin', 'admin');
 
 /**
@@ -75,84 +30,26 @@
  */
 	//Configure::write('Routing.prefixes', array('admin'));
 
-/**
- * Turn off all caching application-wide.
- *
- */
-	//Configure::write('Cache.disable', true);
 
-/**
- * Enable cache checking.
- *
- * If set to true, for view caching you must still use the controller
- * var $cacheAction inside your controllers to define caching settings.
- * You can either set it controller-wide by setting var $cacheAction = true,
- * or in each action using $this->cacheAction = true.
- *
- */
+	Configure::write('Cache.disable', true);
+
+
 	//Configure::write('Cache.check', true);
 
-/**
- * Defines the default error type when using the log() function. Used for
- * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
- */
+
 	define('LOG_ERROR', 2);
 
-/**
- * The preferred session handling method. Valid values:
- *
- * 'php'	 		Uses settings defined in your php.ini.
- * 'cake'		Saves session files in CakePHP's /tmp directory.
- * 'database'	Uses CakePHP's database sessions.
- *
- * To define a custom session handler, save it at /app/config/<name>.php.
- * Set the value of 'Session.save' to <name> to utilize it in CakePHP.
- *
- * To use database sessions, run the app/config/schema/sessions.php schema using
- * the cake shell command: cake schema run create Sessions
- *
- */
+
 	Configure::write('Session.save', 'php');
 
-/**
- * The model name to be used for the session model.
- *
- * 'Session.save' must be set to 'database' in order to utilize this constant.
- *
- * The model name set here should *not* be used elsewhere in your application.
- */
+
 	//Configure::write('Session.model', 'Session');
 
-/**
- * The name of the table used to store CakePHP database sessions.
- *
- * 'Session.save' must be set to 'database' in order to utilize this constant.
- *
- * The table name set here should *not* include any table prefix defined elsewhere.
- *
- * Please note that if you set a value for Session.model (above), any value set for
- * Session.table will be ignored.
- *
- * [Note: Session.table is deprecated as of CakePHP 1.3]
- */
 	//Configure::write('Session.table', 'cake_sessions');
 
-/**
- * The DATABASE_CONFIG::$var to use for database session handling.
- *
- * 'Session.save' must be set to 'database' in order to utilize this constant.
- */
 	//Configure::write('Session.database', 'default');
 
-/**
- * The name of CakePHP's session cookie.
- */
-	Configure::write('Session.cookie', 'CAKEPHP');
 
-/**
- * Session time out time (in seconds).
- * Actual value depends on 'Security.level' setting.
- */
 	Configure::write('Session.timeout', '120');
 
 /**
@@ -188,8 +85,8 @@
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipher_seed', 68590957453524974963645);
 
+	Configure::write('Security.cipher_seed', 76530967453544974963645);
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
  * This requires a/var/cache directory to be writable by the web server for caching.
@@ -246,7 +143,7 @@
  *		'duration'=> 3600, //[optional]
  *		'probability'=> 100, //[optional]
  * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- *	));
+ /home/rajib/sites/adres/config/core.php
  *
  * Xcache (http://xcache.lighttpd.net/)
  *
