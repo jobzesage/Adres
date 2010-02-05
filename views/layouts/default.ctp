@@ -6,8 +6,10 @@
         <title><?php __('Adress Application'); ?></title>
 
         <?php   echo $this->Html->meta('icon');
+                echo $this->Html->css('blueprint/screen','stylesheet',array('media'=>'screen, media'));
+                echo $this->Html->css('blueprint/print','stylesheet',array('media'=>'print'));
                 
-                echo $this->Javascript->link(array('jquery.1.4.1.min.js')); 
+                echo $this->Javascript->link(array('jquery.1.4.1.min')); 
                 echo $scripts_for_layout;
         ?>
         <!--[if lt IE 8]>
@@ -16,7 +18,7 @@
 
     </head>
     <body>
-        <div id="container">
+        <div id="container" class="container showgrid">
             <div id="header" class="span-24 last">
                 <h1><?php echo __('Adress Social Contact'); ?></h1>
                 <?php echo $this->Session->flash(); ?>
