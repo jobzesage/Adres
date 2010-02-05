@@ -1,40 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php __('Adress Application'); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+<?php echo $this->Html->docType('xhtml');?>
+<html>
 
-		echo $this->Html->css(array('blueprint/screen','blueprint/print'));
+    <head>
+        <?php echo $this->Html->charset(); ?>
+        <title><?php __('Adress Application'); ?></title>
 
-		echo $scripts_for_layout;
-	?>
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link(__('CakePHP: the rapid development php framework', true), 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
+        <?php   echo $this->Html->meta('icon');
+                echo $this->Html->css(array('blueprint/screen','blueprint/print'));
+                
+                echo $this->Javascript->link(array('jquery.1.4.1.min.js')); 
+                echo $scripts_for_layout;
+        ?>
+        <!--[if lt IE 8]>
+            <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+        <![endif]-->
 
-			<?php echo $this->Session->flash(); ?>
+    </head>
+    <body>
+        <div id="container">
+            <div id="header" class="span-24 last">
+                <h1><?php echo __('Adress Social Contact'); ?></h1>
+            </div>
+            <hr /> 
+            <div id="content">
+                <?php echo $this->Session->flash(); ?>
+                <?php echo $content_for_layout;?>
+            </div>  
 
-			<?php echo $content_for_layout; ?>
-
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
-	</div>
-	<?php //echo $this->element('sql_dump'); ?>
-</body>
+        </div>
+    </body>
 </html>
