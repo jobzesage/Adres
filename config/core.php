@@ -1,6 +1,6 @@
 <?php
 
-	Configure::write('debug', 2);
+	Configure::write('debug', 1);
 
 
 	Configure::write('log', true);

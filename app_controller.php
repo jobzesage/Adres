@@ -1,8 +1,7 @@
 <?php
 
 App::import('Security');
-
-Security::setHash('sha1');
+Security::setHash('SHA1');
 
 abstract class AppController extends Controller {
     
@@ -10,10 +9,8 @@ abstract class AppController extends Controller {
 
     public $components = array('Auth','Session','Cookie','RequestHandler','Security');
     
-    
     public function beforeFilter() {
-        
-       $this->Auth->fields = array(
+        $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
@@ -31,21 +28,19 @@ abstract class AppController extends Controller {
         $this->Security->blackHoleCallback = 'blackHole';
     }
 
-    
-
 
 
     public function autoLogoutMessage(){
     
-/*        if(!$this->Session->check('logging_out_time') and $this->Session->valid()){*/
-            //$this->Session->write('logging_out_time',$this->Session->sessionTime);
-        //}else{
-            //if($this->Session->time > $this->Session->read('logging_out_time')){
-                //$this->setFlash('You have been logged out due to inactivity');//for error set the second parameter
-            //}else{
-                //$this->Session->write('logging_out_time',$this->Session->sessionTime);				
-            //}
-        /*}*/
+       if(!$this->Session->check('logging_out_time') and $this->Session->valid()){
+            $this->Session->write('logging_out_time',$this->Session->sessionTime);
+        }else{
+            if($this->Session->time > $this->Session->read('logging_out_time')){
+                $this->setFlash('You have been logged out due to inactivity');//for error set the second parameter
+            }else{
+                $this->Session->write('logging_out_time',$this->Session->sessionTime);				
+            }
+        }
     }
 
     
@@ -61,7 +56,12 @@ abstract class AppController extends Controller {
         } 
     }
 
+    
 
+/*    public function hashPassword($data) {*/
+        
+    /*}*/
+    
 
 
 }

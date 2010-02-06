@@ -11,12 +11,14 @@ class UsersController extends AppController {
         $this->layout = null;
         if($this->data){                
             //TODO can improve the code here to use 
-            if($this->data['User']['password']===Security::hash($this->data['User']['confirm_password'])){
-                $this->User->create();
-                $this->User->data = $this->data;
-                $this->User->save();
+            if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){
+                #if($this->User->validate()){
+                    $this->User->create();
+                    $this->User->set($this->data);
+                    $this->User->save();
+                #}
             }else{
-                $this->Session->setFlash('Password mis match');
+                $this->Session->setFlash('Password mismatch');
             }
 
         }else{
