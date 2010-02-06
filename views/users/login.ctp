@@ -6,7 +6,7 @@
                 <div class='span-8'>
                 <?php echo $this->Form->create('User',array('url'=>array('controller'=>'users','action'=>'login')))?>
                     <?php
-                        echo $form->input('User.name', array(
+                        echo $form->input('username', array(
                             'label' => __('User Name', true) . ':',
                             'div' => array(
                                 'class' => ''
@@ -15,7 +15,7 @@
                         ));
                     ?>
                     <?php
-                        echo $form->input('User.password', array(
+                        echo $form->input('password', array(
                             'label' => __('Password', true) . ':',
                             'div' => array(
                                 'class' => ''
