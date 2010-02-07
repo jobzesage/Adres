@@ -16,9 +16,12 @@ class UsersController extends AppController {
                     $this->User->create();
                     $this->User->set($this->data);
                     $this->User->save();
+                    $this->Session->setFlash(__("A email has been sent to your email address",true));
+                    $this->layout = 'default';
+                    $this->render('/elements/success');
                 #}
             }else{
-                $this->Session->setFlash('Password mismatch');
+                $this->Session->setFlash(__('Password mismatch',true));
             }
 
         }else{
@@ -43,8 +46,6 @@ class UsersController extends AppController {
     }
 
 
-    
-    
     
     
 }
