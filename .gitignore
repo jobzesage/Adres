@@ -1,8 +1,8 @@
 _Store
 ._*
 Icon?
-config/database.php
-tmp/**/*
+app/config/database.php
+app/tmp/**/*
 .eprj
 *.swp
 *~

@@ -1,5 +1,4 @@
 <?php
-
 class DATABASE_CONFIG {
 
 	var $default = array(
@@ -8,7 +7,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => 'toor',
-		'database' => 'adres_development'
+		'database' => 'adres_development',
 		'prefix' => '',
 	);
 
