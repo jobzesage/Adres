@@ -7,15 +7,26 @@ abstract class AppController extends Controller {
     
     public $helpers =array('Html','Form','Session','Javascript','Time','Text');
 
-    public $components = array('Auth','Session','Cookie','RequestHandler','Security','DebugKit.Toolbar');
+    public $components = array(
+    	'Auth',
+    	'Session',
+    	'Cookie',
+    	'RequestHandler',
+    	'Security',
+    	'DebugKit.Toolbar'
+    );
     
     public function beforeFilter() {
+    	
+    	
+    	#$this->autoLogoutMessage();
+    	
         $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
         $this->Auth->allow('*');
-        $this->Auth->userScope = array('User.active' => 1);
+        $this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
         $this->Auth->autoRedirect = true;
@@ -36,7 +47,8 @@ abstract class AppController extends Controller {
             $this->Session->write('logging_out_time',$this->Session->sessionTime);
         }else{
             if($this->Session->time > $this->Session->read('logging_out_time')){
-                $this->setFlash('You have been logged out due to inactivity');//for error set the second parameter
+                $this->setFlash('You have been logged out due to inactivity');
+                //for error set the second parameter
             }else{
                 $this->Session->write('logging_out_time',$this->Session->sessionTime);				
             }
@@ -66,8 +78,7 @@ abstract class AppController extends Controller {
 /*    public function hashPassword($data) {*/
         
     /*}*/
-    
 
-
+	
 }
 ?>

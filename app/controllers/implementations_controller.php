@@ -2,7 +2,7 @@
 class ImplementationsController extends AppController {
 
 	var $name = 'Implementations';
-	var $helpers = array('Html', 'Form');
+
 
 	function index() {
 		$this->set('implementations', $this->paginate());

@@ -8,7 +8,7 @@ class UsersController extends AppController {
 
 
     public function register(){
-        $this->layout = null;
+        #$this->layout = null;
         if($this->data){                
             //TODO can improve the code here to use 
             if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){
@@ -32,10 +32,7 @@ class UsersController extends AppController {
 
 
     public function login() {
-        $this->layout = null;
-        if(isset($this->data)){
-            var_dump($this->data);    
-        } 
+
     }
 
 
@@ -43,6 +40,12 @@ class UsersController extends AppController {
 
     public function logout() {
         $this->redirect($this->Auth->logout());
+    }
+    
+    
+    
+    public function home(){
+    		
     }
 
 
