@@ -2,14 +2,17 @@
 <?php echo $form->create('Group');?>
 	<fieldset>
  		<legend><?php __('Add Group');?></legend>
-	<?php
-		echo $form->input('name');
-		echo $form->input('name',array(
-			'type'=>'select',
-			'option'=>$groups
-			));
-		
-	?>
+ 		
+	<?php echo $form->input('Group.name'); ?>
+	<?php echo $form->input('Group.parent_id',array(
+		'type'=>'select',
+		'options'=>$groups,
+		'empty'=>array(0=>__('No Parent',true)),
+		'label'=>'Parent Group'
+		)); ?>
+	
+	<?php ?>
+	
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>

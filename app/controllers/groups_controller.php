@@ -4,23 +4,30 @@ class GroupsController extends AppController {
 	public $name = 'Groups';
 	
 
-	function index() {
-		$this->Group->recursive = 0;
-		$this->set('groups', $this->paginate());
+	public function index() {
+		
+		$this->paginate=array(
+			'Group'=>array(
+				'contain'=>array('SubGroup'),
+				#'conditions'=>array('Group.parent_id'=>0)	//only the parent groups are shown
+			));
+			
+		$this->set('groups', $this->paginate('Group'));
 	}
 
-	function view($id = null) {
+	public function view($id = null) {
+		
 		if (!$id) {
-			$this->flash(__('Invalid Group', true), array('action' => 'index'));
+		 	$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
+		$this->Group->contain('SubGroup');
 		$this->set('group', $this->Group->read(null, $id));
 	}
 
-	function add() {
-		#FIXME some limit extenstions needed to be added
+	public function add() {
 		
-		$this->set('groups',$this->Group->find('list'));
-		
+		$this->_setGroupList();
+				
 		if (!empty($this->data)) {
 			$this->Group->create();
 			if ($this->Group->save($this->data)) {
@@ -30,10 +37,14 @@ class GroupsController extends AppController {
 		}
 	}
 
-	function edit($id = null) {
+	public function edit($id = null) {
+		
 		if (!$id && empty($this->data)) {
 			$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
+		
+		$this->_setGroupList();
+		
 		if (!empty($this->data)) {
 			if ($this->Group->save($this->data)) {
 				$this->flash(__('The Group has been saved.', true), array('action' => 'index'));
@@ -45,7 +56,7 @@ class GroupsController extends AppController {
 		}
 	}
 
-	function delete($id = null) {
+	public function delete($id = null) {
 		if (!$id) {
 			$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
@@ -53,6 +64,13 @@ class GroupsController extends AppController {
 			$this->flash(__('Group deleted', true), array('action' => 'index'));
 		}
 		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
+	}
+	
+	
+	
+	#application use only
+	private function _setGroupList(){
+		$this->set('groups',$this->Group->find('list'));
 	}
 
 }

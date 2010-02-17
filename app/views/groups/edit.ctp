@@ -2,11 +2,18 @@
 <?php echo $form->create('Group');?>
 	<fieldset>
  		<legend><?php __('Edit Group');?></legend>
-	<?php
-		echo $form->input('id');
-		echo $form->input('name');
-		echo $form->input('parent_id');
-	?>
+ 		
+	<?php echo $form->input('id') ?>
+	
+	<?php echo $form->input('name')	?>
+	
+	<?php echo $form->input('Group.parent_id',array(
+		'type'=>'select',
+		'options'=>$groups,
+		'empty'=>array(0=>__('No Parent',true)),
+		'label'=>'Parent Group'
+	)); ?>
+
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>

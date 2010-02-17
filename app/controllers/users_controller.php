@@ -3,9 +3,9 @@ class UsersController extends AppController {
     
     public $name ='Users';
 
-    public function index(){}
-
-
+    public function index(){
+    	$this->set('users',$this->paginate('User'));
+    }
 
     public function register(){
         #$this->layout = null;
@@ -14,11 +14,8 @@ class UsersController extends AppController {
             if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){
                 #if($this->User->validate()){
                     $this->User->create();
-                    $this->User->set($this->data);
-                    $this->User->save();
+                    $this->User->save($this->data);
                     $this->Session->setFlash(__("A email has been sent to your email address",true));
-                    $this->layout = 'default';
-                    $this->render('/elements/success');
                 #}
             }else{
                 $this->Session->setFlash(__('Password mismatch',true));
@@ -47,9 +44,15 @@ class UsersController extends AppController {
     public function home(){
     		
     }
-
-
     
-    
+	public function delete($id=null){
+		if (!$id) {
+			$this->flash(__('Invalid User', true), array('action' => 'index'));
+		}
+		if ($this->User->del($id)) {
+			$this->flash(__('Group deleted', true), array('action' => 'index'));
+		}
+		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
+	}    
 }
 ?>
