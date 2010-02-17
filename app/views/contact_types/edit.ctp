@@ -1,14 +1,22 @@
 <div class="contactTypes form">
 <?php echo $form->create('ContactType');?>
+
 	<fieldset>
- 		<legend><?php __('Edit ContactType');?></legend>
+ 		<legend><?php __('Edit ContactType') ?></legend>
+ 		
+	<?php echo $form->input('id') ?>
+	
+	<?php echo $form->input('name') ?>
+	
 	<?php
-		echo $form->input('id');
-		echo $form->input('name');
-		echo $form->input('implementation_id');
+		echo $form->input('implementation_id',array(
+		'type'=>'select',
+		'options'=>$implementations))
 	?>
+
 	</fieldset>
 <?php echo $form->end('Submit');?>
+
 </div>
 <div class="actions">
 	<ul>

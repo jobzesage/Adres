@@ -2,10 +2,17 @@
 class ContactTypesController extends AppController {
 
 	public $name = 'ContactTypes';
+	#public $uses=array('ContactType','Implementation');
 
 	public function index() {
-		$this->ContactType->recursive = 0;
-		$this->set('contactTypes', $this->paginate());
+		
+		$this->paginate=array(
+			'ContactType'=>array(
+				'contain'=>array(
+					'Implementation'
+				)));
+				
+		$this->set('contactTypes', $this->paginate('ContactType'));
 	}
 
 	public function view($id = null) {
@@ -16,6 +23,7 @@ class ContactTypesController extends AppController {
 	}
 
 	public function add() {
+		$this->_setImplementationList();
 		if (!empty($this->data)) {
 			$this->ContactType->create();
 			if ($this->ContactType->save($this->data)) {
@@ -26,9 +34,13 @@ class ContactTypesController extends AppController {
 	}
 
 	public function edit($id = null) {
+		
 		if (!$id && empty($this->data)) {
 			$this->flash(__('Invalid ContactType', true), array('action' => 'index'));
 		}
+		
+		$this->_setImplementationList();
+		
 		if (!empty($this->data)) {
 			if ($this->ContactType->save($this->data)) {
 				$this->flash(__('The ContactType has been saved.', true), array('action' => 'index'));
@@ -49,6 +61,11 @@ class ContactTypesController extends AppController {
 		}
 		$this->flash(__('The ContactType could not be deleted. Please, try again.', true), array('action' => 'index'));
 	}
+	
+	#for applicaiont use only
+	private function _setImplementationList(){
+		$this->set('implementations',ClassRegistry::init('Implementation')->find('list'));
+	}	
 
 }
 ?>

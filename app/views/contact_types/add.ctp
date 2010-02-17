@@ -2,10 +2,13 @@
 <?php echo $form->create('ContactType');?>
 	<fieldset>
  		<legend><?php __('Add ContactType');?></legend>
-	<?php
-		echo $form->input('name');
-		echo $form->input('implementation_id');
-	?>
+
+	<?php echo $form->input('name') ?>
+
+	<?php echo $form->input('implementation_id',array(
+		'type'=>'select',
+		'options'=>$implementations))?>
+
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>

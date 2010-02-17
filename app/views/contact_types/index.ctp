@@ -29,7 +29,7 @@ foreach ($contactTypes as $contactType):
 			<?php echo $contactType['ContactType']['name']; ?>
 		</td>
 		<td>
-			<?php echo $contactType['ContactType']['implementation_id']; ?>
+			<?php echo $contactType['Implementation']['name']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $contactType['ContactType']['id'])); ?>
