@@ -8,7 +8,14 @@ class Implementation extends AppModel {
 	public $actsAs=array('Containable');
 	
 	
-	
+	public $validate = array(
+		'name'=>array(
+			'notEmpty'=>array(
+				'rule'=>'notEmpty',
+				'message'=>'Implementation name can not be empty'
+			)
+		)
+	);
 	
 	
 }

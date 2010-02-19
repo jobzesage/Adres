@@ -11,6 +11,13 @@
 		echo $html->meta('icon');
 
 		echo $html->css('cake.generic');
+		
+		echo $html->css('jquery-ui-1.7.2.modified');
+		
+		echo $javascript->link(array(
+			'jquery-1.4.1.min',
+			'jquery-ui-1.7.2.custom.min'
+		));
 
 		echo $scripts_for_layout;
 	?>
