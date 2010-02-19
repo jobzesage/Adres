@@ -8,7 +8,13 @@ class GroupsController extends AppController {
 		
 		$this->paginate=array(
 			'Group'=>array(
-				'contain'=>array('SubGroup'),
+				'contain'=>array(
+					'SubGroup',
+					#'Contact',
+					'ContactType',
+					#'Implementation'
+					
+					),
 				#'conditions'=>array('Group.parent_id'=>0)	//only the parent groups are shown
 			));
 			

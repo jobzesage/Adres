@@ -4,6 +4,9 @@ class FiltersController extends AppController {
         public $name = 'Filters';
 
         function index() {
+        	$this->paginate=array('Filter'=>array(
+        		'contain'=>array('ContactType')	
+        	));
             $this->set('filters', $this->paginate());
         }
 

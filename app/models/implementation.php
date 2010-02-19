@@ -7,6 +7,12 @@ class Implementation extends AppModel {
 
 	public $actsAs=array('Containable');
 	
+	public $hasMany = array(
+		'ContactType' => array(
+			'className' => 'ContactType', 
+			'foreignKey' => 'contact_type_id'
+		));
+	
 	
 	public $validate = array(
 		'name'=>array(

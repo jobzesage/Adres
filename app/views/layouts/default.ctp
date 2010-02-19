@@ -16,7 +16,8 @@
 		
 		echo $javascript->link(array(
 			'jquery-1.4.1.min',
-			'jquery-ui-1.7.2.custom.min'
+			'jquery-ui-1.7.2.custom.min',
+			'adres.core.js'
 		));
 
 		echo $scripts_for_layout;
