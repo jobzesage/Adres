@@ -18,14 +18,15 @@ abstract class AppController extends Controller {
     
     public function beforeFilter() {
     	
-    	
-    	#$this->autoLogoutMessage();
+    	$this->autoLogoutMessage();
     	
         $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
+        
         $this->Auth->allow('*');
+        
         $this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
@@ -33,7 +34,7 @@ abstract class AppController extends Controller {
         $this->Auth->userModel = 'User';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
-
+		
         parent::beforeFilter();
         
         $this->Security->blackHoleCallback = 'blackHole';
@@ -69,9 +70,13 @@ abstract class AppController extends Controller {
     }
     
 
-     protected function setFlash($message,$layout='success') {
+    protected function setFlash($message,$layout='success') {
         $this->Session->setFlash($message);
     }
+    
+    // public function isAuthorized(){
+    // 	
+    // }
     
     
 

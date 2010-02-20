@@ -29,6 +29,9 @@ class UsersController extends AppController {
 
 
     public function login() {
+    	if($this->Auth->user()){
+    		$this->redirect(array('controller'=>'users','action'=>'home'));
+    	}
 
     }
 

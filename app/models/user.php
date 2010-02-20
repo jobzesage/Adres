@@ -1,9 +1,9 @@
 <?php
 class User extends AppModel {
 
-	var $name = 'User';
-	var $useDbConfig = 'development';
-	var $validate = array(
+	public $name = 'User';
+	
+	public $validate = array(
 		'first_name' => array('notempty'),
 		'last_name' => array('notempty'),
 		'username' => array('notempty'),
@@ -13,7 +13,8 @@ class User extends AppModel {
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $hasMany = array(
+	
+/*	var $hasMany = array(
 		'Log' => array(
 			'className' => 'Log',
 			'foreignKey' => 'user_id',
@@ -28,6 +29,6 @@ class User extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-
+*/
 }
 ?>

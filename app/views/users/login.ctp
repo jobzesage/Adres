@@ -1,5 +1,4 @@
       <div class="">
-                <h1><?php echo __('Rivality'); ?></h1>
                 <?php echo $session->flash(); ?>
                 <div class='span-8'>
                 <?php echo $form->create('User',array(
