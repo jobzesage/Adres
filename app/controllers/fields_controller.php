@@ -1,15 +1,15 @@
 <?php
 class FieldsController extends AppController {
 
-	var $name = 'Fields';
-	var $helpers = array('Html', 'Form');
+	public $name = 'Fields';
+	public $helpers = array('Html', 'Form');
 
-	function index() {
-		$this->Field->recursive = 0;
-		$this->set('fields', $this->paginate());
+	public function index() {
+		$this->paginate=array('Field'=>array('contain'=>array('ContactType')));
+		$this->set('fields', $this->paginate('Field'));
 	}
 
-	function view($id = null) {
+	public function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Field', true));
 			$this->redirect(array('action' => 'index'));
@@ -17,7 +17,12 @@ class FieldsController extends AppController {
 		$this->set('field', $this->Field->read(null, $id));
 	}
 
-	function add() {
+	public function add() {
+		
+		$this->set('contact_types',$this->_setContactTypeList());
+		
+		$this->set('field_types',$this->_setFieldTypeList());
+		
 		if (!empty($this->data)) {
 			$this->Field->create();
 			if ($this->Field->save($this->data)) {
@@ -29,7 +34,7 @@ class FieldsController extends AppController {
 		}
 	}
 
-	function edit($id = null) {
+	public function edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid Field', true));
 			$this->redirect(array('action' => 'index'));
@@ -42,12 +47,15 @@ class FieldsController extends AppController {
 				$this->Session->setFlash(__('The Field could not be saved. Please, try again.', true));
 			}
 		}
+		
 		if (empty($this->data)) {
+			$this->set('contact_types',$this->_setContactTypeList());
+			$this->set('field_types',$this->_setFieldTypeList());			
 			$this->data = $this->Field->read(null, $id);
 		}
 	}
 
-	function delete($id = null) {
+	public function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for Field', true));
 			$this->redirect(array('action' => 'index'));
@@ -59,6 +67,13 @@ class FieldsController extends AppController {
 		$this->Session->setFlash(__('The Field could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	protected function _setContactTypeList(){
+		return	ClassRegistry::init('ContactType')->find('list');	
+	}
 
+	protected function _setFieldTypeList(){
+		return	ClassRegistry::init('FieldType')->find('list',array('fields'=>array('class_name','nice_name')));	
+	}
 }
 ?>

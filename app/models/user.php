@@ -2,6 +2,8 @@
 class User extends AppModel {
 
 	public $name = 'User';
+
+	public $actsAs = array('Containable');
 	
 	public $validate = array(
 		'first_name' => array('notempty'),

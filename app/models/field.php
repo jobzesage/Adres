@@ -1,7 +1,17 @@
 <?php
 class Field extends AppModel {
 
-	var $name = 'Field';
+	public $name = 'Field';
+	
+	public $actsAs = array('Containable');
+	
+	public $belongsTo = array(
+		'ContactType' => array(
+			'className' => 'ContactType', 
+			'foreignKey' => 'contact_type_id'
+	));
+	
+	
 
 }
 ?>

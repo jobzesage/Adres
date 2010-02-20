@@ -6,11 +6,11 @@ echo $paginator->counter(array(
 'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
 ));
 ?></p>
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" >
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
-	<th><?php echo $paginator->sort('contact_type__id');?></th>
+	<th><?php echo $paginator->sort('ContactType.name');?></th>
 	<th><?php echo $paginator->sort('order');?></th>
 	<th><?php echo $paginator->sort('field_type_class_name');?></th>
 	<th><?php echo $paginator->sort('is_descriptive');?></th>
@@ -32,7 +32,7 @@ foreach ($fields as $field):
 			<?php echo $field['Field']['name']; ?>
 		</td>
 		<td>
-			<?php echo $field['Field']['contact_type__id']; ?>
+			<?php echo $field['ContactType']['name']; ?>
 		</td>
 		<td>
 			<?php echo $field['Field']['order']; ?>

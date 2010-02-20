@@ -9,10 +9,9 @@
 	
 	<?php echo $html->meta('icon') ?>
 		
-	<?php	echo $html->css(array(
-		'blueprint/screen',
-		'jquery-ui-1.7.2.modified.css'
-	)) ?>
+	<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
+
+	<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
 	
 	<!--[if lte IE 8]>
 	<?php	echo $html->css(array('blueprint/ie')) ?>		
@@ -28,9 +27,10 @@
 	?>
 </head>
 <body>
-	<div class="container showgrid">
-		<div id="header">
+	<div class="container showgrids">
+		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
+			<hr/>
 		</div>
 		<div id="content">
 
@@ -42,9 +42,9 @@
 			<?php echo $content_for_layout; ?>
 		</div>
 		<div id="footer">
-
+			(c) Copyright 2010 	. All Rights Reserved. 
 		</div>
 	</div>
-	<?php echo $cakeDebug; ?>
+	<?php #echo $cakeDebug; ?>
 </body>
 </html>

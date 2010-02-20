@@ -1,16 +1,5 @@
 <div class="fields form">
-<?php echo $form->create('Field');?>
-	<fieldset>
- 		<legend><?php __('Add Field');?></legend>
-	<?php
-		echo $form->input('name');
-		echo $form->input('contact_type_id');
-		echo $form->input('order');
-		echo $form->input('field_type_class_name');
-		echo $form->input('is_descriptive');
-	?>
-	</fieldset>
-<?php echo $form->end('Submit');?>
+	<?php echo $this->element('fields/_form') ?>
 </div>
 <div class="actions">
 	<ul>
