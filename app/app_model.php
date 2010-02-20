@@ -6,6 +6,7 @@ class AppModel extends Model {
 	
 	public $useDbConfig='development';
 	
-	#public $actsAs=array('Containable');	
+	
+
 }
 ?>

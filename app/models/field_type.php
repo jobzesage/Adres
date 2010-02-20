@@ -3,7 +3,7 @@ class FieldType extends AppModel {
 
 	public $name = 'FieldType';
 	
-	#public $primaryKey='class_name';
+	public $primaryKey='class_name';
 	
 	public $validate = array(
 		'class_name'=>array(
@@ -13,9 +13,6 @@ class FieldType extends AppModel {
 				)
 			)
 	);
-	
-
-
 
 }
 ?>

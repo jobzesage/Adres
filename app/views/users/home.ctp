@@ -1,6 +1,6 @@
-<div id="navigation">
+<div id="nav">
 	
-	<ul>
+	<ul class="navigation">
 		<li><?php echo $html->link(__('Home',true),array('controller'=>'users','action'=>'home')) ?></li>
 		
 		<li><?php echo $html->link(__('Implementations',true),array('controller'=>'implementations','action'=>'index')) ?></li>

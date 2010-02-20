@@ -1,11 +1,5 @@
 <div class="fieldTypes form">
-<?php echo $form->create('FieldType');?>
-	<fieldset>
- 		<legend><?php __('Add FieldType');?></legend>
-			<?php echo $form->input('class_name');	?>
-			<?php echo $form->input('nice_name');	?>
-	</fieldset>
-<?php echo $form->end('Submit');?>
+	<?php echo $this->element('field_types/_form') ?>
 </div>
 <div class="actions">
 	<ul>
