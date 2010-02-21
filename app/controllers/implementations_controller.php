@@ -1,14 +1,14 @@
 <?php
 class ImplementationsController extends AppController {
 
-	var $name = 'Implementations';
+	public $name = 'Implementations';
 
 
-	function index() {
+	public function index() {
 		$this->set('implementations', $this->paginate());
 	}
 
-	function view($id = null) {
+	public function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Implementation', true));
 			$this->redirect(array('action' => 'index'));
@@ -16,7 +16,7 @@ class ImplementationsController extends AppController {
 		$this->set('implementation', $this->Implementation->read(null, $id));
 	}
 
-	function add() {
+	public function add() {
 		if (!empty($this->data)) {
 			$this->Implementation->create();
 			if ($this->Implementation->save($this->data)) {
@@ -28,7 +28,7 @@ class ImplementationsController extends AppController {
 		}
 	}
 
-	function edit($id = null) {
+	public function edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid Implementation', true));
 			$this->redirect(array('action' => 'index'));
@@ -46,7 +46,7 @@ class ImplementationsController extends AppController {
 		}
 	}
 
-	function delete($id = null) {
+	public function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for Implementation', true));
 			$this->redirect(array('action' => 'index'));
