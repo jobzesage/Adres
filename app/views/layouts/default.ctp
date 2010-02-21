@@ -3,7 +3,7 @@
 <head>
 	<?php echo $html->charset(); ?>
 	<title>
-		<?php __('Adres the Adress Book'); ?>
+		<?php __('Adres the Adress Book',true); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	
@@ -16,6 +16,7 @@
 	<!--[if lte IE 8]>
 	<?php	echo $html->css(array('blueprint/ie')) ?>		
 	<![endif]-->
+	<?php echo $html->css('adres.default') ?>
 		
 	<?php	echo $javascript->link(array(
 			'jquery-1.4.1.min',
@@ -27,11 +28,12 @@
 	?>
 </head>
 <body>
-	<div class="container showgrids">
+	<div class="container showgrid">
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
 		</div>
+		<?php echo $this->element('main_navigation') ?>		
 		<div id="content">
 
 			<?php 
@@ -41,7 +43,7 @@
 			
 			<?php echo $content_for_layout; ?>
 		</div>
-		<div id="footer">
+		<div id="footer" class="span-24 last">
 			(c) Copyright 2010 	. All Rights Reserved. 
 		</div>
 	</div>

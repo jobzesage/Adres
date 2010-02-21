@@ -2,6 +2,11 @@
 class UsersController extends AppController {
     
     public $name ='Users';
+    
+    public function beforeFilter(){   
+        #$this->Auth->allow(array('login','register'));
+		parent::beforeFilter();
+    }
 
     public function index(){
     	$this->set('users',$this->paginate('User'));

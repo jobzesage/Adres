@@ -1,0 +1,28 @@
+/*
+* ADres the AddressBook default css
+*
+*@author Rajib Ahmed
+*/
+
+
+div#main_navigation ul{ list-style:none; display:inline;}
+div#main_navigation ul li{
+	width:110px;
+	float:left;
+	height:34px;
+	background:#ccc;
+	line-height:34px;
+	margin-right:10px;
+	text-align:center;
+}
+
+div#main_navigation ul li a{
+	text-decoration:none;
+	display:block;
+	background:#DFE;
+}
+
+div#main_navigation ul li a:hover{
+	font-weight:bold;
+	color: #738389;
+}
