@@ -2,7 +2,6 @@
 class FieldsController extends AppController {
 
 	public $name = 'Fields';
-	public $helpers = array('Html', 'Form');
 
 	public function index() {
 		$this->paginate=array('Field'=>array('contain'=>array('ContactType')));

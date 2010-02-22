@@ -9,6 +9,6 @@
 	Router::connect('/my_home',	array('controller' => 'users', 'action' => 'home'));
 	
 	// changed the data structure routes for easy user understanding
-	Router::connect('/data_structure/:action',	array('controller' => 'fields','action'=>':action'));
+	Router::connect('/data_structure/:action',	array('controller' => 'fields','action'=>'index'));
 	#Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 ?>
