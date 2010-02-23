@@ -18,14 +18,13 @@ abstract class AppController extends Controller {
     
     public function beforeFilter() {
     	
-    	$this->autoLogoutMessage();
+    	//$this->autoLogoutMessage();
     	
         $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
-        
-        $this->Auth->allow('*');
+		$this->Auth->allow('register','login');
         
         $this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
@@ -61,29 +60,25 @@ abstract class AppController extends Controller {
         return !!$this->Auth->user('id');
     }
 
+	public function isAuthorized() {
+		return true;
+	}
     
     
-    public function beforeRender(){
-        if($this->isAuthenticated()){
-            //TODO apply some redirection logic
-        } 
-    }
-    
-
     protected function setFlash($message,$layout='success') {
         $this->Session->setFlash($message);
     }
     
-    // public function isAuthorized(){
-    // 	
-    // }
     
-    
+    public function beforeRender(){
+			$this->set('implementations_list', $this->getImplementaions());
+    }
 
-/*    public function hashPassword($data) {*/
-        
-    /*}*/
 
+	
+    public function getImplementaions(){
+    	return ClassRegistry::init('Implementation')->find('list',array('fields'=>array('id','name'),'contain'=>false));
+    }
 	
 }
 ?>

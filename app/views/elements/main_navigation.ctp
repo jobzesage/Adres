@@ -1,4 +1,4 @@
-<div id="main_navigation" class="span-24">
+<div id="main_navigation" class="span-24 adres_navigation">
 	
 	<ul>
 		<li ><?php echo $html->link(__('Home',true),array('controller'=>'users','action'=>'home')) ?></li>

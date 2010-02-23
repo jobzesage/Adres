@@ -5,8 +5,8 @@
 */
 
 
-div#main_navigation ul{ list-style:none; display:inline;}
-div#main_navigation ul li{
+div.adres_navigation ul{ list-style:none; display:inline;}
+div.adres_navigation ul li{
 	width:110px;
 	float:left;
 	height:34px;
@@ -16,7 +16,7 @@ div#main_navigation ul li{
 	text-align:center;
 }
 
-div#main_navigation ul li a{
+div.adres_navigation ul li a{
 	text-decoration:none;
 	display:block;
 	background:#DFE;

@@ -31,7 +31,7 @@
 
 	Configure::write('Session.checkAgent', true);
 
-	Configure::write('Security.level', 'high');
+	Configure::write('Security.level', 'medium');
         
     Configure::write('Security.salt', '0b45c67ad0b7839011f37ba97a8f8fadeaef533c');
         

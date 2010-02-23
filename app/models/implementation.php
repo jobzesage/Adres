@@ -14,15 +14,15 @@ class Implementation extends AppModel {
 		));
 	
 	
-	public $validate = array(
-		'name'=>array(
-			'notEmpty'=>array(
-				'rule'=>'notEmpty',
-				'message'=>'Implementation name can not be empty'
-			)
-		)
-	);
-	
+	// public $validate = array(
+		// 	'name'=>array(
+		// 		'notEmpty'=>array(
+		// 			'rule'=>'notEmpty',
+		// 			'message'=>'Implementation name can not be empty'
+		// 		)
+		// 	)
+		// );
+		
 	
 }
 ?>

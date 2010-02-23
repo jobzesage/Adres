@@ -4,7 +4,6 @@ class UsersController extends AppController {
     public $name ='Users';
     
     public function beforeFilter(){   
-        #$this->Auth->allow(array('login','register'));
 		parent::beforeFilter();
     }
 
