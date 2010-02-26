@@ -1,9 +1,12 @@
 <div id="main_navigation" class="span-24 adres_navigation">
 	
 	<ul>
+		
 		<li ><?php echo $html->link(__('Home',true),array('controller'=>'users','action'=>'home')) ?></li>
 		
 		<li><?php echo $html->link(__('Implementations',true),array('controller'=>'implementations','action'=>'index')) ?></li>
+		<li><?php echo $html->link(__('Contacts',true),array('controller'=>'contacts','action'=>'index')) ?></li>
+
 		
 		<li><?php echo $html->link(__('Contact Types',true),array('controller'=>'contact_types','action'=>'index')) ?></li>
 		

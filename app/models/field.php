@@ -12,6 +12,10 @@ class Field extends AppModel {
 	));
 	
 	
-
+	public $hasMany = array(
+		'TypeString' => array(
+			'className' => 'TypeString', 
+			'foreignKey' => 'field_id'
+	));
 }
 ?>

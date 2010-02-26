@@ -9,6 +9,14 @@ class Contact extends AppModel {
 		'ContactType' => array(
 			'className' => 'ContactType', 
 			#'foreignKey' => 'contact_id'
+		),
+		'Field'=>array('className'=>'Field','join'=>array('TypeString.field_id=Field.id'))
+	);
+	
+	public $hasMany = array(
+		'TypeString' => array(
+			'className' => 'TypeString', 
+			'foreignKey' => 'contact_id'
 		)
 	);
 
@@ -17,7 +25,7 @@ class Contact extends AppModel {
 			'className' => 'Group', 
 			'foreignKey' => 'contact_id',
 			'associationForeignKey' => 'group_id',
-			
-	));	
+		)
+	);
 }
 ?>

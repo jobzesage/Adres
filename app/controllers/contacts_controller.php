@@ -8,7 +8,9 @@ class ContactsController extends AppController {
 			'Contact'=>array(
 				'contain'=>array(
 					'ContactType',
-					'Group'
+					'Group',
+					'TypeString',
+					#'Field'
 			)));
 		
 		$this->set('contacts', $this->paginate('Contact'));

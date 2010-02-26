@@ -3,6 +3,8 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
+    public $uses=array('Contact','ContactType','Field','Filter','TypeString');
+    
     public function beforeFilter(){   
 		parent::beforeFilter();
     }
@@ -49,7 +51,13 @@ class UsersController extends AppController {
     
     
     public function home(){
-    		
+		if(!$this->isAuthenticated()){
+			$this->flash('Something wrong','/');
+		}
+		
+		
+		#$this->	
+			
     }
     
 	public function delete($id=null){
@@ -60,6 +68,8 @@ class UsersController extends AppController {
 			$this->flash(__('Group deleted', true), array('action' => 'index'));
 		}
 		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
-	}    
+	}
+	
+	    
 }
 ?>
