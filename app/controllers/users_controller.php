@@ -3,14 +3,13 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('Contact','ContactType','Field','Filter','TypeString');
-    
     public function beforeFilter(){   
 		parent::beforeFilter();
     }
 
     public function index(){
-    	$this->set('users',$this->paginate('User'));
+    	
+    	$this->set('users',$this->paginate());
     }
 
     public function register(){
@@ -26,7 +25,7 @@ class UsersController extends AppController {
             }else{
                 $this->Session->setFlash(__('Password mismatch',true));
             }
-
+            $arrayName = array('tetst' => fadfasdfa, );
         }else{
             #$this->redirect('/login');
         }
@@ -41,23 +40,14 @@ class UsersController extends AppController {
 
     }
 
-
-
-
     public function logout() {
         $this->redirect($this->Auth->logout());
     }
-    
-    
     
     public function home(){
 		if(!$this->isAuthenticated()){
 			$this->flash('Something wrong','/');
 		}
-		
-		
-		#$this->	
-			
     }
     
 	public function delete($id=null){
@@ -68,8 +58,12 @@ class UsersController extends AppController {
 			$this->flash(__('Group deleted', true), array('action' => 'index'));
 		}
 		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
+		
+		
 	}
 	
-	    
+	public function show_contact(){
+		
+	}  
 }
 ?>

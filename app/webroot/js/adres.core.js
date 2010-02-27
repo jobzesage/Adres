@@ -17,6 +17,6 @@ ADres.ERROR={
 
 
 jQuery(document).ready(function() {
-	
-	$('a.ajax').bind('click',ADres.AJAX.call)
+	$('.adres-link-ajax').bind('click',ADres.AJAX.call)
+	$('.adres-selection-ajax').bind('change',ADres.AJAX.call);
 });

@@ -2,7 +2,6 @@
 class ContactTypesController extends AppController {
 
 	public $name = 'ContactTypes';
-	#public $uses=array('ContactType','Implementation');
 
 	public function index() {
 		

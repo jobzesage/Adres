@@ -10,13 +10,20 @@ class Contact extends AppModel {
 			'className' => 'ContactType', 
 			#'foreignKey' => 'contact_id'
 		),
-		'Field'=>array('className'=>'Field','join'=>array('TypeString.field_id=Field.id'))
+		'ContactTrash'=>array(
+			'className'=>'Trash',
+			'foreignKey'=>'trash_id'
+		)
 	);
-	
+			
 	public $hasMany = array(
 		'TypeString' => array(
 			'className' => 'TypeString', 
 			'foreignKey' => 'contact_id'
+		),
+		'Trash'=>array(
+			'className'=>'Trash',
+			'foeignKey'=>'contact_id'	
 		)
 	);
 
@@ -27,5 +34,6 @@ class Contact extends AppModel {
 			'associationForeignKey' => 'group_id',
 		)
 	);
+	
 }
 ?>

@@ -2,11 +2,13 @@
 class FieldTypesController extends AppController {
 
 	public $name = 'FieldTypes';
-	#var $helpers = array('Html', 'Form');
 
-	function index() {
-		$this->FieldType->recursive = 0;
-		$this->set('fieldTypes', $this->paginate());
+	public function index() {
+		$this->paginate=array('FieldType'=>array(
+				'contain'=>array('Form','Field')
+			));
+		
+		$this->set('fieldTypes', $this->paginate('FieldType'));
 	}
 
 	public function view($class_name = null) {

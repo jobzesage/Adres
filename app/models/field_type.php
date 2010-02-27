@@ -13,6 +13,13 @@ class FieldType extends AppModel {
 				)
 			)
 	);
+	
+	public $hasMany = array(
+		'Field' => array(
+			'className' => 'Field', 
+			'foreignKey' => 'field_type_class_name'
+			)
+	);
 
 }
 ?>

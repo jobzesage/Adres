@@ -66,6 +66,11 @@ class ContactsController extends AppController {
 		$this->Session->setFlash(__('The Contact could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	
+	public function show($contact_id=null){
+		
+	}
 
 }
 ?>

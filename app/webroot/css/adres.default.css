@@ -7,12 +7,12 @@
 
 div.adres_navigation ul{ list-style:none; display:inline;}
 div.adres_navigation ul li{
-	width:110px;
+	width:120px;
 	float:left;
 	height:34px;
 	background:#ccc;
 	line-height:34px;
-	margin-right:10px;
+/*	margin-right:10px;*/
 	text-align:center;
 }
 
@@ -25,4 +25,5 @@ div.adres_navigation ul li a{
 div#main_navigation ul li a:hover{
 	font-weight:bold;
 	color: #738389;
+	background-color: #d2d2d2;
 }
