@@ -64,6 +64,14 @@ class UsersController extends AppController {
 	
 	public function show_contact(){
 		
-	}  
+	}
+	
+	public function search(){
+		
+	}
+	
+	public function advance_search(){
+		
+	}
 }
 ?>

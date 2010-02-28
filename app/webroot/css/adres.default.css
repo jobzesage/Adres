@@ -4,9 +4,13 @@
 *@author Rajib Ahmed
 */
 
+/*---------------------------------
+|	main navigation 
+|---------------------------------*/
 
-div.adres_navigation ul{ list-style:none; display:inline;}
-div.adres_navigation ul li{
+.adres-navigation ul{ list-style:none; display:inline;}
+
+.adres-navigation ul li{
 	width:120px;
 	float:left;
 	height:34px;
@@ -16,14 +20,36 @@ div.adres_navigation ul li{
 	text-align:center;
 }
 
-div.adres_navigation ul li a{
+.adres-navigation ul li a{
 	text-decoration:none;
 	display:block;
 	background:#DFE;
 }
 
-div#main_navigation ul li a:hover{
+.adres-navigation ul li a:hover{
 	font-weight:bold;
 	color: #738389;
 	background-color: #d2d2d2;
+}
+
+/*---------------------------------
+|	left sidebar 
+|---------------------------------*/
+.adres-left-sidebar{
+	
+}
+
+
+/*---------------------------------
+|	right sidebar 
+|---------------------------------*/
+.adres-right-sidebar{
+	
+}
+
+/*---------------------------------
+|	contacts panle
+|---------------------------------*/
+.adres-contact-panel{
+	
 }

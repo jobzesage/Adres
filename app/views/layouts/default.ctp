@@ -37,7 +37,7 @@
 		<div class="span-3 prepend-19"><?php echo $form->input('name',array('type'=>'select','options'=>$implementations_list)) ?> </div>
 		<?php echo $form->end('Go',array('test')) ?>
 		<?php echo $this->element('main_navigation') ?>		
-		<div id="content">
+		<div id="content" class='clear'>
 
 			<?php 
 				// if($session->check('Message'))	

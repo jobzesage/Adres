@@ -1,4 +1,4 @@
-<div id="main_navigation" class="span-24 adres_navigation">
+<div id="main_navigation" class="adres-navigation span-24">
 	
 	<ul>
 		
