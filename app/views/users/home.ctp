@@ -3,7 +3,9 @@
 		'url'=>array(
 			'controller'=>'users',
 			'action'=>'search'
-		))) ?>
+		),
+		'type'=>'get'
+		)) ?>
 		<?php echo $form->input('contact') ?>
 		
 	<?php echo $form->end('Search') ?>
@@ -12,7 +14,9 @@
 		'url'=>array(
 			'controller'=>'users',
 			'action'=>'advance_search'
-		))) ?>
+		),
+		'type'=>'get'
+		)) ?>
 		
 		<?php echo $form->input('contact') ?>
 			

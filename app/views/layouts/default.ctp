@@ -33,9 +33,7 @@
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
 		</div>
-		<?php echo $form->create('Implementation.switch',array('type'=>'get','url'=>array('controller'=>'implementations','action'=>'switch'))) ?>
-		<div class="span-3 prepend-19"><?php echo $form->input('name',array('type'=>'select','options'=>$implementations_list)) ?> </div>
-		<?php echo $form->end('Go',array('test')) ?>
+		<?php echo $this->element('implementations/list') ?>
 		<?php echo $this->element('main_navigation') ?>		
 		<div id="content" class='clear'>
 

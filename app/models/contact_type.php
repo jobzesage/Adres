@@ -32,6 +32,14 @@ class ContactType extends AppModel {
 		'Form'=>array(
 			'className'=>'Form',
 			'foreignKey'=>'contact_type_id'	
+		),
+		'Group'=>array(
+			'className'=>'Group',
+			'foreignKey'=>'contact_type_id'
+		),
+		'Filter'=>array(
+			'className'=>'Filter',
+			'foreignKey'=>'contact_type_id'
 		)
 	);
 	

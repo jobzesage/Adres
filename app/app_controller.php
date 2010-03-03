@@ -18,8 +18,8 @@ abstract class AppController extends Controller {
     
     public function beforeFilter() {
     	
-    	//$this->autoLogoutMessage();
-    	
+    	$this->autoLogoutMessage();
+		
         $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
@@ -47,7 +47,7 @@ abstract class AppController extends Controller {
             $this->Session->write('logging_out_time',$this->Session->sessionTime);
         }else{
             if($this->Session->time > $this->Session->read('logging_out_time')){
-                $this->setFlash('You have been logged out due to inactivity');
+                $this->Session->setFlash('You have been logged out due to inactivity');
                 //for error set the second parameter
             }else{
                 $this->Session->write('logging_out_time',$this->Session->sessionTime);				
@@ -60,25 +60,37 @@ abstract class AppController extends Controller {
         return !!$this->Auth->user('id');
     }
 
+
 	public function isAuthorized() {
 		return true;
 	}
-    
+
     
     protected function setFlash($message,$layout='success') {
         $this->Session->setFlash($message);
     }
     
-    
+
     public function beforeRender(){
 			$this->set('implementations_list', $this->getImplementaions());
     }
 
 
-	
     public function getImplementaions(){
-    	return ClassRegistry::init('Implementation')->find('list',array('fields'=>array('id','name'),'contain'=>false));
+    	return ClassRegistry::init('Implementation')->find(
+    		'list',array(
+    			'fields'=>array(
+    				'id',
+    				'name'),
+    			'contain'=>false
+    		));
     }
-	
+
+
+	public function redirect_if_not_ajax_request(){
+		if(!$this->RequestHandler->isAjax()){
+			$this->redirect('index');
+		}	
+	}	
 }
 ?>

@@ -35,6 +35,17 @@ class Group extends AppModel {
 			
 	));
 	
+	
+	
+	public function getCurrent($implementation_id){
+		return $this->find('all',array(
+			'contain'=>false,
+			'conditions'=>array(
+				'Group.implementation_id'=>$implementation_id,
+				'Group.parent_id'=>0
+		)));
+	}
+	
 }
 
 ?>

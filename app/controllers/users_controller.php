@@ -3,6 +3,8 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
+    public $uses=array('Contact','ContactType','Field','FieldType','Group','Implementation');
+    	
     public function beforeFilter(){   
 		parent::beforeFilter();
     }
@@ -37,17 +39,44 @@ class UsersController extends AppController {
     	if($this->Auth->user()){
     		$this->redirect(array('controller'=>'users','action'=>'home'));
     	}
-
+	
     }
 
     public function logout() {
+    	$this->Session->destroy();
         $this->redirect($this->Auth->logout());
+        
     }
     
     public function home(){
 		if(!$this->isAuthenticated()){
 			$this->flash('Something wrong','/');
 		}
+	
+		if(!$this->Session->check('Implementation')){
+    		$implementation = ClassRegistry::init('Implementation')->find(
+    			'first',array(
+    				'fields'=>array('id','name')
+    			));
+			$this->Session->write('Implementation',$implementation['Implementation']);
+    	}
+
+    	$this->Implementation->id = $this->Session->read('Implementation.id');
+
+    	$contact_types = $this->ContactType->find('all',array(
+    		'contain'=>array(
+    			'Group'=>array('conditions'=>array('Group.parent_id'=>0)),
+	    		'Contact',
+	    		'Filter',
+	    		'Field'
+    		),
+    		'conditions'=>array(
+    			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
+    		)
+		));
+
+    	$this->set(compact('contact_types'));
+		
     }
     
 	public function delete($id=null){
@@ -62,9 +91,6 @@ class UsersController extends AppController {
 		
 	}
 	
-	public function show_contact(){
-		
-	}
 	
 	public function search(){
 		
@@ -73,5 +99,7 @@ class UsersController extends AppController {
 	public function advance_search(){
 		
 	}
+	
+
 }
 ?>

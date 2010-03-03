@@ -58,6 +58,21 @@ class ImplementationsController extends AppController {
 		$this->Session->setFlash(__('The Implementation could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
-
+		
+	
+	public function change(){
+		$implementation_id = $_GET['implementation_id'];		
+		if($this->Session->check('Implementation')){
+    		$implementation = $this->Implementation->find(
+    			'first',array(
+    				'fields'=>array('id','name'),
+    				'conditions'=>array('Implementation.id'=>$implementation_id)
+    			));
+    		if(!empty($implementation)){
+				$this->Session->write('Implementation',$implementation['Implementation']);
+			}
+    	}
+		$this->set('status',true);  
+	}
 }
 ?>

@@ -13,24 +13,15 @@ class User extends AppModel {
 		'password' => array('notempty'),
 		'is_active' => array('numeric')
 	);
+	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	
-/*	var $hasMany = array(
+	public $hasMany = array(
 		'Log' => array(
-			'className' => 'Log',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'className' => 'Trash',
+			'foreignKey' => 'user_id'
 		)
 	);
-*/
 }
 ?>

@@ -1,4 +1,6 @@
 <?php
+    
+	Router::parseExtensions('json','js');
 
 	Router::connect('/', 			array('controller' => 'users', 'action' => 'login'));
 	
