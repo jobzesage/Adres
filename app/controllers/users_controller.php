@@ -66,15 +66,14 @@ class UsersController extends AppController {
     	$contact_types = $this->ContactType->find('all',array(
     		'contain'=>array(
     			'Group'=>array('conditions'=>array('Group.parent_id'=>0)),
-	    		'Contact',
-	    		'Filter',
-	    		'Field'
+    			'Field',
+    			'Contact'
     		),
     		'conditions'=>array(
     			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
     		)
 		));
-
+			
     	$this->set(compact('contact_types'));
 		
     }

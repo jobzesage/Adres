@@ -24,22 +24,19 @@
 </div>
 
 <div class="adres-contacts-panel span-13">
+<?php foreach ($contactTypes as $contactType): ?>	
+	<?php echo $html->link('Add Record','#') ?><br/>
 	<table border="0">
 		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>test</th>
-			<th>test</th>
-			<th>test</th>
+			<?php foreach ($contactType['Field'] as $field): ?>
+				<th><?php echo $field['name'] ?></th>
+			<?php endforeach ?>
 		</tr>
-		<tr>
-			<td>Data</td>
-			<td>data</td>
-			<td>data</td>
-			<td>data</td>
-			<td>data</td>
-		</tr>
+		<!--
+			TODO have to iterate through records and show it as tuples in table rows 
+		-->
 	</table>
+<?php endforeach ?>
 </div>
 
 <div class="adres-right-sidebar span-5">
