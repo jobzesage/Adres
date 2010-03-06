@@ -48,6 +48,20 @@ class UsersController extends AppController {
         
     }
     
+
+	public function delete($id=null){
+		if (!$id) {
+			$this->flash(__('Invalid User', true), array('action' => 'index'));
+		}
+		if ($this->User->del($id)) {
+			$this->flash(__('Group deleted', true), array('action' => 'index'));
+		}
+		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
+		
+		
+	}
+
+
     public function home(){
 		if(!$this->isAuthenticated()){
 			$this->flash('Something wrong','/');
@@ -60,12 +74,10 @@ class UsersController extends AppController {
     			));
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
-
-    	$this->Implementation->id = $this->Session->read('Implementation.id');
-
+		
     	$contact_types = $this->ContactType->find('all',array(
     		'contain'=>array(
-    			'Group'=>array('conditions'=>array('Group.parent_id'=>0)),
+    			'CurrentGroup',
     			'Field',
     			'Contact'
     		),
@@ -73,23 +85,9 @@ class UsersController extends AppController {
     			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
     		)
 		));
-			
     	$this->set(compact('contact_types'));
-		
     }
-    
-	public function delete($id=null){
-		if (!$id) {
-			$this->flash(__('Invalid User', true), array('action' => 'index'));
-		}
-		if ($this->User->del($id)) {
-			$this->flash(__('Group deleted', true), array('action' => 'index'));
-		}
-		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
-		
-		
-	}
-	
+    	
 	
 	public function search(){
 		
