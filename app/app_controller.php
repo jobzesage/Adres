@@ -13,7 +13,7 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-    	'DebugKit.Toolbar'
+    	'DebugKit.Toolbar'=>array('DebugKit.FireCake')
     );
     
     public function beforeFilter() {

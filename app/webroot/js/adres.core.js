@@ -55,4 +55,5 @@ jQuery(document).ready(function() {
 	};
 	$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-select').bind('change',ADres.AJAX.select);
+    $('.adres-datagrid tr:odd').addClass('zebra');
 });

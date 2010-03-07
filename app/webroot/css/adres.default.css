@@ -53,3 +53,19 @@
 .adres-contact-panel{
 	
 }
+
+/*---------------------------------
+|	DataGrids
+|---------------------------------*/
+.adres-datagrid th{
+    border: 1px #ccc solid;
+    background: #d2d2d2;
+}
+
+.adres-datagrid td{
+    border: 1px #ccc solid;
+}
+
+.address-datagrid .zebra{
+    background: #f2f2f2;
+}

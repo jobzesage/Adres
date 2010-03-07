@@ -23,7 +23,8 @@ class ContactType extends AppModel {
 		),
 		'Contact'=>array(
 			'className'=>'Contact',
-			'foreignKey'=>'contact_type_id'
+			'foreignKey'=>'contact_type_id',
+                        'fields'=>array('DISTINCT Contact.id')
 		),
 		'Field'=>array(
 			'className'=>'Field',

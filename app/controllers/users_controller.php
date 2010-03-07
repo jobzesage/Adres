@@ -79,12 +79,17 @@ class UsersController extends AppController {
     		'contain'=>array(
     			'CurrentGroup',
     			'Field',
-    			'Contact'
+    			'Contact'=>array('TypeString')
     		),
     		'conditions'=>array(
     			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
     		)
 		));
+
+        if(!$this->Session->check('Filter')){
+            //TODO have to implement Session filters
+        }
+        
     	$this->set(compact('contact_types'));
     }
     	
@@ -97,6 +102,15 @@ class UsersController extends AppController {
 		
 	}
 	
+
+    public function add_record(){
+        
+    }
+
+
+    public function delete_record() {
+
+    }
 
 }
 ?>

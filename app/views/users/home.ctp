@@ -26,15 +26,28 @@
 <div class="adres-contacts-panel span-13">
 <?php foreach ($contactTypes as $contactType): ?>	
 	<?php echo $html->link('Add Record','#') ?><br/>
-	<table border="0">
+	<table border="0" class="adres-datagrid">
 		<tr>
+            <th>ID</th>
 			<?php foreach ($contactType['Field'] as $field): ?>
-				<th><?php echo $field['name'] ?></th>
+			<th><?php echo $field['name'] ?></th>
 			<?php endforeach ?>
 		</tr>
-		<!--
-			TODO have to iterate through records and show it as tuples in table rows 
-		-->
+        <?php foreach($contactType['Contact'] as $contact):?>
+        
+        <tr>
+            <td><?php echo $contact['id'] ?></td>
+            <?php foreach($contact['TypeString'] as $tps_string):?>
+            <td><?php echo $html->link( $tps_string['data'], array(
+                    'controller'=>'contacts',
+                    'action'=>'edit',
+                    $contact['id']
+                )) ?> </td>
+            <?php endforeach ?>
+        </tr>
+        <?php endforeach ?>
+        
+
 	</table>
 <?php endforeach ?>
 </div>

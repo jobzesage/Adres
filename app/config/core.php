@@ -31,7 +31,7 @@
 
 	Configure::write('Session.checkAgent', true);
 
-	Configure::write('Security.level', 'medium');
+	Configure::write('Security.level', 'low');
         
     Configure::write('Security.salt', '0b45c67ad0b7839011f37ba97a8f8fadeaef533c');
         
@@ -61,7 +61,7 @@
  * If you are on PHP 5.3 uncomment this line and correct your server timezone
  * to fix the date & time related errors.
  */
-	//date_default_timezone_set('UTC');
+	date_default_timezone_set('UTC');
 /**
  *
  * Cache Engine Configuration
