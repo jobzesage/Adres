@@ -13,7 +13,7 @@
 
 	<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
 	
-	<!--[if lte IE 8]>
+	<!--[if lte IE 7]>
 	<?php	echo $html->css(array('blueprint/ie')) ?>		
 	<![endif]-->
 	<?php echo $html->css('adres.default') ?>

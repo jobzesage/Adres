@@ -21,6 +21,17 @@
 		<?php echo $form->input('contact') ?>
 			
 	<?php echo $form->end('Advance Search') ?>
+	
+	<?php foreach ($contactTypes as $contactType): ?>
+		<?php echo $html->tag('h3',__('Types',true)) ?>
+		<?php echo $html->link($contactType['ContactType']['name'],'#')."<br />" ?>
+
+		<?php echo $html->tag('h3',__('Groups',true)) ?>
+		<?php foreach ($contactType['CurrentGroup'] as $currentGroup): ?>
+			<?php echo $html->link($currentGroup['name'],'#')."<br />" ?>
+		<?php endforeach ?>
+	<?php endforeach ?>
+
 </div>
 
 <div class="adres-contacts-panel span-13">
@@ -38,16 +49,16 @@
         <tr>
             <td><?php echo $contact['id'] ?></td>
             <?php foreach($contact['TypeString'] as $tps_string):?>
-            <td><?php echo $html->link( $tps_string['data'], array(
-                    'controller'=>'contacts',
-                    'action'=>'edit',
+            <td>
+            	<?php echo $html->link( $tps_string['data'], array(
+                    'controller'=>'users',
+                    'action'=>'show_record',
                     $contact['id']
-                )) ?> </td>
+                )) ?>
+             </td>
             <?php endforeach ?>
         </tr>
         <?php endforeach ?>
-        
-
 	</table>
 <?php endforeach ?>
 </div>

@@ -111,6 +111,20 @@ class UsersController extends AppController {
     public function delete_record() {
 
     }
+    
+    public function show_record($id=null){
+    	if(!$id){
+    		$this->redirect(array('controller'=>'users','action'=>'home'));
+    	}
+    	$contact = $this->Contact->read(null,$id);
+    	$contactType = $contact['Contact']['contact_type_id'];
+    	var_dump($this->ContactType->find('all',array(
+    		'contain'=>array(
+    			'Field'=>array('TypeString')),
+    		'conditions'=>array(
+    			'ContactType.id'=>$contactType)
+    		)));
+    }
 
 }
 ?>

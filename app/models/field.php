@@ -9,10 +9,13 @@ class Field extends AppModel {
 		'ContactType' => array(
 			'className' => 'ContactType', 
 			'foreignKey' => 'contact_type_id'
-		),
-		'StringPlugin'=>array(
-			'className'=>'TypeString',
-			'foreignKey'=>'fld_flt_class_name'
+		)
+	);
+	
+	public $hasMany = array(
+		'TypeString' => array(
+			'className' => 'TypeString', 
+			'foreignKey' => 'field_id'
 		)
 	);
 	
