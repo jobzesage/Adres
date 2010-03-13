@@ -21,6 +21,10 @@ class Contact extends AppModel {
 			'className' => 'TypeString', 
 			'foreignKey' => 'contact_id'
 		),
+		'TypeInteger' => array(
+			'className' => 'TypeInteger', 
+			'foreignKey' => 'contact_id'
+		),
 		'Trash'=>array(
 			'className'=>'Trash',
 			'foeignKey'=>'contact_id'	

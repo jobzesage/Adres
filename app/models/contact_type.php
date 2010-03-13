@@ -45,5 +45,6 @@ class ContactType extends AppModel {
 		)
 	);
 	
+	
 }
 ?>

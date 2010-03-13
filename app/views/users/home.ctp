@@ -6,7 +6,7 @@
 		),
 		'type'=>'get'
 		)) ?>
-		<?php echo $form->input('contact') ?>
+		<?php echo $form->input('keyword') ?>
 		
 	<?php echo $form->end('Search') ?>
 	
@@ -18,32 +18,53 @@
 		'type'=>'get'
 		)) ?>
 		
-		<?php echo $form->input('contact') ?>
+		<?php foreach ($contactTypes as $contactType): ?>
+			<?php foreach ($contactType['Field'] as $field): ?>
+				<?php echo $form->input($field['id'],array(
+					'label'=>array(
+						'text'=>$field['name']
+				))) ?>
+			<?php endforeach ?>
+		<?php endforeach ?>
 			
 	<?php echo $form->end('Advance Search') ?>
 	
 	<?php foreach ($contactTypes as $contactType): ?>
+		
 		<?php echo $html->tag('h3',__('Types',true)) ?>
+		
 		<?php echo $html->link($contactType['ContactType']['name'],'#')."<br />" ?>
 
 		<?php echo $html->tag('h3',__('Groups',true)) ?>
+		
 		<?php foreach ($contactType['CurrentGroup'] as $currentGroup): ?>
 			<?php echo $html->link($currentGroup['name'],'#')."<br />" ?>
 		<?php endforeach ?>
+		
 	<?php endforeach ?>
-
+	
+	<?php  echo $html->tag('h3',__('Filters',true)) ?>
+	
+	<?php foreach ($contactTypes as $contactType): ?>
+		<?php foreach ($contactType['Filter'] as $filter): ?>
+			<?php echo $html->link($filter['name'],'#') ?>
+		<?php endforeach ?>
+	<?php endforeach ?>
+	
 </div>
 
 <div class="adres-contacts-panel span-13">
 <?php foreach ($contactTypes as $contactType): ?>	
 	<?php echo $html->link('Add Record','#') ?><br/>
 	<table border="0" class="adres-datagrid">
+
 		<tr>
             <th>ID</th>
 			<?php foreach ($contactType['Field'] as $field): ?>
 			<th><?php echo $field['name'] ?></th>
 			<?php endforeach ?>
 		</tr>
+
         <?php foreach($contactType['Contact'] as $contact):?>
         
         <tr>
@@ -58,6 +79,7 @@
              </td>
             <?php endforeach ?>
         </tr>
+
         <?php endforeach ?>
 	</table>
 <?php endforeach ?>

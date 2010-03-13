@@ -27,7 +27,6 @@ class UsersController extends AppController {
             }else{
                 $this->Session->setFlash(__('Password mismatch',true));
             }
-            $arrayName = array('tetst' => fadfasdfa, );
         }else{
             #$this->redirect('/login');
         }
@@ -74,12 +73,15 @@ class UsersController extends AppController {
     			));
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
-		
-    	$contact_types = $this->ContactType->find('all',array(
+
+		$plugins = $this->Field->getPluginTypes(5);
+
+		$contact_types = $this->ContactType->find('all',array(
     		'contain'=>array(
     			'CurrentGroup',
     			'Field',
-    			'Contact'=>array('TypeString')
+    			'Filter',
+    			'Contact'=>$plugins
     		),
     		'conditions'=>array(
     			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
@@ -90,19 +92,22 @@ class UsersController extends AppController {
             //TODO have to implement Session filters
         }
         
-    	$this->set(compact('contact_types'));
+    	$this->set(compact('contact_types','plugins'));
     }
     	
 	
 	public function search(){
-		
+		if(!isset($_GET['keyword'])){
+			$this->redirect(array('controller'=>'users', 'action' => 'home'));
+		}
+		$this->Session->write('Filter.keyword',$_GET['keyword']);
+		//$this->Session->write('Filter.criteria',serialize(array('name'=>1,'condition'=>5)));
 	}
 	
 	public function advance_search(){
 		
 	}
 	
-
     public function add_record(){
         
     }
@@ -116,15 +121,23 @@ class UsersController extends AppController {
     	if(!$id){
     		$this->redirect(array('controller'=>'users','action'=>'home'));
     	}
+    	
     	$contact = $this->Contact->read(null,$id);
+    	
     	$contactType = $contact['Contact']['contact_type_id'];
-    	var_dump($this->ContactType->find('all',array(
+    	$plugins = $this->Field->getPluginTypes($contactType);
+    	$contacts = $this->ContactType->find('all',array(
     		'contain'=>array(
-    			'Field'=>array('TypeString')),
+    			'Contact',
+    			'Field'
+    		),
     		'conditions'=>array(
-    			'ContactType.id'=>$contactType)
-    		)));
+    			'ContactType.id'=>$contactType
+    		)
+		));
+		
+		$this->set(compact('contacts'));
     }
-
+    
 }
 ?>
