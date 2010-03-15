@@ -66,6 +66,19 @@
     border: 1px #ccc solid;
 }
 
-.address-datagrid .zebra{
-    background: #f2f2f2;
+.adres-datagrid .zebra{
+	background-color: #e2e2e2;
+}
+.adres-attr{
+	line-height:30px;
+}
+.adres-attr.name{
+	background:#ccc;
+	color:green;
+	font-weight:bold;
+}
+.adres-attr.value{
+	background:#ccc;
+	color:black;
+	font-weight:bold;
 }

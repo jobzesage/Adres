@@ -97,6 +97,8 @@ class UsersController extends AppController {
     	
 	
 	public function search(){
+		$this->redirect_if_not_ajax_request();
+		
 		if(!isset($_GET['keyword'])){
 			$this->redirect(array('controller'=>'users', 'action' => 'home'));
 		}
@@ -122,21 +124,43 @@ class UsersController extends AppController {
     		$this->redirect(array('controller'=>'users','action'=>'home'));
     	}
     	
-    	$contact = $this->Contact->read(null,$id);
-    	
-    	$contactType = $contact['Contact']['contact_type_id'];
-    	$plugins = $this->Field->getPluginTypes($contactType);
-    	$contacts = $this->ContactType->find('all',array(
-    		'contain'=>array(
-    			'Contact',
-    			'Field'
-    		),
-    		'conditions'=>array(
-    			'ContactType.id'=>$contactType
-    		)
-		));
+    	$this->Contact->id = $id;
+		$contact = $this->Contact->read();
+		$test = $this->Field->find('all',array(
+			#'contain' => array('TypeString'),
+			'fields'=>array('*'),
+			'joins' => array(
+				array(
+					'table'=>'type_string',
+					'alias'=>'TypeString',
+					'foreignKey'=>false,
+					'type' => 'left', 
+					'conditions'=>array(
+						'TypeString.field_id = Field.id',
+						'Field.field_type_class_name'=>'string',
+						'TypeString.contact_id'=>$id,
+						'Field.contact_type_id'=>5
+					)	
+				),
+				array(
+					'table' => 'type_integer',
+					'alias'=>'TypeInteger',
+					'foreignKey'=>false,
+					'type'=>'left',
+					'conditions' => array(
+						'TypeInteger.field_id = Field.id',
+						'Field.field_type_class_name'=>'integer',
+						'TypeInteger.contact_id'=>$id,
+						'Field.contact_type_id'=>5						
+					) 
+				)
+			)
+		)
+		);
 		
-		$this->set(compact('contacts'));
+		$status = true;
+		$this->set(compact('test','status'));
+		
     }
     
 }

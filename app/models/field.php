@@ -12,17 +12,17 @@ class Field extends AppModel {
 		)
 	);
 	
-	// public $hasMany = array(
-		// 	'TypeString' => array(
-		// 		'className' => 'TypeString', 
-		// 		'foreignKey' => 'field_id'
-		// 	),
-		// 	'TypeInteger' => array(
-		// 		'className' => 'TypeInteger', 
-		// 		'foreignKey' => 'field_id'
-		// 	)
-		// );
-		
+	public $hasMany = array(
+		'TypeString' => array(
+			'className' => 'TypeString', 
+			'foreignKey' => 'field_id'
+		),
+		'TypeInteger' => array(
+			'className' => 'TypeInteger', 
+			'foreignKey' => 'field_id'
+		)
+	);
+	
 	public $hasAndBelongsToMany = array(
 		'Form' => array(
 			'className' => 'Form', 
@@ -32,6 +32,7 @@ class Field extends AppModel {
 		)
 	);
 	
+
 
 	public function getPluginTypes($contactType){
 		$fields = $this->find('all',array(

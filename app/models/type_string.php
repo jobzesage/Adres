@@ -5,6 +5,6 @@ class TypeString extends AppModel {
 	
 	public $useTable='type_string';
 	
-	#public $belongsTo = array('Field' => array('className' => 'Field', 'foreignKey' => 'field_id'));
+	//public $belongsTo = array('Field' => array('className' => 'Field', 'foreignKey' => 'field_id'));
 }
 ?>

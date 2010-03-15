@@ -17,7 +17,7 @@ ADres.AJAX={
 			url:action,
 			dataType:'json',
 			data:$form.serialize(),
-			beforeSend:function(){},
+			beforeSend:ADres.LOADER.ena,
 			success:function(resp){
 				if(resp.status){
 					/*
@@ -25,10 +25,47 @@ ADres.AJAX={
 					*/
 				}
 			},
-			complete:function(){
-				
-			}
+			complete:ADres.AJAX.disable
 		});
+	},
+	form_submit:function(e){
+		e.stopPropagation();
+		e.preventDefault();
+
+		var $form = $(this);
+		var action = $form.attr('action')+'.json';
+
+		$.ajax({
+			url:action,
+			dataType:'json',
+			data:$form.serialize(),
+			beforeSend:ADres.LOADER.enable,
+			success:function(resp){
+				if(resp.status){
+					
+				}
+			},
+			complete:ADres.LOADER.disable
+		});
+	},
+	link:function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var $link = $(this);
+		var action = $link.attr('href')+'.json';
+		
+		$.ajax({
+			url:action,
+			dataType:'json',
+			beforeSend:ADres.LOADER.enable,
+			success:function(resp){
+				if(resp.status){
+					$('.adres-single-record').block().html(resp.data);
+				}
+			},
+			complete:ADres.LOADER.disable
+			
+		});		
 	}
 }
 
@@ -49,11 +86,16 @@ ADres.LOADER={
 
 
 jQuery(document).ready(function() {
+
 	var ajax_options={
 		beforeSend:ADres.LOADER.enable,
 		complete:ADres.LOADER.disable
 	};
-	$('.adres-link-ajax').bind('click',ADres.AJAX.call)
+	
+	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-select').bind('change',ADres.AJAX.select);
-    $('.adres-datagrid tr:odd').addClass('zebra');
+	$('.adres-datagrid tr:even').addClass('zebra');
+	$('.adres-ajax-form').bind('submit',ADres.AJAX.form_submit);
+	$('.adres-ajax-anchor').bind('click',ADres.AJAX.link);
+
 });

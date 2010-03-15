@@ -21,6 +21,7 @@
 	<?php	echo $javascript->link(array(
 			'jquery-1.4.1.min',
 			'jquery-ui-1.7.2.custom.min',
+			'jquery.blockUI.js',
 			'adres.core'
 		));
 
@@ -28,7 +29,7 @@
 	?>
 </head>
 <body>
-	<div class="container showgrid">
+	<div class="container">
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
