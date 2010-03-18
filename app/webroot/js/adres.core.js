@@ -6,7 +6,7 @@ ADres.AJAX={
 	call:function(e){
 		console.log('test');
 	},
-	select:function(e){
+	selectImplementation:function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		var $select = $(this);
@@ -17,7 +17,7 @@ ADres.AJAX={
 			url:action,
 			dataType:'json',
 			data:$form.serialize(),
-			beforeSend:ADres.LOADER.ena,
+			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
 					/*
@@ -93,7 +93,7 @@ jQuery(document).ready(function() {
 	};
 	
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
-	$('.adres-ajax-select').bind('change',ADres.AJAX.select);
+	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('.adres-datagrid tr:even').addClass('zebra');
 	$('.adres-ajax-form').bind('submit',ADres.AJAX.form_submit);
 	$('.adres-ajax-anchor').bind('click',ADres.AJAX.link);

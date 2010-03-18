@@ -19,7 +19,7 @@
 	<?php echo $html->css('adres.default') ?>
 		
 	<?php	echo $javascript->link(array(
-			'jquery-1.4.1.min',
+			'jquery-1.4.2.min',
 			'jquery-ui-1.7.2.custom.min',
 			'jquery.blockUI.js',
 			'adres.core'

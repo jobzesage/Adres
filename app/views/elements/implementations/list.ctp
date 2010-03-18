@@ -8,7 +8,7 @@
 			<?php echo $form->input('implementation_id',array(
 				'type'=>'select',
 				'options'=>$implementations_list,
-				'class'=>'adres-ajax-select'
+				'class'=>'adres-ajax-implementation'
 			)) ?> 
 		</div>
 		<?php echo $form->end('Go') ?>

@@ -65,25 +65,24 @@
 			<th><?php echo $field['name'] ?></th>
 			<?php endforeach ?>
 		</tr>
+		
+		<?php foreach ($values as $realContact): ?>
+			<tr>
+				<?php foreach ($realContact as $key => $value): ?>
+				<td>
+					<?php echo $html->link($value,array(
+							'controller' => 'users', 
+							'action' => 'show_record',
+							$realContact['id']),
+							array(
+								'class' => 'adres-ajax-anchor', 	
+							)
+						) ?>					
+				</td>
+				<?php endforeach ?>
+			</tr>
+		<?php endforeach ?>
 
-        <?php foreach($contactType['Contact'] as $contact):?>
-        
-        <tr>
-            <td><?php echo $contact['id'] ?></td>
-            <?php foreach($contact['TypeString'] as $tps_string):?>
-            <td>
-            	<?php echo $html->link( $tps_string['data'], array(
-                    'controller'=>'users',
-                    'action'=>'show_record',
-                    $contact['id']
-                ),array(
-                	'class' => 'adres-ajax-anchor'
-              	)) ?>
-             </td>
-            <?php endforeach ?>
-        </tr>
-
-        <?php endforeach ?>
 	</table>
 <?php endforeach ?>
 </div>

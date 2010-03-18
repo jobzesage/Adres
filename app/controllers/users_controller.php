@@ -74,25 +74,45 @@ class UsersController extends AppController {
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
 
-		$plugins = $this->Field->getPluginTypes(5);
-
+		$this->Implementation->id = $this->Session->read('Implementation.id');
+		$types = $this->ContactType->find('list',array(
+			'conditions'=>array(
+				'ContactType.implementation_id'=>$this->Session->read('Implementation.id'
+			))));
+		
+		$plugins = $this->Field->getPluginTypes(array_keys($types));
+		
 		$contact_types = $this->ContactType->find('all',array(
     		'contain'=>array(
     			'CurrentGroup',
     			'Field',
     			'Filter',
-    			'Contact'=>$plugins
+    			'Contact'=>array_values($plugins)
     		),
     		'conditions'=>array(
     			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
     		)
 		));
-
+		
+		
+		$values=array();
+		foreach ($contact_types as $recordSet) {
+			foreach ($recordSet['Contact'] as $contact) {
+				foreach ($plugins as $column_name => $type){
+					$values[$contact['id']]['id']=$contact['id'];
+					foreach($contact[$type] as $tuple){
+						$values[$contact['id']][$column_name] = $tuple['data']; 
+					}					
+				}
+				
+			}
+		}
+		
         if(!$this->Session->check('Filter')){
             //TODO have to implement Session filters
         }
         
-    	$this->set(compact('contact_types','plugins'));
+    	$this->set(compact('contact_types','plugins','values'));
     }
     	
 	
@@ -104,6 +124,7 @@ class UsersController extends AppController {
 		}
 		$this->Session->write('Filter.keyword',$_GET['keyword']);
 		//$this->Session->write('Filter.criteria',serialize(array('name'=>1,'condition'=>5)));
+		
 	}
 	
 	public function advance_search(){
@@ -127,37 +148,37 @@ class UsersController extends AppController {
     	$this->Contact->id = $id;
 		$contact = $this->Contact->read();
 		$test = $this->Field->find('all',array(
-			#'contain' => array('TypeString'),
-			'fields'=>array('*'),
-			'joins' => array(
-				array(
-					'table'=>'type_string',
-					'alias'=>'TypeString',
-					'foreignKey'=>false,
-					'type' => 'left', 
-					'conditions'=>array(
-						'TypeString.field_id = Field.id',
-						'Field.field_type_class_name'=>'string',
-						'TypeString.contact_id'=>$id,
-						'Field.contact_type_id'=>5
-					)	
-				),
-				array(
-					'table' => 'type_integer',
-					'alias'=>'TypeInteger',
-					'foreignKey'=>false,
-					'type'=>'left',
-					'conditions' => array(
-						'TypeInteger.field_id = Field.id',
-						'Field.field_type_class_name'=>'integer',
-						'TypeInteger.contact_id'=>$id,
-						'Field.contact_type_id'=>5						
-					) 
-				)
-			)
-		)
-		);
-		
+							#'contain' => array('TypeString'),
+							'fields'=>array('*'),
+							'joins' => array(
+								array(
+									'table'=>'type_string',
+									'alias'=>'TypeString',
+									'foreignKey'=>false,
+									'type' => 'left', 
+									'conditions'=>array(
+										'TypeString.field_id = Field.id',
+										'Field.field_type_class_name'=>'string',
+										'TypeString.contact_id'=>$id,
+										'Field.contact_type_id'=>5
+									)	
+								),
+								array(
+									'table' => 'type_integer',
+									'alias'=>'TypeInteger',
+									'foreignKey'=>false,
+									'type'=>'left',
+									'conditions' => array(
+										'TypeInteger.field_id = Field.id',
+										'Field.field_type_class_name'=>'integer',
+										'TypeInteger.contact_id'=>$id,
+										'Field.contact_type_id'=>5						
+									) 
+								)
+							)
+						)
+						);
+				
 		$status = true;
 		$this->set(compact('test','status'));
 		
