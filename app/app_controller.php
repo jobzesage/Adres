@@ -87,10 +87,17 @@ abstract class AppController extends Controller {
     }
 
 
-	public function redirect_if_not_ajax_request(){
+	public function redirect_if_not_ajax_request($address='index'){
 		if(!$this->RequestHandler->isAjax()){
-			$this->redirect('index');
-		}	
+			$this->redirect($address);
+		}
+	}
+
+	public function redirect_if_id_is_empty($id,$address='index'){
+		if (empty($id)) {
+			$this->redirect($address);
+		}
 	}	
+		
 }
 ?>

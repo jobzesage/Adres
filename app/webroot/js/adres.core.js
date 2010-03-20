@@ -60,12 +60,11 @@ ADres.AJAX={
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
-					$('.adres-single-record').block().html(resp.data);
 				}
 			},
 			complete:ADres.LOADER.disable
 			
-		});		
+		});
 	}
 }
 
@@ -96,6 +95,21 @@ jQuery(document).ready(function() {
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('.adres-datagrid tr:even').addClass('zebra');
 	$('.adres-ajax-form').bind('submit',ADres.AJAX.form_submit);
-	$('.adres-ajax-anchor').bind('click',ADres.AJAX.link);
+	$('.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
+	$('.adres-ajax-record-edit').bind('click',function(){
+		var $edit_button = $(this);
+		console.log($edit_button.closest('span.adres-attr'));
+		return false;
+	});
+	
+	$('#adres-tabs').tabs({
+		load: function(event, ui) {
+        	$('a.adres-tabs-button', ui.panel).click(function(e) {
+        	$(ui.panel).load(this.href);
+        	e.stopPropagation();
+        	return false;
+        });	}
+	});
+	
 });

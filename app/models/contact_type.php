@@ -45,6 +45,103 @@ class ContactType extends AppModel {
 		)
 	);
 	
+	/**
+	 * Generates the main array of contactType containing RecordSet and etc
+	 *
+	 * @param array $plugin_type i.e TypeString,TypeInteger
+	 * @param integer $session_implementation_id 
+	 * @return Array
+	 * @author Rajib
+	 */	
+	public function retriveAssociationsBy($plugin_type,$session_implementation_id){
+		return $this->find('all',array(
+    		'contain'=>array(
+    			'CurrentGroup',
+    			'Field',
+    			'Filter',
+    			'Contact'=>$plugin_type
+    		),
+    		'conditions'=>array(
+    			'ContactType.implementation_id'=>$session_implementation_id
+    		)
+		));
+	}
 	
+	/**
+	 * generate associated array recordset from the array provided
+	 *
+	 * @param array $contact_type 
+	 * @param array $plugins 
+	 * @return array
+	 * @author Rajib
+	 */
+	public function generateRecordSet($contact_types,$plugins){
+		$values=array();
+		foreach ($contact_types as $recordSet) {
+			foreach ($recordSet['Contact'] as $contact) {
+				foreach ($plugins as $column_name => $type){
+					//$values['id']=$contact['id'];
+					$values[$contact['id']]['id']=$contact['id'];
+					foreach($contact[$type] as $tuple){
+						$values[$contact['id']][$column_name] = $tuple['data']; 
+					}					
+				}//plugin
+			}//recordSet
+		}//contactTypes
+		return !empty($values) ? $values : false;
+	}
+	
+
+	/**
+	 * generates list for selection boxes
+	 *
+	 * @param integer $implementation_id 
+	 * @return array
+	 * @author Rajib
+	 */
+	public function getList($implementation_id=null){
+		$conditions = null;
+		if(isset($implementation_id)&& !empty($implementation_id) ){
+			$conditions = array('ContactType.implementation_id'=>$implementation_id);
+		}
+		return $this->find('list',array('conditions'=>$conditions));
+	}
+
+	/**
+	 * gets all contact types of implementation
+	 *
+	 * @param integer $implementation_id 
+	 * @return array
+	 * @author Rajib
+	 */	
+	public function getAllByImplementationId($implementation_id = null){
+		$conditions = null;
+		if(isset($implementation_id)&& !empty($implementation_id) ){
+			$conditions = array('ContactType.implementation_id'=>$implementation_id);
+		}
+		return $this->find('all',array('conditions'=>$conditions));	
+	}
+	
+	/**
+	 * contact Type records
+	 *
+	 * @param array $plugin_type 
+	 * @param integer $contact_type_id 
+	 * @return array
+	 * @author Rajib
+	 */
+	public function retriveAssociationsByContactType($plugin_type,$contact_type_id){
+		return $this->find('all',array(
+    		'contain'=>array(
+    			'CurrentGroup',
+    			'Field',
+    			'Filter',
+    			'Contact'=>$plugin_type
+    		),
+    		'conditions'=>array(
+    			'ContactType.id'=>$contact_type_id
+    		)
+		));
+	}		
 }
 ?>

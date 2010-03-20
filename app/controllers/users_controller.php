@@ -66,53 +66,12 @@ class UsersController extends AppController {
 			$this->flash('Something wrong','/');
 		}
 	
-		if(!$this->Session->check('Implementation')){
-    		$implementation = ClassRegistry::init('Implementation')->find(
-    			'first',array(
-    				'fields'=>array('id','name')
-    			));
-			$this->Session->write('Implementation',$implementation['Implementation']);
-    	}
-
-		$this->Implementation->id = $this->Session->read('Implementation.id');
-		$types = $this->ContactType->find('list',array(
-			'conditions'=>array(
-				'ContactType.implementation_id'=>$this->Session->read('Implementation.id'
-			))));
+		$this->setImplementation();
 		
-		$plugins = $this->Field->getPluginTypes(array_keys($types));
-		
-		$contact_types = $this->ContactType->find('all',array(
-    		'contain'=>array(
-    			'CurrentGroup',
-    			'Field',
-    			'Filter',
-    			'Contact'=>array_values($plugins)
-    		),
-    		'conditions'=>array(
-    			'ContactType.implementation_id'=>$this->Session->read('Implementation.id')
-    		)
-		));
-		
-		
-		$values=array();
-		foreach ($contact_types as $recordSet) {
-			foreach ($recordSet['Contact'] as $contact) {
-				foreach ($plugins as $column_name => $type){
-					$values[$contact['id']]['id']=$contact['id'];
-					foreach($contact[$type] as $tuple){
-						$values[$contact['id']][$column_name] = $tuple['data']; 
-					}					
-				}
-				
-			}
+		if(!$this->Session->check('Filter')){
+		    //TODO have to implement Session filters
 		}
-		
-        if(!$this->Session->check('Filter')){
-            //TODO have to implement Session filters
-        }
-        
-    	$this->set(compact('contact_types','plugins','values'));
+        $this->set('types',$this->ContactType->getAllByImplementationId($this->Session->read('Implementation.id')));
     }
     	
 	
@@ -136,16 +95,18 @@ class UsersController extends AppController {
     }
 
 
-    public function delete_record() {
-
-    }
     
-    public function show_record($id=null){
+    /*public function show_record($id=null){
     	if(!$id){
     		$this->redirect(array('controller'=>'users','action'=>'home'));
     	}
+
     	
     	$this->Contact->id = $id;
+
+
+
+
 		$contact = $this->Contact->read();
 		$test = $this->Field->find('all',array(
 							#'contain' => array('TypeString'),
@@ -182,7 +143,49 @@ class UsersController extends AppController {
 		$status = true;
 		$this->set(compact('test','status'));
 		
+    }*/
+
+
+	public function show_record($id=null){
+
     }
+	
+    public function delete_record($id=null){
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($id);
+		$this->Group->find('all',array(
+			'conditions' => array( 
+				'Group.contact' => '',  
+		)));
+    	$this->set('status',true);
+    }    
     
+
+    public function display_contacts($contact_type_id=null){
+		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
+		$plugins = $this->Field->getPluginTypes($contact_type_id);
+		$plugin_type = array_values($plugins);
+		$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id);
+		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
+        if(!$this->Session->check('Filter')){
+            //TODO have to implement Session filters
+        }
+    	$this->set(compact('contact_types','plugins','values'));
+		$this->render('/elements/contacts');
+    }
+
+    //private functions
+
+    private function setImplementation(){
+    	if(!$this->Session->check('Implementation')){
+    		$implementation = ClassRegistry::init('Implementation')->find(
+    			'first',array(
+    				'fields'=>array('id','name')
+    			));
+			$this->Session->write('Implementation',$implementation['Implementation']);
+    	}
+    }    
+	
+	
 }
 ?>

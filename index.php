@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  *  Get Cake's root directory
  */

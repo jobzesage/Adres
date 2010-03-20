@@ -82,3 +82,20 @@
 	color:black;
 	font-weight:bold;
 }
+/*---------------------------------
+|	Buttons
+|---------------------------------*/
+.adres-button{
+	float:left;
+   	outline: 0; 
+    margin:0 4px 0 0; 
+    padding: .4em .6em; 
+    text-decoration:none !important; 
+    cursor:pointer; 
+    position: relative; 
+    text-align: center; 
+    zoom: 1; 
+}
+.ades-toolbar { padding: .5em; margin: 0; width:50%; }
+.ades-toolbar .adres-buttonset { margin-right:1.5em; padding-left: 1px; }
+.ades-toolbar .adres-button { font-size: 1em;  }

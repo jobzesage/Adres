@@ -16,7 +16,10 @@
 	<!--[if lte IE 7]>
 	<?php	echo $html->css(array('blueprint/ie')) ?>		
 	<![endif]-->
-	<?php echo $html->css('adres.default') ?>
+	<?php echo $html->css(array(
+			'adres.default',
+			'jquery-ui-1.7.2.modified'
+		)) ?>
 		
 	<?php	echo $javascript->link(array(
 			'jquery-1.4.2.min',
@@ -29,7 +32,7 @@
 	?>
 </head>
 <body>
-	<div class="container">
+	<div class="container showgrid">
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
@@ -39,7 +42,7 @@
 		<div id="content" class='clear'>
 
 			<?php 
-				// if($session->check('Message'))	
+				if($session->check('Message'))	
 					$session->flash();
 			?>
 			
