@@ -15,7 +15,7 @@ class UsersController extends AppController {
     }
 
     public function register(){
-        #$this->layout = null;
+        #$this-<br>>layout = null;
         if($this->data){                
             //TODO can improve the code here to use 
             if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){
@@ -153,11 +153,13 @@ class UsersController extends AppController {
     public function delete_record($id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
-		$this->Group->find('all',array(
-			'conditions' => array( 
-				'Group.contact' => '',  
-		)));
+		$this->Contact->id = $id;
+		$contact= $this->Contact->read('contact_type_id');
+		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
+		// $contact_type = $this->Contact->find('all',array('contain'=>array('ParentAffiliation','ChildAffiliation'),array('conditions'=>array('Contact.id'=>$id))));
+		$this->Contact->delete($id,$plugins);
     	$this->set('status',true);
+		$this->set(compact('contact_type','plugins'));
     }    
     
 

@@ -71,7 +71,7 @@
 			<?php if (!empty($values) && isset($values)): ?>
 	
 			<?php foreach ($values as $realContact): ?>
-				<tr>
+				<tr id="adres-contact-<?php echo $realContact['id']  ?>" class="">
 					<?php foreach ($realContact as $key => $value): ?>
 					<td>
 						<?php echo !empty($value) ? $value : '&nbsp'?>					
@@ -103,7 +103,7 @@
 								'action' => 'delete_record', 
 								$realContact['id']),array(
 									'title' => 'Delete Contact', 
-									'class' => 'adres-button adres-ajax-anchor ui-state-default ui-corner-all', 
+									'class' => 'adres-button adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
 								),null,false)
 							?>						
 						</div>

@@ -60,6 +60,12 @@ ADres.AJAX={
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
+					if($link.hasClass('adres-delete')){
+						$link.closest('tr').animate({'backgroundColor':'red'},300);
+						$link.closest('tr').fadeOut(200,function(){ 
+							$(this).remove();	
+						});
+					}
 				}
 			},
 			complete:ADres.LOADER.disable
