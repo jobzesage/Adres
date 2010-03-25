@@ -42,7 +42,7 @@ ADres.AJAX={
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
-					
+					$('#adres-record').html(resp.data);
 				}
 			},
 			complete:ADres.LOADER.disable
@@ -65,6 +65,11 @@ ADres.AJAX={
 						$link.closest('tr').fadeOut(200,function(){ 
 							$(this).remove();	
 						});
+					}else if($link.hasClass('adres-show')){
+						$('#adres-record').html(resp.data);
+						
+					}else if($link.hasClass('adres-edit')){
+						$('#adres-record').html(resp.data);
 					}
 				}
 			},
@@ -103,11 +108,8 @@ jQuery(document).ready(function() {
 	$('.adres-ajax-form').bind('submit',ADres.AJAX.form_submit);
 	$('.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
-	$('.adres-ajax-record-edit').bind('click',function(){
-		var $edit_button = $(this);
-		console.log($edit_button.closest('span.adres-attr'));
-		return false;
-	});
+	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);
+	
 	
 	$('#adres-tabs').tabs({
 		load: function(event, ui) {

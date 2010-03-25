@@ -77,17 +77,23 @@ class ContactType extends AppModel {
 	 */
 	public function generateRecordSet($contact_types,$plugins){
 		$values=array();
+		$data = array();
+		$plugins = array_unique($plugins);
 		foreach ($contact_types as $recordSet) {
 			foreach ($recordSet['Contact'] as $contact) {
-				foreach ($plugins as $column_name => $type){
-					//$values['id']=$contact['id'];
-					$values[$contact['id']]['id']=$contact['id'];
-					foreach($contact[$type] as $tuple){
-						$values[$contact['id']][$column_name] = $tuple['data']; 
-					}					
-				}//plugin
+				foreach ($plugins as $key => $value) {
+					$data[]= $contact[$value];
+				}
 			}//recordSet
 		}//contactTypes
+		
+		//TODO sort have take place here or it wont work
+		foreach ($data as $key) {
+			foreach ($key as $value) {
+				$values[ $value['contact_id'] ] ['id'] =  $value['contact_id']; 				
+				$values[ $value['contact_id'] ] ['record'][] = $value; 
+			}
+		}
 		return !empty($values) ? $values : false;
 	}
 	

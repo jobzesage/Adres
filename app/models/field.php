@@ -12,21 +12,21 @@ class Field extends AppModel {
 		)
 	);
 	
-	public $hasMany = array(
-		'TypeString' => array(
-			'className' => 'TypeString', 
-			'foreignKey' => false,
-			'joins' =>array(
-					'table'=>'type_string',
-					'alias'=>'TypeString',
-					'foreignKey'=>false,
-					'type' => 'left', 
-					'conditions'=>array(
-						'TypeString.field_id = Field.id',
-						'Field.field_type_class_name'=>'string'
-					)	
-			)
-	));
+	// public $hasMany = array(
+	// 		'TypeString' => array(
+	// 			'className' => 'TypeString', 
+	// 			'foreignKey' => false,
+	// 			'joins' =>array(
+	// 					'table'=>'type_string',
+	// 					'alias'=>'TypeString',
+	// 					'foreignKey'=>false,
+	// 					'type' => 'left', 
+	// 					'conditions'=>array(
+	// 						'TypeString.field_id = Field.id',
+	// 						'Field.field_type_class_name'=>'string'
+	// 					)	
+	// 			)
+	// 	));
 	
 	public $hasAndBelongsToMany = array(
 		'Form' => array(
@@ -41,14 +41,14 @@ class Field extends AppModel {
 
 	public function getPluginTypes($contactType){
 		$fields = $this->find('all',array(
-			'fields'=>array('Field.field_type_class_name, Field.name'),
+			#'fields'=>array('Field.field_type_class_name, Field.name'),
 			'conditions' => array('Field.contact_type_id'=>$contactType ) 
 		));
 		
 		$field_list = array();
 		foreach ($fields as $plugin) {
 			$className = $plugin['Field']['field_type_class_name'];
-			$field_list[$plugin['Field']['name']] = 'Type'.ucwords($className);				
+			$field_list[$plugin['Field']['name']] = Configure::read('PluginPrefix').ucwords($className);				
 		}
 		return $field_list;
 	}	

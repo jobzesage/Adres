@@ -5,10 +5,6 @@ class UsersController extends AppController {
     
     public $uses=array('Contact','ContactType','Field','FieldType','Group','Implementation');
     	
-    public function beforeFilter(){   
-		parent::beforeFilter();
-    }
-
     public function index(){
     	
     	$this->set('users',$this->paginate());
@@ -90,63 +86,38 @@ class UsersController extends AppController {
 		
 	}
 	
-    public function add_record(){
-        
+    public function edit_record($id=null){
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($id);
+		if (!empty($this->data)) {
+			$this->render('/elements/debug');						
+		}
+		
+		if(empty($this->data)) {
+			$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
+			$plugins = $this->Field->getPluginTypes(
+				$contact_type['Contact']['contact_type_id']);
+			
+			$contact= $this->Contact->getContact($id,array_values($plugins));
+			$record = $this->Contact->generateEditRecord($contact,$plugins);		
+			$this->set(compact('contact','record','id'));
+		}
+		$this->set('status',true); 
+
     }
 
 
-    
-    /*public function show_record($id=null){
-    	if(!$id){
-    		$this->redirect(array('controller'=>'users','action'=>'home'));
-    	}
-
-    	
-    	$this->Contact->id = $id;
-
-
-
-
-		$contact = $this->Contact->read();
-		$test = $this->Field->find('all',array(
-							#'contain' => array('TypeString'),
-							'fields'=>array('*'),
-							'joins' => array(
-								array(
-									'table'=>'type_string',
-									'alias'=>'TypeString',
-									'foreignKey'=>false,
-									'type' => 'left', 
-									'conditions'=>array(
-										'TypeString.field_id = Field.id',
-										'Field.field_type_class_name'=>'string',
-										'TypeString.contact_id'=>$id,
-										'Field.contact_type_id'=>5
-									)	
-								),
-								array(
-									'table' => 'type_integer',
-									'alias'=>'TypeInteger',
-									'foreignKey'=>false,
-									'type'=>'left',
-									'conditions' => array(
-										'TypeInteger.field_id = Field.id',
-										'Field.field_type_class_name'=>'integer',
-										'TypeInteger.contact_id'=>$id,
-										'Field.contact_type_id'=>5						
-									) 
-								)
-							)
-						)
-						);
-				
-		$status = true;
-		$this->set(compact('test','status'));
-		
-    }*/
-
-
 	public function show_record($id=null){
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($id);
+		$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
+		$plugins = $this->Field->getPluginTypes(
+			$contact_type['Contact']['contact_type_id']);
+		
+		$contact= $this->Contact->getContact($id, array_values($plugins));
+		$record = $this->Contact->generateRecord($contact,$plugins);		
+		$this->set('status',true); 
+		$this->set(compact('contact','record'));
 
     }
 	
@@ -156,10 +127,10 @@ class UsersController extends AppController {
 		$this->Contact->id = $id;
 		$contact= $this->Contact->read('contact_type_id');
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
-		// $contact_type = $this->Contact->find('all',array('contain'=>array('ParentAffiliation','ChildAffiliation'),array('conditions'=>array('Contact.id'=>$id))));
-		$this->Contact->delete($id,$plugins);
-    	$this->set('status',true);
-		$this->set(compact('contact_type','plugins'));
+		
+		if($this->Contact->delete($id,$plugins)){
+			$this->set('status',true);
+		}
     }    
     
 
@@ -176,8 +147,23 @@ class UsersController extends AppController {
 		$this->render('/elements/contacts');
     }
 
-    //private functions
+	public function test(){
+		if(!empty($this->data)){
+			$contact_id = $this->data['Contact']['id'];
+			$contact_type_id = $this->data['Contact']['contact_type_id'];
+			$plugins = $this->Field->getPluginTypes($contact_type_id);
+			$classNames = array_unique(array_values($plugins));
+			foreach ($classNames as $className) {
+				foreach($this->data[$className] as $data ){
+					var_dump($data);
+				}	
+			}
+			$this->set(compact('plugins'));
+		}
+	}
 
+
+    //private functions
     private function setImplementation(){
     	if(!$this->Session->check('Implementation')){
     		$implementation = ClassRegistry::init('Implementation')->find(
@@ -187,7 +173,5 @@ class UsersController extends AppController {
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
     }    
-	
-	
 }
 ?>

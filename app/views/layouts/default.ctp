@@ -1,5 +1,5 @@
-<?php $html->docType('XTHML') ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php echo $html->docType('XTHML') ?>
+<html>
 <head>
 	<?php echo $html->charset(); ?>
 	<title>

@@ -1,4 +1,4 @@
-<div class="adres-contacts-panel span-18">
+<div class="adres-contacts-panel span-24">
 	<div id="adres-tabs">
 		<ul>
 			<?php foreach ($types as $type	): ?>
@@ -12,13 +12,7 @@
 			<?php endforeach ?>
 		</ul>
 		<div id="contacts"></div>
+
 	</div> 
-
-
 </div>
 
-<div class="adres-right-sidebar span-5">
-	<div class="adres-single-record">
-		
-	</div>
-</div>

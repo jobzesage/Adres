@@ -65,5 +65,68 @@ class Contact extends AppModel {
 		//this cascading enable HABTM delete of Group
 		return parent::delete($id,true);		
 	}	
+	
+	
+	/**
+	 * gets a contact by an id
+	 *
+	 * @param integer $id 
+	 * @param array $plugin_types 
+	 * @return array
+	 * @author Rajib
+	 */
+	public function getContact($id,$plugin_types){
+		
+		$contains = am(array(
+				'ContactType'=>array('Field'),
+				'Group',
+				'ParentAffiliation',
+				'ChildAffiliation'
+			),$plugin_types);
+					
+		return $this->find('first',array(
+			'contain'=>$contains ,
+			'conditions' => array('Contact.id' => $id),
+			 'limit'=>1
+		));
+	}
+
+	
+	
+	public function generateRecord($contact,$plugins){
+		$values=array();
+		$data = array();
+		#$plugins = array_values($plugins);
+		//FIXME this is not working 
+		foreach ($plugins as $column_name => $type){
+			// $data['column'][] = $column_name;
+			#$data['data'] =  am($data['data',])$contact[$type];
+		}//plugin
+		// 
+		// foreach ($data as $test=>$key) {
+		// 	foreach ($key as $value) {
+		// 		$values ['id'] =  $value['contact_id']; 				
+		// 		$values ['record'][] = $value; 
+		// 	}
+		// }
+		return !empty($values) ? $values : $data;
+	}
+
+	
+	
+	public function generateEditRecord($contact,$plugins){
+		$values=array();	
+		foreach ($plugins as $column_name => $type){
+			foreach($contact[$type] as $tuple){
+				$values[$column_name] = array(
+					'data'		=>	$tuple['data'],
+				 	'plugin' 	=>	$type,
+				 	'test' => $tuple, 
+				 );
+			}					
+		}//plugin
+		return !empty($values) ? $values : false;
+	}
+
 }
 ?>

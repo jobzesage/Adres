@@ -71,10 +71,11 @@
 			<?php if (!empty($values) && isset($values)): ?>
 	
 			<?php foreach ($values as $realContact): ?>
-				<tr id="adres-contact-<?php echo $realContact['id']  ?>" class="">
-					<?php foreach ($realContact as $key => $value): ?>
+				<tr id="adres-contact-<?php $realContact['id'] ?>" class="">
+					<?php echo $html->tag('td' , $realContact['id']) ?>
+					<?php foreach ($realContact['record'] as $key => $value): ?>
 					<td>
-						<?php echo !empty($value) ? $value : '&nbsp'?>					
+						<?php echo !empty($value) ? $value['data'] : '&nbsp'?>					
 					</td>
 					<?php endforeach ?>
 					<td>
@@ -83,25 +84,25 @@
 							<?php echo $html->link(__($span,true),array( 
 								'controller' => 'users',
 								'action' => 'show_record', 
-								$realContact['id']),array(
+								$value['contact_id']),array(
 									'title' => 'Show Contact', 
-									'class' => 'adres-button adres-ajax-anchor ui-state-default ui-corner-all', 
+									'class' => 'adres-button adres-show adres-ajax-anchor ui-state-default ui-corner-all', 
 								),null,false)
 							?>							
 							<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit' ?>
 							<?php echo $html->link(__($span,true),array( 
 								'controller' => 'users',
 								'action' => 'edit_record', 
-								$realContact['id']),array(
+								$value['contact_id']),array(
 									'title' => 'Edit Contact', 
-									'class' => 'adres-button ui-state-default ui-corner-all', 
+									'class' => 'adres-button adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
 								),null,false)
 							?>
 							<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete' ?>
 							<?php echo $html->link($span,array( 
 								'controller' => 'users',
 								'action' => 'delete_record', 
-								$realContact['id']),array(
+								$value['contact_id']),array(
 									'title' => 'Delete Contact', 
 									'class' => 'adres-button adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
 								),null,false)
@@ -121,4 +122,8 @@
 	<?php endforeach ?>	
 	
 </div>
-<div class="clearfix"></div>
+<div class="adres-right-sidebar span-5">
+	<div id="adres-record">
+	
+	</div>
+</div>
