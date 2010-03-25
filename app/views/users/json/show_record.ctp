@@ -1,3 +1,5 @@
-<?php foreach ($record['record'] as $value): ?>
-	<div> <?php ##echo $key ?> : <?php echo $value['data'] ?></div>
+<?php foreach ($record as $value): ?>
+	<?php foreach ($value as $dataum): ?>
+		<div><span> <?php echo $dataum['Field']['name']  ?></span>: <?php echo $dataum['data'] ?></div>
+	<?php endforeach ?>
 <?php endforeach ?>

@@ -5,20 +5,12 @@
 		)
 	 )) ?>
 
-	<?php $i=0 ?>
-	 
-	 <?php foreach ($record as $colum_name => $values): ?>
-		<?php echo $form->input($values['plugin'].".$i.".$values['field_id'],array(
-			'type' => 'text', 
-			'value' => $values['data'], 
-			'label' =>array(
-				'for' => $colum_name, 
-				'text'=> $colum_name,
-			)
-		)) ?>
-		
-		<?php $i++ ?>
-	 <?php endforeach ?>
+	<?php foreach ($record as $value): ?>
+		<?php foreach ($value as $dataum): ?>
+			<div><span> <?php echo $dataum['Field']['name']  ?></span>: <?php echo $dataum['data'] ?></div>
+		<?php endforeach ?>
+	<?php endforeach ?>
+
 	<?php echo $form->hidden('Contact.id',array(
 		'value' => $id
 	)) ?>	 
