@@ -89,9 +89,6 @@ class UsersController extends AppController {
     public function edit_record($id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
-		if (!empty($this->data)) {
-			$this->render('/elements/debug');						
-		}
 		
 		if(empty($this->data)) {
 			$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
@@ -99,7 +96,7 @@ class UsersController extends AppController {
 				$contact_type['Contact']['contact_type_id']);
 			
 			$contact= $this->Contact->getContact($id,array_values($plugins));
-			$record = $this->Contact->generateEditRecord($contact,$plugins);		
+			$record = $this->Contact->generateRecord($contact,$plugins);		
 			$this->set(compact('contact','record','id'));
 		}
 		$this->set('status',true); 

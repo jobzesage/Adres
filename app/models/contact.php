@@ -76,22 +76,17 @@ class Contact extends AppModel {
 	 * @author Rajib
 	 */
 	public function getContact($id,$plugin_types){
-		
-		// $contains = am(array(
-		// 		'ContactType'=>array('Field'),
-		// 		'Group',
-		// 		'ParentAffiliation',
-		// 		'ChildAffiliation'
-		// 	),$plugin_types);
-					
+		$plugin_types = array_unique(array_values($plugin_types));
+		$contains_extra=array();
+		foreach ($plugin_types as $type_name) {
+			$contains_extra =am($contains_extra,array($type_name =>array('Field')));
+		}
 		$contains = array(
-				'Group',
-				'ParentAffiliation',
-				'ChildAffiliation',
-				'TypeString'=> array('Field'),
-				'TypeInteger'=> array(	'Field')					
-			);
-
+			'Group',
+			'ParentAffiliation',
+			'ChildAffiliation'
+		);
+		$contains = am($contains,$contains_extra);
 
 		return $this->find('first',array(
 			'contain'=>$contains ,
@@ -106,7 +101,6 @@ class Contact extends AppModel {
 		$values=array();
 		$data = array();
 		$plugins = array_unique($plugins);
-		//FIXME this is not working 
 		foreach ($plugins as $column_name => $type){
 			$data[] =  $contact[$type];
 		}//plugin
@@ -115,20 +109,20 @@ class Contact extends AppModel {
 	}
 
 	
-	
-	public function generateEditRecord($contact,$plugins){
-		$values=array();	
-		foreach ($plugins as $column_name => $type){
-			foreach($contact[$type] as $tuple){
-				$values[$column_name] = array(
-					'data'		=>	$tuple['data'],
-				 	'plugin' 	=>	$type,
-				 	'test' => $tuple, 
-				 );
-			}					
-		}//plugin
-		return !empty($values) ? $values : false;
-	}
+	//TODO delete this after every operations on 
+	// public function generateEditRecord($contact,$plugins){
+	// 	$values=array();	
+	// 	foreach ($plugins as $column_name => $type){
+	// 		foreach($contact[$type] as $tuple){
+	// 			$values[$column_name] = array(
+	// 				'data'		=>	$tuple['data'],
+	// 			 	'plugin' 	=>	$type,
+	// 			 	'test' => $tuple, 
+	// 			 );
+	// 		}					
+	// 	}//plugin
+	// 	return !empty($values) ? $values : false;
+	// }
 
 }
 ?>
