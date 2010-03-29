@@ -5,6 +5,8 @@ class TypeString extends AppModel {
 	
 	public $useTable='type_string';
 	
+	public $primaryKey = false;
+	
 	public $belongsTo = array(
 		'Field' => array(
 			'className' => 'Field', 
@@ -19,6 +21,10 @@ class TypeString extends AppModel {
 		        )				
 			)
 	));
+	
+		// 
+		// public function update(){
+		// }
 	
 }
 ?>

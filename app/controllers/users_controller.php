@@ -146,15 +146,10 @@ class UsersController extends AppController {
 
 	public function test(){
 		if(!empty($this->data)){
-			$contact_id = $this->data['Contact']['id'];
 			$contact_type_id = $this->data['Contact']['contact_type_id'];
 			$plugins = $this->Field->getPluginTypes($contact_type_id);
-			$classNames = array_unique(array_values($plugins));
-			foreach ($classNames as $className) {
-				foreach($this->data[$className] as $data ){
-					var_dump($data);
-				}	
-			}
+			$this->Contact->data = $this->data;
+			$this->Contact->update_record($plugins);
 			$this->set(compact('plugins'));
 		}
 	}

@@ -1,4 +1,7 @@
 <?php
+
+App::import('Sanitize');
+
 class Contact extends AppModel {
 
 	public $actsAs = array('Containable');
@@ -124,5 +127,27 @@ class Contact extends AppModel {
 	// 	return !empty($values) ? $values : false;
 	// }
 
+
+
+
+	public function update_record($plugins){
+		$contact_id = $this->data['Contact']['id'];
+		$classNames = array_unique(array_values($plugins));
+		
+		foreach ($classNames as $className) {
+			ClassRegistry::init($className)->unBindModel(array('belongsTo'=>array('Field')));
+			foreach($this->data[$className] as $data ){
+				$field_id =array_keys($data);
+				$data= array_values($data);
+				$save_data = array(
+					'data' => '\''.Sanitize::escape($data[0]).'\''
+				);
+			ClassRegistry::init($className)->updateAll($save_data,array(
+					'field_id'=>$field_id[0],
+					'contact_id' =>$contact_id ));				
+			}
+		}
+			
+	}	
 }
 ?>
