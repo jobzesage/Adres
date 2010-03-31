@@ -67,9 +67,10 @@ ADres.AJAX={
 						});
 					}else if($link.hasClass('adres-show')){
 						$('#adres-record').html(resp.data);
-						
 					}else if($link.hasClass('adres-edit')){
 						$('#adres-record').html(resp.data);
+					}else if($link.hasClass('adres-add')){
+						$('#adres-record').html(resp.data)
 					}
 				}
 			},
@@ -105,7 +106,7 @@ jQuery(document).ready(function() {
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('.adres-datagrid tr:even').addClass('zebra');
-	$('.adres-ajax-form').bind('submit',ADres.AJAX.form_submit);
+	// $('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
 	$('.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
 	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);

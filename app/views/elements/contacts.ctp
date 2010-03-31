@@ -57,9 +57,18 @@
 </div>
 <div class="adres-contacts-panel span-11">
 	<?php foreach ($contactTypes as $contactType): ?>	
-		<?php echo $html->link('Add Record','#') ?><br/>
+		<?php echo $html->link(__('Add Record',true),array(
+			'controller' => 'users', 
+			'action' => 'add_record',
+			'contact_type:'.$contactType['ContactType']['id']	
+		),
+		array(
+			'class' => 'adres-ajax-anchor adres-add', 
+		))
+		?>
+		<br/>
+
 		<table border="0" class="adres-datagrid">
-	
 			<tr>
 	            <th>ID</th>
 				<?php foreach ($contactType['Field'] as $field): ?>
@@ -125,5 +134,10 @@
 <div class="adres-right-sidebar span-5">
 	<div id="adres-record">
 	
+	</div>
+	<div>
+		<h1>
+			
+		</h1>
 	</div>
 </div>

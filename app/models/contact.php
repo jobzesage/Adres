@@ -112,23 +112,6 @@ class Contact extends AppModel {
 	}
 
 	
-	//TODO delete this after every operations on 
-	// public function generateEditRecord($contact,$plugins){
-	// 	$values=array();	
-	// 	foreach ($plugins as $column_name => $type){
-	// 		foreach($contact[$type] as $tuple){
-	// 			$values[$column_name] = array(
-	// 				'data'		=>	$tuple['data'],
-	// 			 	'plugin' 	=>	$type,
-	// 			 	'test' => $tuple, 
-	// 			 );
-	// 		}					
-	// 	}//plugin
-	// 	return !empty($values) ? $values : false;
-	// }
-
-
-
 
 	public function update_record($plugins){
 		$contact_id = $this->data['Contact']['id'];

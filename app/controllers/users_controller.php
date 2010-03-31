@@ -155,6 +155,50 @@ class UsersController extends AppController {
 	}
 
 
+	public function add_record(){
+		if(!empty($this->data)){
+			debug($this->data);
+			$plugins = $this->Field->getPluginTypes($this->data['Contact']['contactTypeId']);
+			if($this->Contact->save(array(
+				'contact_type_id'=>$this->data['Contact']['contactTypeId']
+			))){
+				$contact_id = $this->Contact->getLastInsertID();
+				$contact = $this->data;
+				unset($contact['Contact']);
+				foreach($contact as $key=>$value) {
+					$className = $plugins[$key];
+					$data = array_values($value);
+					$key = array_keys($value);
+					$data = array(
+						'contact_id' => $contact_id,
+						'field_id'=>$key[0], 
+						'data'=>$data[0]
+					);
+					$datas[$className][]= $data;
+				}	
+				$classNames =array_unique(array_values($plugins));
+				foreach ($classNames as $className) {
+					ClassRegistry::init($className)->saveAll($datas[$className]);
+				}			
+			}
+		}else {
+			$contactTypeId = $this->params['named']['contact_type'];
+			$plugins = $this->Field->getFieldTypes($contactTypeId);		
+			$this->set(compact('contactTypeId','plugins'));		
+		}
+		$this->set('status',true);
+	}
+
+	public function join_group(){
+		//TODO join in a  Group
+	}
+	
+	public function leave_group(){
+		//TODO implement leave group
+	}
+	
+	
+	
     //private functions
     private function setImplementation(){
     	if(!$this->Session->check('Implementation')){
