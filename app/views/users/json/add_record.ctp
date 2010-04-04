@@ -3,7 +3,7 @@
 		'controller' => 'users', 
 		'action' => 'add_record'
 	),
-	'class' => 'adres-ajax-form' 
+	'class' => '' 
 	)) ?>
 	<?php foreach ($plugins as $type=>$field): ?>
 	<?php echo $form->input($type.'.'.$field,array(

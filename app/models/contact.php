@@ -132,6 +132,20 @@ class Contact extends AppModel {
 					'contact_id' =>$contact_id ));				
 			}
 		}
+	}
+	
+	
+	public function save_record(){
+		
+	}
+	
+	
+	public function leaveGroup($group_id,$contact_id){
+		//Fixme :Regenerating the contacts groups it will auto remove 
+		return $this->query(
+			'DELETE FROM contacts_groups 
+			WHERE group_id='. $group_id.' 
+			AND contact_id='.$contact_id);
 	}	
 }
 ?>

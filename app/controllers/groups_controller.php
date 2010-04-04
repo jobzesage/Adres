@@ -84,14 +84,9 @@ class GroupsController extends AppController {
 	}
 	
 	public function leave_group(){
-		//TODO implement leave group
-		//$contact_id = $this->params['named']['contact_id'];
-		//$group_id 	= $this->params['named']['group_id'];
-		$this->Contact->id = $this->params['named']['contact_id'];
-		$this->Contact->Group->id = $this->params['named']['contact_id'];
-
-		//$this->Contact->Group->id = $group_id;
-		$this->Contact->Group->del($this->params['named']['contact_id'],false);
+		$contact_id = $this->params['named']['contact_id'];
+		$group_id 	= $this->params['named']['group_id'];
+		$this->Contact->leaveGroup($group_id,$contact_id);
 		$this->set(compact('contact_id','group_id'));		
 		$this->set('status',true);
 	}	
