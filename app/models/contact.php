@@ -27,7 +27,7 @@ class Contact extends AppModel {
 		),
 		'Trash'=>array(
 			'className'=>'Trash',
-			'foeignKey'=>'contact_id'	
+			'foreignKey'=>'contact_id'	
 		)
 	);
 
@@ -48,6 +48,8 @@ class Contact extends AppModel {
 			'associationForeignKey' => 'affiliation_id',
 		)		
 	);
+	
+	
 	
 	/**
 	 * handles the contact delete of adres
@@ -130,7 +132,6 @@ class Contact extends AppModel {
 					'contact_id' =>$contact_id ));				
 			}
 		}
-			
 	}	
 }
 ?>

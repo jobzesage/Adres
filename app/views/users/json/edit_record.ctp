@@ -32,3 +32,5 @@
 		'div' => false, 
 		'class' => 'adres-save'
 	)) ?>
+	
+<?php echo $this->element('contacts_details'); ?>	

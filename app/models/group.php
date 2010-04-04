@@ -35,6 +35,12 @@ class Group extends AppModel {
 	));
 	
 	
+	public function getList($contact){
+		$list = $this->find('list');
+		foreach ($contact['Group'] as $group) {
+			unset($list[$group['id']]);
+		}
+		return $list;
+	}	
 }
-
 ?>

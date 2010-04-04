@@ -135,9 +135,7 @@
 	<div id="adres-record">
 	
 	</div>
-	<div>
-		<h1>
-			
-		</h1>
-	</div>
+	<div id="adres-details">
+		
+	</div>			
 </div>

@@ -96,8 +96,9 @@ class UsersController extends AppController {
 				$contact_type['Contact']['contact_type_id']);
 			
 			$contact= $this->Contact->getContact($id,array_values($plugins));
-			$record = $this->Contact->generateRecord($contact,$plugins);		
-			$this->set(compact('contact','record','id'));
+			$record = $this->Contact->generateRecord($contact,$plugins);
+			$contact_id = $id;		
+			$this->set(compact('contact','record','id','contact_id'));
 		}
 		$this->set('status',true); 
 
@@ -111,10 +112,11 @@ class UsersController extends AppController {
 		$plugins = $this->Field->getPluginTypes(
 			$contact_type['Contact']['contact_type_id']);
 		
-		$contact= $this->Contact->getContact($id, array_values($plugins));
+		$contact = $this->Contact->getContact($id, array_values($plugins));
 		$record = $this->Contact->generateRecord($contact,$plugins);		
-		$this->set('status',true); 
-		$this->set(compact('contact','record'));
+		$this->set('status',true);
+		$contact_id = $id ;
+		$this->set(compact('contact','record','contact_id'));
 
     }
 	
@@ -157,7 +159,6 @@ class UsersController extends AppController {
 
 	public function add_record(){
 		if(!empty($this->data)){
-			debug($this->data);
 			$plugins = $this->Field->getPluginTypes($this->data['Contact']['contactTypeId']);
 			if($this->Contact->save(array(
 				'contact_type_id'=>$this->data['Contact']['contactTypeId']
@@ -189,14 +190,29 @@ class UsersController extends AppController {
 		$this->set('status',true);
 	}
 
-	public function join_group(){
-		//TODO join in a  Group
+
+
+	public function show_details($contact_id){
+		$contact = $this->Contact->find('first',array(
+			'contain'=>array(
+				'Group',
+				'ParentAffiliation',
+				'ChildAffiliation'
+			),
+			'conditions' => array(
+				'Contact.id'=>$contact_id	
+			)));
+		$groups = $this->Group->getList($contact);
+		
+		$this->set(compact('contact','groups','contact_id'));
+		$this->set('status',true);
 	}
 	
-	public function leave_group(){
-		//TODO implement leave group
+	public function edit_details($contact_id){
+		
+		$this->set('status',true);
+
 	}
-	
 	
 	
     //private functions

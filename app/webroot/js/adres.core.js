@@ -42,7 +42,9 @@ ADres.AJAX={
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
-					$('#adres-record').html(resp.data);
+					if ($form.hasClass('')) {
+						$('#adres-record').html(resp.data);
+					};
 				}
 			},
 			complete:ADres.LOADER.disable
@@ -71,11 +73,12 @@ ADres.AJAX={
 						$('#adres-record').html(resp.data);
 					}else if($link.hasClass('adres-add')){
 						$('#adres-record').html(resp.data)
+					}else if($link.hasClass('adres-contats-show-details')){
+						$('#adres-details').html(resp.data);
 					}
 				}
 			},
 			complete:ADres.LOADER.disable
-			
 		});
 	}
 }
@@ -106,7 +109,7 @@ jQuery(document).ready(function() {
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('.adres-datagrid tr:even').addClass('zebra');
-	// $('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
+	$('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
 	$('.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
 	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);

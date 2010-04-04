@@ -2,6 +2,9 @@
 class GroupsController extends AppController {
 
 	public $name = 'Groups';
+	public $uses=array(
+		'Group',
+		'Contact');
 	
 
 	public function index() {
@@ -73,6 +76,25 @@ class GroupsController extends AppController {
 	}
 	
 	
+	
+	public function join_group(){
+		//TODO join in a  Group
+				
+		$this->set('status',true);
+	}
+	
+	public function leave_group(){
+		//TODO implement leave group
+		//$contact_id = $this->params['named']['contact_id'];
+		//$group_id 	= $this->params['named']['group_id'];
+		$this->Contact->id = $this->params['named']['contact_id'];
+		$this->Contact->Group->id = $this->params['named']['contact_id'];
+
+		//$this->Contact->Group->id = $group_id;
+		$this->Contact->Group->del($this->params['named']['contact_id'],false);
+		$this->set(compact('contact_id','group_id'));		
+		$this->set('status',true);
+	}	
 	
 	#application use only
 	private function _setGroupList(){
