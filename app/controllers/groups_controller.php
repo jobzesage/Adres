@@ -79,15 +79,31 @@ class GroupsController extends AppController {
 	
 	public function join_group(){
 		//TODO join in a  Group
-				
-		$this->set('status',true);
+		//$this->set('status',true);
+		#debug($this->Contact->getContact($this->data['Contact']['contact_id']));
+		$contact = $this->Contact->getContact($this->data['Contact']['contact_id']);
+		$contacts_group = $contact['Group'];
+		$grp = $this->Group->findById($this->data['Contact']['group_id']);		
+		$grp['Group']['ContactsGroup'] = array(
+			'group_id' => $this->data['Contact']['group_id'],
+			'contact_id'=>$this->data['Contact']['contact_id'] 	
+		);
+		$contacts_group[]=$grp['Group'];
+		$contact['Group'] = $contacts_group;
+		$this->Contact->save($contact);
 	}
 	
+	
+
 	public function leave_group(){
+		
+		$this->redirect_if_not_ajax_request();
+		
 		$contact_id = $this->params['named']['contact_id'];
 		$group_id 	= $this->params['named']['group_id'];
+		
 		$this->Contact->leaveGroup($group_id,$contact_id);
-		$this->set(compact('contact_id','group_id'));		
+		//$this->set(compact('contact_id','group_id'));		
 		$this->set('status',true);
 	}	
 	

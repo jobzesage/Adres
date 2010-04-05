@@ -80,12 +80,16 @@ class Contact extends AppModel {
 	 * @return array
 	 * @author Rajib
 	 */
-	public function getContact($id,$plugin_types){
-		$plugin_types = array_unique(array_values($plugin_types));
+	public function getContact($id,$plugin_types = null){
 		$contains_extra=array();
-		foreach ($plugin_types as $type_name) {
-			$contains_extra =am($contains_extra,array($type_name =>array('Field')));
+
+		if (!empty($plugin_types)) {
+			$plugin_types = array_unique(array_values($plugin_types));
+			foreach ($plugin_types as $type_name) {
+				$contains_extra =am($contains_extra,array($type_name =>array('Field')));
+			}			
 		}
+
 		$contains = array(
 			'Group',
 			'ParentAffiliation',
