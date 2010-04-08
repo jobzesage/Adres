@@ -159,31 +159,9 @@ class UsersController extends AppController {
 
 	public function add_record(){
 		if(!empty($this->data)){
-			$this->layout= false;
 			$plugins = $this->Field->getPluginTypes($this->data['Contact']['contactTypeId']);
-			if($this->Contact->save(array(
-				'contact_type_id'=>$this->data['Contact']['contactTypeId']
-			))){
-				$contact_id = $this->Contact->getInsertID();
-				$contact = $this->data;
-				unset($contact['Contact']);
-				foreach($contact as $key=>$value) {
-					$className = $plugins[$key];
-					$data = array_values($value);
-					$key = array_keys($value);
-					$data = array(
-						'contact_id' => $contact_id,
-						'field_id'=>$key[0], 
-						'data'=>$data[0]
-					);
-					$datas[$className][]= $data;
-				}	
-				$classNames =array_unique(array_values($plugins));
-				foreach ($classNames as $className) {
-					ClassRegistry::init($className)->saveAll($datas[$className]);
-				}			
-			}
-			$this->render = null;
+			$contact = $this->data;
+			$this->Contact->save_record($contact,$plugins);
 		}else {
 			$contactTypeId = $this->params['named']['contact_type'];
 			$plugins = $this->Field->getFieldTypes($contactTypeId);		
@@ -196,28 +174,18 @@ class UsersController extends AppController {
 
 
 	public function show_details($contact_id){
-		$contact = $this->Contact->find('first',array(
-			'contain'=>array(
-				'Group',
-				'ParentAffiliation',
-				'ChildAffiliation'
-			),
-			'conditions' => array(
-				'Contact.id'=>$contact_id	
-			)));
+		$contact = $this->Contact->getContact($contact_id);
 		$groups = $this->Group->getList($contact);
-		
 		$this->set(compact('contact','groups','contact_id'));
 		$this->set('status',true);
 	}
 	
+
 	public function edit_details($contact_id){
 		
 		$this->set('status',true);
 
 	}
-	
-	
 	
 	
     //private functions

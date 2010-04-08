@@ -3,9 +3,6 @@ ADres.version=0.1;
 
 
 ADres.AJAX={
-	call:function(e){
-		console.log('test');
-	},
 	selectImplementation:function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -38,6 +35,7 @@ ADres.AJAX={
 		$.ajax({
 			url:action,
 			dataType:'json',
+			type:'POST',
 			data:$form.serialize(),
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
@@ -50,6 +48,30 @@ ADres.AJAX={
 			complete:ADres.LOADER.disable
 		});
 	},
+	form_search:function(e){
+		
+		e.stopPropagation();
+		e.preventDefault();
+
+		var $form = $(this);
+		var action = $form.attr('action')+'.json';
+
+		$.ajax({
+			url:action,
+			dataType:'json',
+			data:$form.serialize(),
+			beforeSend:ADres.LOADER.enable,
+			success:function(resp){
+				if(resp.status){
+					if ($form.hasClass('')) {
+						$('#adres-record').html(resp.data);
+					};
+				}
+			},
+			complete:ADres.LOADER.disable
+		});		
+	},
+	
 	link:function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -110,7 +132,8 @@ jQuery(document).ready(function() {
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('.adres-datagrid tr:even').addClass('zebra');
 	$('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
-	$('.adres-ajax-anchor').live('click',ADres.AJAX.link);
+	$('form.adres-ajax-search').live('submit',ADres.AJAX.form_search);
+	$('a.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
 	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);
 	

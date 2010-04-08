@@ -23,7 +23,7 @@
 		
 	<?php	echo $javascript->link(array(
 			'jquery-1.4.2.min',
-			'jquery-ui-1.7.2.custom.min',
+			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
 			'adres.core'
 		));

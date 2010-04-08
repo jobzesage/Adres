@@ -28,7 +28,11 @@ class Contact extends AppModel {
 		'Trash'=>array(
 			'className'=>'Trash',
 			'foreignKey'=>'contact_id'	
-		)
+		),
+		'Log' => array(
+			'className'=>'Log',
+			'foreignKey' => 'contact_id'
+		), 
 	);
 
 	public $hasAndBelongsToMany = array(
@@ -85,6 +89,7 @@ class Contact extends AppModel {
 
 		if (!empty($plugin_types)) {
 			$plugin_types = array_unique(array_values($plugin_types));
+			// it danamically attaches the Field Model so that data can be retrived
 			foreach ($plugin_types as $type_name) {
 				$contains_extra =am($contains_extra,array($type_name =>array('Field')));
 			}			
@@ -100,7 +105,7 @@ class Contact extends AppModel {
 		return $this->find('first',array(
 			'contain'=>$contains ,
 			'conditions' => array('Contact.id' => $id),
-			 'limit'=>1
+			'limit'=>1
 		));
 	}
 
@@ -139,8 +144,29 @@ class Contact extends AppModel {
 	}
 	
 	
-	public function save_record(){
+	public function save_record($contact,$plugins){
 		
+			if($this->save(array(
+				'contact_type_id'=>$contact['Contact']['contactTypeId']
+			))){
+				$contact_id = $this->id;
+				unset($contact['Contact']);
+				foreach($contact as $key=>$value) {
+					$className = $plugins[$key];
+					$data = array_values($value);
+					$key = array_keys($value);
+					$data = array(
+						'contact_id' => $contact_id,
+						'field_id'=>$key[0], 
+						'data'=>Sanitize::escape($data[0])
+					);
+					$datas[$className][]= $data;
+				}	
+				$classNames =array_unique(array_values($plugins));
+				foreach ($classNames as $className) {
+					ClassRegistry::init($className)->saveAll($datas[$className]);
+				}			
+			}		
 	}
 	
 	
@@ -150,6 +176,8 @@ class Contact extends AppModel {
 			'DELETE FROM contacts_groups 
 			WHERE group_id='. $group_id.' 
 			AND contact_id='.$contact_id);
-	}	
+	}
+	
+		
 }
 ?>

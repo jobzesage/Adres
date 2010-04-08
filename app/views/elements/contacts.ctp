@@ -5,7 +5,7 @@
 			'action'=>'search'
 		),
 		'type'=>'get',
-		'class' => 'adres-ajax-form', 
+		'class' => 'adres-ajax-search', 
 		)) ?>
 		<?php echo $form->input('keyword') ?>
 		
@@ -16,12 +16,14 @@
 			'controller'=>'users',
 			'action'=>'advance_search'
 		),
-		'type'=>'get'
+		'type'=>'get',
+		'class' => 'adres-ajax-search'
 		)) ?>
 		
 		<?php foreach ($contactTypes as $contactType): ?>
 			<?php foreach ($contactType['Field'] as $field): ?>
-				<?php echo $form->input($field['id'],array(
+				
+				<?php echo $form->input('Type.'.$field['id'],array(
 					'label'=>array(
 						'text'=>$field['name']
 				))) ?>

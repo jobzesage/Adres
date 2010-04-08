@@ -17,7 +17,7 @@
 			'controller'=>'groups',
 			'action' =>'join_group'
 		),
-		'class' => 'adres-join-group' 
+		'class' => 'adres-ajax-form adres-join-group' 
 	)) ?>
 		
 	<?php echo $form->input('group_id',array(
