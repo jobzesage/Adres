@@ -1,7 +1,18 @@
 <?php
 
 class AppModel extends Model {
-
+	
+	/**
+	 * contact save text for description field
+	 */
+	const CONTACT_SAVE = "Created";
+	
+	
+	/**
+	 * sql date format 
+	 */
+	const SQL_DTF = 'Y-m-d H:i:s';
+	
 	public $recursive = -1;
 	
 	public $useDbConfig='development';

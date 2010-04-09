@@ -148,10 +148,11 @@ class UsersController extends AppController {
 
 	public function test(){
 		if(!empty($this->data)){
+			$this->Contact->user_id = $this->Auth->User('id');
 			$contact_type_id = $this->data['Contact']['contact_type_id'];
 			$plugins = $this->Field->getPluginTypes($contact_type_id);
-			$this->Contact->data = $this->data;
-			$this->Contact->update_record($plugins);
+			$contact = $this->data;
+			$this->Contact->update_record($contact, $plugins);
 			$this->set(compact('plugins'));
 		}
 	}
@@ -161,6 +162,7 @@ class UsersController extends AppController {
 		if(!empty($this->data)){
 			$plugins = $this->Field->getPluginTypes($this->data['Contact']['contactTypeId']);
 			$contact = $this->data;
+			$this->Contact->user_id = $this->Auth->User('id');
 			$this->Contact->save_record($contact,$plugins);
 		}else {
 			$contactTypeId = $this->params['named']['contact_type'];
@@ -198,5 +200,6 @@ class UsersController extends AppController {
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
     }    
+    
 }
 ?>

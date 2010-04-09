@@ -2,12 +2,7 @@
 
 class Log extends AppModel {
 
-	public $name='Log';
-	
-	public $useTable='logs';
-	
 	public $actsAs=array('Containable');
-	
 	
 	public $belongsTo = array(
 		'Contact' => array(

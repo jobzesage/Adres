@@ -8,6 +8,8 @@ class Contact extends AppModel {
 	
 	public $name = 'Contact';
 
+	public $user_id = null;
+	
 	public $belongsTo = array(
 		'ContactType',
 		'ContactTrash'=>array(
@@ -25,14 +27,10 @@ class Contact extends AppModel {
 			'className' => 'TypeInteger', 
 			'foreignKey' => 'contact_id'
 		),
-		'Trash'=>array(
-			'className'=>'Trash',
-			'foreignKey'=>'contact_id'	
-		),
 		'Log' => array(
 			'className'=>'Log',
 			'foreignKey' => 'contact_id'
-		), 
+		) 
 	);
 
 	public $hasAndBelongsToMany = array(
@@ -98,8 +96,10 @@ class Contact extends AppModel {
 		$contains = array(
 			'Group',
 			'ParentAffiliation',
-			'ChildAffiliation'
+			'ChildAffiliation',
+			'Log'=>array('User')
 		);
+
 		$contains = am($contains,$contains_extra);
 
 		return $this->find('first',array(
@@ -124,13 +124,15 @@ class Contact extends AppModel {
 
 	
 
-	public function update_record($plugins){
-		$contact_id = $this->data['Contact']['id'];
+	public function update_record($contact,$plugins){
+		$contact_id = $contact['Contact']['id'];
 		$classNames = array_unique(array_values($plugins));
+		$this->id = $contact_id;		
+		$this->save();// triggering update on contact
 		
 		foreach ($classNames as $className) {
 			ClassRegistry::init($className)->unBindModel(array('belongsTo'=>array('Field')));
-			foreach($this->data[$className] as $data ){
+			foreach($contact[$className] as $data ){
 				$field_id =array_keys($data);
 				$data= array_values($data);
 				$save_data = array(
@@ -178,6 +180,31 @@ class Contact extends AppModel {
 			AND contact_id='.$contact_id);
 	}
 	
-		
+	
+	/**
+	 * observer method
+	 *
+	 * @param boolean $created 
+	 * @return void
+	 * @author Rajib Ahmed
+	 */	
+	public function afterSave($created){
+		if ($created) {
+			$this->Log->save(array(
+				'log_dt'=>date(AppModel::SQL_DTF),
+				'contact_id'=>$this->id,				
+				'description' 	=> AppModel::CONTACT_SAVE,
+				'user_id'=>$this->user_id 
+			));
+		}else{
+			//update section
+			$this->Log->save(array(
+				'log_dt'=>date(AppModel::SQL_DTF),
+				'contact_id'=>$this->id,				
+				'description' 	=> "Contact Updated",
+				'user_id'=>$this->user_id 
+			));	
+		}
+	}		
 }
 ?>
