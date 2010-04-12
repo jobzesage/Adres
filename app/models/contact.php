@@ -148,6 +148,7 @@ class Contact extends AppModel {
 	}
 	
 	
+	
 	public function save_record($contact,$plugins){
 		
 			if($this->save(array(
@@ -172,6 +173,7 @@ class Contact extends AppModel {
 				}			
 			}		
 	}
+	
 	
 	
 	public function leaveGroup($group_id,$contact_id){

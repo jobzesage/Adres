@@ -63,9 +63,7 @@ ADres.AJAX={
 			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				if(resp.status){
-					if ($form.hasClass('')) {
-						$('#adres-record').html(resp.data);
-					};
+					$('div#contacts').html(resp.data);
 				}
 			},
 			complete:ADres.LOADER.disable

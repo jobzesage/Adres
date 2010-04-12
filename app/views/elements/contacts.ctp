@@ -2,13 +2,15 @@
 	<?php echo $form->create('Search',array(
 		'url'=>array(
 			'controller'=>'users',
-			'action'=>'search'
+			'action'=>'display_contacts'
 		),
 		'type'=>'get',
 		'class' => 'adres-ajax-search', 
 		)) ?>
 		<?php echo $form->input('keyword') ?>
-		
+		<?php echo $form->hidden('contact_type_id',array(
+			'value' => $contactTypeId
+		)); ?>
 	<?php echo $form->end('Search') ?>
 	
 	<?php echo $form->create('AdvanceSearch',array(
@@ -29,7 +31,9 @@
 				))) ?>
 			<?php endforeach ?>
 		<?php endforeach ?>
-			
+		<?php echo $form->hidden('contact_type_id',array(
+			'value' => $contactTypeId
+		)); ?>			
 	<?php echo $form->end('Advance Search') ?>
 
 	

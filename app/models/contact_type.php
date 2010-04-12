@@ -107,7 +107,7 @@ class ContactType extends AppModel {
 	 */
 	public function getList($implementation_id=null){
 		$conditions = null;
-		if(isset($implementation_id)&& !empty($implementation_id) ){
+		if(isset($implementation_id) && !empty($implementation_id) ){
 			$conditions = array('ContactType.implementation_id'=>$implementation_id);
 		}
 		return $this->find('list',array('conditions'=>$conditions));
@@ -122,7 +122,7 @@ class ContactType extends AppModel {
 	 */	
 	public function getAllByImplementationId($implementation_id = null){
 		$conditions = null;
-		if(isset($implementation_id)&& !empty($implementation_id) ){
+		if(isset($implementation_id) && !empty($implementation_id) ){
 			$conditions = array('ContactType.implementation_id'=>$implementation_id);
 		}
 		return $this->find('all',array('conditions'=>$conditions));	
@@ -136,13 +136,29 @@ class ContactType extends AppModel {
 	 * @return array
 	 * @author Rajib
 	 */
-	public function retriveAssociationsByContactType($plugin_type,$contact_type_id){
+	public function retriveAssociationsByContactType($plugin_type,$contact_type_id,$searchKey=null){
+		$plugins= array_unique($plugin_type);
+		$pluginWithCondition =array(); 
+		if(!empty($searchKey)){
+			foreach ($plugins as $plugin) {
+
+				//some improvements can be implementated by switch and preg
+				$pluginWithCondition[$plugin]=array(
+					'conditions'=>array(
+						$plugin.'.data LIKE ?'=>'%'.$searchKey.'%'
+					)
+				);	
+			}
+		}else{
+			$pluginWithCondition = $plugins;	
+		}
+		
 		return $this->find('all',array(
     		'contain'=>array(
     			'CurrentGroup',
     			'Field',
     			'Filter',
-    			'Contact'=>$plugin_type
+    			'Contact'=>$pluginWithCondition
     		),
     		'conditions'=>array(
     			'ContactType.id'=>$contact_type_id

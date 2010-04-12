@@ -78,8 +78,8 @@ class UsersController extends AppController {
 			$this->redirect(array('controller'=>'users', 'action' => 'home'));
 		}
 		$this->Session->write('Filter.keyword',$_GET['keyword']);
-		//$this->Session->write('Filter.criteria',serialize(array('name'=>1,'condition'=>5)));
-		
+		$this->set('status',true);
+		$this->render('/elements/contacts');
 	}
 	
 	public function advance_search(){
@@ -134,15 +134,27 @@ class UsersController extends AppController {
     
 
     public function display_contacts($contact_type_id=null){
+		$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
+
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		$plugins = $this->Field->getPluginTypes($contact_type_id);
 		$plugin_type = array_values($plugins);
-		$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id);
+
+    	if($this->RequestHandler->isAjax() AND !empty($_GET['keyword'])){
+    		$this->set('status',true);
+			$keyword = $_GET['keyword'];
+			$this->Session->write('Filter.keyword',$keyword);
+			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id,$keyword);
+    	}else{
+			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id);
+    	}
+    	
 		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
+
         if(!$this->Session->check('Filter')){
             //TODO have to implement Session filters
         }
-    	$this->set(compact('contact_types','plugins','values'));
+    	$this->set(compact('contact_types','plugins','values','contact_type_id'));
 		$this->render('/elements/contacts');
     }
 
