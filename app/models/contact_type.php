@@ -147,13 +147,46 @@ class ContactType extends AppModel {
 					'conditions'=>array(
 						$plugin.'.data LIKE ?'=>'%'.$searchKey.'%'
 					)
-				);	
+				);
+			}//end foreach
+			
+			$search = $this->find('all',array(
+	    		'contain'=>array(
+	    			'Contact'=>$pluginWithCondition
+	    		),
+	    		'conditions'=>array(
+	    			'ContactType.id'=>$contact_type_id
+	    		)
+			));
+
+			$ids = array();
+			foreach ($search as $con) {
+				foreach ($plugins as $plugin) {
+					foreach ($con['Contact'] as $contact) {
+						foreach($contact[$plugin] as $type)
+							{$ids[]= $type['contact_id'];}
+					}
+				}
+				
 			}
+			
+			$plugins = am($plugins,array('conditions'=>array('Contact.id'=>$ids)));
+			$output = $this->find('all',array(
+	    		'contain'=>array(
+	    			'CurrentGroup',
+	    			'Field',
+	    			'Filter',
+	    			'Contact'=>$plugins
+	    		),
+	    		'conditions'=>array(
+	    			'ContactType.id'=>$contact_type_id
+	    		)
+			));	
+			
 		}else{
-			$pluginWithCondition = $plugins;	
-		}
-		
-		return $this->find('all',array(
+			$pluginWithCondition = $plugins;
+			
+			$output = $this->find('all',array(
     		'contain'=>array(
     			'CurrentGroup',
     			'Field',
@@ -163,7 +196,10 @@ class ContactType extends AppModel {
     		'conditions'=>array(
     			'ContactType.id'=>$contact_type_id
     		)
-		));
+		));	
+		}
+		
+		return $output; 
 	}		
 }
 ?>
