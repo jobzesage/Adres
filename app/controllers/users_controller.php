@@ -83,7 +83,8 @@ class UsersController extends AppController {
 	}
 	
 	public function advance_search(){
-		
+		debug($this->data);
+		die();
 	}
 	
     public function edit_record($id=null){
@@ -141,14 +142,26 @@ class UsersController extends AppController {
 		$plugin_type = array_values($plugins);
 
     	if($this->RequestHandler->isAjax() AND !empty($_GET['keyword'])){
+
     		$this->set('status',true);
 			$keyword = $_GET['keyword'];
 			$this->Session->write('Filter.keyword',$keyword);
 			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id,$keyword);
-    	}else{
+			
+		}elseif (!empty($this->data)) {
+    		$this->set('status',true);
+    		$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
+			$plugins = $this->Field->getPluginTypes($contact_type_id);
+			$plugin_type = array_values($plugins);    		
+			$contact_types = $this->ContactType->retriveAssociationsByContactType(
+				$plugin_type,
+				$contact_type_id,
+				null,
+				$this->data['AdvanceSearch']['column']);
+		}
+		else{
 			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id);
     	}
-    	
 		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
 
         if(!$this->Session->check('Filter')){
@@ -196,9 +209,7 @@ class UsersController extends AppController {
 	
 
 	public function edit_details($contact_id){
-		
 		$this->set('status',true);
-
 	}
 	
 	

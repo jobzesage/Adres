@@ -42,6 +42,8 @@ ADres.AJAX={
 				if(resp.status){
 					if ($form.hasClass('')) {
 						$('#adres-record').html(resp.data);
+					}else if($form.hasClass('adres-ajax-form')){
+						$('div#contacts').html(resp.data);
 					};
 				}
 			},

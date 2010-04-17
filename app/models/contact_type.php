@@ -128,15 +128,23 @@ class ContactType extends AppModel {
 		return $this->find('all',array('conditions'=>$conditions));	
 	}
 	
+	
+	
 	/**
-	 * contact Type records
+	 * This heart of search and listing contacts it only provides array retrived from the
+	 * database to generateRecordSet for generating the record set
 	 *
 	 * @param array $plugin_type 
-	 * @param integer $contact_type_id 
+	 * @param integer $contact_type_id 	
 	 * @return array
 	 * @author Rajib
 	 */
-	public function retriveAssociationsByContactType($plugin_type,$contact_type_id,$searchKey=null){
+	public function retriveAssociationsByContactType(
+		$plugin_type,
+		$contact_type_id,
+		$searchKey=null,
+		$fields=array())
+	{
 		$plugins= array_unique($plugin_type);
 		$pluginWithCondition =array(); 
 		if(!empty($searchKey)){
@@ -159,16 +167,7 @@ class ContactType extends AppModel {
 	    		)
 			));
 
-			$ids = array();
-			foreach ($search as $con) {
-				foreach ($plugins as $plugin) {
-					foreach ($con['Contact'] as $contact) {
-						foreach($contact[$plugin] as $type)
-							{$ids[]= $type['contact_id'];}
-					}
-				}
-				
-			}
+			$ids = $this->iterator($search,$plugins);
 			
 			$plugins = am($plugins,array('conditions'=>array('Contact.id'=>$ids)));
 			$output = $this->find('all',array(
@@ -183,23 +182,78 @@ class ContactType extends AppModel {
 	    		)
 			));	
 			
-		}else{
-			$pluginWithCondition = $plugins;
+		}elseif(!empty($fields)){
+			$pg = array();
+			$fields = Set::filter($fields);
 			
+			foreach ($plugins as $plugin) {
+				$i=0;
+				foreach ($fields as $field_id => $val) {
+					$pg = Set::insert($pg,$plugin.'.conditions.OR.'.$i,
+						array(
+							'field_id'=>$field_id,
+							'data LIKE ?'=>'%'.$val.'%'
+						));
+					$i++;
+				}
+			}
+			//debug($pg);
+			$search = $this->find('all',array(
+				'contain'=>array(
+					'Contact'=>$pg
+				),
+				'conditions'=>array(
+					'ContactType.id'=>$contact_type_id
+				)
+			));
+
+			$ids = $this->iterator($search,$plugins);
+			$plugins = am($plugins,array('conditions'=>array('Contact.id'=>$ids)));
 			$output = $this->find('all',array(
-    		'contain'=>array(
-    			'CurrentGroup',
-    			'Field',
-    			'Filter',
-    			'Contact'=>$pluginWithCondition
-    		),
-    		'conditions'=>array(
-    			'ContactType.id'=>$contact_type_id
-    		)
-		));	
+					'contain' => array(
+		    			'CurrentGroup',
+		    			'Field',
+		    			'Filter',
+		    			'Contact'=>$plugins	
+		    		),
+					'conditions' => array(
+						'ContactType.id' => $contact_type_id, 
+				)));
+		}else{
+			$output = $this->find('all',array(
+	    		'contain'=>array(
+	    			'CurrentGroup',
+	    			'Field',
+	    			'Filter',
+	    			'Contact'=>$plugins
+	    		),
+	    		'conditions'=>array(
+	    			'ContactType.id'=>$contact_type_id
+	    		)
+			));	
 		}
 		
 		return $output; 
-	}		
+	}
+	
+	
+	private function iterator($data,$plugins){
+		$ids = array();
+		//optimize this with cake Set utilities
+		foreach ($data as $con) {
+			foreach ($plugins as $plugin) {
+				foreach ($con['Contact'] as $contact) {
+					foreach($contact[$plugin] as $type)
+						{$ids[]= $type['contact_id'];}
+				}
+			}
+		}
+		return $ids;		
+	}
+	
+	
+	public function loadFilter(){
+		
+	}
 }
 ?>

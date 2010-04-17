@@ -16,16 +16,16 @@
 	<?php echo $form->create('AdvanceSearch',array(
 		'url'=>array(
 			'controller'=>'users',
-			'action'=>'advance_search'
+			'action'=>'display_contacts'
 		),
-		'type'=>'get',
-		'class' => 'adres-ajax-search'
+		'class' => 'adres-ajax-form'
 		)) ?>
 		
 		<?php foreach ($contactTypes as $contactType): ?>
 			<?php foreach ($contactType['Field'] as $field): ?>
 				
-				<?php echo $form->input('Type.'.$field['id'],array(
+				<?php echo $form->input('AdvanceSearch.column.'.$field['id'],array(
+					'type'=>'text',
 					'label'=>array(
 						'text'=>$field['name']
 				))) ?>
