@@ -52,6 +52,25 @@
 		
 	<?php endforeach ?>
 	
+	<?php if ($session->check('Filter')): ?>
+		
+		<?php echo $html->tag('h3',__('Criteria',true)) ?>	
+		<?php $keyword = $session->read('Filter.keyword') ?>
+		<?php echo $html->link($keyword,array(
+			'controller'=>'users',
+			'action' => 'delete_keyword', 
+			$keyword
+		),array(
+			'class'=>'adres-ajax-anchor adres-delete-keyword'
+		)) ?>
+		
+		<?php if ($session->check('Filter.criteria')): ?>
+			<?php foreach ($session->read('Filter.criteria') as $key =>$value): ?>
+				
+			<?php endforeach ?>				
+		<?php endif ?>
+	<?php endif ?>
+	
 	<?php  echo $html->tag('h3',__('Filters',true)) ?>
 	
 	<?php foreach ($contactTypes as $contactType): ?>

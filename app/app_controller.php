@@ -98,7 +98,5 @@ abstract class AppController extends Controller {
 			$this->redirect($address);
 		}
 	}	
-	
-		
 }
 ?>

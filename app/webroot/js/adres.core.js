@@ -97,7 +97,9 @@ ADres.AJAX={
 						$('#adres-record').html(resp.data)
 					}else if($link.hasClass('adres-contats-show-details')){
 						$('#adres-details').html(resp.data);
-					}
+					}else if ($link.hasClass('adres-delete-keyword')) {
+						alert('fuzz');
+					};
 				}
 			},
 			complete:ADres.LOADER.disable
