@@ -42,9 +42,11 @@ ADres.AJAX={
 				if(resp.status){
 					if ($form.hasClass('')) {
 						$('#adres-record').html(resp.data);
-					}else if($form.hasClass('adres-ajax-form')){
+					}else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
-					};
+					}else if($form.is('#FilterAddForm')){
+						alert(resp.data);
+					}
 				}
 			},
 			complete:ADres.LOADER.disable

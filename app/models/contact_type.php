@@ -168,7 +168,10 @@ class ContactType extends AppModel {
 				$plugins = am($plugins,array('conditions'=>array('Contact.id'=>$ids)));
 				$output = $this->contacts($contact_type_id,$plugins);
 			}else{
-				debug($this->generateSQL($filters,$plugins));
+				$pg = $this->generateSQL($filters,$plugins);
+				$ids = $this->contact_finder($contact_type_id,$plugins,$pg);
+				$plugins = am($plugins,array('conditions'=>array('Contact.id'=>$ids)));
+				$output = $this->contacts($contact_type_id,$plugins);
 			}
 			
 		}//filters

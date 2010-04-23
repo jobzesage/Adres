@@ -52,11 +52,12 @@
 		
 	<?php endforeach ?>
 	
-	<?php if ($session->check('Filter')): ?>
+	
+	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
 		
-		<?php echo $html->tag('h3',__('Criteria',true)) ?>	
+		<?php echo $html->tag('h3',__('Search',true)) ?>	
 		<?php $keyword = $session->read('Filter.keyword') ?>
-		<?php echo $html->link($keyword,array(
+		<?php echo "Keyword :".$html->link($keyword,array(
 			'controller'=>'users',
 			'action' => 'delete_keyword', 
 			$keyword
@@ -65,17 +66,29 @@
 		)) ?>
 		
 		<?php if ($session->check('Filter.criteria')): ?>
-			<?php foreach ($session->read('Filter.criteria') as $key =>$value): ?>
-				
-			<?php endforeach ?>				
+			
 		<?php endif ?>
+		<?php echo $form->create('Filter',array(
+			'url'=>array(
+				'controller'=>'users',
+				'action' => 'save_filter'
+			),
+			'class' => 'adres-ajax-form'
+		)) ?>
+			<?php echo $form->input('name') ?>
+		<?php echo $form->end('save') ?>
+		
 	<?php endif ?>
 	
 	<?php  echo $html->tag('h3',__('Filters',true)) ?>
 	
 	<?php foreach ($contactTypes as $contactType): ?>
 		<?php foreach ($contactType['Filter'] as $filter): ?>
-			<?php echo $html->link($filter['name'],'#') ?>
+			<?php echo $html->link($filter['name'],array(
+				'controller'=>'users',
+				'action' => 'load_filter',
+				$filter['id']
+			)) ?>
 		<?php endforeach ?>
 	<?php endforeach ?>
 	

@@ -139,8 +139,11 @@ class UsersController extends AppController {
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		$plugins = $this->Field->getPluginTypes($contact_type_id);
 		$plugin_type = array_values($plugins);
+		if(!$this->Session->check('Filter.contact_type_id'))
+			$this->Session->write('Filter.contact_type_id',$contact_type_id);
 
-    	if($this->RequestHandler->isAjax() AND !empty($_GET['keyword'])){
+
+    	if($this->RequestHandler->isAjax() && !empty($_GET['keyword'])){
     		$this->set('status',true);
 			$keyword = $_GET['keyword'];
 			$this->add_keyword($keyword);
@@ -149,6 +152,7 @@ class UsersController extends AppController {
 		}elseif (!empty($this->data)) {
     		$this->set('status',true);
     		$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
+	    	$this->Session->write('Filter.contact_type_id',$contact_type_id);
 			$plugins = $this->Field->getPluginTypes($contact_type_id);
 			$plugin_type = array_values($plugins);    		
 			$contact_types = $this->ContactType->retriveAssociationsByContactType(
@@ -156,19 +160,20 @@ class UsersController extends AppController {
 				$contact_type_id,
 				null,
 				$this->data['AdvanceSearch']['column']);
-		}elseif($this->Session->check('Filter')){
+				
+		}elseif($this->Session->check('Filter.keyword') || $this->Session->check('Filter.criteria') ){
     		
 			$this->set('status',true);
-    		//$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
-			$plugins = $this->Field->getPluginTypes(5);
+			$plugins = $this->Field->getPluginTypes($this->Session->read('Filter.contact_type_id'));
 			$plugin_type = array_values($plugins);    		
 			$contact_types = $this->ContactType->retriveAssociationsByContactType(
 				$plugin_type,
-				5,
+				$this->Session->read('Filter.contact_type_id'),
 				null,
 				null,
 				$this->Session->read('Filter')	
 			);
+			
 			
 		}
 		else{
@@ -237,20 +242,34 @@ class UsersController extends AppController {
 		$this->Session->delete('Filter.keyword');
 		
 		//this redirects but eligently
-		return $this->setAction('test2');
+		return $this->setAction('display_contacts');
 	}
 	
 	public function delete_criteria(){
 		
 	}		
 	
+	public function load_filter($id=null){
+		//$this->redirect_if_not_ajax_request();
+		$filter = ClassRegistry::init('Filter')->read(null,$id);
+		if(!empty($filter)){
+			$this->Session->write($filter);
+		}
+		$this->set('status',true);
+		$this->redirect(array('action'=>'home'));
+	}
 	
-	public function test2()
+	public function save_filter()
 	{
-		if($this->Session->check('Filter')){
-			$contact_types = $this->ContactType->retriveAssociationsByFilter($plugin_type,$contact_type_id);
-			$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
-    		$this->set(compact('contact_types','plugins','values','contact_type_id'));
+		if ($this->Session->check('Filter') AND !empty($this->data)) {
+			$this->set('status',true);
+			ClassRegistry::init('Filter')->save(
+				array(
+					'name'=>$this->data['Filter']['name'],
+					'keyword'=>$this->Session->read('Filter.keyword'),
+					'criteria'=>'',
+					'contact_type_id' =>$this->Session->read('Filter.contact_type_id')
+			));
 		}
 	}
 	
