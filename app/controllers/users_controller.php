@@ -147,11 +147,15 @@ class UsersController extends AppController {
     		$this->set('status',true);
 			$keyword = $_GET['keyword'];
 			$this->add_keyword($keyword);
-			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id,$keyword);
+			$contact_types = $this->ContactType->retriveAssociationsByContactType(
+				$plugin_type,
+				$contact_type_id,
+				$keyword);
 			
 		}elseif (!empty($this->data)) {
     		$this->set('status',true);
     		$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
+    		$this->add_criteria($this->data['AdvanceSearch']['column']);
 	    	$this->Session->write('Filter.contact_type_id',$contact_type_id);
 			$plugins = $this->Field->getPluginTypes($contact_type_id);
 			$plugin_type = array_values($plugins);    		
@@ -177,7 +181,9 @@ class UsersController extends AppController {
 			
 		}
 		else{
-			$contact_types = $this->ContactType->retriveAssociationsByContactType($plugin_type,$contact_type_id);
+			$contact_types = $this->ContactType->retriveAssociationsByContactType(
+				$plugin_type,
+				$contact_type_id);
     	}
 		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
 
@@ -231,22 +237,32 @@ class UsersController extends AppController {
 		$this->Session->write('Filter.keyword',$keyword);
 	}
 	
-	public function add_criteria($criteria){
+	private function add_criteria($criteria){
 		//TODO serialize criteria then save;
-		$this->Session->write('Filter.criteria',$criteria);
+		$criteria = Set::filter($criteria);
+		$this->Session->write('Filter.criteria',serialize($criteria));
 	}
 	
 	public function delete_keyword($keyword=null){
-		$this->redirect_if_not_ajax_request();
-		$this->set('status',true);
+
 		$this->Session->delete('Filter.keyword');
 		
-		//this redirects but eligently
-		return $this->setAction('display_contacts');
+		$this->redirect(array('controller'=>'users','action'=>'display_contacts'));
 	}
 	
-	public function delete_criteria(){
-		
+	public function delete_criteria($criteria){
+		if($this->Session->check('Filter.criteria')){
+			$criterias = unserialize( $this->Session->read('Filter.criteria'));
+			unset($criterias[$criteria]);
+			if(!empty($criterias)){
+				$this->Session->write('Filter.criteria',serialize($criterias));
+			}else {
+				$this->Session->del('Filter.criteria');
+			}
+			
+		}		
+		$this->redirect(array('controller'=>'users','action'=>'home'));
+	
 	}		
 	
 	public function load_filter($id=null){

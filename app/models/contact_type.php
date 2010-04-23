@@ -200,7 +200,9 @@ class ContactType extends AppModel {
 		$pg = array();
 		
 		$keyword = isset($filters['keyword'])  ? $filters['keyword'] :"";
-		$fields	 = isset($filters['criteria']) ? $filters['criteria']:"";
+		//data criteria is only sent when a criteria is set 
+		// and its set to session as serialized;
+		$fields	 = isset($filters['criteria']) ? unserialize($filters['criteria']):"";
 		
 		foreach ($plugins as $plugin) {
 			if(!empty($fields)){
