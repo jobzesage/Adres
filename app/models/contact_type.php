@@ -202,7 +202,7 @@ class ContactType extends AppModel {
 		$keyword = isset($filters['keyword'])  ? $filters['keyword'] :"";
 		//data criteria is only sent when a criteria is set 
 		// and its set to session as serialized;
-		$fields	 = isset($filters['criteria']) ? unserialize($filters['criteria']):"";
+		$fields	 = !empty($filters['criteria']) ? unserialize($filters['criteria']):"";
 		
 		foreach ($plugins as $plugin) {
 			if(!empty($fields)){

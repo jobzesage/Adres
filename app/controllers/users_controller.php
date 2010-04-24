@@ -139,7 +139,7 @@ class UsersController extends AppController {
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		$plugins = $this->Field->getPluginTypes($contact_type_id);
 		$plugin_type = array_values($plugins);
-		if(!$this->Session->check('Filter.contact_type_id'))
+		//if(!$this->Session->check('Filter.contact_type_id'))
 			$this->Session->write('Filter.contact_type_id',$contact_type_id);
 
 
@@ -156,7 +156,6 @@ class UsersController extends AppController {
     		$this->set('status',true);
     		$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
     		$this->add_criteria($this->data['AdvanceSearch']['column']);
-	    	$this->Session->write('Filter.contact_type_id',$contact_type_id);
 			$plugins = $this->Field->getPluginTypes($contact_type_id);
 			$plugin_type = array_values($plugins);    		
 			$contact_types = $this->ContactType->retriveAssociationsByContactType(
@@ -240,7 +239,14 @@ class UsersController extends AppController {
 	private function add_criteria($criteria){
 		//TODO serialize criteria then save;
 		$criteria = Set::filter($criteria);
-		$this->Session->write('Filter.criteria',serialize($criteria));
+		if($this->Session->check('Filter.criteria') && !empty($criteria)){
+			$criterias = unserialize($this->Session->read('Filter.criteria'));
+			$criterias = am($criterias,$criteria);
+		}else{
+			$criterias  =$criteria;
+		}
+		
+		$this->Session->write('Filter.criteria',serialize($criterias));
 	}
 	
 	public function delete_keyword($keyword=null){
@@ -250,10 +256,15 @@ class UsersController extends AppController {
 		$this->redirect(array('controller'=>'users','action'=>'display_contacts'));
 	}
 	
-	public function delete_criteria($criteria){
+	public function delete_criteria(){
 		if($this->Session->check('Filter.criteria')){
 			$criterias = unserialize( $this->Session->read('Filter.criteria'));
-			unset($criterias[$criteria]);
+			$params= $this->params['named'];
+			
+			if(!empty($params) and in_array($params['criteria'],$criterias)){
+				unset($criterias[(int)$params['id']]);
+			}
+			
 			if(!empty($criterias)){
 				$this->Session->write('Filter.criteria',serialize($criterias));
 			}else {
