@@ -74,12 +74,13 @@
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
 				<?php echo "Criterias:" ?>
 				
-				<?php foreach ($criterias as $index => $criteria): ?>
+				<?php foreach ($criterias as $idx=>$criteria): ?>
 				<?php echo $html->link($criteria,array(
 					'controller'=>'users',
 					'action'    =>'delete_criteria',
-					'id:'.$index.'/criteria:'.$criteria
+					'id:'.$idx.'/criteria:'.$criteria
 				)) ?>
+				
 			<?php endforeach ?>
 		<?php endif ?>
 		<?php echo $form->create('Filter',array(

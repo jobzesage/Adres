@@ -177,7 +177,6 @@ class UsersController extends AppController {
 				$this->Session->read('Filter')	
 			);
 			
-			
 		}
 		else{
 			$contact_types = $this->ContactType->retriveAssociationsByContactType(
@@ -241,18 +240,17 @@ class UsersController extends AppController {
 		$criteria = Set::filter($criteria);
 		if($this->Session->check('Filter.criteria') && !empty($criteria)){
 			$criterias = unserialize($this->Session->read('Filter.criteria'));
-			$criterias = am($criterias,$criteria);
+			foreach ($criteria as $field_id => $value) {
+				$criterias[$field_id] = $value;
+			}
 		}else{
 			$criterias  =$criteria;
 		}
-		
 		$this->Session->write('Filter.criteria',serialize($criterias));
 	}
 	
 	public function delete_keyword($keyword=null){
-
 		$this->Session->delete('Filter.keyword');
-		
 		$this->redirect(array('controller'=>'users','action'=>'display_contacts'));
 	}
 	
