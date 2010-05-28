@@ -3,7 +3,7 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('Contact','ContactType','Field','FieldType','Group','Implementation');
+    public $uses=array('Contact','ContactSet','ContactType','Field','FieldType','Group','Implementation');
     	
     public function index(){
     	
@@ -134,58 +134,15 @@ class UsersController extends AppController {
     }    
     
 
-    public function display_contacts($contact_type_id=null){
-		$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
-		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
-		$plugins = $this->Field->getPluginTypes($contact_type_id);
-		$plugin_type = array_values($plugins);
-		//if(!$this->Session->check('Filter.contact_type_id'))
-			$this->Session->write('Filter.contact_type_id',$contact_type_id);
-
-
-    	if($this->RequestHandler->isAjax() && !empty($_GET['keyword'])){
-    		$this->set('status',true);
-			$keyword = $_GET['keyword'];
-			$this->add_keyword($keyword);
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id,
-				$keyword);
-			
-		}elseif (!empty($this->data)) {
-    		$this->set('status',true);
-    		$contact_type_id = $this->data['AdvanceSearch']['contact_type_id'];
-    		$this->add_criteria($this->data['AdvanceSearch']['column']);
-			$plugins = $this->Field->getPluginTypes($contact_type_id);
-			$plugin_type = array_values($plugins);    		
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id,
-				null,
-				$this->data['AdvanceSearch']['column']);
-				
-		}elseif($this->Session->check('Filter.keyword') || $this->Session->check('Filter.criteria') ){
-    		
-			$this->set('status',true);
-			$plugins = $this->Field->getPluginTypes($this->Session->read('Filter.contact_type_id'));
-			$plugin_type = array_values($plugins);    		
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$this->Session->read('Filter.contact_type_id'),
-				null,
-				null,
-				$this->Session->read('Filter')	
-			);
-			
-		}
-		else{
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id);
-    	}
-		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
-
-    	$this->set(compact('contact_types','plugins','values','contact_type_id'));
+    public function display_contacts($contact_type_id=5){
+    	
+		$fields= $this->Field->getPluginTypes($contact_type_id);
+		$sql = $this->ContactSet->build_query($contact_type_id,$fields);
+		$values = $this->Contact->query($sql);
+		$this->set('values',$values);
+		
+		
+    	$this->set(compact('fields','contact_type_id'));
 		$this->render('/elements/contacts');
     }
 

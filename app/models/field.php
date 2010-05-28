@@ -30,12 +30,13 @@ class Field extends AppModel {
 			'conditions' => array('Field.contact_type_id'=>$contactType ) 
 		));
 		
-		$field_list = array();
-		foreach ($fields as $plugin) {
-			$className = $plugin['Field']['field_type_class_name'];
-			$field_list[$plugin['Field']['name']] = Configure::read('PluginPrefix').ucwords($className);				
-		}
-		return $field_list;
+		// $field_list = array();
+		// foreach ($fields as $plugin) {
+		// 	$className = $plugin['Field']['field_type_class_name'];
+		// 	$field_list['class'] = Configure::read('PluginPrefix').ucwords($className);
+		// 	$field_list['id'] = $plugin['Field']['id']			
+		// }
+		return $fields;
 	}	
 
 
