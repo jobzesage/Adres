@@ -135,14 +135,19 @@ class UsersController extends AppController {
     
 
     public function display_contacts($contact_type_id=5){
+    	$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
+		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
+		//if(!$this->Session->check('Filter.contact_type_id'))
+			$this->Session->write('Filter.contact_type_id',$contact_type_id);
+
     	
 		$fields= $this->Field->getPluginTypes($contact_type_id);
-		$sql = $this->ContactSet->build_query($contact_type_id,$fields);
-		$values = $this->Contact->query($sql);
+		$values = $this->ContactSet->getContactSet($contact_type_id);
 		$this->set('values',$values);
 		
 		
     	$this->set(compact('fields','contact_type_id'));
+    	$this->set(compact('contact_types','contact_type_id'));
 		$this->render('/elements/contacts');
     }
 
@@ -188,8 +193,8 @@ class UsersController extends AppController {
 	}
 	
 	
-	public function add_keyword($keyword){
-		$this->Session->write('Filter.keyword',$keyword);
+	public function add_keyword($keyword=null){
+		$this->Session->write('Filter.keyword',"test6");
 	}
 	
 	private function add_criteria($criteria){

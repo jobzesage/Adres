@@ -78,5 +78,7 @@ class Filter extends AppModel {
 	// 		$this->fil_criteria = $_SESSION['criteria'];
 	// 	return $this->save();
 	// }
+	
+	
 }
 ?>

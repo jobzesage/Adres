@@ -7,23 +7,46 @@ class ContactSet extends AppModel
 {
 	public $useTable =false;
 
-	public $belongsTo = array(
-		'TypeString',
-		'TypeInteger'
-	);
 	
-	public function build_query($contactType,$plugins)
+	public function getContactSet($contact_type_id)
+	{
+		$sql = $this->build_query($contact_type_id);
+		return $this->query($sql);
+	}
+
+
+	public function build_query($contact_type_id)
 	{
 
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
 		
 		$from = ' FROM contacts AS Contact '; 
 		
-		$where =' WHERE Contact.contact_type_id = '.$contactType;
+		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
 		
 		$keyword = "";
 		
+		$plugins = ClassRegistry::init('Field')->getPluginTypes($contact_type_id);
+		
+		
+		if(empty($plugins)){
+			return "SELECT (Contact.id) AS id  FROM contacts as Contact
+			LEFT JOIN contacts_groups as ContactGroup 
+			ON (Contact.id = ContactGroup.contact_id )
+			WHERE Contact.contact_type_id = ";# some sql			
+		}
+			
+
+		
+		$models =array();
+		foreach ($plugins as $field) {
+			$models[]=$field['Field']['field_type_class_name'];
+		}
+
+		$this->bindModel(array('belongsTo'=>$models));
+		
 		//Custom fields
+		$i=0;
 		foreach($plugins as $field){
 			
 			$pluginName = $field['Field']['field_type_class_name'];
@@ -38,9 +61,28 @@ class ContactSet extends AppModel
 			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';#change it to a func
 			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';#change it to a func
 			
+			//if(Filter::getKeyword() != null){
+			//	#change it to session key word
+			//	if($i != 0)	$keyword = $keyword." OR ";
+			//	$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.
+			//	$plugin->getDisplayFieldName();
+			//	$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName()
+			//	$keyword = $keyword." LIKE \"%".Filter::getKeyword()."%\" ";
+			//}
+			
+			$i++;
 		}
 		
+		//Filtering
+		//$where = $where.Filter::getSQLWhere();
+		//echo Filter::getSQLWhere();
+		//Search by keyword
+		//if($keyword != "")
+		//	$where = $where." AND ( ".$keyword." ) ";
+		
+		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where;
+		//echo $sql;
 		return $sql;
 	
 	}	
