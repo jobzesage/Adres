@@ -75,7 +75,7 @@ class ContactSet extends AppModel
 		//debug($keyword);
 		
 		//Filtering
-		//$where = $where.Filter::getSQLWhere();
+		$where = $where.$filters;
 		//echo Filter::getSQLWhere();
 		//Search by keyword
 		if($keyword != "")

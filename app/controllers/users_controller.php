@@ -147,7 +147,7 @@ class UsersController extends AppController {
 		
 		if($this->Session->check('Filter.criteria')) 
 		{
-			$criteria = $this->Session->read('Filter.criteria');
+			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
 		}
 		
 		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
@@ -155,7 +155,7 @@ class UsersController extends AppController {
 		$this->set('values',$values);
 		
 		
-    	$this->set(compact('fields','contact_type_id'));
+    	$this->set(compact('fields','contact_type_id','criteria'));
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
@@ -228,22 +228,13 @@ class UsersController extends AppController {
 				}
 				
 			}
+			if(!empty($result)){
+				$this->Session->write('Filter.criteria',serialize($result));
+			}
 		}
 
-		//$this->display_contacts(5);
-		
-		//$criteria = Set::filter($criteria);
-		//if($this->Session->check('Filter.criteria') && !empty($criteria)){
-		//	$criterias = unserialize($this->Session->read('Filter.criteria'));
-		//	foreach ($criteria as $field_id => $value) {
-		//		$criterias[$field_id] = $value;
-		//	}
-		//}else{
-		//	$criterias  =$criteria;
-		//}
-		//$this->Session->write('Filter.criteria',serialize($criterias));
-		$this->set('result',$result);
-		$this->render('/elements/empty');
+		$this->display_contacts();
+	
 	}
 	
 	public function delete_keyword($keyword=null){
@@ -298,6 +289,15 @@ class UsersController extends AppController {
 	
 	
     //private functions
+    
+    private function getSQL($criterias){
+    	$where = ' ';
+		foreach($criterias as $value){
+			$where = $where.' AND '.$value['sql'];
+		}
+		return $where;
+	}
+
     private function setImplementation(){
     	if(!$this->Session->check('Implementation')){
     		$implementation = ClassRegistry::init('Implementation')->find(
