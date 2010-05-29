@@ -8,14 +8,14 @@ class ContactSet extends AppModel
 	public $useTable =false;
 
 	
-	public function getContactSet($contact_type_id)
+	public function getContactSet($contact_type_id,$searchKeyword=null,$filters=null)
 	{
-		$sql = $this->build_query($contact_type_id);
+		$sql = $this->build_query($contact_type_id,$searchKeyword,$filters);
 		return $this->query($sql);
 	}
 
 
-	public function build_query($contact_type_id)
+	public function build_query($contact_type_id,$searchKeyword,$filters)
 	{
 
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
@@ -61,27 +61,29 @@ class ContactSet extends AppModel
 			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';#change it to a func
 			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';#change it to a func
 			
-			//if(Filter::getKeyword() != null){
-			//	#change it to session key word
-			//	if($i != 0)	$keyword = $keyword." OR ";
-			//	$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.
-			//	$plugin->getDisplayFieldName();
-			//	$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName()
-			//	$keyword = $keyword." LIKE \"%".Filter::getKeyword()."%\" ";
-			//}
+			if($searchKeyword!=null){
+				#change it to session key word
+				if($i != 0)	$keyword = $keyword." OR ";
+				$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.$plugin->getDisplayFieldName();
+				//$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName();
+				$keyword = $keyword." LIKE \"%".$searchKeyword."%\" ";
+			}
 			
 			$i++;
 		}
+		
+		//debug($keyword);
 		
 		//Filtering
 		//$where = $where.Filter::getSQLWhere();
 		//echo Filter::getSQLWhere();
 		//Search by keyword
-		//if($keyword != "")
-		//	$where = $where." AND ( ".$keyword." ) ";
+		if($keyword != "")
+		 $where = $where." AND ( ".$keyword." ) ";
 		
 		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where;
+		
 		//echo $sql;
 		return $sql;
 	
