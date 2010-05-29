@@ -138,10 +138,11 @@ class UsersController extends AppController {
     	$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		//if(!$this->Session->check('Filter.contact_type_id'))
-			$this->Session->write('Filter.contact_type_id',$contact_type_id);
+		$this->Session->write('Filter.contact_type_id',$contact_type_id);
 
     	
 		$fields= $this->Field->getPluginTypes($contact_type_id);
+		
 		$values = $this->ContactSet->getContactSet($contact_type_id);
 		$this->set('values',$values);
 		
@@ -194,7 +195,9 @@ class UsersController extends AppController {
 	
 	
 	public function add_keyword($keyword=null){
-		$this->Session->write('Filter.keyword',"test6");
+		$this->Session->write('Filter.keyword',$this->params['url']['keyword']);
+		//TODO call the display action
+		$this->render('/elements/empty');
 	}
 	
 	private function add_criteria($criteria){
