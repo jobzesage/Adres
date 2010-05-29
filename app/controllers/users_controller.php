@@ -150,6 +150,7 @@ class UsersController extends AppController {
 		
     	$this->set(compact('fields','contact_type_id'));
     	$this->set(compact('contact_types','contact_type_id'));
+
 		$this->render('/elements/contacts');
     }
 
