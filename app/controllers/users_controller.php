@@ -141,60 +141,23 @@ class UsersController extends AppController {
 			$this->Session->write('Filter.contact_type_id',$contact_type_id);
 
     	
-		$fields= $this->Field->getPluginTypes($contact_type_id);
-		$keyword = "";
+		$fields   = $this->Field->getPluginTypes($contact_type_id);
+		$keyword  = "";
+		$criteria = "";
+		
+		if($this->Session->check('Filter.criteria')) 
+		{
+			$criteria = $this->Session->read('Filter.criteria');
+		}
+		
 		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
-		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword);
+		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword,$criteria);
 		$this->set('values',$values);
 		
 		
     	$this->set(compact('fields','contact_type_id'));
     	$this->set(compact('contact_types','contact_type_id'));
 
-<<<<<<< Updated upstream
-=======
-    	if($this->RequestHandler->isAjax() && !empty($_GET['keyword'])){
-    		$this->set('status',true);
-			$keyword = $_GET['keyword'];
-			$this->add_keyword($keyword);
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id,
-				$keyword);
-			
-		}elseif (!empty($this->data)) {
-
-			$plugins = $this->Field->getPluginTypes($contact_type_id);
-			$plugin_type = array_values($plugins);    		
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id,
-				null,
-				$this->data['AdvanceSearch']['column']);
-				
-		}elseif($this->Session->check('Filter.keyword') || $this->Session->check('Filter.criteria') ){
-    		
-			$this->set('status',true);
-			$plugins = $this->Field->getPluginTypes($this->Session->read('Filter.contact_type_id'));
-			$plugin_type = array_values($plugins);    		
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$this->Session->read('Filter.contact_type_id'),
-				null,
-				null,
-				$this->Session->read('Filter')	
-			);
-			
-		}
-		else{
-			$contact_types = $this->ContactType->retriveAssociationsByContactType(
-				$plugin_type,
-				$contact_type_id);
-    	}
-		$values = $this->ContactType->generateRecordSet($contact_types,$plugins);
-
-    	$this->set(compact('contact_types','plugins','values','contact_type_id'));
->>>>>>> Stashed changes
 		$this->render('/elements/contacts');
     }
 
@@ -246,18 +209,41 @@ class UsersController extends AppController {
 		$this->display_contacts(5);
 	}
 	
-	private function add_criteria($criteria){
+	public function add_criteria($criteria=null){
 		//TODO serialize criteria then save;
-		$criteria = Set::filter($criteria);
-		if($this->Session->check('Filter.criteria') && !empty($criteria)){
-			$criterias = unserialize($this->Session->read('Filter.criteria'));
-			foreach ($criteria as $field_id => $value) {
-				$criterias[$field_id] = $value;
+		
+		$this->set('status',true);
+		$result = array();
+		
+		if(!empty($this->data)){
+			$searchKeys = $this->data['AdvanceSearch'];
+			foreach($searchKeys as $field_id => $value)
+			{
+				if(!empty($value))
+				{
+					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
+					$plugin = $pluginName['Field']['field_type_class_name'];
+					$column_name = $pluginName['Field']['name'];
+					$result[] = ClassRegistry::init($plugin)->renderAdvancedSearch($field_id,$column_name,$value);					
+				}
+				
 			}
-		}else{
-			$criterias  =$criteria;
 		}
-		$this->Session->write('Filter.criteria',serialize($criterias));
+
+		//$this->display_contacts(5);
+		
+		//$criteria = Set::filter($criteria);
+		//if($this->Session->check('Filter.criteria') && !empty($criteria)){
+		//	$criterias = unserialize($this->Session->read('Filter.criteria'));
+		//	foreach ($criteria as $field_id => $value) {
+		//		$criterias[$field_id] = $value;
+		//	}
+		//}else{
+		//	$criterias  =$criteria;
+		//}
+		//$this->Session->write('Filter.criteria',serialize($criterias));
+		$this->set('result',$result);
+		$this->render('/elements/empty');
 	}
 	
 	public function delete_keyword($keyword=null){

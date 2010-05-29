@@ -33,5 +33,30 @@ class AppModel extends Model {
                 $this->unbindModel(array($relation => $model));
         }
 	} 
+	
+	public $_display_field_name = 'data';
+	
+	public $_join_field_name = 'contact_id';
+	
+	
+	public function getDisplayFieldName()
+	{
+		return $this->_display_field_name;
+	}
+	
+	
+	
+	public function setDisplayFieldName($name)
+	{
+		$this->_display_field_name = $name;
+	}
+	
+	
+	public function renderAdvancedSearch($field_id,$column_name, $value)
+	{
+		$query_string['sql'] = ' '.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' WHERE '.$this->getDisplayFieldName().' LIKE "%'.$value.'%" AND field_id = '.(int) $field_id. ' )';
+		$query_string['name'] = $column_name." like ".$value;
+		return $query_string;
+	}	
 }
 ?>

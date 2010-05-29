@@ -7,14 +7,11 @@ class TypeString extends AppModel {
 	
 	public $primaryKey = false;
 	
-	private $_display_field_name = 'data';
-	
-	
+
 	public function getDisplayFieldName()
 	{
 		return $this->_display_field_name;
 	}
-	
 	
 	
 	public function setDisplayFieldName($name)
@@ -24,8 +21,11 @@ class TypeString extends AppModel {
 	
 	public function getJoinContact()
 	{
-		
+		return $this->_join_field_name;
 	}
+	
+	
+
 	
 }
 ?>

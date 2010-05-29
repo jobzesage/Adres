@@ -1,5 +1,12 @@
 
 <div class="adres-left-sidebar span-5">
+	
+	<?php  
+	/*-------------------------------
+	| Keyword Search Section
+	|--------------------------------*/
+	?>
+	
 	<?php echo $form->create('Search',array(
 		'url'=>array(
 			'controller'=>'users',
@@ -13,6 +20,37 @@
 			'value' => 5
 		)); ?>
 	<?php echo $form->end('Search') ?>
+	
+	
+	
+	<?php  
+	/*-------------------------------
+	| Advance Search Section
+	|--------------------------------*/
+	?>
+
+	<?php echo $form->create('AdvanceSearch',array(
+		'url'=>array(
+			'controller'=>'users',
+			'action'=>'add_criteria'
+		),
+		'class' => 'adres-ajax-form'
+		)) ?>
+		
+		<?php foreach ($fields as $field): ?>
+			
+			<?php echo $form->input($field['Field']['id'],array(
+				'type'=>'text',
+				'label'=>array(
+					'text'=>$field['Field']['name']
+			))) ?>
+		<?php endforeach ?>			
+		
+	<?php echo $form->end('Advance Search') ?>
+
+
+
+
 	
 	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
 		
@@ -30,6 +68,10 @@
 		<?php endif ?>
 		
 		<br>
+		
+		
+		
+		
 		
 		<?php if ($session->check('Filter.criteria')): ?>
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>

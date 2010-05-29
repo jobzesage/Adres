@@ -7,8 +7,6 @@ class TypeInteger extends AppModel {
 	
 	public $useTable='type_integer';
 	
-	private $_display_field_name = 'data';
-	
 	
 	public function getDisplayFieldName()
 	{
@@ -24,7 +22,7 @@ class TypeInteger extends AppModel {
 	
 	public function getJoinContact()
 	{
-		
+		return $this->_join_field_name;
 	}
 }
 ?>
