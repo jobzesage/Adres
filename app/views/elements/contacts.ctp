@@ -13,6 +13,48 @@
 			'value' => 5
 		)); ?>
 	<?php echo $form->end('Search') ?>
+	
+	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
+		
+		<?php echo $html->tag('h3',__('Search',true)) ?>	
+		<?php $keyword = $session->read('Filter.keyword') ?>
+		<?php if ($session->check('Filter.keyword')): ?>
+			<?php echo "Keyword :".$html->link($keyword,array(
+				'controller'=>'users',
+				'action' => 'delete_keyword', 
+				$keyword
+			),array(
+				'class'=>'adres-ajax-anchor adres-delete-keyword'
+			)) ?>
+		
+		<?php endif ?>
+		
+		<br>
+		
+		<?php if ($session->check('Filter.criteria')): ?>
+			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
+				<?php echo "Criterias:" ?>
+				
+				<?php foreach ($criterias as $idx=>$criteria): ?>
+				<?php echo $html->link($criteria,array(
+					'controller'=>'users',
+					'action'    =>'delete_criteria',
+					'id:'.$idx.'/criteria:'.$criteria
+				)) ?>
+				
+			<?php endforeach ?>
+		<?php endif ?>
+		<?php echo $form->create('Filter',array(
+			'url'=>array(
+				'controller'=>'users',
+				'action' => 'save_filter'
+			),
+			'class' => 'adres-ajax-form'
+		)) ?>
+			<?php echo $form->input('name') ?>
+		<?php echo $form->end('save') ?>
+		
+	<?php endif ?>	
 </div>
 
 

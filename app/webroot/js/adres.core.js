@@ -100,7 +100,7 @@ ADres.AJAX={
 					}else if($link.hasClass('adres-contats-show-details')){
 						$('#adres-details').html(resp.data);
 					}else if ($link.hasClass('adres-delete-keyword')) {
-						alert('fuzz');
+						$('div#contacts').html(resp.data);
 					};
 				}
 			},

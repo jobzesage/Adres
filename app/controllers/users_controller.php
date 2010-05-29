@@ -216,8 +216,9 @@ class UsersController extends AppController {
 	}
 	
 	public function delete_keyword($keyword=null){
-		$this->Session->delete('Filter.keyword');
-		$this->redirect(array('controller'=>'users','action'=>'display_contacts'));
+		$this->set('status',true);
+		$this->Session->write('Filter.keyword',null);
+		$this->display_contacts(5);
 	}
 	
 	public function delete_criteria(){
