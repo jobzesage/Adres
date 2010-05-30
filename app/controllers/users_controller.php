@@ -223,23 +223,36 @@ class UsersController extends AppController {
 			foreach($searchKeys as $field_id => $value)
 			{
 
-				//if($this->Session->check('Filter.criteria'))
-					//$criterias = unserialize($this->Session->read('Filter.criteria'));
-				
+
 				if(!empty($value))
 				{
 					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
 					$plugin = $pluginName['Field']['field_type_class_name'];
 					$column_name = $pluginName['Field']['name'];
 					$criterias[] = ClassRegistry::init($plugin)->renderAdvancedSearch($field_id,$column_name,$value);					
-				}					
-				
+				}
+									
 			}
 			if(!empty($criterias)){
+				if($this->Session->check('Filter.criteria')){
+					//add to stack
+					$previous_criterias = unserialize($this->Session->read('Filter.criteria'));
+								
+					foreach ($criterias as $criteria) {
+						if(!in_array(array('name'=>$criteria['name'],'sql'=>$criteria['sql']),$previous_criterias))
+						{
+							$previous_criterias=am($previous_criterias,$criteria);
+						}
+					}					
+				}
+				else {
 
-				$this->Session->write('Filter.criteria',serialize($criterias));
+					$previous_criterias = $criterias;
+				}
+				
+				$this->Session->write('Filter.criteria',serialize($previous_criterias));
 			}
-			//$this->set('test',$criterias);
+			$this->set('test',$previous_criterias);
 		}
 		$this->display_contacts(5);
 	}
@@ -251,7 +264,7 @@ class UsersController extends AppController {
 	
 	public function delete_keyword($keyword=null){
 		$this->set('status',true);
-		$this->Session->write('Filter.keyword',null);
+		$this->Session->del('Filter.keyword');
 		$this->display_contacts(5);
 	}
 	
@@ -280,11 +293,15 @@ class UsersController extends AppController {
 	public function load_filter($id=null){
 		//$this->redirect_if_not_ajax_request();
 		$filter = ClassRegistry::init('Filter')->read(null,$id);
+		$filter = Set::filter($filter);
 		if(!empty($filter)){
 			$this->Session->write($filter);
 		}
 		$this->set('status',true);
+		$this->set('test',$filter);
+
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+
 	}
 	
 	
