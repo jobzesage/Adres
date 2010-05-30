@@ -209,32 +209,45 @@ class UsersController extends AppController {
 		$this->display_contacts(5);
 	}
 	
+	
+	
+	
+	
 	public function add_criteria($criteria=null){
-		//TODO serialize criteria then save;
 		
 		$this->set('status',true);
-		$result = array();
+		$criterias = array();
 		
 		if(!empty($this->data)){
 			$searchKeys = $this->data['AdvanceSearch'];
 			foreach($searchKeys as $field_id => $value)
 			{
+
+				//if($this->Session->check('Filter.criteria'))
+					//$criterias = unserialize($this->Session->read('Filter.criteria'));
+				
 				if(!empty($value))
 				{
 					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
 					$plugin = $pluginName['Field']['field_type_class_name'];
 					$column_name = $pluginName['Field']['name'];
-					$result[] = ClassRegistry::init($plugin)->renderAdvancedSearch($field_id,$column_name,$value);					
-				}
+					$criterias[] = ClassRegistry::init($plugin)->renderAdvancedSearch($field_id,$column_name,$value);					
+				}					
 				
 			}
-			if(!empty($result)){
-				$this->Session->write('Filter.criteria',serialize($result));
+			if(!empty($criterias)){
+
+				$this->Session->write('Filter.criteria',serialize($criterias));
 			}
+			//$this->set('test',$criterias);
 		}
 		$this->display_contacts(5);
-	
 	}
+	
+	
+	
+	
+	
 	
 	public function delete_keyword($keyword=null){
 		$this->set('status',true);
