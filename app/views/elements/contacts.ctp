@@ -74,8 +74,13 @@
 		<br>
 		
 		
-		
-		
+	<?php  
+	/*-------------------------------
+	| Criteria Filter Section
+	|--------------------------------*/
+	?>
+			
+
 		
 		<?php if ($session->check('Filter.criteria')): ?>
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
@@ -105,6 +110,21 @@
 		<?php echo $form->end('save') ?>
 		
 	<?php endif ?>	
+	
+	
+	<br /><br />
+	<?php  echo $html->tag('h3',__('Filters',true)) ?>
+	
+	<?php foreach ($filters as $filter): ?>
+		<?php echo $html->link($filter['Filter']['name'],array(
+			'controller'=>'users',
+			'action' => 'load_filter',
+			$filter['Filter']['id']
+		),array(
+			'class'=>'adres-ajax-anchor'			
+		)
+		) ?>
+	<?php endforeach ?>	
 </div>
 
 

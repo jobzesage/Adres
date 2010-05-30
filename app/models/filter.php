@@ -79,6 +79,13 @@ class Filter extends AppModel {
 	// 	return $this->save();
 	// }
 	
-	
+	public function getFilters($contact_type_id)
+	{
+		return $this->find('all',array(
+			'conditions'=>array(
+				'Filter.contact_type_id'=>$contact_type_id				
+			)
+		));
+	}	
 }
 ?>

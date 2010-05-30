@@ -3,7 +3,7 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('Contact','ContactSet','ContactType','Field','FieldType','Group','Implementation');
+    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','FieldType','Group','Implementation');
     	
     public function index(){
     	
@@ -134,11 +134,11 @@ class UsersController extends AppController {
     }    
     
 
-    public function display_contacts($contact_type_id=5){
+    public function display_contacts($contact_type_id=null){
     	$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
-		//if(!$this->Session->check('Filter.contact_type_id'))
-			$this->Session->write('Filter.contact_type_id',$contact_type_id);
+		if(!$this->Session->check('Contact.contact_type_id'))
+		 $this->Session->write('Contact.contact_type_id',$contact_type_id);
 
     	
 		$fields   = $this->Field->getPluginTypes($contact_type_id);
@@ -154,8 +154,8 @@ class UsersController extends AppController {
 		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword,$criteria);
 		$this->set('values',$values);
 		
-		
-    	$this->set(compact('fields','contact_type_id'));
+		$filters = $this->Filter->getFilters($contact_type_id);
+    	$this->set(compact('fields','filters','contact_type_id'));
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
@@ -284,19 +284,24 @@ class UsersController extends AppController {
 			$this->Session->write($filter);
 		}
 		$this->set('status',true);
-		$this->redirect(array('action'=>'home'));
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
 	}
+	
+	
 	
 	public function save_filter()
 	{
+		
+		$keyword = $this->Session->check('Filter.keyword')? $this->Session->read('Filter.keyword'):'';
+		$criteria = $this->Session->check('Filter.criteria')? $this->Session->read('Filter.criteria'):'';
 		if ($this->Session->check('Filter') AND !empty($this->data)) {
 			$this->set('status',true);
 			ClassRegistry::init('Filter')->save(
 				array(
 					'name'=>$this->data['Filter']['name'],
-					'keyword'=>$this->Session->read('Filter.keyword'),
-					'criteria'=>'',
-					'contact_type_id' =>$this->Session->read('Filter.contact_type_id')
+					'keyword'=>$keyword,
+					'criteria'=>$criteria,
+					'contact_type_id' =>$this->Session->read('Contact.contact_type_id')
 			));
 		}
 	}
