@@ -155,7 +155,7 @@ class UsersController extends AppController {
 		$this->set('values',$values);
 		
 		
-    	$this->set(compact('fields','contact_type_id','criteria'));
+    	$this->set(compact('fields','contact_type_id'));
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
@@ -232,8 +232,7 @@ class UsersController extends AppController {
 				$this->Session->write('Filter.criteria',serialize($result));
 			}
 		}
-
-		$this->display_contacts();
+		$this->display_contacts(5);
 	
 	}
 	
@@ -244,22 +243,24 @@ class UsersController extends AppController {
 	}
 	
 	public function delete_criteria(){
+		$this->set('status',true);
+		
 		if($this->Session->check('Filter.criteria')){
 			$criterias = unserialize( $this->Session->read('Filter.criteria'));
 			$params= $this->params['named'];
 			
-			if(!empty($params) and in_array($params['criteria'],$criterias)){
-				unset($criterias[(int)$params['id']]);
+			if(!empty($params)){
+				unset($criterias[$params['id']]);
 			}
 			
 			if(!empty($criterias)){
 				$this->Session->write('Filter.criteria',serialize($criterias));
-			}else {
+			}else{
 				$this->Session->del('Filter.criteria');
 			}
-			
-		}		
-		$this->redirect(array('controller'=>'users','action'=>'home'));
+		}	
+		//$this->redirect(array('controller'=>'users','action'=>'home'));
+		$this->display_contacts(5);
 	
 	}		
 	

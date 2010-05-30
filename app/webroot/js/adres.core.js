@@ -101,6 +101,8 @@ ADres.AJAX={
 						$('#adres-details').html(resp.data);
 					}else if ($link.hasClass('adres-delete-keyword')) {
 						$('div#contacts').html(resp.data);
+					}else{
+						$('div#contacts').html(resp.data);
 					};
 				}
 			},

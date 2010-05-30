@@ -50,7 +50,11 @@
 
 
 
-
+	<?php  
+	/*-------------------------------
+	| Keyword Filter Section
+	|--------------------------------*/
+	?>
 	
 	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
 		
@@ -77,12 +81,16 @@
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
 				<?php echo "Criterias:" ?>
 				
-				<?php foreach ($criterias as $idx=>$criteria): ?>
-				<?php echo $html->link($criteria,array(
+				<?php foreach ($criterias as $idx => $criteria): ?>
+				<?php echo $html->link($criteria['name'],array(
 					'controller'=>'users',
 					'action'    =>'delete_criteria',
-					'id:'.$idx.'/criteria:'.$criteria
-				)) ?>
+					'id:'.$idx
+					),
+					array(
+					'class'=>'adres-ajax-anchor'	
+					)
+				) ?>
 				
 			<?php endforeach ?>
 		<?php endif ?>
