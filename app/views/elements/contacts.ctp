@@ -49,6 +49,31 @@
 	<?php echo $form->end('Advance Search') ?>
 
 
+	<?php  
+	/*-------------------------------
+	| Groups Filter Section
+	|--------------------------------*/
+	?>
+
+	
+	<?php if (isset($groups) and !empty($groups)): ?>
+
+		<?php echo $html->tag('h3',__('Search',true)) ?>		
+
+		<?php foreach ($groups as $group): ?>
+			<?php echo $html->link($group['Group']['name'],array(
+					'controller'=>'users',
+					'action'=>'load_group',
+					$group['Group']['id']	
+				),array(
+					'class'=>'adres-ajax-anchor adres-load-group'	
+				)
+			)?>
+		<?php endforeach ?>
+	<?php endif ?>
+
+
+
 
 	<?php  
 	/*-------------------------------
@@ -61,7 +86,7 @@
 		<?php echo $html->tag('h3',__('Search',true)) ?>	
 		<?php $keyword = $session->read('Filter.keyword') ?>
 		<?php if ($session->check('Filter.keyword')): ?>
-			<?php echo "Keyword :".$html->link($keyword,array(
+			<?php echo $html->link("Keyword :{$keyword}",array(
 				'controller'=>'users',
 				'action' => 'delete_keyword', 
 				$keyword
@@ -152,23 +177,42 @@
 	
 </div>
 
-
+<?php  
+/*-------------------------------
+| Adres ContactSet panle 
+| displays contacts
+|--------------------------------*/
+?>
 <div class="adres-contacts-panel span-11">
 			
 	<?php if (!empty($values) && isset($values)): ?>
 
-	<table border="0" cellspacing="5" cellpadding="5">
+	<table border="0" class="adres-datagrid">
 		<tr>
 		<th>ID</th>
 		<?php foreach ($fields as $field): ?>
 			<th><?php echo $field['Field']['name'] ?></th>
 		<?php endforeach ?>
+		<th>Links</th>
 		</tr>
 		<?php foreach ($values as $value): ?>
 		<tr>
 			<?php foreach ($value as $key => $data): ?>
 			<td><?php  $d=array_values($data);	echo $d[0];	?></td>
 			<?php endforeach ?>
+			<td>
+				<div class="adres-toolbar">
+					<?php $span = '<span class=\'ui-icon ui-icon-folder-open\'></sapn>edit' ?>
+					<?php echo $html->link(__($span,true),array( 
+						'controller' => 'users',
+						'action' => 'edit_record', 
+						$value['Contact']['id']),array(
+							'title' => 'Edit Contact', 
+							'class' => 'adres-button adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
+						),null,false)
+					?>
+				</div>
+			</td>
 		</tr>		
 		<?php endforeach ?>
 	

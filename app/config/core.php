@@ -1,7 +1,6 @@
 <?php
 
 	Configure::write('debug',2);
-	Configure::write('PluginPrefix','Type');
 /**
  * Application wide charset encoding
  */

@@ -155,11 +155,15 @@ class UsersController extends AppController {
 		$this->set('values',$values);
 		
 		$filters = $this->Filter->getFilters($contact_type_id);
+		
+		$this->set('groups',$this->Group->getCurrentGroups($contact_type_id));
+		
     	$this->set(compact('fields','filters','contact_type_id'));
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
     }
+    
 
 	public function test(){
 		if(!empty($this->data)){
@@ -206,7 +210,8 @@ class UsersController extends AppController {
 	public function add_keyword($keyword=null){
 		$this->set('status',true);
 		$this->Session->write('Filter.keyword',$this->params['url']['keyword']);
-		$this->display_contacts(5);
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+
 	}
 	
 	
@@ -254,9 +259,9 @@ class UsersController extends AppController {
 				
 				$this->Session->write('Filter.criteria',serialize($previous_criterias));
 			}
-			$this->set('test',$previous_criterias);
 		}
-		$this->display_contacts(5);
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+
 	}
 	
 	
@@ -264,7 +269,7 @@ class UsersController extends AppController {
 	public function delete_keyword($keyword=null){
 		$this->set('status',true);
 		$this->Session->del('Filter.keyword');
-		$this->display_contacts(5);
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
 	}
 	
 	public function delete_criteria(){
@@ -285,7 +290,8 @@ class UsersController extends AppController {
 			}
 		}	
 		//$this->redirect(array('controller'=>'users','action'=>'home'));
-		$this->display_contacts(5);
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+
 	
 	}		
 	
@@ -303,7 +309,9 @@ class UsersController extends AppController {
 
 	}
 	
-	
+	public function load_group($id=null){
+		
+	}	
 	
 	public function save_filter()
 	{
