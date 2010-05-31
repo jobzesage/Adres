@@ -61,7 +61,8 @@ class AppModel extends Model {
 		return $query_string;
 	}
 	
-	public function renderShowDetail($field_name,$value){
+	public function renderShowDetail($field_name,$value,$wrapper=array()){
+		//TODO wrapper will be used to wrap this column
 		$data_column = $this->getDisplayFieldName();
 		$output ="";
 		if($value){

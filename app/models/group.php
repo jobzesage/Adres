@@ -38,7 +38,16 @@ class Group extends AppModel {
 		));
 	}
 	
-	
+	public function getList($contact){
+		
+		$list = $this->find('list',array('conditions'=>array(
+			'Group.contact_type_id'=>$contact['Contact']['contact_type_id']	
+		)));
+		foreach ($contact['Group'] as $group) {
+			unset($list[$group['id']]);
+		}
+		return $list;
+	} 	
 	
 }
 ?>

@@ -110,17 +110,18 @@ class UsersController extends AppController {
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
 		$contact = $this->Contact->read(null,$id);
-		$test =array();
+		$value =array();
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
 		$output='';
+		
 		foreach($plugins as $field){
-			
+			//TODO refactoring is needed here
+			// this can be put into the plugin model
 			$pluginName 	= $field['Field']['field_type_class_name'];
 			$field_name		= $field['Field']['name'];
 			$field_id 		= $field['Field']['id'];
 			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
 			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
-			//$data_field	= ClassRegistry::init($pluginName)->getDisplayFieldName();
 			
 			$value = ClassRegistry::init($pluginName)->find('first',array(
 				//'contain'=>array('Field'),
@@ -130,13 +131,20 @@ class UsersController extends AppController {
 				)	
 			));
 			
+			if(empty($value)){
+				ClassRegistry::init($pluginName)->save(
+					array(
+						$contact_field => $id,
+						$join_field => $field_id
+					)	
+				);
+								
+			}
 			$output.= ClassRegistry::init($pluginName)->renderShowDetail($field_name,$value);
 		}
 		$this->set('contact',$output); 
+		$this->set('contactId',$id);
 		$this->set('status',true);
-		$contact_id = $id ;
-		$this->set(compact('contact_id'));
-
     }
 	
     public function delete_record($id=null){
@@ -213,7 +221,12 @@ class UsersController extends AppController {
 
 
 	public function show_details($contact_id){
-		$contact = $this->Contact->getContact($contact_id);
+		$contact = $this->Contact->find('first',array(
+			'contain'=>array('Group','ParentAffiliation','ChildAffiliation'),
+			'conditions'=>array(
+				'Contact.id'=>$contact_id
+			)	
+		));
 		$groups = $this->Group->getList($contact);
 		$this->set(compact('contact','groups','contact_id'));
 		$this->set('status',true);
@@ -328,6 +341,13 @@ class UsersController extends AppController {
 	}
 	
 	public function load_group($id=null){
+		//$this->set('status',true);
+		//$criterias = array();
+	
+		//if(!empty($filter)){
+		//	$this->Session->write($filter);
+		//}		
+		////$filter->addCriteria(" Group : ".Group::model()->findByPk($_GET['grp_id'])->getAttribute('grp_name'), " ghc_grp_id = ".$_GET['grp_id']); 
 		
 	}	
 	
