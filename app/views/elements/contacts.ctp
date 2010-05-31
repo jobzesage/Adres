@@ -221,7 +221,7 @@
 					<?php $span = '<span class=\'ui-icon ui-icon-folder-open\'></sapn>edit' ?>
 					<?php echo $html->link(__($span,true),array( 
 						'controller' => 'users',
-						'action' => 'edit_record', 
+						'action' => 'show_record', 
 						$value['Contact']['id']),array(
 							'title' => 'Edit Contact', 
 							'class' => 'adres-button adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 

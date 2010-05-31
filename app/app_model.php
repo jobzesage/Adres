@@ -36,7 +36,9 @@ class AppModel extends Model {
 	
 	public $_display_field_name = 'data';
 	
-	public $_join_field_name = 'contact_id';
+	public $_join_contact_name = 'contact_id';
+
+	public $_join_field_name = 'field_id';	
 	
 	
 	public function getDisplayFieldName()
@@ -51,12 +53,23 @@ class AppModel extends Model {
 		$this->_display_field_name = $name;
 	}
 	
-	
+
 	public function renderAdvancedSearch($field_id,$column_name, $value)
 	{
 		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' LIKE "%'.$value.'%" AND t.field_id = '.(int) $field_id. ' )';
 		$query_string['name'] = $column_name." like ".$value;
 		return $query_string;
-	}	
+	}
+	
+	public function renderShowDetail(){
+		//$value = $this->getDisplayFieldName();
+		//if($value){
+		//	echo "<p>";
+		//	echo $this->field->getAttribute('fld_name');
+		//	echo " : ";
+		//	echo $value;
+		//	echo "</p>";
+		//}
+	}		
 }
 ?>

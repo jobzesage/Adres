@@ -7,6 +7,12 @@ class TypeString extends AppModel {
 	
 	public $primaryKey = false;
 	
+	//public $belongsTo=array(
+	//	'Field'=>array(
+	//		'foreignKey'=>$this->getJoinField()			
+	//	)
+	//);
+	
 
 	public function getDisplayFieldName()
 	{
@@ -21,11 +27,14 @@ class TypeString extends AppModel {
 	
 	public function getJoinContact()
 	{
-		return $this->_join_field_name;
+		return $this->_join_contact_name;
 	}
 	
 	
-
+	public function getJoinField()
+	{
+		return $this->_join_field_name;
+	}
 	
 }
 ?>

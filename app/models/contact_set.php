@@ -15,7 +15,7 @@ class ContactSet extends AppModel
 	}
 
 
-	public function build_query($contact_type_id,$searchKeyword,$filters)
+	private function build_query($contact_type_id,$searchKeyword,$filters)
 	{
 
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
@@ -33,7 +33,7 @@ class ContactSet extends AppModel
 			return "SELECT (Contact.id) AS id  FROM contacts as Contact
 			LEFT JOIN contacts_groups as ContactGroup 
 			ON (Contact.id = ContactGroup.contact_id )
-			WHERE Contact.contact_type_id = ";# some sql			
+			WHERE Contact.contact_type_id = ".$contact_type_id ." ".$filters;		
 		}
 			
 
@@ -72,12 +72,11 @@ class ContactSet extends AppModel
 			$i++;
 		}
 		
-		//debug($keyword);
+
 		
 		//Filtering
 		$where = $where.$filters;
-		//echo Filter::getSQLWhere();
-		//Search by keyword
+
 		if($keyword != "")
 		 $where = $where." AND ( ".$keyword." ) ";
 		

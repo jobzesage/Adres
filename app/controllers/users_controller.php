@@ -92,14 +92,14 @@ class UsersController extends AppController {
 		$this->redirect_if_id_is_empty($id);
 		
 		if(empty($this->data)) {
-			$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
-			$plugins = $this->Field->getPluginTypes(
-				$contact_type['Contact']['contact_type_id']);
+			//$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
+			//$plugins = $this->Field->getPluginTypes(
+			//	$contact_type['Contact']['contact_type_id']);
 			
-			$contact= $this->Contact->getContact($id,array_values($plugins));
-			$record = $this->Contact->generateRecord($contact,$plugins);
-			$contact_id = $id;		
-			$this->set(compact('contact','record','id','contact_id'));
+			//$contact= $this->Contact->getContact($id,array_values($plugins));
+			//$record = $this->Contact->generateRecord($contact,$plugins);
+			//$contact_id = $id;		
+			//$this->set(compact('contact','record','id','contact_id'));
 		}
 		$this->set('status',true); 
 
@@ -109,12 +109,29 @@ class UsersController extends AppController {
 	public function show_record($id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
-		$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
-		$plugins = $this->Field->getPluginTypes(
-			$contact_type['Contact']['contact_type_id']);
+		$contact = $this->Contact->read(null,$id);
+		$test =array();
+		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
 		
-		$contact = $this->Contact->getContact($id, array_values($plugins));
-		$record = $this->Contact->generateRecord($contact,$plugins);		
+		foreach($plugins as $field){
+			
+			$pluginName 	= $field['Field']['field_type_class_name'];
+			$field_id 		= $field['Field']['id'];
+			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
+			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
+			//$data_field		= ClassRegistry::init($pluginName)->getDisplayFieldName();
+			
+			$test[] = ClassRegistry::init($pluginName)->find('first',array(
+				//'contain'=>array('Field'),
+				'conditions'=>array(
+				$pluginName.'.'.$contact_field .' = '.$id,
+				$pluginName.'.'.$join_field .' = '.$field_id 
+				)	
+			));
+			
+			
+		}
+		$this->set('test',$test); 
 		$this->set('status',true);
 		$contact_id = $id ;
 		$this->set(compact('contact','record','contact_id'));
