@@ -237,11 +237,13 @@ class UsersController extends AppController {
 				if($this->Session->check('Filter.criteria')){
 					//add to stack
 					$previous_criterias = unserialize($this->Session->read('Filter.criteria'));
+					
+					//debug(criterias);
 								
 					foreach ($criterias as $criteria) {
 						if(!in_array(array('name'=>$criteria['name'],'sql'=>$criteria['sql']),$previous_criterias))
 						{
-							$previous_criterias=am($previous_criterias,$criteria);
+							$previous_criterias[]=$criteria;
 						}
 					}					
 				}
