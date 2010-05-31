@@ -221,8 +221,13 @@ class UsersController extends AppController {
 
 
 	public function show_details($contact_id){
+		
 		$contact = $this->Contact->find('first',array(
-			'contain'=>array('Group','ParentAffiliation','ChildAffiliation'),
+			'contain'=>array(
+				'Group',
+				'ParentAffiliation',
+				'ChildAffiliation',
+				'Log'=>array('User')),
 			'conditions'=>array(
 				'Contact.id'=>$contact_id
 			)	

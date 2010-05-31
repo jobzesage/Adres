@@ -10,6 +10,8 @@ class Contact extends AppModel {
 
 	public $user_id = null;
 	
+	public $log_message = "";
+	
 	public $belongsTo = array(
 		'ContactType',
 		'ContactTrash'=>array(
@@ -177,7 +179,7 @@ class Contact extends AppModel {
 	
 	
 	public function leaveGroup($group_id,$contact_id){
-		//Fixme :Regenerating the contacts groups it will auto remove 
+		$this->afterSave(false); # not an inset and update command
 		return $this->query(
 			'DELETE FROM contacts_groups 
 			WHERE group_id='. $group_id.' 
@@ -205,7 +207,7 @@ class Contact extends AppModel {
 			$this->Log->save(array(
 				'log_dt'=>date(AppModel::SQL_DTF),
 				'contact_id'=>$this->id,				
-				'description' 	=> "Contact Updated",
+				'description' 	=> $this->log_message,
 				'user_id'=>$this->user_id 
 			));	
 		}
