@@ -61,15 +61,17 @@ class AppModel extends Model {
 		return $query_string;
 	}
 	
-	public function renderShowDetail(){
-		//$value = $this->getDisplayFieldName();
-		//if($value){
-		//	echo "<p>";
-		//	echo $this->field->getAttribute('fld_name');
-		//	echo " : ";
-		//	echo $value;
-		//	echo "</p>";
-		//}
+	public function renderShowDetail($field_name,$value){
+		$data_column = $this->getDisplayFieldName();
+		$output ="";
+		if($value){
+			$output.= "<p>";
+			$output.= $field_name;
+			$output.= " : ";
+			$output.= $value[$this->name][$data_column];
+			$output.= "</p>";
+		}
+		return $output;
 	}		
 }
 ?>

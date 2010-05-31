@@ -1,3 +1,1 @@
-<?php foreach ($test as $data): ?>
-	<?php debug($data) ?>
-<?php endforeach ?>
+<?php echo $contact ?>

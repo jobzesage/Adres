@@ -112,16 +112,17 @@ class UsersController extends AppController {
 		$contact = $this->Contact->read(null,$id);
 		$test =array();
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
-		
+		$output='';
 		foreach($plugins as $field){
 			
 			$pluginName 	= $field['Field']['field_type_class_name'];
+			$field_name		= $field['Field']['name'];
 			$field_id 		= $field['Field']['id'];
 			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
 			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
-			//$data_field		= ClassRegistry::init($pluginName)->getDisplayFieldName();
+			//$data_field	= ClassRegistry::init($pluginName)->getDisplayFieldName();
 			
-			$test[] = ClassRegistry::init($pluginName)->find('first',array(
+			$value = ClassRegistry::init($pluginName)->find('first',array(
 				//'contain'=>array('Field'),
 				'conditions'=>array(
 				$pluginName.'.'.$contact_field .' = '.$id,
@@ -129,12 +130,12 @@ class UsersController extends AppController {
 				)	
 			));
 			
-			
+			$output.= ClassRegistry::init($pluginName)->renderShowDetail($field_name,$value);
 		}
-		$this->set('test',$test); 
+		$this->set('contact',$output); 
 		$this->set('status',true);
 		$contact_id = $id ;
-		$this->set(compact('contact','record','contact_id'));
+		$this->set(compact('contact_id'));
 
     }
 	
