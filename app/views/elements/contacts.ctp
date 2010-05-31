@@ -113,18 +113,43 @@
 	
 	
 	<br /><br />
+	
+	
+	
+	<?php  
+	/*-------------------------------
+	| Saved Filter Section
+	|--------------------------------*/
+	?>
+			
+	
+	<div id="adres-saved-filters">
+
 	<?php  echo $html->tag('h3',__('Filters',true)) ?>
 	
 	<?php foreach ($filters as $filter): ?>
-		<?php echo $html->link($filter['Filter']['name'],array(
-			'controller'=>'users',
-			'action' => 'load_filter',
-			$filter['Filter']['id']
-		),array(
-			'class'=>'adres-ajax-anchor'			
-		)
-		) ?>
+		<div class='adres-filter'>
+			<?php echo $html->link($filter['Filter']['name'],array(
+				'controller'=>'users',
+				'action' => 'load_filter',
+				$filter['Filter']['id']
+			),array(
+				'class'=>'adres-ajax-anchor'			
+			)
+			) ?>
+			
+			<?php echo $html->link('(x)',array(
+				'controller'=>'filters',
+				'action' => 'delete',
+				$filter['Filter']['id']
+			),array(
+				'class'=>'adres-ajax-anchor adres-delete-filter'			
+			)
+			) ?>			
+		</div>
 	<?php endforeach ?>	
+	</div><!-- // adres-saved-filters -->
+	
 </div>
 
 

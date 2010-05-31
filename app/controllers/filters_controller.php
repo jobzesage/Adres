@@ -55,10 +55,13 @@ class FiltersController extends AppController {
             }
             if ($this->Filter->del($id)) {
                 $this->Session->setFlash(__('Filter deleted', true));
-                $this->redirect(array('action' => 'index'));
+                if(!$this->RequestHandler->isAjax()){
+	                $this->redirect(array('action' => 'index'));
+                }else{
+                	$this->set('status',true);
+                }
             }
-            $this->Session->setFlash(__('The Filter could not be deleted. Please, try again.', true));
-            $this->redirect(array('action' => 'index'));
+
         }
 
 }

@@ -260,10 +260,7 @@ class UsersController extends AppController {
 	}
 	
 	
-	
-	
-	
-	
+
 	public function delete_keyword($keyword=null){
 		$this->set('status',true);
 		$this->Session->del('Filter.keyword');
