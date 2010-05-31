@@ -15,10 +15,7 @@ class Group extends AppModel {
 		'ContactType'=>array(
 			'className' => 'ContactType', 
 			'foreignKey' => 'contact_type_id',
-		),
-		'Implementation'=>array(
-			'className'=>'Implementation'
-			)
+		)
 	);
 	
 	public $hasMany = array(

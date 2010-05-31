@@ -79,6 +79,11 @@ ADres.AJAX={
 		e.preventDefault();
 		var $link = $(this);
 		var action = $link.attr('href')+'.json';
+		if($link.hasClass('adres-delete-group')){
+			if(!confirm('sure you want to delete this group')){
+				return false;
+			}
+		}
 		
 		$.ajax({
 			url:action,
@@ -103,7 +108,11 @@ ADres.AJAX={
 						$('div#contacts').html(resp.data);
 					}else if($link.hasClass('adres-delete-filter')){
 						$link.closest('.adres-filter').remove();
-					}else{
+						
+					}else if($link.hasClass('adres-delete-group')){
+						$link.closest('.adres-group').remove();
+					}
+					else{
 						$('div#contacts').html(resp.data);
 					}
 				}

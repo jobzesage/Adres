@@ -67,12 +67,16 @@ class GroupsController extends AppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->flash(__('Invalid Group', true), array('action' => 'index'));
+			//$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
 		if ($this->Group->del($id)) {
-			$this->flash(__('Group deleted', true), array('action' => 'index'));
+            if(!$this->RequestHandler->isAjax()){
+                $this->redirect(array('action' => 'index'));
+            }else{
+            	$this->set('status',true);
+            }		
 		}
-		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
+		
 	}
 	
 	

@@ -54,22 +54,38 @@
 	| Groups Filter Section
 	|--------------------------------*/
 	?>
-
 	
-	<?php if (isset($groups) and !empty($groups)): ?>
+	<br /><br />
 
-		<?php echo $html->tag('h3',__('Search',true)) ?>		
+	<?php if (isset($groups) and !empty($groups)): ?>
+		<div id="adres-saved-group">
+		<?php echo $html->tag('h3',__('Groups',true)) ?>		
 
 		<?php foreach ($groups as $group): ?>
-			<?php echo $html->link($group['Group']['name'],array(
-					'controller'=>'users',
-					'action'=>'load_group',
-					$group['Group']['id']	
+			
+			<div class="adres-group">
+				<?php echo $html->link($group['Group']['name'],array(
+						'controller'=>'users',
+						'action'=>'load_group',
+						$group['Group']['id']	
+					),array(
+						'class'=>'adres-ajax-anchor adres-load-group'	
+					)
+				)?>
+				
+				<?php echo $html->link('(x)',array(
+					'controller'=>'groups',
+					'action' => 'delete',
+					$group['Group']['id']
 				),array(
-					'class'=>'adres-ajax-anchor adres-load-group'	
+					'class'=>'adres-ajax-anchor adres-delete-group'			
 				)
-			)?>
+				) ?>					
+			</div>
+		
 		<?php endforeach ?>
+		</div><!-- adres-groups -->
+
 	<?php endif ?>
 
 
