@@ -184,6 +184,8 @@ class UsersController extends AppController {
 		
 		$this->set('groups',$this->Group->getTree($contact_type_id));
 		
+//		$this->set('affs',$ = ClassRegistry::init('Affiliation')->getList($contact_type_id));
+		
     	$this->set(compact('fields','filters','contact_type_id','paging','count'));
     	
     	$this->set(compact('contact_types','contact_type_id'));
@@ -298,11 +300,12 @@ class UsersController extends AppController {
 		$criterias = array();
 		
 		if(!empty($this->data)){
+			
 			$searchKeys = $this->data['AdvanceSearch'];
 			$searchKeys = Set::filter($searchKeys);
+			
 			foreach($searchKeys as $field_id => $value)
 			{
-
 				if(!empty($value))
 				{
 					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
@@ -310,8 +313,8 @@ class UsersController extends AppController {
 					$column_name = $pluginName['Field']['name'];
 					$criterias[] = ClassRegistry::init($plugin)->processAdvancedSearch($field_id,$column_name,$value);		
 				}
-									
 			}
+			
 			if(!empty($criterias)){
 				if($this->Session->check('Filter.criteria')){
 					//add to stack
@@ -515,6 +518,10 @@ class UsersController extends AppController {
 		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
 		
 		$this->set('fields',$fields);
+		
+		$affiliations = ClassRegistry::init('Affiliation')->getList($contact_type_id);
+
+		$this->set('affiliations',$affiliations);
 		
 		$this->set('hidden_fields',$hidden_fields_list);
 			

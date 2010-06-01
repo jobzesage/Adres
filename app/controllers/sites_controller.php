@@ -192,6 +192,13 @@ class SitesController extends AppController {
 		}
 		return $output;
 	}
+	
+	
+	public function search_by_affiliation()
+	{
+		debug($this->data);
+		$this->render("/elements/empty");	
+	}
 
 	
 }

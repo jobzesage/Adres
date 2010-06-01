@@ -61,14 +61,16 @@
 			?>
 			<?php echo $advance_search_form ?>
 			
-			
-			<?php
-			/*-------------------------------
-			| Affiliation Search 
-			|-------------------------------*/	?>	
-			
 		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
-	
+		
+		<?php echo $form->create('Affiliation',array(
+			'url' => array(
+				'controller' => 'users', 
+				'action' => 'affiliation_search'
+			)))
+		 ?>
+
+		<?php echo $form->end('Aff Search') ?>
 	</div>
 
 	<?php  
