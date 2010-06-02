@@ -3,7 +3,7 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','FieldType','Group','Implementation');
+    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
     	
     public function index(){
     	
@@ -151,10 +151,8 @@ class UsersController extends AppController {
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
 		$this->Contact->id = $id;
-		$contact= $this->Contact->read('contact_type_id');
-		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
 		
-		if($this->Contact->delete($id,$plugins)){
+		if($this->Contact->delete($id)){
 			$this->set('status',true);
 		}
     }    
@@ -350,9 +348,9 @@ class UsersController extends AppController {
 			}
 		}
 		$this->Session->write('Filter.criteria',serialize($previous_criterias));
-		//$this->Session->check('Filter.group')
-		$this->set('test',$previous_criterias);
-		$this->render('/elements/empty');
+		$this->set('status',true);
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+		
 	}	
 	
 	public function save_filter()
@@ -369,7 +367,6 @@ class UsersController extends AppController {
 					'name'=>$this->data['Filter']['name'],
 					'keyword'=>$keyword,
 					'criteria'=>$criteria,
-					'group_id'=>$group,
 					'contact_type_id' =>$this->Session->read('Contact.contact_type_id')
 			));
 		}

@@ -7,12 +7,6 @@ class TypeString extends AppModel {
 	
 	public $primaryKey = false;
 	
-	//public $belongsTo=array(
-	//	'Field'=>array(
-	//		'foreignKey'=>$this->getJoinField()			
-	//	)
-	//);
-	
 
 	public function getDisplayFieldName()
 	{

@@ -61,17 +61,16 @@ class Contact extends AppModel {
 	 * handles the contact delete of adres
 	 *
 	 * @param integer $id 
-	 * @param array $plugins 
 	 * @return boolean
 	 * @author Rajib 
 	 */	
-	public function delete($id,$plugins){
+	public function delete($id){
 		
-		$plugins = array_unique(array_values($plugins));
-		
-		foreach ($plugins as $className) {
-			$this->{$className}->recursive = -1;
-			$this->{$className}->deleteAll(array('contact_id' => $id),false);
+		$field_types = ClassRegistry::init('FieldType')->find('all');
+		$fields = Set::extract($field_types,"/FieldType/class_name");
+		foreach ($fields as $className) {
+			//$this->{$className}->recursive = -1;
+			ClassRegistry::init($className)->deleteAll(array('contact_id' => $id),false);
 		}
 		//this cascading enable HABTM delete of Group
 		return parent::delete($id,true);		

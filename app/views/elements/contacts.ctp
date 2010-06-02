@@ -99,19 +99,22 @@
 	
 	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
 		
-		<?php echo $html->tag('h3',__('Search',true)) ?>	
+			
+		<?php echo $html->tag('h3',__('Loaded Filters',true)) ?>	
 		<?php $keyword = $session->read('Filter.keyword') ?>
+
 		<?php if ($session->check('Filter.keyword')): ?>
-			<?php echo $html->link("Keyword :{$keyword}",array(
-				'controller'=>'users',
-				'action' => 'delete_keyword', 
-				$keyword
-			),array(
-				'class'=>'adres-ajax-anchor adres-delete-keyword'
-			)) ?>
-		
+			<div class="adres-criteria">
+				<?php echo $html->link("Keyword :{$keyword}",array(
+					'controller'=>'users',
+					'action' => 'delete_keyword', 
+					$keyword
+				),array(
+					'class'=>'adres-ajax-anchor adres-delete-keyword'
+				)) ?>				
+			</div>
 		<?php endif ?>
-		
+
 		<br>
 		
 		
@@ -125,9 +128,11 @@
 		
 		<?php if ($session->check('Filter.criteria')): ?>
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
+
 				<?php echo "Criterias:" ?>
 				
-				<?php foreach ($criterias as $idx => $criteria): ?>
+			<?php foreach ($criterias as $idx => $criteria): ?>
+			<div class="adres-criteria">					
 				<?php echo $html->link($criteria['name'],array(
 					'controller'=>'users',
 					'action'    =>'delete_criteria',
@@ -137,7 +142,7 @@
 					'class'=>'adres-ajax-anchor'	
 					)
 				) ?>
-				
+			</div>				
 			<?php endforeach ?>
 		<?php endif ?>
 		<?php echo $form->create('Filter',array(
@@ -227,6 +232,16 @@
 							'class' => 'adres-button adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
 						),null,false)
 					?>
+					
+					<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete' ?>
+					<?php echo $html->link($span,array( 
+						'controller' => 'users',
+						'action' => 'delete_record', 
+						$value['Contact']['id']),array(
+							'title' => 'Delete Contact', 
+							'class' => 'adres-button adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
+						),null,false)
+					?>						
 				</div>
 			</td>
 		</tr>		

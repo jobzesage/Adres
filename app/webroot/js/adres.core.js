@@ -108,9 +108,10 @@ ADres.AJAX={
 						$('div#contacts').html(resp.data);
 					}else if($link.hasClass('adres-delete-filter')){
 						$link.closest('.adres-filter').remove();
-						
 					}else if($link.hasClass('adres-delete-group')){
 						$link.closest('.adres-group').remove();
+					}else if($link.hasClass('adres-leave-group')){
+						$link.remove();
 					}
 					else{
 						$('div#contacts').html(resp.data);
