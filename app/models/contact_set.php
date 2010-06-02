@@ -8,19 +8,26 @@ class ContactSet extends AppModel
 	public $useTable =false;
 
 	
-	public function getContactSet($contact_type_id,$searchKeyword=null,$filters=null)
+	/**
+	 * Generates the datagrid
+	 *	
+	 * @return array recordset of one contactype
+	 * @author rajib ahmed
+	 **/
+	public function getContactSet($contact_type_id,$searchKeyword=null,$filters=null,$plugins=array())
 	{
-		$sql = $this->build_query($contact_type_id,$searchKeyword,$filters);
+		$sql = $this->build_query($contact_type_id,$searchKeyword,$filters,$plugins);
 		return $this->query($sql);
 	}
 
 
-	private function build_query($contact_type_id,$searchKeyword,$filters)
+	private function build_query($contact_type_id,$searchKeyword,$filters,$plugins)
 	{
 
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
 		
-		$from = ' FROM contacts AS Contact '; 
+		$from = ' FROM contacts AS Contact 
+			LEFT JOIN contacts_groups AS ContactGroup ON Contact.id = ContactGroup.contact_id '; 
 		
 		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
 		

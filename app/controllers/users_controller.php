@@ -251,9 +251,6 @@ class UsersController extends AppController {
 	}
 	
 	
-	
-	
-	
 	public function add_criteria($criteria=null){
 		
 		$this->set('status',true);
@@ -263,7 +260,6 @@ class UsersController extends AppController {
 			$searchKeys = $this->data['AdvanceSearch'];
 			foreach($searchKeys as $field_id => $value)
 			{
-
 
 				if(!empty($value))
 				{
@@ -279,8 +275,6 @@ class UsersController extends AppController {
 					//add to stack
 					$previous_criterias = unserialize($this->Session->read('Filter.criteria'));
 					
-					//debug(criterias);
-								
 					foreach ($criterias as $criteria) {
 						if(!in_array(array('name'=>$criteria['name'],'sql'=>$criteria['sql']),$previous_criterias))
 						{
@@ -327,8 +321,6 @@ class UsersController extends AppController {
 		}	
 		//$this->redirect(array('controller'=>'users','action'=>'home'));
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
-
-	
 	}		
 	
 	public function load_filter($id=null){
@@ -346,14 +338,21 @@ class UsersController extends AppController {
 	}
 	
 	public function load_group($id=null){
-		//$this->set('status',true);
-		//$criterias = array();
-	
-		//if(!empty($filter)){
-		//	$this->Session->write($filter);
-		//}		
-		////$filter->addCriteria(" Group : ".Group::model()->findByPk($_GET['grp_id'])->getAttribute('grp_name'), " ghc_grp_id = ".$_GET['grp_id']); 
-		
+		if($id){
+			$group = $this->Group->read(null,$id);
+			$group_filter =array();
+			//add to stack
+			$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
+			$group_filter = array('name'=>'Group :'.$group['Group']['name'],'sql'=>"ContactGroup.group_id=$id");
+			if(!in_array($group_filter,$previous_criterias))
+			{
+				$previous_criterias[]=$group_filter;
+			}
+		}
+		$this->Session->write('Filter.criteria',serialize($previous_criterias));
+		//$this->Session->check('Filter.group')
+		$this->set('test',$previous_criterias);
+		$this->render('/elements/empty');
 	}	
 	
 	public function save_filter()
@@ -361,6 +360,8 @@ class UsersController extends AppController {
 		
 		$keyword = $this->Session->check('Filter.keyword')? $this->Session->read('Filter.keyword'):'';
 		$criteria = $this->Session->check('Filter.criteria')? $this->Session->read('Filter.criteria'):'';
+		$group	= $this->Session->check('Filter.group') ? $this->Session->read('Filter.group') : null;
+		
 		if ($this->Session->check('Filter') AND !empty($this->data)) {
 			$this->set('status',true);
 			ClassRegistry::init('Filter')->save(
@@ -368,6 +369,7 @@ class UsersController extends AppController {
 					'name'=>$this->data['Filter']['name'],
 					'keyword'=>$keyword,
 					'criteria'=>$criteria,
+					'group_id'=>$group,
 					'contact_type_id' =>$this->Session->read('Contact.contact_type_id')
 			));
 		}
