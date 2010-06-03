@@ -73,6 +73,12 @@ class AppModel extends Model {
 			$output.= "</p>";
 		}
 		return $output;
-	}		
+	}
+	
+	
+	public function renderEditForm($form_data,$contact_id)
+	{
+		
+	}	
 }
 ?>

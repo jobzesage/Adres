@@ -1,3 +1,23 @@
+<!--
+<div class="adres-contacts-panel span-24">
+	<div id="data-structure-tabs" class="adres-tabs">
+		<ul>
+			<?php foreach ($contactTypes as $id => $type	): ?>
+			<li><?php echo $html->link($type,array(
+				'controller' => 'users', 
+				'action' => 'display_contacts', 
+				$id),array(
+					'title'=>'contacts',
+					'class' => 'adres-tabs-button'	
+				)) ?></li>
+			<?php endforeach ?>
+		</ul>
+		<div id="contacts"></div>
+
+	</div> 
+</div>
+-->
+
 <div class="fields index">
 <h2><?php __('Fields');?></h2>
 <table cellpadding="0" cellspacing="0" >

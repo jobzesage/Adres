@@ -4,6 +4,8 @@ App::import('Security');
 Security::setHash('SHA1');
 
 abstract class AppController extends Controller {
+	
+    public $layout = "administrator"; #layout file for all administraive panel
     
     public $helpers =array('Html','Form','Session','Javascript','Time','Text');
 
@@ -15,6 +17,8 @@ abstract class AppController extends Controller {
     	'Security',
     	'DebugKit.Toolbar'
     );
+    
+    
     
     public function beforeFilter() {
     	

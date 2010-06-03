@@ -4,6 +4,8 @@ class UsersController extends AppController {
     public $name ='Users';
     
     public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
+    
+    public $layout = "users";
     	
     public function index(){
     	
@@ -31,6 +33,8 @@ class UsersController extends AppController {
 
 
     public function login() {
+    	$this->layout = null;
+    	
     	if($this->Auth->user()){
     		$this->redirect(array('controller'=>'users','action'=>'home'));
     	}
@@ -238,6 +242,7 @@ class UsersController extends AppController {
 
 	public function edit_details($contact_id){
 		$this->set('status',true);
+		
 	}
 	
 	

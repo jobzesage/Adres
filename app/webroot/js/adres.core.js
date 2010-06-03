@@ -165,4 +165,6 @@ jQuery(document).ready(function() {
         });	}
 	});
 	
+	$('.adres-tabs').tabs();
+	
 });

@@ -38,7 +38,7 @@
 			<hr/>
 		</div>
 		<?php echo $this->element('implementations/list') ?>
-		<?php echo $this->element('main_navigation') ?>		
+		<?php echo $this->element('users_navigation') ?>		
 		<div id="content" class='clear'>
 
 			<?php 

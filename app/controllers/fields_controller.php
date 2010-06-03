@@ -5,6 +5,7 @@ class FieldsController extends AppController {
 
 	public function index() {
 		$this->paginate=array('Field'=>array('contain'=>array('ContactType')));
+		$this->set('contactTypes', ClassRegistry::init('ContactType')->getList());
 		$this->set('fields', $this->paginate('Field'));
 	}
 
