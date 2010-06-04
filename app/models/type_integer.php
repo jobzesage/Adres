@@ -34,5 +34,14 @@ class TypeInteger extends AppModel {
 	{
 		return $this->_join_field_name;
 	}	
+	
+	public function renderEditForm($contact_id,$plugin)
+	{	
+		$label ='<label>'.$plugin['Field']['name'].'</label>';
+		$output  = '<input ';
+		$output .= 'name['.$this->getJoinField().']['.$plugin['Field']['id'].']';
+		$output .='/>';
+		return  $label.$output;			
+	}
 }
 ?>

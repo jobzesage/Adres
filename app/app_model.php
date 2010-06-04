@@ -76,9 +76,5 @@ class AppModel extends Model {
 	}
 	
 	
-	public function renderEditForm($form_data,$contact_id)
-	{
-		
-	}	
 }
 ?>
