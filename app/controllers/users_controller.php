@@ -251,6 +251,13 @@ class UsersController extends AppController {
 		$this->set('form_inputs',$form_inputs);
 	}
 	
+	public function update_contact(){
+		$this->set('status',true);
+		if(!empty($this->data)){
+			
+		}
+	}
+	
 	
 	public function add_keyword($keyword=null){
 		$this->set('status',true);
