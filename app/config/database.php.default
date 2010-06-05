@@ -7,10 +7,21 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => 'toor',
-		'database' => 'adres_development'
+		'password' => '',
+		'database' => 'adres_development',
 		'prefix' => '',
 	);
+
+	var $development = array(
+		'driver' => 'mysql',
+		'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => '',
+		'database' => 'adres_development',
+		'prefix' => '',
+	);
+
 
 	var $test = array(
 		'driver' => 'mysql',

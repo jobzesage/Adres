@@ -243,12 +243,12 @@ class UsersController extends AppController {
 	public function edit_details($contact_id){
 		$this->set('status',true);
 		$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
-		$form = "";
+		$form_inputs = "";
 		foreach ($plugins as $plugin) {
 			$className = $plugin['Field']['field_type_class_name'];
-			$form .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
+			$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
 		}
-		$this->set(compact('form'));
+		$this->set('form_inputs',$form_inputs);
 	}
 	
 	

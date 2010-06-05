@@ -37,7 +37,8 @@ class TypeString extends AppModel {
 	{
 		$label ='<label>'.$plugin['Field']['name'].'</label>';
 		$output  = '<input ';
-		$output .= 'name['.$this->getJoinField().']['.$plugin['Field']['id'].']';
+		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
+		$output .= ' value=""';
 		$output .='/>';
 		return  $label.$output;		
 	}	

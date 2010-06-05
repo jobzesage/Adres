@@ -1,7 +1,11 @@
 <?php
 class ContactsController extends AppController {
+	
+	public $layout = 'default';
 
 	public $name = 'Contacts';
+	
+	public $uses = array('Contact','User');
 
 	public function index() {
 		$this->paginate=array(
@@ -67,9 +71,12 @@ class ContactsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
+
 	
-	public function show($contact_id=null){
-		
+	public function export()
+	{
+		$this->helpers = array('Csv');
+		$this->set('data',$this->User->find('all'));
 	}
 
 }

@@ -1,6 +1,6 @@
 <?php
     
-	Router::parseExtensions('json','js');
+	Router::parseExtensions('json','js','csv');
 
 	Router::connect('/', 			array('controller' => 'users', 'action' => 'login'));
 	
