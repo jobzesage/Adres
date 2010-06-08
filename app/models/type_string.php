@@ -33,7 +33,7 @@ class TypeString extends AppModel {
 		return $this->_join_field_name;
 	}
 
-	public function renderEditForm($contact_id,$plugin)
+	public function renderEditForm($contact_id,$plugin,$wrapper=array())
 	{
 		$label ='<label>'.$plugin['Field']['name'].'</label>';
 		$output  = '<input ';
@@ -42,5 +42,6 @@ class TypeString extends AppModel {
 		$output .='/>';
 		return  $label.$output;		
 	}	
+		
 }
 ?>

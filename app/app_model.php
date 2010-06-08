@@ -76,5 +76,55 @@ class AppModel extends Model {
 	}
 	
 	
+	
+	public function processEditForm($data,$fields,$user_id=null)
+	{
+		$valid = true;
+		$contact_id = $data['contact_id'];
+		unset($data['contact_id']);
+		unset($data['_Token']);
+		$logs=array();
+
+
+		foreach ($fields as $field) {
+			$field_name = $field['Field']['name'];
+			$className = $field['Field']['field_type_class_name'];
+			
+			foreach ($data['field_id'] as $field_id => $input){
+				if($field['Field']['id']==$field_id){
+					
+					$condition =  array(
+						'contact_id'	=>$contact_id,
+						'field_id'		=>$field_id	
+					);					
+					$value = ClassRegistry::init($className)->find('first',array(
+						'conditions' =>$condition	
+					));
+					
+					$data_column = ClassRegistry::init($className)->getDisplayFieldName();
+					$old_data = $value[$className][$data_column];
+					if($input!==$old_data)
+					{
+						$logs[]= array(
+							'log_dt'		=>date(AppModel::SQL_DTF),
+							'contact_id'	=>$contact_id,				
+							'description' 	=>"Changed <strong>$field_name</strong> from <i>$old_data</i> to <i>$input</i>" ,
+							'user_id'		=>$user_id 
+						);
+					}
+					if($input!=""){
+						$value[$className][$data_column] = $input;
+						ClassRegistry::init($className)->updateAll(array($data_column =>'\''.$input.'\''),$condition);
+					}
+				}
+			}//data foreach			
+		}//plugin foreach
+		
+		if(!empty($logs)){
+			ClassRegistry::init('Log')->saveAll($logs);
+		}
+	}
+	
+	
 }
 ?>

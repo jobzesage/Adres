@@ -12,8 +12,7 @@ class ContactsController extends AppController {
 			'Contact'=>array(
 				'contain'=>array(
 					'ContactType',
-					'Group',
-					'TypeString',
+					'Group'
 					#'Field'
 			)));
 		

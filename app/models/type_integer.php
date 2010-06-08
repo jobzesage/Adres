@@ -44,5 +44,6 @@ class TypeInteger extends AppModel {
 		$output .='/>';
 		return  $label.$output;			
 	}
+
 }
 ?>

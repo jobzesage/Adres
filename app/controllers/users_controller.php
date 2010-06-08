@@ -248,14 +248,17 @@ class UsersController extends AppController {
 			$className = $plugin['Field']['field_type_class_name'];
 			$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
 		}
+		$form_inputs .= "<input type='hidden' name='data[contact_id]' value='$contact_id'>";
 		$this->set('form_inputs',$form_inputs);
 	}
 	
 	public function update_contact(){
 		$this->set('status',true);
 		if(!empty($this->data)){
-			
+			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));			
+			$this->Contact->processEditForm($this->data,$plugins,$this->Auth->User('id'));
 		}
+		
 	}
 	
 	
