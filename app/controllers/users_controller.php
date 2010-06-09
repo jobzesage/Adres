@@ -227,7 +227,8 @@ class UsersController extends AppController {
 				'Group',
 				'ParentAffiliation',
 				'ChildAffiliation',
-				'Log'=>array('User')),
+				'Log'=>array('User')
+			),
 			'conditions'=>array(
 				'Contact.id'=>$contact_id
 			)	

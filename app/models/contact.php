@@ -21,18 +21,10 @@ class Contact extends AppModel {
 	);
 			
 	public $hasMany = array(
-		'TypeString' => array(
-			'className' => 'TypeString', 
-			'foreignKey' => 'contact_id'
-		),
-		'TypeInteger' => array(
-			'className' => 'TypeInteger', 
-			'foreignKey' => 'contact_id'
-		),
 		'Log' => array(
 			'className'=>'Log',
 			'foreignKey' => 'contact_id',
-			'order' => 'Log.log_dt DESC',
+			//'order' => 'Log.log_dt DESC',
 			'limit'=>5
 		) 
 	);

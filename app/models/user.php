@@ -17,7 +17,7 @@ class User extends AppModel {
 
 	public $hasMany = array(
 		'Log' => array(
-			'className' => 'Trash',
+			'className' => 'Log',
 			'foreignKey' => 'user_id'
 		)
 	);
