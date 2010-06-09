@@ -1,8 +1,9 @@
 <?php  
 
 
+App::import('Model','Plugin');
 
-class TypeString extends AppModel {
+class TypeString extends Plugin {
 	
 	public $actsAs=array('Containable');
 	
@@ -35,10 +36,16 @@ class TypeString extends AppModel {
 
 	public function renderEditForm($contact_id,$plugin,$wrapper=array())
 	{
+		$data = $this->find('first',array('conditions'=>array(
+				'contact_id' 	=> $contact_id,
+				'field_id'		=>$plugin['Field']['id'] 	
+			)));
+		$data = $data[$this->name][$this->getDisplayFieldName()];
+		
 		$label ='<label>'.$plugin['Field']['name'].'</label>';
 		$output  = '<input ';
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
-		$output .= ' value=""';
+		$output .= ' value="'.$data.'"';
 		$output .='/>';
 		return  $label.$output;		
 	}	

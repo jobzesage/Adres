@@ -111,8 +111,8 @@ class UsersController extends AppController {
 
 
 	public function show_record($id=null){
-		$this->redirect_if_not_ajax_request();
-		$this->redirect_if_id_is_empty($id);
+		//$this->redirect_if_not_ajax_request();
+		//$this->redirect_if_id_is_empty($id);
 		$contact = $this->Contact->read(null,$id);
 		$value =array();
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
