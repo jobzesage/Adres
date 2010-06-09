@@ -91,22 +91,20 @@ class UsersController extends AppController {
 		die();
 	}
 	
-    public function edit_record($id=null){
+    public function edit_record($contact_id=null){
 		$this->redirect_if_not_ajax_request();
-		$this->redirect_if_id_is_empty($id);
+		$this->redirect_if_id_is_empty($contact_id);
 		
-		if(empty($this->data)) {
-			//$contact_type = $this->Contact->read(array('Contact.contact_type_id'),$id);
-			//$plugins = $this->Field->getPluginTypes(
-			//	$contact_type['Contact']['contact_type_id']);
-			
-			//$contact= $this->Contact->getContact($id,array_values($plugins));
-			//$record = $this->Contact->generateRecord($contact,$plugins);
-			//$contact_id = $id;		
-			//$this->set(compact('contact','record','id','contact_id'));
+		$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+		$form_inputs = "";
+		foreach ($plugins as $plugin) {
+			$className = $plugin['Field']['field_type_class_name'];
+			$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
 		}
-		$this->set('status',true); 
-
+		$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
+		$this->set('form_inputs',$form_inputs);
+		$this->set('contactId',$contact_id);
+		$this->set('status',true);
     }
 
 
@@ -163,11 +161,11 @@ class UsersController extends AppController {
     
 
     public function display_contacts($contact_type_id=null){
-    	$contact_type_id = !empty($_GET['contact_type_id'])? $_GET['contact_type_id'] : $contact_type_id;
+		
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
-		if(!$this->Session->check('Contact.contact_type_id'))
-		 $this->Session->write('Contact.contact_type_id',$contact_type_id);
-
+		if($contact_type_id){
+			$this->Session->write('Contact.contact_type_id',$contact_type_id);
+		}
     	
 		$fields   = $this->Field->getPluginTypes($contact_type_id);
 		$keyword  = "";
@@ -255,10 +253,11 @@ class UsersController extends AppController {
 	public function update_contact(){
 		$this->set('status',true);
 		if(!empty($this->data)){
-			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));			
-			$this->Contact->processEditForm($this->data,$plugins,$this->Auth->User('id'));
+			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+						
+			ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
 		}
-		
+		$this->render(null);
 	}
 	
 	

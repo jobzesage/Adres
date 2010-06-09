@@ -31,6 +31,8 @@ ADres.AJAX={
 
 		var $form = $(this);
 		var action = $form.attr('action')+'.json';
+		$form.addClass('blocker');
+		var contact_id = $form.find('input#edit-contact-id').val();
 
 		$.ajax({
 			url:action,
@@ -46,6 +48,8 @@ ADres.AJAX={
 						$('div#contacts').html(resp.data);
 					}else if($form.is('#FilterAddForm')){
 						alert(resp.data);
+					}else if($form.is('#edit-contact')){
+						$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
 					}
 				}
 			},
@@ -131,10 +135,10 @@ ADres.ERROR={
 
 ADres.LOADER={
 	enable:function(){
-		
+		$('.blocker').block();
 	},
 	disable:function(){
-		
+		$('.blocker').unblock().removeClass('blocker');
 	}
 }
 

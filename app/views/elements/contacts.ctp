@@ -211,6 +211,7 @@
 	<table border="0" class="adres-datagrid">
 		<tr>
 		<th>ID</th>
+		
 		<?php foreach ($fields as $field): ?>
 			<th><?php echo $field['Field']['name'] ?></th>
 		<?php endforeach ?>
@@ -233,6 +234,16 @@
 						),null,false)
 					?>
 					
+					<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit' ?>
+					<?php echo $html->link(__($span,true),array( 
+						'controller' => 'users',
+						'action' => 'edit_record', 
+						$value['Contact']['id']),array(
+							'title' => 'Edit Contact', 
+							'class' => 'adres-button adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
+						),null,false)
+					?>
+										
 					<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete' ?>
 					<?php echo $html->link($span,array( 
 						'controller' => 'users',
