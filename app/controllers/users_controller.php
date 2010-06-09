@@ -3,7 +3,7 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
+    public $uses=array('User','Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
     
     public $layout = "users";
     	
@@ -392,6 +392,26 @@ class UsersController extends AppController {
 		}
 	}
 	
+	
+	public function export()
+	{
+		$this->layout= 'default';
+		$this->helpers = array('Csv');		
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+		$fields   = $this->Field->getPluginTypes($contact_type_id);
+		$keyword  = "";
+		$criteria = "";
+		
+		if($this->Session->check('Filter.criteria')) 
+		{
+			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
+		}
+		
+		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
+		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword,$criteria);
+		$this->set('values',$values);
+		$this->set('user',$this->Field->find('all'));
+	}
 	
     //private functions
     
