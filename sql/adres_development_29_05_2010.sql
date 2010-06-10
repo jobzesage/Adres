@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 29, 2010 at 09:01 AM
--- Server version: 5.1.37
--- PHP Version: 5.3.0
+-- Generation Time: Jun 10, 2010 at 08:45 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `contacts`
@@ -91,7 +91,8 @@ INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`, `created`, `modifie
 (5, 5, 0, '2010-04-06 17:52:01', '2010-04-16 11:01:04'),
 (19, 9, 0, '2010-04-15 16:22:03', '2010-04-15 16:22:03'),
 (20, 9, 0, '2010-04-15 16:22:37', '2010-04-15 16:22:37'),
-(21, 5, 0, '2010-04-18 21:14:26', '2010-04-18 21:14:26');
+(21, 5, 0, '2010-04-18 21:14:26', '2010-04-18 21:14:26'),
+(38, 5, 0, '2010-06-10 20:24:07', '2010-06-10 20:24:07');
 
 -- --------------------------------------------------------
 
@@ -180,7 +181,8 @@ CREATE TABLE IF NOT EXISTS `field_types` (
 --
 
 INSERT INTO `field_types` (`class_name`, `nice_name`) VALUES
-('string', 'text');
+('TypeString', 'text'),
+('TypeInteger', 'integer');
 
 -- --------------------------------------------------------
 
@@ -300,35 +302,14 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `logs`
 --
 
 INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALUES
-(1, '0000-00-00 00:00:00', 'test of after save', 0, 0),
-(2, '0000-00-00 00:00:00', 'Created', 19, 1),
-(3, '2010-04-08 20:01:54', 'Created', 20, 1),
-(4, '2010-04-08 20:50:09', 'Contact Updated', 1, 1),
-(5, '2010-04-08 20:51:58', 'Contact Updated', 13, 1),
-(6, '2010-04-09 06:40:54', 'Contact Updated', 20, 1),
-(7, '2010-04-09 07:05:45', 'Contact Updated', 18, 1),
-(8, '2010-04-09 07:06:54', 'Contact Updated', 18, 1),
-(9, '2010-04-09 07:07:18', 'Contact Updated', 18, 1),
-(10, '2010-04-09 07:10:27', 'Contact Updated', 18, 1),
-(11, '2010-04-09 07:13:09', 'Contact Updated', 3, 1),
-(12, '2010-04-09 07:16:33', 'Contact Updated', 3, 1),
-(13, '2010-04-09 07:16:54', 'Contact Updated', 3, 1),
-(14, '2010-04-09 07:31:24', 'Contact Updated', 1, 1),
-(15, '2010-04-09 07:31:57', 'Contact Updated', 1, 1),
-(16, '2010-04-09 07:34:06', 'Contact Updated', 2, 1),
-(17, '2010-04-15 14:11:00', 'Contact Updated', 1, 1),
-(18, '2010-04-15 16:22:04', 'Created', 19, 1),
-(19, '2010-04-15 16:22:37', 'Created', 20, 1),
-(20, '2010-04-16 11:01:04', 'Contact Updated', 5, 1),
-(21, '2010-04-16 11:01:44', 'Created', 21, 1),
-(22, '2010-04-18 21:14:26', 'Created', 21, 1);
+(1, '2010-06-10 20:24:07', 'Contact saved', 38, 1);
 
 -- --------------------------------------------------------
 
@@ -377,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `trashes` (
 CREATE TABLE IF NOT EXISTS `type_integer` (
   `field_id` int(11) NOT NULL,
   `contact_id` int(11) NOT NULL,
-  `data` int(11) NOT NULL
+  `data` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -387,7 +368,13 @@ CREATE TABLE IF NOT EXISTS `type_integer` (
 INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 21, 32),
 (5, 2, 50),
-(5, 5, 60);
+(5, 5, 60),
+(5, 28, 0),
+(5, 29, 0),
+(5, 30, 0),
+(5, 31, 0),
+(5, 38, 90),
+(5, 78, 0);
 
 -- --------------------------------------------------------
 
@@ -419,7 +406,22 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (10, 20, '=1-2fsdf'),
 (11, 19, '111'),
 (10, 19, 'qeqw'),
-(6, 21, 'aa');
+(6, 21, 'aa'),
+(3, 28, ''),
+(4, 28, ''),
+(6, 28, ''),
+(3, 29, ''),
+(4, 29, ''),
+(6, 29, ''),
+(3, 30, ''),
+(4, 30, ''),
+(6, 30, ''),
+(3, 31, ''),
+(4, 31, ''),
+(6, 31, ''),
+(6, 38, 'fgg'),
+(3, 38, 'wg'),
+(4, 38, 'rtr');
 
 -- --------------------------------------------------------
 
