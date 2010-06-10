@@ -7,6 +7,8 @@ class AppModel extends Model {
 	 */
 	const SQL_DTF = 'Y-m-d H:i:s';
 	
+	const CONTACT_SAVED = "Contact saved";
+	
 	public $recursive = -1;
 	
 	public $useDbConfig='development';

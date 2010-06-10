@@ -27,7 +27,8 @@ class ContactSet extends AppModel
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
 		
 		$from = ' FROM contacts AS Contact 
-			LEFT JOIN contacts_groups AS ContactGroup ON Contact.id = ContactGroup.contact_id '; 
+			LEFT JOIN contacts_groups AS ContactGroup 
+			ON Contact.id = ContactGroup.contact_id '; 
 		
 		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
 		

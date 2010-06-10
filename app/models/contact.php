@@ -190,7 +190,7 @@ class Contact extends AppModel {
 			$this->Log->save(array(
 				'log_dt'=>date(AppModel::SQL_DTF),
 				'contact_id'=>$this->id,				
-				'description' 	=> AppModel::CONTACT_SAVE,
+				'description' 	=> AppModel::CONTACT_SAVED,
 				'user_id'=>$this->user_id 
 			));
 		}else{

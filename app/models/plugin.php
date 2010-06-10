@@ -97,7 +97,7 @@ class Plugin extends AppModel {
 					
 					$data_column = ClassRegistry::init($className)->getDisplayFieldName();
 					$old_data = $value[$className][$data_column];
-					if($input!==$old_data)
+					if($input!==$old_data && $old_data !="")
 					{
 						$logs[]= array(
 							'log_dt'		=>date(AppModel::SQL_DTF),

@@ -204,18 +204,48 @@ class UsersController extends AppController {
 
 
 	public function add_record(){
+		$this->set('status',true);		
 		if(!empty($this->data)){
-			$plugins = $this->Field->getPluginTypes($this->data['Contact']['contactTypeId']);
-			$contact = $this->data;
-			$this->Contact->user_id = $this->Auth->User('id');
-			$this->Contact->save_record($contact,$plugins);
+			
 		}else {
-			$contactTypeId = $this->params['named']['contact_type'];
-			$plugins = $this->Field->getFieldTypes($contactTypeId);		
-			$this->set(compact('contactTypeId','plugins'));
-			//todo change this implementation		
+			$this->Contact->user_id = $this->Auth->user('id');
+			$this->Contact->save(array(
+				'contact_type_id'=>$this->Session->read('Contact.contact_type_id')
+			));
+			$contact_id = $this->Contact->getLastInsertID();
+			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+			
+			$data = array();
+			foreach($plugins as $field){
+				//TODO refactoring is needed here
+				// this can be put into the plugin model
+				$pluginName 	= $field['Field']['field_type_class_name'];
+				$field_name		= $field['Field']['name'];
+				$field_id 		= $field['Field']['id'];
+				$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
+				$join_field		= ClassRegistry::init($pluginName)->getJoinField();
+				
+
+				$data[$pluginName][] =array(
+					$contact_field => $contact_id,
+					$join_field => $field_id
+				);	
+			}
+			foreach ($data as $pluginName => $value) {
+				ClassRegistry::init($pluginName)->saveAll($value);
+			}
+			$form_inputs = "";
+			foreach ($plugins as $plugin) {
+				$className = $plugin['Field']['field_type_class_name'];
+				$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
+			}
+			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
+			$this->set('form_inputs',$form_inputs);
+			$this->set('contactId',$contact_id);
+			$this->render('edit_record');
+
 		}
-		$this->set('status',true);
+
 	}
 
 
