@@ -3,6 +3,8 @@ ADres.version=0.1;
 
 
 ADres.AJAX={
+	loaderImageSmall:'<img src="/img/loader_small.gif"/>',
+	loaderImageLarge:'<img src="/img/loader_large.gif"/>',
 	selectImplementation:function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -47,7 +49,7 @@ ADres.AJAX={
 					}else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
 					}else if($form.is('#FilterAddForm')){
-						alert(resp.data);
+						$('#adres-saved-filters div').replaceWith(resp.data);
 					}else if($form.is('#edit-contact')){
 						$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
 					}
@@ -134,8 +136,9 @@ ADres.ERROR={
 }
 
 ADres.LOADER={
-	enable:function(){
-		$('.blocker').block();
+	enable:function(className){
+		console.log(className);
+		//$('.blocker').block();
 	},
 	disable:function(){
 		$('.blocker').unblock().removeClass('blocker');
@@ -161,6 +164,11 @@ jQuery(document).ready(function() {
 	
 	
 	$('#adres-tabs').tabs({
+		spinner: ADres.AJAX.loaderImageSmall,
+		ajaxOptions:{
+			beforeSend:ADres.LOADER.enable("test"),
+			complete:ADres.LOADER.disable
+		},
 		load: function(event, ui) {
         	$('a.adres-tabs-button', ui.panel).click(function(e) {
         	$(ui.panel).load(this.href);

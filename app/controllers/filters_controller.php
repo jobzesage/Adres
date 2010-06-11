@@ -58,6 +58,7 @@ class FiltersController extends AppController {
                 if(!$this->RequestHandler->isAjax()){
 	                $this->redirect(array('action' => 'index'));
                 }else{
+                	$this->layout = "users";
                 	$this->set('status',true);
                 }
             }

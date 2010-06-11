@@ -2,13 +2,14 @@
 	<div id="adres-tabs">
 		<ul>
 			<?php foreach ($types as $type	): ?>
-			<li><?php echo $html->link($type['ContactType']['name'],array(
+			<li><?php echo $html->link('<span>'.$type['ContactType']['name'].'</span>',array(
 				'controller' => 'users', 
 				'action' => 'display_contacts', 
 				$type['ContactType']['id']),array(
 					'title'=>'contacts',
 					'class' => 'adres-tabs-button'	
-				)) ?></li>
+				),
+				null,null,false) ?></li>
 			<?php endforeach ?>
 		</ul>
 		<div id="contacts"></div>

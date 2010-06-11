@@ -25,6 +25,7 @@
 			'jquery-1.4.2.min',
 			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
+			'jquery.validate.pack',
 			'adres.core'
 		));
 

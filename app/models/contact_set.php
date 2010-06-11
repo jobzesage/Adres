@@ -14,9 +14,22 @@ class ContactSet extends AppModel
 	 * @return array recordset of one contactype
 	 * @author rajib ahmed
 	 **/
-	public function getContactSet($contact_type_id,$searchKeyword=null,$filters=null,$plugins=array())
+	public function getContactSet($contact_type_id,$options=array())
 	{
-		$sql = $this->build_query($contact_type_id,$searchKeyword,$filters,$plugins);
+		$defaults = array(
+			'searchKeyword'=>null,
+			'filters'=>null,
+			'plugins'=>null	
+		);
+		if(empty($options)){
+			$options = am($defaults,$options);
+		}
+		$sql = $this->build_query(
+			$contact_type_id,
+			$options['searchKeyword'],
+			$options['filters'],
+			$options['plugins']
+		);
 		return $this->query($sql);
 	}
 

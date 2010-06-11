@@ -55,16 +55,16 @@ class Plugin extends AppModel {
 		return $query_string;
 	}
 	
-	public function renderShowDetail($field_name,$value,$wrapper=array()){
+	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'p')){
 		//TODO wrapper will be used to wrap this column
 		$data_column = $this->getDisplayFieldName();
 		$output ="";
 		if($value){
-			$output.= "<p>";
+			$output.= '<'.$wrapper['tag'].'>';
 			$output.= $field_name;
 			$output.= " : ";
 			$output.= $value[$this->name][$data_column];
-			$output.= "</p>";
+			$output.= '</'.$wrapper['tag'].'>';
 		}
 		return $output;
 	}
@@ -121,7 +121,7 @@ class Plugin extends AppModel {
 	
 	
 	
-	public function renderEditForm($contact_id,$plugin,$wrapper=array())
+	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'p'))
 	{	
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
@@ -129,12 +129,20 @@ class Plugin extends AppModel {
 			)));
 			
 		$data = $data[$this->name][$this->getDisplayFieldName()];
+		$label = '<'.$wrapper['tag'].'>';
+		$label .='<label>'.$plugin['Field']['name'];
 		
-		$label ='<label>'.$plugin['Field']['name'].'</label>';
+		$label .= (int)$plugin['Field']['required'] ? " * " : "" ;
+		$label.= '</label>';
+		
 		$output  = '<input ';
+		
+		$output .= (int)$plugin['Field']['required'] ? " class ='required' " : "" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$output .= ' value="'.$data.'"';
 		$output .='/>';
+		$output .='</'.$wrapper['tag'].'>';
+
 		return  $label.$output;		
 	}
 	

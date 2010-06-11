@@ -407,10 +407,11 @@ class UsersController extends AppController {
 	public function save_filter()
 	{
 		
-		$keyword = $this->Session->check('Filter.keyword')? $this->Session->read('Filter.keyword'):'';
-		$criteria = $this->Session->check('Filter.criteria')? $this->Session->read('Filter.criteria'):'';
-		$group	= $this->Session->check('Filter.group') ? $this->Session->read('Filter.group') : null;
+		$keyword 	= $this->Session->check('Filter.keyword')	? $this->Session->read('Filter.keyword')	:'';
+		$criteria 	= $this->Session->check('Filter.criteria')	? $this->Session->read('Filter.criteria')	:'';
+		$group		= $this->Session->check('Filter.group') 	? $this->Session->read('Filter.group') 	: null;
 		
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		if ($this->Session->check('Filter') AND !empty($this->data)) {
 			$this->set('status',true);
 			ClassRegistry::init('Filter')->save(
@@ -418,8 +419,13 @@ class UsersController extends AppController {
 					'name'=>$this->data['Filter']['name'],
 					'keyword'=>$keyword,
 					'criteria'=>$criteria,
-					'contact_type_id' =>$this->Session->read('Contact.contact_type_id')
+					'contact_type_id' => $contact_type_id
 			));
+			$filters = ClassRegistry::init('Filter')->find('all',array('conditions'=>array(
+				'contact_type_id'=>$contact_type_id
+			)));
+			
+			$this->set('filters',$filters);
 		}
 	}
 	
@@ -439,9 +445,12 @@ class UsersController extends AppController {
 		}
 		
 		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
-		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword,$criteria);
+		
+		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields);
+		
+		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
+		
 		$this->set('values',$values);
-		$this->set('user',$this->Field->find('all'));
 	}
 	
     //private functions
