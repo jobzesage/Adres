@@ -18,7 +18,8 @@
 	<![endif]-->
 	<?php echo $html->css(array(
 			'adres.default',
-			'jquery-ui-1.7.2.modified'
+			'jquery-ui-1.7.2.modified',
+			'ui.jqgrid.css'
 		)) ?>
 		
 	<?php	echo $javascript->link(array(
@@ -26,6 +27,7 @@
 			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
 			'jquery.validate.pack',
+			'jquery.jqGrid.min',
 			'adres.core'
 		));
 
