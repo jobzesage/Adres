@@ -27,7 +27,6 @@
 			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
 			'jquery.validate.pack',
-			'jquery.jqGrid.min',
 			'adres.core'
 		));
 

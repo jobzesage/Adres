@@ -137,10 +137,10 @@ ADres.ERROR={
 
 ADres.LOADER={
 	enable:function(classNames){
-		$(classNames).block({message:ADres.AJAX.loaderImageLarge});
+		//$(classNames).block({message:ADres.AJAX.loaderImageLarge});
 	},
 	disable:function(classNames){
-		$(classNames).unblock().removeClass(classNames);
+		//$(classNames).unblock().removeClass(classNames);
 	}
 }
 
