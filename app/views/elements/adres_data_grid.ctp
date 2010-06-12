@@ -1,8 +1,7 @@
-	<?php echo $html->link('Export', array('controller'=>'users','action'=>'export.csv')) ?>
-	<?php echo $html->link('Add Contact', array('controller'=>'users','action'=>'add_record'),array('class'=>'adres-ajax-anchor adres-add' )) ?>	
+
 	<?php if (!empty($values) && isset($values)): ?>
 
-	<table border="0" class="adres-datagrid">
+	<table border="0" id="datagrid" class="adres-datagrid">
 		<tr>
 		<th>ID</th>
 		
@@ -16,7 +15,7 @@
 					'sort'=>urlencode($field['Field']['name']),
 					'order'=>'asc'
 				),array(
-					'class' => 'adres-ajax-anchor', 	
+					'class' => 'adres-ajax-anchor sort', 	
 				))  ?> 
 				| 
 				<?php echo $html->link('D', array(
@@ -26,7 +25,7 @@
 					'sort'=>urlencode($field['Field']['name']),
 					'order'=>'desc'					
 				),array(
-					'class' => 'adres-ajax-anchor', 	
+					'class' => 'adres-ajax-anchor sort', 	
 				)
 				)  ?>
 			</th>

@@ -13,7 +13,7 @@ class AppModel extends Model {
 	
 	public $useDbConfig='development';
 	
-	public $page_size = 4;
+	public $page_size = 2;
 
 	/**
 	 * Removes All associations

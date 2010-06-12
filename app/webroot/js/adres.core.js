@@ -118,6 +118,8 @@ ADres.AJAX={
 						$link.closest('.adres-group').remove();
 					}else if($link.hasClass('adres-leave-group')){
 						$link.remove();
+					}else if($link.is('.sort')){
+						$('#datagrid').replaceWith(resp.data);
 					}
 					else{
 						$('div#contacts').html(resp.data);
