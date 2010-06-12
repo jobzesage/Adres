@@ -12,6 +12,8 @@ class AppModel extends Model {
 	public $recursive = -1;
 	
 	public $useDbConfig='development';
+	
+	public $page_size = 4;
 
 	/**
 	 * Removes All associations

@@ -187,6 +187,8 @@ class Contact extends AppModel {
 	 */	
 	public function afterSave($created){
 		if ($created) {
+			$this->counter_cache($this->ContactType->id,1);
+			 
 			$this->Log->save(array(
 				'log_dt'=>date(AppModel::SQL_DTF),
 				'contact_id'=>$this->id,				
@@ -202,6 +204,19 @@ class Contact extends AppModel {
 				'user_id'=>$this->user_id 
 			));	
 		}
-	}		
+	}
+	
+	
+	public function afterDelete()
+	{
+		$this->counter_cache($this->ContactType->id, -1);	
+	}
+	
+	public function counter_cache($contact_type_id,$increment)
+	{
+		$contact_type = $this->ContactType->read(null,$contact_type_id);
+		$contact_type['ContactType']['contact_counter'] = $contact_type['ContactType']['contact_counter'] + $increment ;
+		$this->ContactType->save($contact_type);
+	}	
 }
 ?>

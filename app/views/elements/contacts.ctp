@@ -215,7 +215,29 @@
 		<th>ID</th>
 		
 		<?php foreach ($fields as $field): ?>
-			<th><?php echo $field['Field']['name'] ?></th>
+			<th>
+				<?php echo $field['Field']['name'] ?>
+				<?php echo $html->link('A', array(
+					'controller' => 'users',
+					'action' => 'test_paging',
+					'page'=>1,
+					'sort'=>urlencode($field['Field']['name']),
+					'direc'=>'asc'
+				),array(
+					'class' => 'adres-ajax-anchor', 	
+				))  ?> 
+				| 
+				<?php echo $html->link('D', array(
+					'controller' => 'users',
+					'action' =>'test_paging',
+					'page'=>1,
+					'sort'=>urlencode($field['Field']['name']),
+					'direc'=>'desc'					
+				),array(
+					'class' => 'adres-ajax-anchor', 	
+				)
+				)  ?>
+			</th>
 		<?php endforeach ?>
 		<th>Links</th>
 		</tr>

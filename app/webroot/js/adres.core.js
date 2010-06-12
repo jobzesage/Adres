@@ -136,11 +136,11 @@ ADres.ERROR={
 }
 
 ADres.LOADER={
-	enable:function(classNames){
-		//$(classNames).block({message:ADres.AJAX.loaderImageLarge});
+	enable:function(){
+		//$(jObj.attachTo).addClass('.'+jObj.blockerClass).block({message:ADres.AJAX.loaderImageLarge});
 	},
-	disable:function(classNames){
-		//$(classNames).unblock().removeClass(classNames);
+	disable:function(){
+		//$(jObj.attachTo).unblock().removeClass('.'+jObj.blockerClass);
 	}
 }
 
@@ -165,8 +165,8 @@ jQuery(document).ready(function() {
 	$('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
-			beforeSend:ADres.LOADER.enable(".test"),
-			complete:ADres.LOADER.disable(".test")
+			//beforeSend:ADres.LOADER.enable({attachTo:'',blockerClass:''}),
+			//complete:ADres.LOADER.disable()
 		},
 		load: function(event, ui) {
         	$('a.adres-tabs-button', ui.panel).click(function(e) {

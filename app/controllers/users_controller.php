@@ -153,6 +153,7 @@ class UsersController extends AppController {
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
 		$this->Contact->id = $id;
+		$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
 		
 		if($this->Contact->delete($id)){
 			$this->set('status',true);
@@ -177,7 +178,15 @@ class UsersController extends AppController {
 		}
 		
 		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
-		$values = $this->ContactSet->getContactSet($contact_type_id,$keyword,$criteria);
+		
+		$search=array(
+			'searchKeyword'=>$keyword,
+			'filters'=>$criteria,
+			'plugins'=>$fields
+		);
+				
+		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
+		
 		$this->set('values',$values);
 		
 		$filters = $this->Filter->getFilters($contact_type_id);
@@ -209,6 +218,8 @@ class UsersController extends AppController {
 			
 		}else {
 			$this->Contact->user_id = $this->Auth->user('id');
+			$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
+			
 			$this->Contact->save(array(
 				'contact_type_id'=>$this->Session->read('Contact.contact_type_id')
 			));
@@ -434,23 +445,16 @@ class UsersController extends AppController {
 	{
 		$this->layout= 'default';
 		$this->helpers = array('Csv');		
-		$contact_type_id = $this->Session->read('Contact.contact_type_id');
-		$fields   = $this->Field->getPluginTypes($contact_type_id);
-		$keyword  = "";
-		$criteria = "";
-		
-		if($this->Session->check('Filter.criteria')) 
-		{
-			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
-		}
-		
-		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
-		
-		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields);
-		
+
+		$search = $this->setContactSet();
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
-		
 		$this->set('values',$values);
+	}
+
+	public function test_paging()
+	{
+		$paging = $this->params['named'];
+		$this->set('test',	$this->setContactSet($paging));
 	}
 	
     //private functions
@@ -471,6 +475,28 @@ class UsersController extends AppController {
     			));
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
+    }
+    
+    
+    
+    private function setContactSet($options = array())
+    {
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+		$fields   = $this->Field->getPluginTypes($contact_type_id);
+		$keyword  = "";
+		$criteria = "";
+		
+		if($this->Session->check('Filter.criteria')) 
+		{
+			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
+		}
+		
+		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
+		
+		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields);
+		
+		return am($search,$options); 
+		
     }    
 }
 ?>
