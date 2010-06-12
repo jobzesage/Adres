@@ -206,7 +206,13 @@
 ?>
 <div class="adres-contacts-panel span-11">
 	<?php echo $html->link('Export', array('controller'=>'users','action'=>'export.csv')) ?>
-	<?php echo $html->link('Add Contact', array('controller'=>'users','action'=>'add_record'),array('class'=>'adres-ajax-anchor adres-add' )) ?>		
+	<?php echo $html->link('Add Contact', array('controller'=>'users','action'=>'add_record'),array('class'=>'adres-ajax-anchor adres-add' )) ?>
+	<?php
+	/*-------------------------------
+	| Stored as a element to call on
+	| ajax requset
+	|--------------------------------*/
+	?>		
 	<?php echo $this->element('adres_data_grid') ?>	
 	
 </div>

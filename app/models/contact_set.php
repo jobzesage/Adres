@@ -6,6 +6,8 @@
 class ContactSet extends AppModel
 {
 	public $useTable =false;
+	
+	public $records = null;
 
 	
 	/**
@@ -22,7 +24,7 @@ class ContactSet extends AppModel
 			'plugins'=>null,
 			'page'=>1,
 			'sort'=>'id',
-			'order'=>'desc'
+			'order'=>'asc'
 		);
 		
 		$options = am($defaults,$options);
@@ -37,7 +39,9 @@ class ContactSet extends AppModel
 		/**
 		* this one is important
 		*/
-		extract($options); # generates variables like $searchKeyword , $plugins, $filter,$page ,$sort , $order	
+		extract($options); # generates variables like $searchKeyword , $plugins, $filter,$page ,$sort , $order
+		
+		
 			
 			
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
@@ -100,15 +104,17 @@ class ContactSet extends AppModel
 		
 
 		
-		//Filtering
+
+		
 		$where = $where.$filters;
 
 		if($keyword != "")
 		 $where = $where." AND ( ".$keyword." ) ";
 		
 		$ordering  = " order by ".$orders[$sort]." ".$order; 
+		$limit  = '  limit ' .($page - 1) * $this->page_size	.',' . $this->page_size; 		
 		//Build the SQL query that can display the contacts
-		$sql = $select.$from.$where.$ordering;
+		$sql = $select.$from.$where.$ordering.$limit;
 		
 		//echo $sql;
 		return $sql;

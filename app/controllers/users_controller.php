@@ -168,23 +168,14 @@ class UsersController extends AppController {
 			$this->Session->write('Contact.contact_type_id',$contact_type_id);
 		}
     	
-		$fields   = $this->Field->getPluginTypes($contact_type_id);
-		$keyword  = "";
-		$criteria = "";
+		$search = $this->setContactSet();
 		
-		if($this->Session->check('Filter.criteria')) 
-		{
-			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
-		}
+		$ctype = $this->ContactType->read(null,$contact_type_id);
 		
-		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
+		$count = $ctype['ContactType']['contact_counter'];
 		
-		$search=array(
-			'searchKeyword'=>$keyword,
-			'filters'=>$criteria,
-			'plugins'=>$fields
-		);
-				
+		$paging['pages'] = ceil($count/$this->ContactSet->page_size);
+		
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		
 		$this->set('values',$values);
@@ -193,7 +184,7 @@ class UsersController extends AppController {
 		
 		$this->set('groups',$this->Group->getCurrentGroups($contact_type_id));
 		
-    	$this->set(compact('fields','filters','contact_type_id'));
+    	$this->set(compact('fields','filters','contact_type_id','paging'));
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
@@ -445,7 +436,7 @@ class UsersController extends AppController {
 	{
 		$this->layout= 'default';
 		$this->helpers = array('Csv');		
-
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		$search = $this->setContactSet();
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		$this->set('values',$values);
@@ -457,8 +448,13 @@ class UsersController extends AppController {
 		$paging = $this->params['named'];
 		$search = $this->setContactSet($paging);
 		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+		$ctype = $this->ContactType->read(null,$contact_type_id);
+		
+		$count = $ctype['ContactType']['contact_counter'];
+		$paging['pages'] = ceil($count/$this->ContactSet->page_size);
+		
 		$values = $this->ContactSet->getContactSet($contact_type_id, $search);
-		$this->set('values',$values);
+		$this->set(compact('values','paging'));
 		$this->render('/elements/adres_data_grid');
 	}
 	
