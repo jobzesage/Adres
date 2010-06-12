@@ -40,8 +40,7 @@ class ContactSet extends AppModel
 		* this one is important
 		*/
 		extract($options); # generates variables like $searchKeyword , $plugins, $filter,$page ,$sort , $order
-		
-		
+			
 			
 			
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
@@ -102,14 +101,10 @@ class ContactSet extends AppModel
 			$i++;
 		}
 		
-
-		
-
-		
 		$where = $where.$filters;
-
+		
 		if($keyword != "")
-		 $where = $where." AND ( ".$keyword." ) ";
+			$where = $where." AND ( ".$keyword." ) ";
 		
 		$ordering  = " order by ".$orders[$sort]." ".$order; 
 		$limit  = '  limit ' .($page - 1) * $this->page_size	.',' . $this->page_size; 		
