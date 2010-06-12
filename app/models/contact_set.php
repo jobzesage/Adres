@@ -19,24 +19,27 @@ class ContactSet extends AppModel
 		$defaults = array(
 			'searchKeyword'=>null,
 			'filters'=>null,
-			'plugins'=>null	
+			'plugins'=>null,
+			'page'=>1,
+			'sort'=>'id',
+			'order'=>'desc'
 		);
-		if(empty($options)){
-			$options = am($defaults,$options);
-		}
-		$sql = $this->build_query(
-			$contact_type_id,
-			$options['searchKeyword'],
-			$options['filters'],
-			$options['plugins']
-		);
+		
+		$options = am($defaults,$options);
+		
+		$sql = $this->build_query($contact_type_id,$options	);
 		return $this->query($sql);
 	}
 
 
-	private function build_query($contact_type_id,$searchKeyword,$filters,$plugins)
+	private function build_query($contact_type_id,$options)
 	{
-
+		/**
+		* this one is important
+		*/
+		extract($options); # generates variables like $searchKeyword , $plugins, $filter,$page ,$sort , $order	
+			
+			
 		$select = 'SELECT DISTINCT (Contact.id) AS id ';
 		
 		$from = ' FROM contacts AS Contact 
@@ -45,10 +48,7 @@ class ContactSet extends AppModel
 		
 		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
 		
-		$keyword = "";
-		
-		$plugins = ClassRegistry::init('Field')->getPluginTypes($contact_type_id);
-		
+		$keyword = "";		
 		
 		if(empty($plugins)){
 			return "SELECT (Contact.id) AS id  FROM contacts as Contact
@@ -68,6 +68,7 @@ class ContactSet extends AppModel
 		
 		//Custom fields
 		$i=0;
+		$orders['id'] = 'id';
 		foreach($plugins as $field){
 			
 			$pluginName = $field['Field']['field_type_class_name'];
@@ -81,6 +82,10 @@ class ContactSet extends AppModel
 			$from.= $plugin->name.'_'.$field['Field']['id'];
 			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';#change it to a func
 			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';#change it to a func
+			
+			//stores the Types undersore name and data column to the field name association
+			//ie $order['name'] = 'TypeString_4.data'
+			$orders[$field['Field']['name']] = $pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName(); 
 			
 			if($searchKeyword!=null){
 				#change it to session key word
@@ -101,8 +106,9 @@ class ContactSet extends AppModel
 		if($keyword != "")
 		 $where = $where." AND ( ".$keyword." ) ";
 		
+		$ordering  = " order by ".$orders[$sort]." ".$order; 
 		//Build the SQL query that can display the contacts
-		$sql = $select.$from.$where;
+		$sql = $select.$from.$where.$ordering;
 		
 		//echo $sql;
 		return $sql;

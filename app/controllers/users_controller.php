@@ -453,8 +453,13 @@ class UsersController extends AppController {
 
 	public function test_paging()
 	{
+		$this->set('status',true);
 		$paging = $this->params['named'];
-		$this->set('test',	$this->setContactSet($paging));
+		$search = $this->setContactSet($paging);
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+		$values = $this->ContactSet->getContactSet($contact_type_id, $search);
+		$this->set('values',$values);
+		$this->render('/elements/adres_data_grid');
 	}
 	
     //private functions
@@ -481,8 +486,9 @@ class UsersController extends AppController {
     
     private function setContactSet($options = array())
     {
-		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+    	$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		$fields   = $this->Field->getPluginTypes($contact_type_id);
+		$this->set('fields',$fields);
 		$keyword  = "";
 		$criteria = "";
 		
