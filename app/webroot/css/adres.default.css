@@ -102,3 +102,21 @@
 .ades-toolbar .adres-buttonset { margin-right:1.5em; padding-left: 1px; }
 .ades-toolbar .adres-button { font-size: 1em;  }
 #contacts{overflow:hidden} 
+
+/*---------------------------------
+|	Paginator
+|---------------------------------*/
+.adres-paginator{
+	line-height:110%;
+	margin:5px 0;
+	padding:0 3px;
+}
+.adres-paginator span{
+	padding:3px;
+	border:#ccc 1px solid;
+}
+.adres-paginator span.selected{
+	background:#433444;	
+}
+
+

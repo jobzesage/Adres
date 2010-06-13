@@ -1,7 +1,7 @@
-
 	<?php if (!empty($values) && isset($values)): ?>
-
-	<table border="0" id="datagrid" class="adres-datagrid">
+	<div id="datagrid" >
+		
+	<table border="0" class="adres-datagrid">
 		<tr>
 		<th>ID</th>
 		
@@ -11,7 +11,7 @@
 				<?php echo $html->link('A', array(
 					'controller' => 'users',
 					'action' => 'test_paging',
-					'page'=>1,
+					'page'=>isset($paging['page']) ? $paging['page'] : 1,
 					'sort'=>urlencode($field['Field']['name']),
 					'order'=>'asc'
 				),array(
@@ -21,7 +21,7 @@
 				<?php echo $html->link('D', array(
 					'controller' => 'users',
 					'action' =>'test_paging',
-					'page'=>1,
+					'page'=>isset($paging['page']) ? $paging['page'] : 1,
 					'sort'=>urlencode($field['Field']['name']),
 					'order'=>'desc'					
 				),array(
@@ -72,14 +72,13 @@
 			</td>
 		</tr>		
 		<?php endforeach ?>
-		
-		<?php echo $this->element('paginator')?>
-	
 	</table>
-			
 			<?php else: ?>
 				<div>
 					<?php echo " no records found" ?>
 				</div>
 			<?php endif  ?>
 		</table>
+
+	<?php echo $this->element('paginator')?>
+	</div>

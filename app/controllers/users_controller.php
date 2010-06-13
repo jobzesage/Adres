@@ -485,6 +485,8 @@ class UsersController extends AppController {
     	$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		$fields   = $this->Field->getPluginTypes($contact_type_id);
 		$this->set('fields',$fields);
+		
+		
 		$keyword  = "";
 		$criteria = "";
 		

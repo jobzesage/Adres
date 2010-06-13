@@ -22,7 +22,7 @@ class ContactSet extends AppModel
 			'searchKeyword'=>null,
 			'filters'=>null,
 			'plugins'=>null,
-			'page'=>1,
+			'page'=>1,	
 			'sort'=>'id',
 			'order'=>'asc'
 		);
@@ -83,8 +83,12 @@ class ContactSet extends AppModel
 			
 			$from.= ' LEFT JOIN '.$plugin->useTable .' AS ';
 			$from.= $plugin->name.'_'.$field['Field']['id'];
-			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';#change it to a func
-			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';#change it to a func
+			
+			#change it to a func
+			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';
+			#change it to a func
+			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';
+			
 			
 			//stores the Types undersore name and data column to the field name association
 			//ie $order['name'] = 'TypeString_4.data'
@@ -106,8 +110,13 @@ class ContactSet extends AppModel
 		if($keyword != "")
 			$where = $where." AND ( ".$keyword." ) ";
 		
-		$ordering  = " order by ".$orders[$sort]." ".$order; 
+		//sorting options
+		$ordering  = " order by ".$orders[$sort]." ".$order;
+		
+		//paging options 
 		$limit  = '  limit ' .($page - 1) * $this->page_size	.',' . $this->page_size; 		
+		
+		
 		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where.$ordering.$limit;
 		

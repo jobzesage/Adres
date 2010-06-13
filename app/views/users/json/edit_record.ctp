@@ -1,3 +1,9 @@
+<script type="text/javascript">
+	$(function(){
+		$('form#edit-contact').validate();
+	});	
+</script>
+
 <?php echo $form->create(null,array(
 	'url' => '/users/update_contact',
 	'class'=>'adres-ajax-form',
