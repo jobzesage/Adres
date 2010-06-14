@@ -1,4 +1,4 @@
-<div class="adres-contacts-panel span-24">
+<div id="adres-contacts-holder" class="span-24">
 	<div id="adres-tabs">
 		<ul>
 			<?php foreach ($types as $type	): ?>

@@ -49,7 +49,7 @@ ADres.AJAX={
 					}else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
 					}else if($form.is('#FilterAddForm')){
-						$('#adres-saved-filters div').replaceWith(resp.data);
+						$('#adres-saved-filters').replaceWith(resp.data);
 					}else if($form.is('#edit-contact')){
 						$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
 					}
@@ -139,10 +139,12 @@ ADres.ERROR={
 
 ADres.LOADER={
 	enable:function(){
-		//$(jObj.attachTo).addClass('.'+jObj.blockerClass).block({message:ADres.AJAX.loaderImageLarge});
+		$('#adres-contacts-holder').block({
+			message:ADres.AJAX.loaderImageLarge
+		});
 	},
 	disable:function(){
-		//$(jObj.attachTo).unblock().removeClass('.'+jObj.blockerClass);
+		$('#adres-contacts-holder').unblock();
 	}
 }
 
@@ -167,8 +169,8 @@ jQuery(document).ready(function() {
 	$('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
-			//beforeSend:ADres.LOADER.enable({attachTo:'',blockerClass:''}),
-			//complete:ADres.LOADER.disable()
+			beforeSend:ADres.LOADER.enable,
+			complete:ADres.LOADER.disable
 		},
 		load: function(event, ui) {
         	$('a.adres-tabs-button', ui.panel).click(function(e) {

@@ -7,7 +7,7 @@
 		),array('class'=>'adres-ajax-anchor')
 		) ?>
 		
-		<?php echo $html->link($filter['Filter']['name'],array(
+		<?php echo $html->link('(x)',array(
 			'controller'=>'filters',
 			'action' => 'delete', 
 			$filter['Filter']['id'],
