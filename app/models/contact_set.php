@@ -24,7 +24,8 @@ class ContactSet extends AppModel
 			'plugins'=>null,
 			'page'=>1,	
 			'sort'=>'id',
-			'order'=>'asc'
+			'order'=>'asc',
+			'paging'=>true
 		);
 		
 		$options = am($defaults,$options);
@@ -111,18 +112,20 @@ class ContactSet extends AppModel
 			$where = $where." AND ( ".$keyword." ) ";
 		
 		//sorting options
+		$ordering = " ";
 		$ordering  = " order by ".$orders[$sort]." ".$order;
 		
 		//paging options 
-		$limit  = '  limit ' .($page - 1) * $this->page_size	.',' . $this->page_size; 		
+		$limit = " ";
+		if($paging){
+			$limit  = '  limit ' .($page - 1) * $this->page_size	.',' . $this->page_size; 		
+		}
 		
 		
 		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where.$ordering.$limit;
 		
-		//echo $sql;
 		return $sql;
-	
 	}	
 		
 }

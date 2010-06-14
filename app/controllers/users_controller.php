@@ -273,14 +273,19 @@ class UsersController extends AppController {
 
 	public function edit_details($contact_id){
 		$this->set('status',true);
-		$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
-		$form_inputs = "";
-		foreach ($plugins as $plugin) {
-			$className = $plugin['Field']['field_type_class_name'];
-			$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
-		}
-		$form_inputs .= "<input type='hidden' name='data[contact_id]' value='$contact_id'>";
-		$this->set('form_inputs',$form_inputs);
+		$contact = $this->Contact->find('first',array(
+			'contain'=>array(
+				'Group',
+				'ParentAffiliation',
+				'ChildAffiliation',
+				'Log'=>array('User')
+			),
+			'conditions'=>array(
+				'Contact.id'=>$contact_id
+			)	
+		));
+		
+		$this->set(compact('contact','contact_id'));			
 	}
 	
 	public function update_contact(){
@@ -438,6 +443,9 @@ class UsersController extends AppController {
 		$this->helpers = array('Csv');		
 		$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		$search = $this->setContactSet();
+		
+		$search['paging'] = false;		#to export all the records filtered or not filtered have to disable the paging	
+		
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		$this->set('values',$values);
 	}
@@ -457,6 +465,15 @@ class UsersController extends AppController {
 		$this->set(compact('values','paging'));
 		$this->render('/elements/adres_data_grid');
 	}
+	
+	
+	public function affiliate()
+	{
+		
+		
+		$this->render('/elements/empty');
+	}
+	
 	
     //private functions
     
