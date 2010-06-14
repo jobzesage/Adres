@@ -119,4 +119,18 @@
 	background:#433444;	
 }
 
+/*---------------------------------
+|	Growl Notification
+|---------------------------------*/
+div.growlUI h1 {
+	color: white; 
+	padding: 5px 5px 5px 30px; 
+	text-align: left
+}
+div.growlUI h2 {
+	color: #f2f2f2;
+	#line-height:80%;
+	font-size:80%;
+	text-align: center	
+}
 

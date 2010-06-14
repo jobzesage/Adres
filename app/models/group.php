@@ -31,10 +31,13 @@ class Group extends AppModel {
 			'associationForeignKey' => 'contact_id'
 	));
 	
-	public function getCurrentGroups()
+	public function getCurrentGroups($contact_type_id)
 	{
 		return	$this->find('all',array(
-			'conditions'=>array('Group.parent_id'=>0)			
+			'conditions'=>array(
+				#'Group.parent_id'=>0,
+				'Group.contact_type_id'=>$contact_type_id
+			)			
 		));
 	}
 	

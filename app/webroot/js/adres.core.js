@@ -76,7 +76,7 @@ ADres.AJAX={
 					$('div#contacts').html(resp.data);
 				}
 			},
-			complete:ADres.LOADER.disable
+			complete:ADres.LOADER.disable({})
 		});		
 	},
 	
@@ -106,6 +106,7 @@ ADres.AJAX={
 						$('#adres-record').html(resp.data);
 					}else if($link.hasClass('adres-edit')){
 						$('#adres-record').html(resp.data);
+
 					}else if($link.hasClass('adres-add')){
 						$('#adres-record').html(resp.data)
 					}else if($link.hasClass('adres-contats-show-details')){
@@ -140,11 +141,16 @@ ADres.ERROR={
 ADres.LOADER={
 	enable:function(){
 		$('#adres-contacts-holder').block({
-			message:ADres.AJAX.loaderImageLarge
+			message:ADres.AJAX.loaderImageLarge,
+			centerY:1
 		});
 	},
 	disable:function(){
+		//var empty = {}
+		//var defaults = { title:"hellp", message:'test' };
+		//var settings = $.extend(empty, defaults, options);
 		$('#adres-contacts-holder').unblock();
+		//$.growlUI(settings.title,settings.message);
 	}
 }
 
