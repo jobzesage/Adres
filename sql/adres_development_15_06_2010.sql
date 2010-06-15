@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 10, 2010 at 08:45 PM
+-- Generation Time: Jun 15, 2010 at 02:10 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `affiliations_contacts` (
 --
 
 INSERT INTO `affiliations_contacts` (`id`, `affiliation_id`, `contact_father_id`, `contact_child_id`, `after_id`) VALUES
-(2, 1, 2, 3, 0);
+(2, 1, 21, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `contacts`
@@ -92,7 +92,9 @@ INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`, `created`, `modifie
 (19, 9, 0, '2010-04-15 16:22:03', '2010-04-15 16:22:03'),
 (20, 9, 0, '2010-04-15 16:22:37', '2010-04-15 16:22:37'),
 (21, 5, 0, '2010-04-18 21:14:26', '2010-04-18 21:14:26'),
-(38, 5, 0, '2010-06-10 20:24:07', '2010-06-10 20:24:07');
+(38, 5, 0, '2010-06-10 20:24:07', '2010-06-10 20:24:07'),
+(45, 8, 0, '2010-06-12 17:19:48', '2010-06-12 17:19:48'),
+(48, 5, 0, '2010-06-13 17:00:27', '2010-06-13 17:00:27');
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `contacts_groups` (
 --
 
 INSERT INTO `contacts_groups` (`id`, `contact_id`, `group_id`) VALUES
-(11, 3, 2);
+(11, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -123,17 +125,18 @@ INSERT INTO `contacts_groups` (`id`, `contact_id`, `group_id`) VALUES
 CREATE TABLE IF NOT EXISTS `contact_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
+  `contact_counter` int(11) unsigned NOT NULL,
   `implementation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `contact_types`
 --
 
-INSERT INTO `contact_types` (`id`, `name`, `implementation_id`) VALUES
-(5, 'People', 4),
-(8, 'Kids', 4);
+INSERT INTO `contact_types` (`id`, `name`, `contact_counter`, `implementation_id`) VALUES
+(5, 'People', 5, 4),
+(8, 'Kids', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -148,6 +151,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `order` int(11) NOT NULL,
   `field_type_class_name` varchar(45) NOT NULL,
   `is_descriptive` tinyint(1) NOT NULL,
+  `required` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
@@ -155,14 +159,14 @@ CREATE TABLE IF NOT EXISTS `fields` (
 -- Dumping data for table `fields`
 --
 
-INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_class_name`, `is_descriptive`) VALUES
-(3, 'First Name', 5, 5, 'TypeString', 1),
-(4, 'Last Name', 5, 3, 'TypeString', 1),
-(5, 'Age', 5, 4, 'TypeInteger', 1),
-(6, 'sex', 5, 4, 'TypeString', 1),
-(9, 'name', 8, 2, 'TypeString', 1),
-(10, 'Phone', 9, 1, 'TypeString', 1),
-(11, 'Age', 9, 2, 'TypeString', 1);
+INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_class_name`, `is_descriptive`, `required`) VALUES
+(3, 'First Name', 5, 5, 'TypeString', 1, 1),
+(4, 'Last Name', 5, 3, 'TypeString', 1, 1),
+(5, 'Age', 5, 4, 'TypeInteger', 1, 1),
+(6, 'sex', 5, 4, 'TypeString', 1, 1),
+(9, 'name', 8, 2, 'TypeString', 1, 1),
+(10, 'Phone', 9, 1, 'TypeString', 1, 1),
+(11, 'Age', 9, 2, 'TypeString', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -193,16 +197,18 @@ INSERT INTO `field_types` (`class_name`, `nice_name`) VALUES
 CREATE TABLE IF NOT EXISTS `filters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `criteria` varchar(45) NOT NULL,
-  `keyword` mediumtext NOT NULL,
+  `criteria` mediumtext NOT NULL,
+  `keyword` varchar(512) NOT NULL,
   `contact_type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `filters`
 --
 
+INSERT INTO `filters` (`id`, `name`, `criteria`, `keyword`, `contact_type_id`) VALUES
+(15, 'test', 'a:1:{i:0;a:2:{s:3:"sql";s:116:"TypeString_3.contact_id IN (SELECT contact_id FROM type_string as t WHERE t.data LIKE "%hello%" AND t.field_id = 3 )";s:4:"name";s:21:"First Name like hello";}}', '', 5);
 
 -- --------------------------------------------------------
 
@@ -266,8 +272,8 @@ CREATE TABLE IF NOT EXISTS `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `parent_id`, `contact_type_id`, `created`, `modified`) VALUES
 (1, 'testG3', 0, 5, '2010-02-19 20:18:22', '2010-02-19 21:52:37'),
-(2, 'testG2', 0, 7, '2010-02-19 20:18:52', '0000-00-00 00:00:00'),
-(3, 'testestsf', 0, 0, '2010-02-20 23:29:53', '2010-02-20 23:29:53');
+(2, 'testG2', 0, 5, '2010-02-19 20:18:52', '0000-00-00 00:00:00'),
+(3, 'testestsf', 0, 8, '2010-02-20 23:29:53', '2010-02-20 23:29:53');
 
 -- --------------------------------------------------------
 
@@ -302,14 +308,27 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `logs`
 --
 
 INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALUES
-(1, '2010-06-10 20:24:07', 'Contact saved', 38, 1);
+(1, '2010-06-10 20:24:07', 'Contact saved', 38, 1),
+(2, '2010-06-10 21:43:54', 'Contact saved', 39, 1),
+(3, '2010-06-10 21:44:25', 'Changed <strong>name</strong> from <i>tesing</i> to <i>tesings</i>', 39, 1),
+(4, '2010-06-11 07:13:29', 'Contact saved', 40, 1),
+(5, '2010-06-11 17:08:14', 'Contact saved', 41, 1),
+(6, '2010-06-12 14:54:56', 'Contact saved', 42, 1),
+(7, '2010-06-12 17:00:29', 'Contact saved', 43, 1),
+(8, '2010-06-12 17:13:04', 'Contact saved', 44, 1),
+(9, '2010-06-12 17:19:48', 'Contact saved', 45, 1),
+(10, '2010-06-12 20:20:25', 'Contact saved', 46, 1),
+(11, '2010-06-13 16:59:18', 'Contact saved', 47, 1),
+(12, '2010-06-13 17:00:27', 'Contact saved', 48, 1),
+(13, '2010-06-13 17:47:42', 'Changed <strong>Age</strong> from <i>50</i> to <i></i>', 2, 1),
+(14, '2010-06-13 17:49:33', 'Changed <strong>Age</strong> from <i>50</i> to <i>57</i>', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -367,14 +386,15 @@ CREATE TABLE IF NOT EXISTS `type_integer` (
 
 INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 21, 32),
-(5, 2, 50),
+(5, 2, 57),
 (5, 5, 60),
 (5, 28, 0),
 (5, 29, 0),
 (5, 30, 0),
 (5, 31, 0),
 (5, 38, 90),
-(5, 78, 0);
+(5, 78, 0),
+(5, 48, NULL);
 
 -- --------------------------------------------------------
 
@@ -421,7 +441,11 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (6, 31, ''),
 (6, 38, 'fgg'),
 (3, 38, 'wg'),
-(4, 38, 'rtr');
+(4, 38, 'rtr'),
+(6, 48, ''),
+(3, 48, ''),
+(4, 48, ''),
+(9, 45, 'hello');
 
 -- --------------------------------------------------------
 
@@ -440,14 +464,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `is_active`, `created`, `modified`) VALUES
-(1, 'test', 'test', 'test', 'test@hotmail.com', 'c4a58768bbcec0a0c8e4abc84cc3e3c13d4bc1f8', 1, '2010-02-16 19:18:07', '2010-02-16 19:18:07');
+(1, 'test', 'test', 'test', 'test@hotmail.com', 'c4a58768bbcec0a0c8e4abc84cc3e3c13d4bc1f8', 1, '2010-02-16 19:18:07', '2010-02-16 19:18:07'),
+(3, 'Rajib', 'Ahmed', 'rajib', 'l.rajibahmed@gmail.com', '413eb47b96ca90c897dda9685f4d0374a7393c32', 1, '2010-06-15 13:59:43', '2010-06-15 13:59:43');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
