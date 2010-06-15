@@ -35,6 +35,10 @@ foreach ($users as $user):
 <?php endforeach; ?>
 </table>
 </div>
+<?php echo $html->link('Create User', array(
+		'controller' => 'users', 
+		'action' => 'register', 
+	)) ?>
 <div class="paging">
 	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $paginator->numbers();?>

@@ -49,9 +49,13 @@ ADres.AJAX={
 					}else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
 					}else if($form.is('#FilterAddForm')){
+						$form.remove();
 						$('#adres-saved-filters').replaceWith(resp.data);
 					}else if($form.is('#edit-contact')){
 						$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
+					}
+					else if($form.is('#SearchAddForm')){
+						$('div#contacts').html(resp.data);
 					}
 				}
 			},
@@ -76,7 +80,7 @@ ADres.AJAX={
 					$('div#contacts').html(resp.data);
 				}
 			},
-			complete:ADres.LOADER.disable({})
+			complete:ADres.LOADER.disable
 		});		
 	},
 	

@@ -299,11 +299,10 @@ class UsersController extends AppController {
 	}
 	
 	
-	public function add_keyword($keyword=null){
+	public function add_keyword(){
 		$this->set('status',true);
 		$this->Session->write('Filter.keyword',$this->params['url']['keyword']);
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
-
 	}
 	
 	
@@ -388,7 +387,6 @@ class UsersController extends AppController {
 		}
 		$this->set('status',true);
 		$this->set('test',$filter);
-
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
 
 	}
