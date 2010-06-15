@@ -254,17 +254,7 @@ class UsersController extends AppController {
 
 	public function show_details($contact_id){
 		
-		$contact = $this->Contact->find('first',array(
-			'contain'=>array(
-				'Group',
-				'ParentAffiliation',
-				'ChildAffiliation',
-				'Log'=>array('User')
-			),
-			'conditions'=>array(
-				'Contact.id'=>$contact_id
-			)	
-		));
+		$contact = $this->Contact->getContact($contact_id);
 		$groups = $this->Group->getList($contact);
 		$this->set(compact('contact','groups','contact_id'));
 		$this->set('status',true);
@@ -273,17 +263,7 @@ class UsersController extends AppController {
 
 	public function edit_details($contact_id){
 		$this->set('status',true);
-		$contact = $this->Contact->find('first',array(
-			'contain'=>array(
-				'Group',
-				'ParentAffiliation',
-				'ChildAffiliation',
-				'Log'=>array('User')
-			),
-			'conditions'=>array(
-				'Contact.id'=>$contact_id
-			)	
-		));
+		$contact = $this->Contact->getContact($contact_id);
 		
 		$this->set(compact('contact','contact_id'));			
 	}

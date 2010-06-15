@@ -56,6 +56,8 @@ ADres.AJAX={
 					}
 					else if($form.is('#SearchAddForm')){
 						$('div#contacts').html(resp.data);
+					}else if($form.is('.adres-join-group')){
+						$('#adres-groups').html(resp.data);
 					}
 				}
 			},
@@ -122,7 +124,7 @@ ADres.AJAX={
 					}else if($link.hasClass('adres-delete-group')){
 						$link.closest('.adres-group').remove();
 					}else if($link.hasClass('adres-leave-group')){
-						$link.remove();
+						$('#adres-groups').html(resp.data);
 					}else if($link.is('.sort')){
 						$('#datagrid').replaceWith(resp.data);
 					}

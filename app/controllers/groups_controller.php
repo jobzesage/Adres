@@ -83,6 +83,8 @@ class GroupsController extends AppController {
 	
 	public function join_group(){
 		//TODO join in a  Group
+		$this->layout = 'users';
+
 		$this->set('status',true);
 		#debug($this->Contact->getContact($this->data['Contact']['contact_id']));
 		$contact = $this->Contact->getContact($this->data['Contact']['contact_id']);
@@ -98,11 +100,18 @@ class GroupsController extends AppController {
 		$contact['Group'] = $contacts_group;
 		$this->Contact->log_message = "joined group:".$grp['Group']['name'];
 		$this->Contact->save($contact);
+		
+		$groups = $this->Group->getList($contact);
+		$this->set(compact('contact','groups','contact_id'));	
+		
+		$this->render('/elements/contact_groups')	;
+		
 	}
 	
 	
 
 	public function leave_group(){
+		$this->layout = 'users';
 		
 		$this->redirect_if_not_ajax_request();
 		
@@ -110,13 +119,20 @@ class GroupsController extends AppController {
 		$group_id 	= $this->params['named']['group_id'];
 		
 		$this->Contact->id = $contact_id;
+		
 		$this->Contact->user_id = $this->Auth->user('id');
 		$group = $this->Group->read(null,$group_id);
 		$this->Contact->log_message = "left group: ".$group['Group']['name'];
-				
+
 		$this->Contact->leaveGroup($group_id,$contact_id);
-		//$this->set(compact('contact_id','group_id'));		
 		$this->set('status',true);
+		
+		
+		$contact = $this->Contact->getContact($contact_id);		
+		$groups = $this->Group->getList($contact);
+		$this->set(compact('contact','groups','contact_id'));	
+		
+		$this->render('/elements/contact_groups')	;		
 	}	
 	
 	#application use only
