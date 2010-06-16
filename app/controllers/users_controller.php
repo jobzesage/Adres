@@ -253,7 +253,6 @@ class UsersController extends AppController {
 
 
 	public function show_details($contact_id){
-		
 		$contact = $this->Contact->getContact($contact_id);
 		$groups = $this->Group->getList($contact);
 		$this->set(compact('contact','groups','contact_id'));

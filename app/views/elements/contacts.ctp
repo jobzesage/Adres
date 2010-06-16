@@ -220,7 +220,7 @@
 	<div id="adres-record">
 	
 	</div>
-	<div id="adres-details">
+	<div id="adres-details" class="span-6">
 		
 	</div>			
 </div>
