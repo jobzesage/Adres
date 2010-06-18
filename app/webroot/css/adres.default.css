@@ -82,11 +82,13 @@
 	color:black;
 	font-weight:bold;
 }
+#data-grid{
+	float:left;
+}
 /*---------------------------------
 |	Buttons
 |---------------------------------*/
 .adres-button{
-	float:left;
    	outline: 0; 
     margin:0 4px 0 0; 
     padding: .4em .6em; 
@@ -95,6 +97,10 @@
     position: relative; 
     text-align: center; 
     zoom: 1; 
+}
+.adres-button.small{
+    padding: .2em .3em;
+    margin-top:6px; 
 }
 /*#contacts{float:left}
 #contact{float:left}*/
@@ -134,3 +140,22 @@ div.growlUI h2 {
 	text-align: center	
 }
 
+
+/*---------------------------------
+|	generic classes
+|---------------------------------*/
+
+.adres-column-sp{
+	margin-right:	18px;
+	padding-right:	17px;
+	border-right:1px solid #fff;
+}
+#toggle-search{
+}
+.adres-button.open{
+	color:#000000;
+}
+.adres-group,.adres-criteria{
+	margin-left:10px;
+	padding:.1em 0;
+}

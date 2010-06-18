@@ -13,7 +13,6 @@
 			<?php endforeach ?>
 		</ul>
 		<div id="contacts"></div>
-
 	</div> 
 </div>
 

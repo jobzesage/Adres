@@ -1,5 +1,5 @@
 
-<div class="adres-left-sidebar span-5">
+<div class="adres-left-sidebar adres-column-sp span-5 ">
 	
 	<?php  
 	/*-------------------------------
@@ -7,6 +7,8 @@
 	|--------------------------------*/
 	?>
 	
+	<?php echo $html->tag('h6',"Search",array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
+	<hr class="space" />
 	<?php echo $form->create('Search',array(
 		'url'=>array(
 			'controller'=>'users',
@@ -15,39 +17,58 @@
 		'type'=>'get',
 		'class' => 'adres-ajax-search', 
 		)) ?>
-		<?php echo $form->input('keyword') ?>
-		<?php echo $form->hidden('contact_type_id',array(
-			'value' => 5
-		)); ?>
-	<?php echo $form->end('Search') ?>
-	
-	
-	
+		
+		<div class="text input">
+			<?php echo $form->input('keyword',array(
+				'class'=>'text span-3 ui-corner-all',
+				'value'=>'', # can set the inital value
+				'label'=>false,
+				'div'=>false
+			)) ?>
+			<?php echo $form->hidden('contact_type_id',array(
+				'value' => 5
+			)); ?>
+			
+			<?php echo $form->end(array('label'=>'Search','class' => 'adres-button small')) ?>
+		</div>
+
+	<hr class="space" />
 	<?php  
 	/*-------------------------------
 	| Advance Search Section
 	|--------------------------------*/
 	?>
-
-	<?php echo $form->create('AdvanceSearch',array(
-		'url'=>array(
-			'controller'=>'users',
-			'action'=>'add_criteria'
-		),
-		'class' => 'adres-ajax-form'
-		)) ?>
+	<?php echo $html->tag('h6',$html->link('Advance',array('#'),array(
+			'id' => 'toggle-search', 
+		)),
+			array(
+				#options of html->tag
+				'class'=>'adres-button small ui-state-default ui-corner-all'
+			)) ?>	
+	<hr class="space" />
+	
+	<div id="adres-advance-search" style="display:none">
 		
-		<?php foreach ($fields as $field): ?>
+		<?php echo $form->create('AdvanceSearch',array(
+			'url'=>array(
+				'controller'=>'users',
+				'action'=>'add_criteria'
+			),
+			'class' => 'adres-ajax-form'
+			)) ?>
 			
-			<?php echo $form->input($field['Field']['id'],array(
-				'type'=>'text',
-				'label'=>array(
-					'text'=>$field['Field']['name']
-			))) ?>
-		<?php endforeach ?>			
-		
-	<?php echo $form->end('Advance Search') ?>
-
+			<?php foreach ($fields as $field): ?>
+				
+				<?php echo $form->input($field['Field']['id'],array(
+					'type'=>'text',
+					'class'=>'text span-5 ui-corner-all',
+					'label'=>array(
+						'text'=>$field['Field']['name']
+				))) ?>
+			<?php endforeach ?>			
+			
+		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
+	</div>
 
 	<?php  
 	/*-------------------------------
@@ -55,12 +76,11 @@
 	|--------------------------------*/
 	?>
 	
-	<br /><br />
 
 	<?php if (isset($groups) and !empty($groups)): ?>
-		<div id="adres-saved-group">
-		<?php echo $html->tag('h3',__('Groups',true)) ?>		
 
+		<div id="adres-saved-group">
+		<?php echo $html->tag('h6',__('Groups',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>		
 		<?php foreach ($groups as $group): ?>
 			
 			<div class="adres-group">
@@ -89,7 +109,8 @@
 	<?php endif ?>
 
 
-
+	<hr class="space" />	
+		
 
 	<?php  
 	/*-------------------------------
@@ -98,9 +119,9 @@
 	?>
 	
 	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
+
+		<?php echo $html->tag('h6',__('Loaded Filters',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>	
 		
-			
-		<?php echo $html->tag('h3',__('Loaded Filters',true)) ?>	
 		<?php $keyword = $session->read('Filter.keyword') ?>
 
 		<?php if ($session->check('Filter.keyword')): ?>
@@ -150,15 +171,15 @@
 				'controller'=>'users',
 				'action' => 'save_filter'
 			),
-			'class' => 'adres-ajax-form'
+			'class' => 'adres-ajax-form '
 		)) ?>
-			<?php echo $form->input('name') ?>
-		<?php echo $form->end('save') ?>
+			<?php echo $form->input('name',array(
+				'class'=>'text ui-corner-all span-5',
+				'lable'=>array('text'=>'Filter Name')
+			)) ?>
+		<?php echo $form->end(array('label'=>'save','class'=>'adres-button')) ?>
 		
 	<?php endif ?>	
-	
-	
-	<br /><br />
 	
 	
 	
@@ -168,10 +189,10 @@
 	|--------------------------------*/
 	?>
 			
-	
 	<div id="adres-saved-filters">
 
-	<?php  echo $html->tag('h3',__('Filters',true)) ?>
+	<?php  echo $html->tag('h6',__('Filters',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
+
 	
 	<?php foreach ($filters as $filter): ?>
 		<div class='adres-filter'>
@@ -204,9 +225,9 @@
 | displays contacts
 |--------------------------------*/
 ?>
-<div class="adres-contacts-panel span-11">
-	<?php echo $html->link('Export', array('controller'=>'users','action'=>'export.csv')) ?>
-	<?php echo $html->link('Add Contact', array('controller'=>'users','action'=>'add_record'),array('class'=>'adres-ajax-anchor adres-add' )) ?>
+<div class="adres-contacts-panel last span-17">
+
+		 
 	<?php
 	/*-------------------------------
 	| Stored as a element to call on
@@ -216,11 +237,14 @@
 	<?php echo $this->element('adres_data_grid') ?>	
 	
 </div>
-<div class="adres-right-sidebar span-5">
-	<div id="adres-record">
-	
-	</div>
-	<div id="adres-details" class="span-6">
-		
-	</div>			
-</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		//$('.adres-button').button();
+		$('#toggle-search').bind('click',function(e){
+			$(this).closest(':header').toggleClass("ui-state-highlight");
+			$('#adres-advance-search').toggle('blind',{},500);
+			return false;
+		});		
+	});
+</script>

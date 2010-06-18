@@ -49,6 +49,11 @@
 			?>
 			
 			<?php echo $content_for_layout; ?>
+			
+			<div id="adres-dialog" title="testing" style="display:none">
+				hello world
+			</div>
+			
 		</div>
 		<div id="footer" class="span-24 last">
 			(c) Copyright 2010 	. All Rights Reserved. 

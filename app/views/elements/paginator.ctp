@@ -11,7 +11,7 @@
 		}
 	?>
 
-<div class="adres-paginator">
+<div class="adres-paginator last ">
 	<?php for($i=1 ;$i<= $paging['pages'] ;$i++): ?>
 		<?php  $options = array(
 			'controller' => 'users', 

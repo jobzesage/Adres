@@ -11,6 +11,6 @@
 	))?>
 <?php echo $form_inputs ?>
 
-<?php echo $form->end('save') ?>
+<?php echo $form->end(array('label'=>'Save','class'=>'adres-button')) ?>
 	
 <?php //echo $this->element('contacts_details'); ?>	

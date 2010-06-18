@@ -121,7 +121,7 @@ class Plugin extends AppModel {
 	
 	
 	
-	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'p'))
+	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div'))
 	{	
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
@@ -129,15 +129,15 @@ class Plugin extends AppModel {
 			)));
 			
 		$data = $data[$this->name][$this->getDisplayFieldName()];
-		$label = '<'.$wrapper['tag'].'>';
-		$label .='<label>'.$plugin['Field']['name'];
+		$label = '<'.$wrapper['tag'].' class="input text">';
+		$label .='<label for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
 		
 		$label .= (int)$plugin['Field']['required'] ? " * " : "" ;
 		$label.= '</label>';
 		
 		$output  = '<input ';
 		
-		$output .= (int)$plugin['Field']['required'] ? " class ='required' " : "" ; # for jquery validtion
+		$output .= (int)$plugin['Field']['required'] ? " class ='required text span-7 ui-corner-all' " : " class='text span-7 ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$output .= ' value="'.$data.'"';
 		$output .='/>';
