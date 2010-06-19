@@ -27,6 +27,7 @@
 			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
 			'jquery.validate.pack',
+			'jquery.cookie',
 			'adres.core'
 		));
 
@@ -50,9 +51,7 @@
 			
 			<?php echo $content_for_layout; ?>
 			
-			<div id="adres-dialog" title="testing" style="display:none">
-				hello world
-			</div>
+			<div id="adres-dialog" title="Contact Window" style="display:none"></div>
 			
 		</div>
 		<div id="footer" class="span-24 last">

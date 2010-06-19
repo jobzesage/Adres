@@ -1,5 +1,5 @@
 <?php
-class UsersController extends AppController {
+class SitesController extends AppController {
     
     public $name ='Users';
     
@@ -7,59 +7,6 @@ class UsersController extends AppController {
     
     public $layout = "users";
     	
-    public function index(){
-    	
-    	$this->set('users',$this->paginate());
-    }
-
-    public function register(){
-        #$this-<br>>layout = null;
-        if($this->data){                
-            //TODO can improve the code here to use 
-            if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){
-                #if($this->User->validate()){
-                    $this->User->create();
-                    $this->User->save($this->data);
-                    $this->Session->setFlash(__("A email has been sent to your email address",true));
-                #}
-            }else{
-                $this->Session->setFlash(__('Password mismatch',true));
-            }
-        }else{
-            #$this->redirect('/login');
-        }
-    }
-
-
-
-    public function login() {
-    	$this->layout = null;
-    	
-    	if($this->Auth->user()){
-    		$this->redirect(array('controller'=>'users','action'=>'home'));
-    	}
-	
-    }
-
-    public function logout() {
-    	$this->Session->destroy();
-        $this->redirect($this->Auth->logout());
-        
-    }
-    
-
-	public function delete($id=null){
-		if (!$id) {
-			$this->flash(__('Invalid User', true), array('action' => 'index'));
-		}
-		if ($this->User->del($id)) {
-			$this->flash(__('Group deleted', true), array('action' => 'index'));
-		}
-		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
-		
-		
-	}
-
 
     public function home(){
 		if(!$this->isAuthenticated()){
@@ -86,10 +33,7 @@ class UsersController extends AppController {
 		$this->render('/elements/contacts');
 	}
 	
-	public function advance_search(){
-		debug($this->data);
-		die();
-	}
+
 	
     public function edit_record($contact_id=null){
 		$this->redirect_if_not_ajax_request();
@@ -389,33 +333,7 @@ class UsersController extends AppController {
 		
 	}	
 	
-	public function save_filter()
-	{
-		
-		$keyword 	= $this->Session->check('Filter.keyword')	? $this->Session->read('Filter.keyword')	:'';
-		$criteria 	= $this->Session->check('Filter.criteria')	? $this->Session->read('Filter.criteria')	:'';
-		$group		= $this->Session->check('Filter.group') 	? $this->Session->read('Filter.group') 	: null;
-		
-		$contact_type_id = $this->Session->read('Contact.contact_type_id');
-		if ($this->Session->check('Filter') AND !empty($this->data)) {
-			$this->set('status',true);
-			ClassRegistry::init('Filter')->save(
-				array(
-					'name'=>$this->data['Filter']['name'],
-					'keyword'=>$keyword,
-					'criteria'=>$criteria,
-					'contact_type_id' => $contact_type_id
-			));
-			$filters = ClassRegistry::init('Filter')->find('all',array('conditions'=>array(
-				'contact_type_id'=>$contact_type_id
-			)));
-			
-			$this->set('filters',$filters);
-		}
-		
-		$this->render('/elements/ajax/save_filter');
-	}
-	
+
 	
 	public function export()
 	{

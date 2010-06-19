@@ -150,7 +150,7 @@
 		<?php if ($session->check('Filter.criteria')): ?>
 			<?php $criterias = unserialize($session->read('Filter.criteria')) ?>
 
-				<?php echo "Criterias:" ?>
+			<?php echo "Criterias:" ?>
 				
 			<?php foreach ($criterias as $idx => $criteria): ?>
 			<div class="adres-criteria">					
@@ -166,12 +166,13 @@
 			</div>				
 			<?php endforeach ?>
 		<?php endif ?>
+		
 		<?php echo $form->create('Filter',array(
 			'url'=>array(
 				'controller'=>'users',
 				'action' => 'save_filter'
 			),
-			'class' => 'adres-ajax-form '
+			'class' => 'adres-ajax-form adres-save-filter',
 		)) ?>
 			<?php echo $form->input('name',array(
 				'class'=>'text ui-corner-all span-5',
@@ -192,29 +193,9 @@
 	<div id="adres-saved-filters">
 
 	<?php  echo $html->tag('h6',__('Filters',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
-
-	
-	<?php foreach ($filters as $filter): ?>
-		<div class='adres-filter'>
-			<?php echo $html->link($filter['Filter']['name'],array(
-				'controller'=>'users',
-				'action' => 'load_filter',
-				$filter['Filter']['id']
-			),array(
-				'class'=>'adres-ajax-anchor'			
-			)
-			) ?>
-			
-			<?php echo $html->link('(x)',array(
-				'controller'=>'filters',
-				'action' => 'delete',
-				$filter['Filter']['id']
-			),array(
-				'class'=>'adres-ajax-anchor adres-delete-filter'			
-			)
-			) ?>			
-		</div>
-	<?php endforeach ?>	
+		<div class="ajax-response">
+		<?php echo $this->element('ajax/save_filter') ?>
+		</div>	
 	</div><!-- // adres-saved-filters -->
 	
 </div>

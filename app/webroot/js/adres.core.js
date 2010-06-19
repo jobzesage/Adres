@@ -33,9 +33,10 @@ ADres.AJAX={
 
 		var $form = $(this);
 		var action = $form.attr('action')+'.json';
-		$form.addClass('blocker');
-		var contact_id = $form.find('input#edit-contact-id').val();
 
+		var contact_id = $form.find('input#edit-contact-id').val();
+		console.log($form);
+				
 		$.ajax({
 			url:action,
 			dataType:'json',
@@ -48,9 +49,9 @@ ADres.AJAX={
 						$('#adres-record').html(resp.data);
 					}else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
-					}else if($form.is('#FilterAddForm')){
+					}else if($form.is('.adres-save-filter')){
 						$form.remove();
-						$('#adres-saved-filters').replaceWith(resp.data);
+						$('#adres-saved-filters >.ajax-response').html(resp.data);
 					}else if($form.is('#edit-contact')){
 						//$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
 						ADres.DIALOG.close();
@@ -166,7 +167,8 @@ ADres.LOADER={
 ADres.DIALOG={
 	open:function(){
 		$('#adres-dialog').dialog({
-			modal:true
+			modal:true,
+			width:380
 		});
 	},
 	close:function(){
@@ -205,6 +207,6 @@ jQuery(document).ready(function() {
         });	}
 	});
 	
+	
 	$('.adres-tabs').tabs();
-
 });
