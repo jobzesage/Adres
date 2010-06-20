@@ -194,7 +194,15 @@
 
 	<?php  echo $html->tag('h6',__('Filters',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
 		<div class="ajax-response">
-		<?php echo $this->element('ajax/save_filter') ?>
+			
+		<?php 
+			/*-------------------------------
+			| Shows the filters list from same element
+			|--------------------------------*/			
+			echo $this->element('ajax/save_filter') 
+		?>
+		
+		
 		</div>	
 	</div><!-- // adres-saved-filters -->
 	
@@ -222,10 +230,6 @@
 <script type="text/javascript" charset="utf-8">
 	$(function(){
 		//$('.adres-button').button();
-		$('#toggle-search').bind('click',function(e){
-			$(this).closest(':header').toggleClass("ui-state-highlight");
-			$('#adres-advance-search').toggle('blind',{},500);
-			return false;
-		});		
+	
 	});
 </script>

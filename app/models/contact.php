@@ -206,6 +206,36 @@ class Contact extends AppModel {
 		}
 	}
 	
+
+	public function getContactGroups($id)
+	{
+		return $this->find('first',array(
+			'contain'=>array('Group'),
+			'conditions' => array('Contact.id' => $id),
+			'limit'=>1
+		));
+	}
+
+	public function getContactAffiliations($id)
+	{
+		return $this->find('first',array(
+			'contain'=>array(
+				'ParentAffiliation',
+				'ChildAffiliation',				
+			),
+			'conditions' => array('Contact.id' => $id),
+			'limit'=>1
+		));
+	}
+	
+	public function getContactLogs($id)
+	{
+		return $this->find('first',array(
+			'contain'=>array('Log'=>array('User')),
+			'conditions' => array('Contact.id' => $id),
+			'limit'=>1
+		));
+	}
 	
 	public function afterDelete()
 	{

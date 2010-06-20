@@ -137,7 +137,7 @@ class Plugin extends AppModel {
 		
 		$output  = '<input ';
 		
-		$output .= (int)$plugin['Field']['required'] ? " class ='required text span-7 ui-corner-all' " : " class='text span-7 ui-corner-all'" ; # for jquery validtion
+		$output .= (int)$plugin['Field']['required'] ? " class ='required text span-8 ui-corner-all' " : " class='text span-8 ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$output .= ' value="'.$data.'"';
 		$output .='/>';

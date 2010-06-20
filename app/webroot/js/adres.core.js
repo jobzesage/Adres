@@ -35,7 +35,6 @@ ADres.AJAX={
 		var action = $form.attr('action')+'.json';
 
 		var contact_id = $form.find('input#edit-contact-id').val();
-		console.log($form);
 				
 		$.ajax({
 			url:action,
@@ -98,6 +97,7 @@ ADres.AJAX={
 				return false;
 			}
 		}
+		
 		
 		$.ajax({
 			url:action,
@@ -207,6 +207,28 @@ jQuery(document).ready(function() {
         });	}
 	});
 	
+	
+	$('a.adres-contact-tabs-panel.adres-button').live('click',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var $link = $(this);
+		var action = $link.attr('href');
+		$.ajax({
+			url:action,
+			//beforeSend:AJAX.LOADER.enable,
+			success:function(resp){
+				$('#adres-dialog').html(resp);
+				ADres.DIALOG.open();
+			}
+			//complete:AJAX.LOADER.disable	
+		});		
+	});
+	
+	$('#toggle-search').live('click',function(e){
+		$(this).closest(':header').toggleClass("ui-state-highlight");
+		$('#adres-advance-search').toggle('blind',{},500);
+		return false;
+	});	
 	
 	$('.adres-tabs').tabs();
 });

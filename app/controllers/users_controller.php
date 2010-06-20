@@ -144,8 +144,12 @@ class UsersController extends AppController {
 			}
 			$output.= ClassRegistry::init($pluginName)->renderShowDetail($field_name,$value);
 		}
-		$this->set('contact',$output); 
-		$this->set('contactId',$id);
+		
+		$this->set('sContact',$output);
+		
+		$contact = $this->Contact->getContact($contact_id);
+		$groups = $this->Group->getList($contact);
+		$this->set(compact('contact','groups'));
 		$this->set('status',true);
     }
 	
@@ -367,7 +371,6 @@ class UsersController extends AppController {
 			$this->Session->write($filter);
 		}
 		$this->set('status',true);
-		$this->set('test',$filter);
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
 	}
 	
@@ -454,6 +457,12 @@ class UsersController extends AppController {
 		$this->render('/elements/empty');
 	}
 	
+	
+	// generates the links for tabs panel
+	public function show_contact_panel($id)
+	{
+		$this->set('contact_id',$id);
+	}
 	
     //private functions
     

@@ -1,4 +1,3 @@
-<?php //echo $html->tag('h3',__('Assigned Group',true)) ?>	
 
 <?php foreach ($contact['Group'] as $assigned_group	): ?>
 	<?php echo $html->tag('span',$assigned_group['name']) ?> 

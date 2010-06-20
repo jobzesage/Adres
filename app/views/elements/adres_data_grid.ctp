@@ -75,36 +75,36 @@
 				 	?>
 					<?php echo $html->link(__($span,true),array( 
 						'controller' => 'users',
-						'action' => 'show_record', 
+						'action' => 'show_contact_panel', 
 						$value['Contact']['id']),array(
 							'title' => 'Edit Contact', 
-							'class' => 'adres-button small adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
+							'class' => 'adres-button small adres-contact-tabs-panel ui-state-default ui-corner-all', 
 						),null,false)
 					?>
 					
 					<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit';
 						$span = 'edit';	
 					 ?>
-					<?php echo $html->link(__($span,true),array( 
-						'controller' => 'users',
-						'action' => 'edit_record', 
-						$value['Contact']['id']),array(
-							'title' => 'Edit Contact', 
-							'class' => 'adres-button small adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
-						),null,false)
-					?>
-										
-					<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete';
-							$span = 'del';	
-					 ?>
-					<?php echo $html->link($span,array( 
-						'controller' => 'users',
-						'action' => 'delete_record', 
-						$value['Contact']['id']),array(
-							'title' => 'Delete Contact', 
-							'class' => 'adres-button small adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
-						),null,false)
-					?>						
+					<!-- <?php echo $html->link(__($span,true),array( 
+										'controller' => 'users',
+										'action' => 'edit_record', 
+										$value['Contact']['id']),array(
+											'title' => 'Edit Contact', 
+											'class' => 'adres-button small adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
+										),null,false)
+									?>
+														
+									<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete';
+											$span = 'del';	
+									 ?>
+									<?php echo $html->link($span,array( 
+										'controller' => 'users',
+										'action' => 'delete_record', 
+										$value['Contact']['id']),array(
+											'title' => 'Delete Contact', 
+											'class' => 'adres-button small adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
+										),null,false)
+									?>		 -->				
 				</div>
 			</td>
 		</tr>		

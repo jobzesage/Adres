@@ -50,7 +50,7 @@ class Group extends AppModel {
 			unset($list[$group['id']]);
 		}
 		return $list;
-	} 	
-	
+	}
+		
 }
 ?>
