@@ -77,6 +77,15 @@ class ContactsController extends AppController {
 		$this->helpers = array('Csv');
 		$this->set('data',$this->User->find('all'));
 	}
-
+	
+	public function restore($id=null)
+	{
+		$this->set('status',true);
+		$contact = $this->Contact->read(null,$id);
+		if(!empty($contact)){
+			$contact['Contact']['trash_id']=0;
+			$this->Contact->save($contact);
+		}
+	}
 }
 ?>

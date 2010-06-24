@@ -53,6 +53,11 @@ class ContactSet extends AppModel
 		
 		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
 		
+		if(is_array($contact_type_id)){
+			$ids = implode(',',$contact_type_id);
+			$where =' WHERE Contact.contact_type_id IN ('.$ids.') ';
+		}
+		
 		
 		if(!$include_trash){
 			$trash = " AND Contact.trash_id =0  "; #gets all the active contacts 

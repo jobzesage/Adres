@@ -139,22 +139,23 @@ class SitesController extends AppController {
 	}
 	
     public function delete_record($id=null){
-		$this->redirect_if_not_ajax_request();
-		$this->redirect_if_id_is_empty($id);
+		//$this->redirect_if_not_ajax_request();
+		//$this->redirect_if_id_is_empty($id);
 		$this->set('status',true);
-		
-		$this->Contact->id = $id;
-		$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
-		
-		if ($this->data){
-			// if($this->Contact->delete($id)){
-			// }
-			
-						
-		}
 
+		if ($this->data){
+			$log = $this->data['ContactDelete'] ;
+			$log['user_id']=$this->Auth->User('id');
+			$log['log_dt']	= date(AppModel::SQL_DTF);
+			$this->Log->save($log);	
+			$trash_id = $this->Log->getLastInsertID();	
+			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
+			$contact['Contact']['trash_id']= $trash_id;
+			$this->Contact->save($contact);
+			$this->redirect(array('controller'=>'users','action'=>'home'));	
+		}
+		$this->set('id',$id);
     }    
-    
 	
 }
 ?>

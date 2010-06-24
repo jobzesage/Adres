@@ -448,13 +448,12 @@ class UsersController extends AppController {
 	}
 	
 	
-	public function affiliate()
-	{
-		
-		
-		$this->render('/elements/empty');
-	}
 	
+	public function trash()
+	{
+		$this->layout = "administrator";
+		$this->set('trashed',$this->Contact->findTrashed());
+	}
 	
 	// generates the links for tabs panel
 	public function show_contact_panel($id)
@@ -464,9 +463,6 @@ class UsersController extends AppController {
 	
     //private functions
     
-	private function advance_search($fields){
-			
-	}
 
     private function getSQL(Array $criterias){
     	$where = ' ';

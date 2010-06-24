@@ -1,5 +1,5 @@
 <?php  
-
+App::import('Sanatize');
 class Plugin extends AppModel {
 	
 	public $useTable = false;

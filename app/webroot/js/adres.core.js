@@ -106,14 +106,17 @@ ADres.AJAX={
 			success:function(resp){
 				if(resp.status){
 					if($link.hasClass('adres-delete')){
-						// $link.closest('tr').animate({'backgroundColor':'red'},300);
-						// $link.closest('tr').fadeOut(200,function(){ 
-						// 	$(this).remove();	
-						// });
+
 						$('#adres-dialog').html(resp.data);						
 						ADres.DIALOG.open();
 						
-					}else if($link.hasClass('adres-show')){
+					}else if($link.hasClass('adres-trash')){
+						$link.closest('tr').animate({'backgroundColor':'red'},300);
+						$link.closest('tr').fadeOut(200,function(){ 
+							$(this).remove();	
+						});
+					}
+					else if($link.hasClass('adres-show')){
 						$('#adres-dialog').html(resp.data);
 						ADres.DIALOG.open();
 					}else if($link.hasClass('adres-edit')){

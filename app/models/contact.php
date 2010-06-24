@@ -17,7 +17,21 @@ class Contact extends AppModel {
 		'ContactTrash'=>array(
 			'className'=>'Trash',
 			'foreignKey'=>'trash_id'
-		)
+		),
+		'Trash' =>array(
+			'className'=>'Log',
+			'foreignKey'=>false,
+			'conditions'=>array(
+				'Contact.trash_id=Trash.id',	
+			)	
+		),
+		'Trasher'=>array(
+			'className'=>'User',
+			'foreignKey'=>false,
+			'conditions'=>array(
+				'Trash.user_id=Trasher.id'	
+			)	
+		)		
 	);
 			
 	public $hasMany = array(
@@ -26,7 +40,7 @@ class Contact extends AppModel {
 			'foreignKey' => 'contact_id',
 			'order' => 'Log.log_dt DESC',
 			'limit'=>5
-		) 
+		)
 	);
 
 	public $hasAndBelongsToMany = array(
@@ -203,12 +217,12 @@ class Contact extends AppModel {
 			));
 		}else{
 			//update section
-			$this->Log->save(array(
-				'log_dt'=>date(AppModel::SQL_DTF),
-				'contact_id'=>$this->id,				
-				'description' 	=> $this->log_message,
-				'user_id'=>$this->user_id 
-			));	
+			// $this->Log->save(array(
+			// 	'log_dt'=>date(AppModel::SQL_DTF),
+			// 	'contact_id'=>$this->id,				
+			// 	'description' 	=> $this->log_message,
+			// 	'user_id'=>$this->user_id 
+			// ));	
 		}
 	}
 	
@@ -266,6 +280,17 @@ class Contact extends AppModel {
 		$sql .=')';
 		
 		$this->query($sql);
+	}
+	
+	
+	public function findTrashed()
+	{
+		return $this->find('all',array(
+			'contain'=>array('ContactType','Trash','Trasher'),
+			'conditions'=>array(
+				'Contact.trash_id !=0'	
+			)	
+		));
 	}
 }
 ?>
