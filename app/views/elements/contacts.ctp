@@ -38,7 +38,7 @@
 	| Advance Search Section
 	|--------------------------------*/
 	?>
-	<?php echo $html->tag('h6',$html->link('Advance',array('#'),array(
+	<?php echo $html->tag('h6',$html->link('Advance Search',array('#'),array(
 			'id' => 'toggle-search', 
 		)),
 			array(

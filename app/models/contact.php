@@ -44,6 +44,12 @@ class Contact extends AppModel {
 			'className' => 'Affiliation', 
 			'foreignKey' => 'contact_child_id',
 			'associationForeignKey' => 'affiliation_id',
+		),
+		'Affiliation'=>array(
+			'className' => 'Affiliation', 
+			'associationForeignKey' => 'affiliation_id'			
+			#'foreignKey' => 'contact_child_id',
+			#'associationForeignKey' => 'affiliation_id',
 		)		
 	);
 	
@@ -247,6 +253,19 @@ class Contact extends AppModel {
 		$contact_type = $this->ContactType->read(null,$contact_type_id);
 		$contact_type['ContactType']['contact_counter'] = $contact_type['ContactType']['contact_counter'] + $increment ;
 		$this->ContactType->save($contact_type);
-	}	
+	}
+	
+	
+	public function saveAfilliation($affiliation)
+	{
+		$sql = 'INSERT into affiliations_contacts';
+		$sql .= ' (contact_father_id,contact_child_id,affiliation_id) ';
+		$sql .= ' values(\''.(int) $affiliation['contact_father_id'].'\',';
+		$sql .='\''.$affiliation['contact_child_id'].'\',';
+		$sql .='\''.$affiliation['affiliation_id'].'\'';
+		$sql .=')';
+		
+		$this->query($sql);
+	}
 }
 ?>

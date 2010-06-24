@@ -208,7 +208,7 @@ jQuery(document).ready(function() {
 	});
 	
 	
-	$('a.adres-contact-tabs-panel.adres-button').live('click',function(e){
+	$('a.adres-contact-tabs-panel').live('click',function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		var $link = $(this);
@@ -229,6 +229,24 @@ jQuery(document).ready(function() {
 		$('#adres-advance-search').toggle('blind',{},500);
 		return false;
 	});	
+	
+	$('form#adres-affiliate-form').live('submit',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var $form = $(this);
+		var action = $form.attr('action');
+		$.ajax({
+			url:action,
+			type:'POST',
+			data:$form.serialize(),
+			beforeSend:ADres.LOADER.enable,
+			success:function(resp){
+				$form.closest('#adres-affiliation').replaceWith(resp);
+			},
+			complete:ADres.LOADER.disable			
+		});
+			
+	});
 	
 	$('.adres-tabs').tabs();
 });

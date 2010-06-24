@@ -66,12 +66,22 @@
 		<?php foreach ($values as $value): ?>
 		<tr>
 			<?php foreach ($value as $key => $data): ?>
-			<td><?php  $d=array_values($data);	echo $d[0];	?></td>
+			<td><?php  $d=array_values($data);	
+				echo $html->link($d[0],array(
+					'controller'=>'users',
+					'action'=>'show_contact_panel',
+					$value['Contact']['id']),
+					array(
+						'class'=>'adres-contact-tabs-panel'	
+					)	
+				);	?>
+			</td>
 			<?php endforeach ?>
 			<td>
 				<div class="adres-toolbar">
-					<?php $span = '<span class=\'ui-icon ui-icon-folder-open\'></sapn>edit';
-						$span = 'show';	
+					<!--
+					<?php $span = '<span class=\'ui-icon ui-icon-trash \'></sapn>edit';
+						$span = 'delete';	
 				 	?>
 					<?php echo $html->link(__($span,true),array( 
 						'controller' => 'users',
@@ -85,7 +95,7 @@
 					<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit';
 						$span = 'edit';	
 					 ?>
-					<!-- <?php echo $html->link(__($span,true),array( 
+					<?php echo $html->link(__($span,true),array( 
 										'controller' => 'users',
 										'action' => 'edit_record', 
 										$value['Contact']['id']),array(
@@ -93,7 +103,7 @@
 											'class' => 'adres-button small adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
 										),null,false)
 									?>
-														
+									-->					
 									<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete';
 											$span = 'del';	
 									 ?>
@@ -104,7 +114,7 @@
 											'title' => 'Delete Contact', 
 											'class' => 'adres-button small adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
 										),null,false)
-									?>		 -->				
+									?>				
 				</div>
 			</td>
 		</tr>		

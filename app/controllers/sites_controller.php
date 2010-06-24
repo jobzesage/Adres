@@ -3,7 +3,7 @@ class SitesController extends AppController {
     
     public $name ='Sites';
     
-    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Affiliation');
+    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Affiliation','Log');
     
     public $layout = "users";
     	
@@ -91,10 +91,41 @@ class SitesController extends AppController {
 	
 	public function affiliate($contact_id)
 	{
-		$this->redirect_if_not_ajax_request();
-		$this->redirect_if_id_is_empty($contact_id);
+		//$this->redirect_if_not_ajax_request();
+		//$this->redirect_if_id_is_empty($contact_id);
+	
+		if( $this->data){
+			$affiliation_id = substr($this->data['Affiliate']['affiliation_id'],1);
+			
+			switch (substr($this->data['Affiliate']['affiliation_id'],0,1)) {
+				case 'f':
+					$this->Contact->log_message ='Contact '.$this->data['Affiliate']['contact_id'] .' and '.$this->data['Affiliate']['current_contact_id']. ' are now affiliated';
+
+					$affiliation = array(
+							'contact_father_id'=>$this->data['Affiliate']['current_contact_id'],
+							'contact_child_id' => $this->data['Affiliate']['contact_id'],
+							'affiliation_id'=>$affiliation_id
+					);
+					
+					break;
+					
+				case 's':
+					$affiliation = array(
+							'contact_father_id'=>$this->data['Affiliate']['contact_id'],
+							'contact_child_id' => $this->data['Affiliate']['current_contact_id'],
+							'affiliation_id'=>$affiliation_id
+					);
+					
+					break;
+			}
+			if($affiliation){
+				$this->Contact->saveAfilliation($affiliation);
+			}
+		}
 		$contact = $this->Contact->getContactAffiliations($contact_id);
-		$this->set(compact('contact'));		
+		$this->set('affiliations',$this->Affiliation->getList($contact['Contact']['contact_type_id']));
+		$this->set(compact('contact'));	
+				
 	}
 
     
