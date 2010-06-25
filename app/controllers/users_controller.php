@@ -86,10 +86,7 @@ class UsersController extends AppController {
 		$this->render('/elements/contacts');
 	}
 	
-	public function advance_search(){
-		debug($this->data);
-		die();
-	}
+
 	
     public function edit_record($contact_id=null){
 		$this->redirect_if_not_ajax_request();
@@ -153,6 +150,7 @@ class UsersController extends AppController {
 		$this->set('status',true);
     }
 	
+    //FIXME : delete this when trashing works
     public function delete_record($id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
@@ -466,6 +464,10 @@ class UsersController extends AppController {
 	
     //private functions
     
+	private function advance_search($fields){
+			
+	}
+
     private function getSQL(Array $criterias){
     	$where = ' ';
 		foreach($criterias as $value){
@@ -492,6 +494,14 @@ class UsersController extends AppController {
 		$fields   = $this->Field->getPluginTypes($contact_type_id);
 		$this->set('fields',$fields);
 		
+		$advance_search_form = "";
+		
+		foreach ($fields as $field) {
+			$className = $field['Field']['field_type_class_name'];
+			$advance_search_form .= ClassRegistry::init($className)->advanceSearchFormField($field);
+		}
+		
+		$this->set('advance_search_form',$advance_search_form);
 		
 		$keyword  = "";
 		$criteria = "";

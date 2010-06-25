@@ -25,7 +25,8 @@ class ContactSet extends AppModel
 			'page'=>1,	
 			'sort'=>'id',
 			'order'=>'asc',
-			'paging'=>true
+			'paging'=>true,
+			'include_trash'=>false
 		);
 		
 		$options = am($defaults,$options);
@@ -51,6 +52,18 @@ class ContactSet extends AppModel
 			ON Contact.id = ContactGroup.contact_id '; 
 		
 		$where =' WHERE Contact.contact_type_id = '.$contact_type_id .' ';
+		
+		
+		if(!$include_trash){
+			$trash = " AND Contact.trash_id =0  "; #gets all the active contacts 
+		}else{
+			$trash = " AND Contact.trash_id !=0  "; #get all the trashed contacts
+		}
+		
+		//include trash will toggle between trashed contact and active contacts
+		$where .=$trash;
+		
+		
 		
 		$keyword = "";		
 		

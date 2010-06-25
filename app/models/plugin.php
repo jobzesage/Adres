@@ -128,12 +128,12 @@ class Plugin extends AppModel {
 				'field_id'		=>$plugin['Field']['id'] 	
 			)));
 			
-		$data = $data[$this->name][$this->getDisplayFieldName()];
-		$label = '<'.$wrapper['tag'].' class="input text">';
+		$data 	= $data[$this->name][$this->getDisplayFieldName()];
+		$label 	= '<'.$wrapper['tag'].' class="input text">';
 		$label .='<label for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
 		
 		$label .= (int)$plugin['Field']['required'] ? " * " : "" ;
-		$label.= '</label>';
+		$label .= '</label>';
 		
 		$output  = '<input ';
 		
@@ -146,6 +146,19 @@ class Plugin extends AppModel {
 		return  $label.$output;		
 	}
 	
+	public function advanceSearchFormField($field,$options=array())
+	{
+		$defaults = array('tag'=>'div','class'=>'text input');
+		$wrapper = am($defaults,$options);
+		
+		$label = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
+		$label .= '<label for="'.$field['Field']['name'].'" >'.$field['Field']['name'].'</label>';
+		$input_style =' class="text span-5 ui-corner-all" ';
+		$input_field = '<input '.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="">';  
+		$input_field.="</{$wrapper['tag']}>"; 
+		
+		return $label.$input_field;
+	}
+	
 }
-
 ?>

@@ -48,14 +48,7 @@
 	<hr class="space" />
 	
 	<div id="adres-advance-search" style="display:none">
-		
-		<?php echo $form->create('AdvanceSearch',array(
-			'url'=>array(
-				'controller'=>'users',
-				'action'=>'add_criteria'
-			),
-			'class' => 'adres-ajax-form'
-			)) ?>
+	<!--	
 			
 			<?php foreach ($fields as $field): ?>
 				
@@ -64,10 +57,23 @@
 					'class'=>'text span-5 ui-corner-all',
 					'label'=>array(
 						'text'=>$field['Field']['name']
-				))) ?>
+				))) 
+				?>
 			<?php endforeach ?>			
 			
+	-->
+		<?php echo $form->create('AdvanceSearch',array(
+			'url'=>array(
+				'controller'=>'users',
+				'action'=>'add_criteria'
+			),
+			'class' => 'adres-ajax-form'
+			)) ?>
+			
+			<?php echo $advance_search_form ?>
+			
 		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
+	
 	</div>
 
 	<?php  

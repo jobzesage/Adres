@@ -108,7 +108,7 @@
 											$span = 'del';	
 									 ?>
 									<?php echo $html->link($span,array( 
-										'controller' => 'users',
+										'controller' => 'sites',
 										'action' => 'delete_record', 
 										$value['Contact']['id']),array(
 											'title' => 'Delete Contact', 

@@ -121,7 +121,8 @@ class SitesController extends AppController {
 			if($affiliation){
 				$this->Contact->saveAfilliation($affiliation);
 			}
-		}
+		}// used to affiliate
+		
 		$contact = $this->Contact->getContactAffiliations($contact_id);
 		$this->set('affiliations',$this->Affiliation->getList($contact['Contact']['contact_type_id']));
 		$this->set(compact('contact'));	
@@ -136,5 +137,24 @@ class SitesController extends AppController {
 		$contact = $this->Contact->getContactLogs($contact_id);
 		$this->set(compact('contact'));		
 	}
+	
+    public function delete_record($id=null){
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($id);
+		$this->set('status',true);
+		
+		$this->Contact->id = $id;
+		$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
+		
+		if ($this->data){
+			// if($this->Contact->delete($id)){
+			// }
+			
+						
+		}
+
+    }    
+    
+	
 }
 ?>
