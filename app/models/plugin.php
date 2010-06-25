@@ -47,7 +47,7 @@ class Plugin extends AppModel {
 
 	
 
-	public function renderAdvancedSearch($field_id,$column_name, $value)
+	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
 		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' LIKE "%'.$value.'%" AND t.field_id = '.(int) $field_id. ' )';
 		$query_string['name'] = $column_name." like ".$value;

@@ -48,20 +48,6 @@
 	<hr class="space" />
 	
 	<div id="adres-advance-search" style="display:none">
-	<!--	
-			
-			<?php foreach ($fields as $field): ?>
-				
-				<?php echo $form->input($field['Field']['id'],array(
-					'type'=>'text',
-					'class'=>'text span-5 ui-corner-all',
-					'label'=>array(
-						'text'=>$field['Field']['name']
-				))) 
-				?>
-			<?php endforeach ?>			
-			
-	-->
 		<?php echo $form->create('AdvanceSearch',array(
 			'url'=>array(
 				'controller'=>'users',
@@ -69,7 +55,12 @@
 			),
 			'class' => 'adres-ajax-form'
 			)) ?>
-			
+			<?php
+			/*-------------------------------
+			| Advance Search generated form 
+			| the plugin
+			|-------------------------------*/
+			?>
 			<?php echo $advance_search_form ?>
 			
 		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
