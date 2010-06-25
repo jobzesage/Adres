@@ -302,7 +302,7 @@ class UsersController extends AppController {
 					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
 					$plugin = $pluginName['Field']['field_type_class_name'];
 					$column_name = $pluginName['Field']['name'];
-					$criterias[] = ClassRegistry::init($plugin)->processAdvancedSearch($field_id,$column_name,$value);					
+					$criterias[] = ClassRegistry::init($plugin)->processAdvancedSearch($field_id,$column_name,$value);		
 				}
 									
 			}

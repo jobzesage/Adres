@@ -254,5 +254,16 @@ jQuery(document).ready(function() {
 			
 	});
 	
+	$('input.date_time').live('click',function(e){
+		$(this).datepicker({
+			buttonImage: '/img/ui/calendar.gif',
+			buttonImageOnly: true,
+			dateFormat:'yy:mm:dd'
+			
+		}).focus();
+	});
+
+	$('body').trigger('click');
+	
 	$('.adres-tabs').tabs();
-});
+})
