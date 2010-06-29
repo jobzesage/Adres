@@ -4,7 +4,8 @@ class GroupsController extends AppController {
 	public $name = 'Groups';
 	public $uses=array(
 		'Group',
-		'Contact');
+		'Contact'
+	);
 	
 
 	public function index() {
@@ -16,7 +17,6 @@ class GroupsController extends AppController {
 					#'Contact',
 					'ContactType',
 					#'Implementation'
-					
 					),
 				#'conditions'=>array('Group.parent_id'=>0)	//only the parent groups are shown
 			));
@@ -36,7 +36,6 @@ class GroupsController extends AppController {
 	public function add() {
 		
 		$this->_setGroupList();
-				
 		if (!empty($this->data)) {
 			$this->Group->create();
 			if ($this->Group->save($this->data)) {
@@ -44,6 +43,7 @@ class GroupsController extends AppController {
 			} else {
 			}
 		}
+		$this->set('contactTypes',$this->Group->ContactType->getList());		
 	}
 
 	public function edit($id = null) {
@@ -62,6 +62,7 @@ class GroupsController extends AppController {
 		}
 		if (empty($this->data)) {
 			$this->data = $this->Group->read(null, $id);
+			$this->set('contactTypes',$this->Group->ContactType->getList());		
 		}
 	}
 

@@ -12,6 +12,10 @@
 		)); ?>
 	
 	<?php ?>
+	<?php echo $form->input('Group.contact_type_id',array(
+			'type'=>'select',
+			'options'=>$contactTypes))
+	 ?>
 	
 	</fieldset>
 <?php echo $form->end('Submit');?>

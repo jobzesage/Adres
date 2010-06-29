@@ -6,6 +6,7 @@
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('parent_id');?></th>
+	<th><?php echo $paginator->sort('contact_type_id');?></th>
 	<th><?php echo $paginator->sort('created');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
@@ -26,6 +27,9 @@ foreach ($groups as $group):
 		</td>
 		<td>
 			<?php echo $group['Group']['parent_id']; ?>
+		</td>
+		<td>
+			<?php echo $group['ContactType']['name']; ?>
 		</td>
 		<td>
 			<?php echo $group['Group']['created']; ?>

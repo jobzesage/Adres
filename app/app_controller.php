@@ -30,7 +30,7 @@ abstract class AppController extends Controller {
         );
 		$this->Auth->allow('register','login');
         
-        $this->Auth->userScope = array('User.is_active' => 1);
+        $this->Auth->userScope = array('User.is_active' => 0);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
         $this->Auth->autoRedirect = true;

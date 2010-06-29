@@ -13,7 +13,13 @@
 		'empty'=>array(0=>__('No Parent',true)),
 		'label'=>'Parent Group'
 	)); ?>
+	
+	<?php echo $form->input('Group.contact_type_id',array(
+			'type'=>'select',
+			'options'=>$contactTypes))
+	 ?>
 
+	
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>
