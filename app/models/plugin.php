@@ -1,5 +1,6 @@
 <?php  
 App::import('Sanatize');
+App::import('Helper','Form');
 
 class Plugin extends AppModel {
 	
@@ -12,8 +13,6 @@ class Plugin extends AppModel {
 	protected $_join_contact_name = 'contact_id';
 
 	protected $_join_field_name = 'field_id';		
-
-
 
 
 	public function getDisplayFieldName()
@@ -124,12 +123,16 @@ class Plugin extends AppModel {
 	
 	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div'))
 	{	
+		
+		$form = new FormHelper;
+		
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
 				'field_id'		=>$plugin['Field']['id'] 	
 			)));
 			
 		$data 	= $data[$this->name][$this->getDisplayFieldName()];
+		
 		$label 	= '<'.$wrapper['tag'].' class="input text">';
 		$label .='<label for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
 		
@@ -144,7 +147,7 @@ class Plugin extends AppModel {
 		$output .='/>';
 		$output .='</'.$wrapper['tag'].'>';
 
-		return  $label.$output;		
+		return $label.$output;		
 	}
 	
 	public function advanceSearchFormField($field,$options=array())
