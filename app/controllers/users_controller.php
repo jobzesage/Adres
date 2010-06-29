@@ -8,12 +8,12 @@ class UsersController extends AppController {
     public $layout = "users";
     	
     public function index(){
-    	
+    	$this->layout = "administrator";
     	$this->set('users',$this->paginate());
     }
 
     public function register(){
-        #$this-<br>>layout = null;
+    	$this->layout = 'administrator';
         if($this->data){                
             //TODO can improve the code here to use 
             if($this->data['User']['password']===$this->Auth->password($this->data['User']['confirm_password'])){

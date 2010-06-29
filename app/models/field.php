@@ -9,7 +9,6 @@ class Field extends AppModel {
 		'ContactType' => array(
 			'className' => 'ContactType', 
 			'foreignKey' => 'contact_type_id',
-			'order'	=>'ContactType.name'
 		)
 	);
 	

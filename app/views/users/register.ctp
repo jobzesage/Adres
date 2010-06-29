@@ -1,5 +1,5 @@
 <?php #echo $this->element('header')?>
-        <div class="container showgrid">
+        <div class="container">
                 <h1><?php echo __('Adress Social Contact'); ?></h1>
                 <?php echo $session->flash(); ?>
                 <div class='span-8'>

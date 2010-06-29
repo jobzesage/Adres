@@ -1,4 +1,3 @@
-
 <div class="contactTypes index">
 <h2><?php __('ContactTypes');?></h2>
 <p>

@@ -4,7 +4,14 @@ class FieldsController extends AppController {
 	public $name = 'Fields';
 
 	public function index() {
-		$this->paginate=array('Field'=>array('contain'=>array('ContactType')));
+		$this->paginate=array(
+			'Field'=>array(
+				'contain'=>array(
+					'ContactType'
+				),
+				'order'=>array('ContactType.name','Field.order')
+			));
+		
 		$this->set('contactTypes', ClassRegistry::init('ContactType')->getList());
 		$this->set('fields', $this->paginate('Field'));
 	}
