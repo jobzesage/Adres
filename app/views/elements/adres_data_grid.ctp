@@ -6,14 +6,14 @@
 				'class'=>'adres-button  small adres-ajax-anchor  adres-add ui-state-default ui-corner-all' ))
 		 ?>
 		 
-		<?php echo $html->link('Export File', array(
+		<?php echo $html->link('Export File('.$count.')', array(
 			'controller'=>'users',
 			'action'=>'export.csv'
 			),array(
 				'class' => 'adres-button small ui-state-default ui-corner-all' )
 		) ?>
 		
-		<?php echo $html->link('Send Email', array(
+		<?php echo $html->link('Send Email('.$count.')', array(
 			'controller'=>'users',
 			'action'=>'#'
 			),array(
@@ -50,7 +50,7 @@
 					| 
 					<?php echo $html->link('D', array(
 						'controller' => 'users',
-						'action' =>'test_paging',
+						'action' =>'paging',
 						'page'=>isset($paging['page']) ? $paging['page'] : 1,
 						'sort'=>urlencode($field['Field']['name']),
 						'order'=>'desc'					

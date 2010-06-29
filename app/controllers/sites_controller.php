@@ -151,6 +151,7 @@ class SitesController extends AppController {
 			$trash_id = $this->Log->getLastInsertID();	
 			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
 			$contact['Contact']['trash_id']= $trash_id;
+			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],-1);
 			$this->Contact->save($contact);
 			$this->redirect(array('controller'=>'users','action'=>'home'));	
 		}

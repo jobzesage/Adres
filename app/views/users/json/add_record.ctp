@@ -3,7 +3,7 @@
 		'controller' => 'users', 
 		'action' => 'add_record'
 	),
-	'class' => 'adres-ajax-form ' 
+	'class' => '' 
 	)) ?>
 	
 <?php echo $form->end('Save') ?>

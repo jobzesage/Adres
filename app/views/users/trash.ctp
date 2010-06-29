@@ -1,4 +1,4 @@
-<table border="0">
+<table class="adres-datagrid">
 	<tr>
 		<th>Date  </th>
 		<th>User </th>

@@ -8,7 +8,8 @@ class Field extends AppModel {
 	public $belongsTo = array(
 		'ContactType' => array(
 			'className' => 'ContactType', 
-			'foreignKey' => 'contact_type_id'
+			'foreignKey' => 'contact_type_id',
+			'order'	=>'ContactType.name'
 		)
 	);
 	

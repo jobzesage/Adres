@@ -26,13 +26,33 @@ class ContactSet extends AppModel
 			'sort'=>'id',
 			'order'=>'asc',
 			'paging'=>true,
-			'include_trash'=>false
+			'include_trash'=>false,
 		);
 		
 		$options = am($defaults,$options);
 		
-		$sql = $this->build_query($contact_type_id,$options	);
-		return $this->query($sql);
+		$ctype = ClassRegistry::init('ContactType')->read(null,$contact_type_id);
+		
+		$sql = $this->build_query($contact_type_id,$options);
+		
+		$contacts['data'] = $this->query($sql);
+		
+		//Counter Cache implementation
+		if(empty($options['filters']) && empty($options['searchKeyword']))
+		{
+			$contacts['count'] = $ctype['ContactType']['contact_counter'];
+		}
+		else{
+			$patterns[0] = "/DISTINCT\s/";
+			$matches[0] = "COUNT";
+			$patterns[1]="/order.+$/" ;
+			$matches[1] = "";
+			$sql = preg_replace($patterns,$matches,$sql);
+			$data = $this->query($sql);
+			$contacts['count']=$data[0][0]['id'];
+		}
+		
+		return $contacts;
 	}
 
 
@@ -68,6 +88,7 @@ class ContactSet extends AppModel
 		//include trash will toggle between trashed contact and active contacts
 		$where .=$trash;
 		
+			
 		
 		
 		$keyword = "";		

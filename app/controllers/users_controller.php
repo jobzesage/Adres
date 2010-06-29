@@ -172,37 +172,26 @@ class UsersController extends AppController {
     	
 		$search = $this->setContactSet();
 		
-		$ctype = $this->ContactType->read(null,$contact_type_id);
+		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		
-		$count = $ctype['ContactType']['contact_counter'];
+		$count = $values['count'];
 		
 		$paging['pages'] = ceil($count/$this->ContactSet->page_size);
 		
-		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
-		
-		$this->set('values',$values);
+		$this->set('values',$values['data']);
 		
 		$filters = $this->Filter->getFilters($contact_type_id);
 		
 		$this->set('groups',$this->Group->getCurrentGroups($contact_type_id));
 		
-    	$this->set(compact('fields','filters','contact_type_id','paging'));
+    	$this->set(compact('fields','filters','contact_type_id','paging','count'));
+    	
     	$this->set(compact('contact_types','contact_type_id'));
 
 		$this->render('/elements/contacts');
     }
     
 
-	public function test(){
-		if(!empty($this->data)){
-			$this->Contact->user_id = $this->Auth->User('id');
-			$contact_type_id = $this->data['Contact']['contact_type_id'];
-			$plugins = $this->Field->getPluginTypes($contact_type_id);
-			$contact = $this->data;
-			$this->Contact->update_record($contact, $plugins);
-			$this->set(compact('plugins'));
-		}
-	}
 
 
 	public function add_record(){
@@ -276,7 +265,7 @@ class UsersController extends AppController {
 						
 			ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
 		}
-		$this->render(null);
+		$this->redirect(array('controller'=>'users','action'=>'home'));
 	}
 	
 	
@@ -431,19 +420,22 @@ class UsersController extends AppController {
 		$this->set('values',$values);
 	}
 
-	public function test_paging()
+	public function paging()
 	{
 		$this->set('status',true);
 		$paging = $this->params['named'];
 		$search = $this->setContactSet($paging);
 		$contact_type_id = $this->Session->read('Contact.contact_type_id');
-		$ctype = $this->ContactType->read(null,$contact_type_id);
 		
-		$count = $ctype['ContactType']['contact_counter'];
+		$contacts = $this->ContactSet->getContactSet($contact_type_id, $search);
+		
+		$count = $contacts['count'];
+		
 		$paging['pages'] = ceil($count/$this->ContactSet->page_size);
 		
-		$values = $this->ContactSet->getContactSet($contact_type_id, $search);
-		$this->set(compact('values','paging'));
+		$values = $contacts['data'];
+		
+		$this->set(compact('values','paging','count'));
 		$this->render('/elements/adres_data_grid');
 	}
 	

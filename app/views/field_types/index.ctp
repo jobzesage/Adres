@@ -1,7 +1,7 @@
 <div class="fieldTypes index">
 <h2><?php __('FieldTypes');?></h2>
 
-<table cellpadding="0" cellspacing="0">
+<table class="adres-datagrid">
 <tr>
 	<th><?php echo $paginator->sort('class_name');?></th>
 	<th><?php echo $paginator->sort('nice_name');?></th>

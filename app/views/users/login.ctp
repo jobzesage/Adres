@@ -30,19 +30,20 @@
 	?>
 </head>
 <body>
-	<div class="container showgrid">
+	<div class="container" style='background:#f2f2f2'>
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
 		</div>
-		<div id="content" class='clear'>
+		<div id="content" class='clearfix'  >
 
 			<?php 
 				if($session->check('Message'))	
 					$session->flash();
 			?>
 
-      <div class="">
+      <div class="prepend-7 clear" style >
+      			<h2>Login</h2>
                 <?php echo $session->flash(); ?>
                 <div class='span-8'>
                 <?php echo $form->create('User',array(

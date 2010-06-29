@@ -1,6 +1,6 @@
 <div class="filters index">
 <h2><?php __('Filters');?></h2>
-<table cellpadding="0" cellspacing="0">
+<table class="adres-datagrid">
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>

@@ -35,7 +35,7 @@
 	?>
 </head>
 <body>
-	<div class="container showgrid">
+	<div class="container">
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>

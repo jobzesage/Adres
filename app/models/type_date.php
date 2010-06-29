@@ -90,11 +90,13 @@ class TypeDate extends Plugin{
 	 */
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
-		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' BETWEEN \''.$value['to'].'\' AND \''.$value['from'].'\' AND t.field_id = '.(int) $field_id. ' )';
-		$query_string['name'] = $column_name." between '".$value['to']." and ".$value['from'];
+		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' BETWEEN \''.$value['from'].'\' AND \''.$value['to'].'\' AND t.field_id = '.(int) $field_id. ' )';
+		
+		$query_string['name'] = $column_name." from <b>".$value['from']."</b> and <b>".$value['to']."</b>";
 		
 		return $query_string;
 	}
+	
 	
 	public function advanceSearchFormField($field,$options=array())
 	{
@@ -120,7 +122,7 @@ class TypeDate extends Plugin{
 		$input_field_to.="</{$wrapper['tag']}>"; 
 
 		//generates the 2 input field form
-		$output = $label_to.$input_field_to.$label_from.$input_field_from;
+		$output = $label_from.$input_field_from.$label_to.$input_field_to;
 		
 		return $output;
 	}

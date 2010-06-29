@@ -84,6 +84,7 @@ class ContactsController extends AppController {
 		$contact = $this->Contact->read(null,$id);
 		if(!empty($contact)){
 			$contact['Contact']['trash_id']=0;
+			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],1); #adds a record to counter cache for restoring a contact
 			$this->Contact->save($contact);
 		}
 	}
