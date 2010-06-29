@@ -283,6 +283,7 @@ class UsersController extends AppController {
 		
 		if(!empty($this->data)){
 			$searchKeys = $this->data['AdvanceSearch'];
+			$searchKeys = Set::filter($searchKeys);
 			foreach($searchKeys as $field_id => $value)
 			{
 

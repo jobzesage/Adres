@@ -90,9 +90,17 @@ class TypeDate extends Plugin{
 	 */
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
-		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' BETWEEN \''.$value['from'].'\' AND \''.$value['to'].'\' AND t.field_id = '.(int) $field_id. ' )';
-		
-		$query_string['name'] = $column_name." from <b>".$value['from']."</b> and <b>".$value['to']."</b>";
+		$query_string = array();
+		if(!empty($value['to']) && !empty($value['from'])){
+			
+			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN 
+			(SELECT '.$this->getJoinContact().' 
+			FROM '.$this->useTable .' as t 
+			WHERE t.'.$this->getDisplayFieldName().' 
+			BETWEEN \''.$value['from'].'\' AND \''.$value['to'].'\' AND t.field_id = '.(int) $field_id. ' )';
+			
+			$query_string['name'] = $column_name." from ".$value['from']." and ".$value['to'];
+		}
 		
 		return $query_string;
 	}

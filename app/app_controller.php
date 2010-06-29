@@ -15,7 +15,7 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-    	'DebugKit.Toolbar'
+    	#'DebugKit.Toolbar'
     );
     
     

@@ -13,17 +13,19 @@
 				'class' => 'adres-button small ui-state-default ui-corner-all' )
 		) ?>
 		
-		<?php echo $html->link('Send Email('.$count.')', array(
+		<?php echo $html->link('<strike>Send Email('.$count.')</strike>', array(
 			'controller'=>'users',
 			'action'=>'#'
 			),array(
-				'class' => 'adres-button small ui-state-default ui-corner-all' )
+				'class' => 'adres-button small ui-state-default ui-corner-all' 
+			),null,null,false
 		) ?>
-		<?php echo $html->link('Send SMS', array(
+		<?php echo $html->link('<strike>Send SMS</strike>', array(
 			'controller'=>'users',
 			'action'=>'#'
 			),array(
-				'class' => 'adres-button small ui-state-default ui-corner-all' )
+				'class' => 'adres-button small ui-state-default ui-corner-all' 			
+			),null,null,false
 		) ?>	
 	</div>	
 	
