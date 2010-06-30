@@ -37,7 +37,7 @@
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
 		</div>
-		<?php echo $this->element('implementations/list') ?>
+		<?php #echo $this->element('implementations/list') ?>
 		<?php echo $this->element('main_navigation') ?>		
 		<div id="content" class='clear'>
 

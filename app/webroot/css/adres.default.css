@@ -8,7 +8,7 @@
 |	main navigation 
 |---------------------------------*/
 
-.adres-navigation ul{ list-style:none; display:inline;}
+.adres-navigation ul{float:right; list-style:none; display:inline;}
 
 .adres-navigation ul li{
 	width:120px;
