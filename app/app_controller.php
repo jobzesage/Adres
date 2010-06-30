@@ -15,7 +15,7 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-    	'DebugKit.Toolbar'
+    	#'DebugKit.Toolbar'
     );
     
     
@@ -30,7 +30,7 @@ abstract class AppController extends Controller {
         );
 		$this->Auth->allow('register','login');
         
-        $this->Auth->userScope = array('User.is_active' => 0);
+        #$this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
         $this->Auth->autoRedirect = true;
