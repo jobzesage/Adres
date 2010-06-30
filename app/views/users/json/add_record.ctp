@@ -1,3 +1,5 @@
+<div style="width:310px">
+	
 <?php echo $form->create('Contact',array(
 	'url'=>array(
 		'controller' => 'users', 
@@ -7,3 +9,4 @@
 	)) ?>
 	
 <?php echo $form->end('Save') ?>
+</div>

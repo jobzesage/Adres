@@ -175,7 +175,8 @@ ADres.DIALOG={
 	open:function(){
 		$('#adres-dialog').dialog({
 			modal:true,
-			width:380
+			width:380,
+			resizable:false
 		});
 	},
 	close:function(){
