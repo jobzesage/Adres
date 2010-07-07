@@ -23,11 +23,30 @@ class Field extends AppModel {
 	);
 	
 
-
-	public function getPluginTypes($contactType){
+	/**
+	 * This function gives all the Fields of secific contact beside giving the user specific hidden 
+	 *	column.
+	 *
+	 * @param integer $contactType 
+	 * @param mixed $hidden_fields 
+	 * @return array It generates a associative array of fields that are viewable by the user
+	 * @author Rajib
+	 */
+	public function getPluginTypes($contactType,$hidden_fields=array()){
+		$conditions = array(
+			'Field.contact_type_id'=>$contactType 
+		) ;
+		
+		if(!empty($hidden_fields)){
+			$hidden = array(
+				'NOT'=>array('Field.id' => $hidden_fields) 
+			);
+			$conditions = am($conditions,$hidden);
+		}
+		
 		$fields = $this->find('all',array(
 			#'fields'=>array('Field.field_type_class_name, Field.name'),
-			'conditions' => array('Field.contact_type_id'=>$contactType ) 
+			'conditions' =>$conditions 
 		));
 		
 		// $field_list = array();

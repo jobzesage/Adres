@@ -480,9 +480,16 @@ class UsersController extends AppController {
     private function setContactSet($options = array())
     {
     	$contact_type_id = $this->Session->read('Contact.contact_type_id');
-		$fields   = $this->Field->getPluginTypes($contact_type_id);
+
+		$this->User->id = $this->Auth->user('id');
+		
+		$hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
+		
+		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
+		
 		$this->set('fields',$fields);
 		
+			
 		$advance_search_form = "";
 		
 		foreach ($fields as $field) {

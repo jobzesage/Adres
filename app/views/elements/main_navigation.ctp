@@ -15,8 +15,7 @@
 		<li><?php echo $html->link(__('Data Structure',true),array('controller'=>'fields','action'=>'index')) ?></li>
 		
 		<li><?php echo $html->link(__('Field Types',true),array('controller'=>'field_types','action'=>'index')) ?></li>
-		
-		<li><?php echo $html->link(__('Filters',true),array('controller'=>'filters','action'=>'index')) ?></li>
+
 		<li><?php echo $html->link(__('Trash',true),array('controller'=>'users','action'=>'trash')) ?></li>
 
 		<li><?php echo $html->link(__('Users',true),array('controller'=>'users','action'=>'index')) ?></li>

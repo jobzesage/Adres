@@ -42,7 +42,7 @@
 					<?php echo $field['Field']['name'] ?>
 					<?php echo $html->link('A', array(
 						'controller' => 'users',
-						'action' => 'test_paging',
+						'action' => 'paging',
 						'page'=>isset($paging['page']) ? $paging['page'] : 1,
 						'sort'=>urlencode($field['Field']['name']),
 						'order'=>'asc'
