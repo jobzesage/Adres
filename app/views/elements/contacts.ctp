@@ -223,10 +223,3 @@
 	<?php echo $this->element('adres_data_grid') ?>	
 	
 </div>
-
-<script type="text/javascript" charset="utf-8">
-	$(function(){
-		//$('.adres-button').button();
-	
-	});
-</script>

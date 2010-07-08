@@ -2,6 +2,8 @@
 class FieldsController extends AppController {
 
 	public $name = 'Fields';
+	
+	public $uses = array('Field','HiddenField');
 
 	public function index() {
 		$this->paginate=array(
@@ -73,6 +75,36 @@ class FieldsController extends AppController {
 		}
 		$this->Session->setFlash(__('The Field could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	public function update_hidden()
+	{
+		if ($this->data) {
+			$user_id = $this->Auth->user('id');
+			$contact_type_id = $this->Session->read('Contact.contact_type_id');
+			
+			$this->HiddenField->deleteAll(array(
+				'field_id' => $this->data['Field']['id'],
+				'user_id' => $user_id,
+				'contact_type_id' => $contact_type_id  
+			));
+		}
+		$this->redirect(array('controller' => 'users', 'action' => 'home'));
+	}
+	
+	public function hide()
+	{
+		if ($this->data) {
+			$user_id = $this->Auth->user('id');
+			$contact_type_id = $this->Session->read('Contact.contact_type_id');
+			
+			$this->HiddenField->save(array(
+				'field_id' => $this->data['Field']['id'],
+				'user_id' => $user_id,
+				'contact_type_id' => $contact_type_id  
+			));
+		}
+		$this->redirect(array('controller' => 'users', 'action' => 'home'));
 	}
 	
 	protected function _setContactTypeList(){

@@ -487,8 +487,12 @@ class UsersController extends AppController {
 		
 		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
 		
+		# query optimization
+		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
+		
 		$this->set('fields',$fields);
 		
+		$this->set('hidden_fields',$hidden_fields_list);
 			
 		$advance_search_form = "";
 		

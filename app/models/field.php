@@ -72,5 +72,15 @@ class Field extends AppModel {
 		}
 		return $field_list;
 	}
+	
+	
+	public function getList($ids=array())
+	{
+		return $this->find('list',array(
+			'conditions' => array(
+				'Field.id' => $ids 
+			) 
+		));	
+	}
 }
 ?>
