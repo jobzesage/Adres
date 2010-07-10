@@ -1,6 +1,5 @@
 <?php  
 App::import('Sanatize');
-App::import('Helper','Form');
 
 class Plugin extends AppModel {
 	
@@ -13,6 +12,10 @@ class Plugin extends AppModel {
 	protected $_join_contact_name = 'contact_id';
 
 	protected $_join_field_name = 'field_id';	
+	
+	public $_input = null;
+
+	public $_field_id = null;
 	
 
 	public function getDisplayFieldName()
@@ -71,60 +74,11 @@ class Plugin extends AppModel {
 	
 	
 	
-	public function processEditForm($data,$fields,$user_id=null)
-	{
-		$valid = true;
-		$contact_id = $data['contact_id'];
-		unset($data['contact_id']);
-		unset($data['_Token']);
-		$logs=array();
-
-
-		foreach ($fields as $field) {
-			$field_name = $field['Field']['name'];
-			$className = $field['Field']['field_type_class_name'];
-			
-			foreach ($data['field_id'] as $field_id => $input){
-				if($field['Field']['id']==$field_id){
-					
-					$condition =  array(
-						'contact_id'	=>$contact_id,
-						'field_id'		=>$field_id	
-					);					
-					$value = ClassRegistry::init($className)->find('first',array(
-						'conditions' =>$condition	
-					));
-					
-					$data_column = ClassRegistry::init($className)->getDisplayFieldName();
-					$old_data = $value[$className][$data_column];
-					if($input!==$old_data && $old_data !="")
-					{
-						$logs[]= array(
-							'log_dt'		=>date(AppModel::SQL_DTF),
-							'contact_id'	=>$contact_id,				
-							'description' 	=>"Changed <strong>$field_name</strong> from <i>$old_data</i> to <i>$input</i>" ,
-							'user_id'		=>$user_id 
-						);
-					}
-					if($input!=""){
-						$value[$className][$data_column] = $input;
-						ClassRegistry::init($className)->updateAll(array($data_column =>'\''.$input.'\''),$condition);
-					}
-				}
-			}//data foreach			
-		}//plugin foreach
-		
-		if(!empty($logs)){
-			ClassRegistry::init('Log')->saveAll($logs);
-		}
-	}
-	
 	
 	
 	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div'))
 	{	
 		
-		$form = new FormHelper;
 		
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
@@ -162,6 +116,66 @@ class Plugin extends AppModel {
 		$input_field.="</{$wrapper['tag']}>"; 
 		
 		return $label.$input_field;
+	}
+	
+	
+	
+	public function processEditForm($options)
+	{
+		extract($options);
+		
+		if(!empty($field_id)){
+			$this->_field_id = $field_id;
+		}
+		
+		//iterate through dataaset
+		if(!isset($this->_input)){
+			$this->_setInputData($form);
+		}
+		
+		$condition =  array(
+			'contact_id'	=>$contact_id,
+			'field_id'		=>$this->_field_id	
+		);					
+		$value = $this->find('first',array(
+			'conditions' =>$condition	
+		));
+		
+		$data_column = ClassRegistry::init($className)->getDisplayFieldName();
+		$old_data = $value[$className][$data_column];
+		
+		
+		if($this->_input!==$old_data && $old_data !=''){
+			$logs[]= array(
+				'log_dt'		=>date(AppModel::SQL_DTF),
+				'contact_id'	=>$contact_id,				
+				'description' 	=>"Changed <strong>$field_name</strong> from <i>$old_data</i> to <i>$this->_input</i>" ,
+				'user_id'		=>$user_id 
+			);
+		}
+
+		if($this->_input!=""){
+			//$value[$className][$data_column] = $this->_input;
+			$this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
+		}
+		
+	 	if(!empty($logs)){
+			ClassRegistry::init('Log')->saveAll($logs);
+		}	
+		
+		//reset the value incase
+		$this->_input = null;	
+		$this->_field_id = null;
+	}
+	
+	private function _setInputData($form){
+		if(isset($form['field_id'])){
+			foreach($form['field_id'] as $fid=>$val){
+				if ($this->_field_id == $fid) {
+					$this->_input = $val; // apply Sanitization here
+				}
+			}
+		}
 	}
 	
 }

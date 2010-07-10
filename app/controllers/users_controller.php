@@ -262,8 +262,23 @@ class UsersController extends AppController {
 		$this->set('status',true);
 		if(!empty($this->data)){
 			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
-						
-			ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
+			//clear unparsable data
+			$data = $this->data;
+			unset($data['_Token']);
+			unset($data['contact_id']);
+			
+			foreach ($plugins as $field) {
+				$field_name = $field['Field']['name'];
+				$className = $field['Field']['field_type_class_name'];
+				ClassRegistry::init($className)->processEditForm(array(
+					'field_id'=> $field['Field']['id'],
+					'contact_id'=> $this->data['contact_id'],
+					'form'=>$data,
+					'className'=>$className,
+					'field_name'=>$field_name,
+					'user_id'=> $this->Auth->user('id')
+				));
+			}
 		}
 		$this->redirect(array('controller'=>'users','action'=>'home'));
 	}

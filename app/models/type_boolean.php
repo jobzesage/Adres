@@ -8,54 +8,46 @@ class TypeBoolean extends Plugin{
 	public $useTable='type_boolean';
 	
 	
-	public function processEditForm($data,$fields,$user_id=null)
-	{
-		$valid = true;
-		$contact_id = $data['contact_id'];
-		unset($data['contact_id']);
-		unset($data['_Token']); #CSRF attack checker
+	public function processEditForm($params){
+		extract($params);
 		
-		$logs=array();
-		if(!isset($data['field_id']))
-		{
-			$data = $data['field_id_'];	
+		if (empty($params['form']['field_id'])) {
+			$this->_input = 0;
+			$this->_field_id = $params['field_id'];
+
+			$condition =  array(
+				'contact_id'	=>$contact_id,
+				'field_id'		=>$this->_field_id	
+			);					
+			$value = $this->find('first',array(
+				'conditions' =>$condition	
+			));
+		
+			$data_column = ClassRegistry::init($className)->getDisplayFieldName();
+			$old_data = $value[$className][$data_column];
+		
+			$this->updateAll(array($this->getDisplayFieldName() => 0),array(
+				$this->getJoinField() => $this->_field_id,
+				$this->getJoinContact() => $params['contact_id']
+			));		
+		
+			if($this->_input!==$old_data && $old_data !=''){
+				$logs[]= array(
+					'log_dt'		=>date(AppModel::SQL_DTF),
+					'contact_id'	=>$contact_id,				
+					'description' 	=>"Changed <strong>$field_name</strong> from <i>1</i> to <i>0</i>" ,
+					'user_id'		=>$user_id 
+				);
+			}			
+				
+		 	if(!empty($logs)){
+				ClassRegistry::init('Log')->saveAll($logs);
+			}				
+			
 		}else{
-			
-			$data = $data['field_id'];
+			parent::processEditForm($params);
 		}
 		
-		foreach ($fields as $field) {
-			$field_name = $field['Field']['name'];
-			$className = $field['Field']['field_type_class_name'];
-			
-			foreach ($data as $field_id => $input){
-				if($field['Field']['id']==$field_id){
-					
-					$data_column = ClassRegistry::init($className)->getDisplayFieldName();
-					$old_data = $value[$className][$data_column];
-					if($input!==$old_data && $old_data !="")
-					{
-						$logs[]= array(
-							'log_dt'		=>date(AppModel::SQL_DTF),
-							'contact_id'	=>$contact_id,				
-							'description' 	=>"Changed <strong>$field_name</strong> from <i>$old_data</i> to <i>$input</i>" ,
-							'user_id'		=>$user_id 
-						);
-					}
-					if($input!=""){
-						$value[$className][$data_column] = 1;
-						ClassRegistry::init($className)->updateAll(array($data_column =>'\''.$input.'\''),$condition);
-					}else{
-						$value[$className][$data_column] = 0;
-						ClassRegistry::init($className)->updateAll(array($data_column =>'\''.$input.'\''),$condition);						
-					}
-				}
-			}//data foreach			
-		}//plugin foreach
-		
-		if(!empty($logs)){
-			ClassRegistry::init('Log')->saveAll($logs);
-		}
 	}
 	
 
@@ -125,6 +117,7 @@ class TypeBoolean extends Plugin{
 		$input_check  = '<input type="checkbox" ';
 		
 		$input_check.= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
+		$input_check.= (bool) $data ? " checked " : "";
 		$input_check.= ' value="1"';
 		$input_check.='/>';
 		$input_check.='</'.$wrapper['tag'].'>';
