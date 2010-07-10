@@ -32,4 +32,14 @@ Installation:
 * Create a database and configure <b>app/config/database.php</b> with your database user and password
 * Import the SQL script located on <b>sql<b> on to your database.
 
+Plugin To This System
+----------------------------
+* Text Plugin
+* Date Plugin
+* Tick Plugin
+* Number Plugin
+
+Creating your own plugin
+-------------------------
+Check the plugin.php file on model folder
 
