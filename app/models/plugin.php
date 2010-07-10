@@ -12,8 +12,8 @@ class Plugin extends AppModel {
 	
 	protected $_join_contact_name = 'contact_id';
 
-	protected $_join_field_name = 'field_id';		
-
+	protected $_join_field_name = 'field_id';	
+	
 
 	public function getDisplayFieldName()
 	{

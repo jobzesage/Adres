@@ -1,6 +1,10 @@
 <script type="text/javascript">
 	$(function(){
 		$('form#edit-contact').validate();
+		// $('form#edit-contact').find('input.check').click(function(){
+		// 	var current_value = $(this).val()
+		// 	
+		// });
 	});	
 </script>
 

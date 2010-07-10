@@ -125,7 +125,6 @@ ADres.AJAX={
 					}else if($link.hasClass('adres-add')){
 						$('#adres-dialog').html(resp.data);
 						ADres.DIALOG.open();
-						$('#adres-dialog').css({width:'310px'});
 					}else if($link.hasClass('adres-contats-show-details')){
 						$('#adres-details').html(resp.data);
 					}else if ($link.hasClass('adres-delete-keyword')) {
@@ -175,8 +174,7 @@ ADres.DIALOG={
 	open:function(){
 		$('#adres-dialog').dialog({
 			modal:true,
-			width:380,
-			resizable:false
+			width:380
 		});
 	},
 	close:function(){

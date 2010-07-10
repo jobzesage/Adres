@@ -137,6 +137,7 @@
 	</table>
 
 	<?php echo $this->element('paginator')?>
+	
 		<?php if (!empty($hidden_fields)): ?>
 			<?php echo $form->create('Field',array(
 				'url' => array(
