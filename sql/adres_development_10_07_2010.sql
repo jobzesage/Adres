@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 08, 2010 at 10:54 PM
+-- Generation Time: Jul 10, 2010 at 01:59 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `contact_type_id` int(11) NOT NULL,
   `trash_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `contacts`
@@ -110,7 +110,8 @@ INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`) VALUES
 (18, 5, 0),
 (19, 5, 0),
 (20, 5, 0),
-(21, 5, 0);
+(21, 5, 0),
+(22, 11, 0);
 
 -- --------------------------------------------------------
 
@@ -154,9 +155,9 @@ CREATE TABLE IF NOT EXISTS `contact_types` (
 --
 
 INSERT INTO `contact_types` (`id`, `name`, `contact_counter`, `implementation_id`) VALUES
-(5, 'People', 21, 4),
+(5, 'People', 22, 4),
 (8, 'Kids', 0, 4),
-(11, 'Company', 0, 4);
+(11, 'Company', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -173,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `is_descriptive` tinyint(1) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `fields`
@@ -186,7 +187,8 @@ INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_clas
 (6, 'sex', 5, 4, 'TypeString', 1, 1),
 (9, 'name', 8, 2, 'TypeString', 1, 1),
 (12, 'created_at', 5, 10, 'TypeDate', 1, 1),
-(13, 'parent name', 8, 12, 'TypeString', 1, 1);
+(13, 'parent name', 8, 12, 'TypeString', 1, 1),
+(14, 'Rubish', 11, 2, 'TypeBoolean', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -207,7 +209,8 @@ CREATE TABLE IF NOT EXISTS `field_types` (
 INSERT INTO `field_types` (`class_name`, `nice_name`) VALUES
 ('TypeString', 'text'),
 ('TypeInteger', 'integer'),
-('TypeDate', 'Date');
+('TypeDate', 'Date'),
+('TypeBoolean', 'True/false');
 
 -- --------------------------------------------------------
 
@@ -315,8 +318,6 @@ CREATE TABLE IF NOT EXISTS `hidden_fields` (
 --
 
 INSERT INTO `hidden_fields` (`id`, `user_id`, `contact_type_id`, `field_id`) VALUES
-(4, 1, 5, 3),
-(5, 1, 5, 6),
 (3, 1, 8, 21);
 
 -- --------------------------------------------------------
@@ -352,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `logs`
@@ -369,7 +370,10 @@ INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALU
 (8, '2010-06-30 15:36:10', 'Contact saved', 18, 1),
 (9, '2010-06-30 15:41:34', 'Contact saved', 19, 1),
 (10, '2010-06-30 15:48:53', 'Contact saved', 20, 1),
-(11, '2010-06-30 15:51:04', 'Contact saved', 21, 1);
+(11, '2010-06-30 15:51:04', 'Contact saved', 21, 1),
+(12, '2010-07-08 23:06:21', 'Contact saved', 22, 1),
+(13, '2010-07-10 00:34:22', 'Contact saved', 22, 1),
+(14, '2010-07-10 01:45:04', 'Changed <strong>Rubish</strong> from <i>0</i> to <i>1</i>', 22, 1);
 
 -- --------------------------------------------------------
 
@@ -413,6 +417,26 @@ CREATE TABLE IF NOT EXISTS `trashes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `type_boolean`
+--
+
+CREATE TABLE IF NOT EXISTS `type_boolean` (
+  `field_id` int(11) NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `data` tinyint(1) NOT NULL,
+  UNIQUE KEY `boolean_fk_unique` (`field_id`,`contact_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type_boolean`
+--
+
+INSERT INTO `type_boolean` (`field_id`, `contact_id`, `data`) VALUES
+(14, 22, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `type_date`
 --
 
@@ -449,7 +473,8 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 18, '0000-00-00 00:00:00'),
 (12, 19, '0000-00-00 00:00:00'),
 (12, 20, '0000-00-00 00:00:00'),
-(12, 21, '0000-00-00 00:00:00');
+(12, 21, '0000-00-00 00:00:00'),
+(12, 22, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -488,7 +513,8 @@ INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 18, NULL),
 (5, 19, NULL),
 (5, 20, NULL),
-(5, 21, NULL);
+(5, 21, NULL),
+(5, 22, NULL);
 
 -- --------------------------------------------------------
 
@@ -500,8 +526,7 @@ CREATE TABLE IF NOT EXISTS `type_string` (
   `field_id` int(11) NOT NULL,
   `contact_id` int(11) NOT NULL,
   `data` varchar(50) NOT NULL,
-  KEY `string_fk_field_id` (`field_id`),
-  KEY `string_fk_contact_id` (`contact_id`)
+  PRIMARY KEY (`field_id`,`contact_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -571,7 +596,10 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (6, 20, ''),
 (3, 21, ''),
 (4, 21, ''),
-(6, 21, '');
+(6, 21, ''),
+(3, 22, ''),
+(4, 22, ''),
+(6, 22, '');
 
 -- --------------------------------------------------------
 
