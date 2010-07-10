@@ -90,14 +90,15 @@
 					)
 				)?>
 				
-				<?php echo $html->link('(x)',array(
+                          <?php 
+                                /*echo $html->link('(x)',array(
 					'controller'=>'groups',
 					'action' => 'delete',
 					$group['Group']['id']
 				),array(
 					'class'=>'adres-ajax-anchor adres-delete-group'			
 				)
-				) ?>					
+                              ) */?>					
 			</div>
 		
 		<?php endforeach ?>
