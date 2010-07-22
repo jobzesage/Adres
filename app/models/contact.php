@@ -216,13 +216,13 @@ class Contact extends AppModel {
 				'user_id'=>$this->user_id 
 			));
 		}else{
-			//update section
-			// $this->Log->save(array(
-			// 	'log_dt'=>date(AppModel::SQL_DTF),
-			// 	'contact_id'=>$this->id,				
-			// 	'description' 	=> $this->log_message,
-			// 	'user_id'=>$this->user_id 
-			// ));	
+                        //update section
+                        $this->Log->save(array(
+                                'log_dt'=>date(AppModel::SQL_DTF),
+                                'contact_id'=>$this->id,				
+                                'description' 	=> $this->log_message,
+                                'user_id'=>$this->user_id 
+                        ));	
 		}
 	}
 	

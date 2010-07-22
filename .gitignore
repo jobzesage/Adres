@@ -4,6 +4,7 @@ Icon?
 app/config/database.php
 app/tmp/**/*
 .eprj
-*.swp
+*.swp*
 *~
 nbproject/*
+.gitCOMMIT*
