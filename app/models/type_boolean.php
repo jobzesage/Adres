@@ -51,28 +51,10 @@ class TypeBoolean extends Plugin{
 	}
 	
 
-	/**
-	 * 
-	 *
-	 * @param string $field_id  
-	 * @param string $column_name ie "Name" , "Age" 
-	 * @param mixed $value gets the data through the inputs 
-	 * @return string  the sql nested query
-	 * @author Rajib
-	 */
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
-		$query_string = array();
-		if(!empty($value['to']) && !empty($value['from'])){
-			
-			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN 
-			(SELECT '.$this->getJoinContact().' 
-			FROM '.$this->useTable .' as t 
-			WHERE t.'.$this->getDisplayFieldName().' 
-			BETWEEN \''.$value['from'].'\' AND \''.$value['to'].'\' AND t.field_id = '.(int) $field_id. ' )';
-			
-			$query_string['name'] = $column_name." from ".$value['from']." and ".$value['to'];
-		}
+		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' LIKE "%'.$value.'%" AND t.field_id = '.(int) $field_id. ' )';
+		$query_string['name'] = $column_name." like ".$value;
 		
 		return $query_string;
 	}
@@ -89,7 +71,7 @@ class TypeBoolean extends Plugin{
 		$label = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
 		$label.= '<label for="'.$field['Field']['name'].' to" >'.$field['Field']['name'].' to</label>';
 		
-		$input = '<input type="checkbox" '.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].'][to]" value="1">';  
+		$input = '<input type="checkbox"'.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="1">';  
 		
 		$input.="</{$wrapper['tag']}>"; 
 
