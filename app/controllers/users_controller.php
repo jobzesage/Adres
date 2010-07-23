@@ -259,6 +259,7 @@ class UsersController extends AppController {
 	}
 	
 	public function update_contact(){
+		$this->layout = "users";
 		$this->set('status',true);
 		if(!empty($this->data)){
 			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
@@ -280,7 +281,7 @@ class UsersController extends AppController {
 				));
 			}
 		}
-		$this->redirect(array('controller'=>'users','action'=>'home'));
+		//$this->redirect(array('controller'=>'users','action'=>'home'));
 	}
 	
 	

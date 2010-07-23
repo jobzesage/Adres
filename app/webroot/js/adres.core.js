@@ -46,18 +46,22 @@ ADres.AJAX={
 				if(resp.status){
 					if ($form.hasClass('')) {
 						$('#adres-record').html(resp.data);
-					}else if($form.is('#AdvanceSearchAddForm')){
+					}
+					else if($form.is('#AdvanceSearchAddForm')){
 						$('div#contacts').html(resp.data);
-					}else if($form.is('.adres-save-filter')){
+					}
+					else if($form.is('.adres-save-filter')){
 						$form.remove();
 						$('#adres-saved-filters >.ajax-response').html(resp.data);
-					}else if($form.is('#edit-contact')){
-						//$('<a class="adres-button adres-ajax-anchor adres-edit" href="/users/show_record/'+contact_id+'">edit</a>').trigger('click');
+					}
+					else if($form.is('#edit-contact')){
 						ADres.DIALOG.close();
+						window.location.reload(true);
 					}
 					else if($form.is('#SearchAddForm')){
 						$('div#contacts').html(resp.data);
-					}else if($form.is('.adres-join-group')){
+					}
+					else if($form.is('.adres-join-group')){
 						$('#adres-groups').html(resp.data);
 					}
 				}
@@ -106,7 +110,6 @@ ADres.AJAX={
 			success:function(resp){
 				if(resp.status){
 					if($link.hasClass('adres-delete')){
-
 						$('#adres-dialog').html(resp.data);						
 						ADres.DIALOG.open();
 						
