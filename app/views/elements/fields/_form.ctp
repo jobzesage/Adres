@@ -1,7 +1,11 @@
 <?php echo $form->create('Field');?>
 	<fieldset>
  		<legend><?php __('Add Field');?></legend>
-	<?php
+
+	<?php echo $form->input('id') ?>
+
+ 	<?php
+		
 		echo $form->input('name');
 		
 		echo $form->input('contact_type_id',array(

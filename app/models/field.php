@@ -13,15 +13,15 @@ class Field extends AppModel {
 	);
 	
 	
-	public $hasAndBelongsToMany = array(
-		'Form' => array(
-			'className' => 'Form', 
-			'foreignKey' => 'field_id',
-			'associationForeignKey' => 'form_id',
-			'joinTable'=>'forms_fields'
-		)
-	);
-	
+	// public $hasAndBelongsToMany = array(
+	// 	'Form' => array(
+	// 		'className' => 'Form', 
+	// 		'foreignKey' => 'field_id',
+	// 		'associationForeignKey' => 'form_id',
+	// 		'joinTable'=>'forms_fields'
+	// 	)
+	// );
+	// 
 
 	/**
 	 * This function gives all the Fields of secific contact beside giving the user specific hidden 
