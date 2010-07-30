@@ -33,29 +33,28 @@ class Group extends AppModel {
 	
 	
 	
-	protected function getGroupsRecrusively($group,$result=array(),$parent_id=null)
-	{
+	protected function getGroupsRecrusively($group){
+		
 		$subgroups = $this->find('all',array(
 			'conditions' => array(
 				'Group.parent_id' => $group['Group']['id'], 
 			) 
 		));
 		
-		if($group['Group']['id'] ==$parent_id)
-			// $result['']
+		$result = array();
 		
-		$result[$group['Group']['id']] = $group;
-		FireCake::fb($parent_id);
-		
-		foreach ($subgroups as $subgroup){
-			$parent_id = $subgroup['Group']['parent_id'];
-			$result = $this->getGroupsRecrusively($subgroup,$result,$parent_id);
+		foreach ($subgroups as $subgroup) {
+			$result[$subgroup['Group']['id']] = array(
+				'Group'=> $subgroup['Group'] , 
+				'SubGroup'=>$this->getGroupsRecrusively($subgroup)
+			);
 		}
+			
 		return $result;
 	}
 	
-	public function getCurrentGroups($contact_type_id)
-	{
+	public function getCurrentGroups($contact_type_id){
+		
 		$currentGroups = $this->find('all',array(
 			'conditions'=>array(
 				'Group.parent_id'=>0,
@@ -65,10 +64,14 @@ class Group extends AppModel {
 		
 		$list = array();
 		foreach ($currentGroups as $group) {
-			$list = $list + $this->getGroupsRecrusively($group);
+			$list[$group['Group']['id']] = array(
+				'Group' => $group['Group'],
+				'SubGroup' =>	$this->getGroupsRecrusively($group)
+			);
 		}
-		FireCake::fb($list);
-		return $currentGroups;	
+		
+		//FireCake::fb($list)
+		return $currentGroups; # return $list which holds all the n nested groups	
 	}
 
 	
@@ -80,6 +83,7 @@ class Group extends AppModel {
 		foreach ($contact['Group'] as $group) {
 			unset($list[$group['id']]);
 		}
+
 		return $list;
 	}
 		

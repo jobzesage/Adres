@@ -33,6 +33,7 @@ class Field extends AppModel {
 	 * @author Rajib
 	 */
 	public function getPluginTypes($contactType,$hidden_fields=array()){
+		
 		$conditions = array(
 			'Field.contact_type_id'=>$contactType 
 		) ;
@@ -45,16 +46,9 @@ class Field extends AppModel {
 		}
 		
 		$fields = $this->find('all',array(
-			#'fields'=>array('Field.field_type_class_name, Field.name'),
-			'conditions' =>$conditions 
+			'conditions' =>$conditions,
 		));
-		
-		// $field_list = array();
-		// foreach ($fields as $plugin) {
-		// 	$className = $plugin['Field']['field_type_class_name'];
-		// 	$field_list['class'] = Configure::read('PluginPrefix').ucwords($className);
-		// 	$field_list['id'] = $plugin['Field']['id']			
-		// }
+
 		return $fields;
 	}	
 
