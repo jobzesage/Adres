@@ -47,6 +47,7 @@ class Field extends AppModel {
 		
 		$fields = $this->find('all',array(
 			'conditions' =>$conditions,
+			'order' => array('Field.order')
 		));
 
 		return $fields;
