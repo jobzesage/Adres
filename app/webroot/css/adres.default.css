@@ -57,6 +57,9 @@
 /*---------------------------------
 |	DataGrids
 |---------------------------------*/
+#datagrid{
+	overflow-x:scroll;
+}
 .adres-datagrid th{
     border: 1px #ccc solid;
     background: #d2d2d2;

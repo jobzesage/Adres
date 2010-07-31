@@ -503,7 +503,6 @@ class UsersController extends AppController {
 		
 		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
 		
-		FireCake::fb($fields);	
 		# query optimization
 		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
 		
