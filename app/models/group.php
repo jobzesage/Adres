@@ -71,7 +71,8 @@ class Group extends AppModel {
 		}
 		
 		//FireCake::fb($list)
-		return $currentGroups; # return $list which holds all the n nested groups	
+		//return $currentGroups; # return $list which holds all the n nested groups	
+		return $list;
 	}
 
 	

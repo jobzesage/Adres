@@ -14,5 +14,5 @@
 	'id' => 'edit-contact', 
 	))?>
 <?php echo $form_inputs ?>
-
-<?php echo $form->end(array('label'=>'Save','class'=>'adres-button')) ?>
+<br />
+	<?php echo $form->end(array('label'=>'Save','class'=>'adres-button', 'div' => false)) ?>	

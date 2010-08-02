@@ -102,7 +102,7 @@ class TypeDate extends Plugin{
 		
 		$output  = '<input ';
 		
-		$output .= (int)$plugin['Field']['required'] ? " class ='required date_time text span-8 ui-corner-all' " : " class='text date_time span-8 ui-corner-all'" ; # for jquery validtion
+		$output .= (int)$plugin['Field']['required'] ? " class ='required date_time text   ui-corner-all' " : " class='text date_time   ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$output .= ' value="'.$data.'"';
 		$output .='/>';

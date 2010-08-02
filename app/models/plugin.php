@@ -58,18 +58,21 @@ class Plugin extends AppModel {
 		return $query_string;
 	}
 	
-	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'p')){
+	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'td')){
 		//TODO wrapper will be used to wrap this column
 		$data_column = $this->getDisplayFieldName();
 		$output ="";
 		if($value){
-			$output.= '<'.$wrapper['tag'].'>';
+			$output.= '<th>';
 			$output.= $field_name;
 			$output.= " : ";
+			$output.= '</th>';		
+			
+			$output.= '<'.$wrapper['tag'].'>';
 			$output.= $value[$this->name][$data_column];
 			$output.= '</'.$wrapper['tag'].'>';
 		}
-		return $output;
+		return '<tr>'.$output.'</tr>';
 	}
 	
 	
@@ -95,7 +98,7 @@ class Plugin extends AppModel {
 		
 		$output  = '<input ';
 		
-		$output .= (int)$plugin['Field']['required'] ? " class ='required text span-8 ui-corner-all' " : " class='text span-8 ui-corner-all'" ; # for jquery validtion
+		$output .= (int)$plugin['Field']['required'] ? " class ='required text ui-corner-all' " : " class='text ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$output .= ' value="'.$data.'"';
 		$output .='/>';

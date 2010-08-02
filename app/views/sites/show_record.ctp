@@ -1,3 +1,5 @@
-<?php  
-echo $contact
-?>
+<table>
+	<?php  
+	echo $contact
+	?>	
+</table>

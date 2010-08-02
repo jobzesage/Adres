@@ -7,7 +7,7 @@ abstract class AppController extends Controller {
 	
     public $layout = "administrator"; #layout file for all administraive panel
     
-    public $helpers =array('Html','Form','Session','Javascript','Time','Text');
+    public $helpers =array('Html','Form','Session','Javascript','Time','Text','Tree');
 
     public $components = array(
     	'Auth',

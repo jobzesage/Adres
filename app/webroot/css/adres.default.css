@@ -162,4 +162,14 @@ div.growlUI h2 {
 	margin-left:10px;
 	padding:.1em 0;
 }
+
+/*---------------------------------
+|	Dialog 
+|---------------------------------*/
+div#adres-dialog label{
+	display:block;
+	float: left;    
+	width: 7em;    
+	margin-right: 1em; 
+}
 #adres-dialog .input,lable{ float:left}
