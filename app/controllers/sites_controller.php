@@ -33,34 +33,9 @@ class SitesController extends AppController {
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
 		$output='';
 		
-		foreach($plugins as $field){
-			//TODO refactoring is needed here
-			// this can be put into the plugin model
-			$pluginName 	= $field['Field']['field_type_class_name'];
-			$field_name		= $field['Field']['name'];
-			$field_id 		= $field['Field']['id'];
-			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
-			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
-			
-			$value = ClassRegistry::init($pluginName)->find('first',array(
-				//'contain'=>array('Field'),
-				'conditions'=>array(
-				$pluginName.'.'.$contact_field .' = '.$id,
-				$pluginName.'.'.$join_field .' = '.$field_id 
-				)	
-			));
-			
-			if(empty($value)){
-				ClassRegistry::init($pluginName)->save(
-					array(
-						$contact_field => $id,
-						$join_field => $field_id
-					)	
-				);
-								
-			}
-			$output.= ClassRegistry::init($pluginName)->renderShowDetail($field_name,$value);
-		}
+		//Some metaprogramming is goin on the iterator
+		$output = $this->itearator($id,$plugins,"renderShowDetail");
+		
 		$this->set('contact',$output); 
 		$this->set('contactId',$id);
 		$this->set('status',true);
@@ -93,7 +68,17 @@ class SitesController extends AppController {
 	{
 		//$this->redirect_if_not_ajax_request();
 		//$this->redirect_if_id_is_empty($contact_id);
-	
+		$contact = $this->Contact->read(null,$contact_id);
+		$fields = $this->Field->getPluginTypes($contact['Contact']['contact_type_id'],null,array(
+			'Field.is_descriptive'=>1	
+		));
+		
+		$descriptive_fields = "";
+		foreach ($fields as $column) {
+			$descriptive_fields .= $column['Field']['name']. " "; 
+		}
+		$name = $this->itearator($contact_id,$fields);
+		
 		if( $this->data){
 			$affiliation_id = substr($this->data['Affiliate']['affiliation_id'],1);
 			
@@ -124,8 +109,10 @@ class SitesController extends AppController {
 		}// used to affiliate
 		
 		$contact = $this->Contact->getContactAffiliations($contact_id);
+		$contact = $this->addContactNameKey($contact);
+		
 		$this->set('affiliations',$this->Affiliation->getList($contact['Contact']['contact_type_id']));
-		$this->set(compact('contact'));	
+		$this->set(compact('contact','descriptive_fields','name'));	
 				
 	}
 
@@ -156,7 +143,55 @@ class SitesController extends AppController {
 			$this->redirect(array('controller'=>'users','action'=>'home'));	
 		}
 		$this->set('id',$id);
-    }    
+    } 
+    
+    
+	private function itearator($id,$plugins,$function_name="")
+	{
+		$output= "";
+		foreach($plugins as $field){
+			//TODO refactoring is needed here
+			// this can be put into the plugin model
+			$pluginName 	= $field['Field']['field_type_class_name'];
+			$field_name		= $field['Field']['name'];
+			$field_id 		= $field['Field']['id'];
+			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
+			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
+			
+			$value = ClassRegistry::init($pluginName)->find('first',array(
+				//'contain'=>array('Field'),
+				'conditions'=>array(
+				$pluginName.'.'.$contact_field .' = '.$id,
+				$pluginName.'.'.$join_field .' = '.$field_id 
+				)	
+			));
+			
+			if(empty($value)){
+				ClassRegistry::init($pluginName)->save(
+					array(
+						$contact_field => $id,
+						$join_field => $field_id
+					)	
+				);
+			}
+			//META-programming like RUBY
+			//dynamic function name
+			if(!empty($function_name)){	
+				$output.= ClassRegistry::init($pluginName)->{$function_name}($field_name,$value);
+			}else{
+				$output.= $value[$pluginName][ClassRegistry::init($pluginName)->getDisplayFieldName()] . " ";
+			}
+		}
+		return $output;
+	}
+	
+	public function addContactNameKey($contacts)
+	{
+		// foreach ($contacts as $key => $value) {
+		// 	# code...
+		// }
+		return $contacts;
+	}
 	
 }
 ?>

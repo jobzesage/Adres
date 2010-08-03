@@ -32,7 +32,7 @@ class Field extends AppModel {
 	 * @return array It generates a associative array of fields that are viewable by the user
 	 * @author Rajib
 	 */
-	public function getPluginTypes($contactType,$hidden_fields=array()){
+	public function getPluginTypes($contactType,$hidden_fields=array(),$options=array()){
 		
 		$conditions = array(
 			'Field.contact_type_id'=>$contactType 
@@ -43,8 +43,10 @@ class Field extends AppModel {
 				'NOT'=>array('Field.id' => $hidden_fields) 
 			);
 			$conditions = am($conditions,$hidden);
+
 		}
-		
+		$conditions = am($conditions,$options);
+		FireCake::fb($conditions);
 		$fields = $this->find('all',array(
 			'conditions' =>$conditions,
 			'order' => array('Field.order')

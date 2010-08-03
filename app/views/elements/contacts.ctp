@@ -63,6 +63,12 @@
 			?>
 			<?php echo $advance_search_form ?>
 			
+			
+			<?php
+			/*-------------------------------
+			| Affiliation Search 
+			|-------------------------------*/	?>	
+			
 		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
 	
 	</div>

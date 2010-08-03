@@ -1,4 +1,3 @@
-	
 	<div id="adres-affiliation" class="affiliation_container">
 		<?php //echo $html->tag('h3',__('Affiliations',true)) ?>
 		
@@ -18,36 +17,55 @@
 			)) ?>
 		<?php echo $form->end('Affiliate') ?>
 		
+	
+		<table>
+			<tr>
+				<th><?php echo $descriptiveFields ?></th>	
+				<th>Affiliations</th>
+			</tr>	
 			
-		<?php foreach ($contact['ParentAffiliation'] as $parentAffiliation): ?>
-		<div class="adres-affiliations">
- 			<?php echo $parentAffiliation['father_name'] ?>
-			<?php $pid = $parentAffiliation['AffiliationsContact']['contact_child_id'] ?>
-			<?php echo $html->link($pid,array(
-				'controller'=>'users',
-				'action' => 'show_record', 
-				$pid
-			),array(
-				'class'=>'adres-ajax-anchor adres-show',
-			)) ?>
-		</div>
-		<?php endforeach ?>
-		
-		<?php foreach ($contact['ChildAffiliation'] as $childAffiliation): ?>
-		<div class="adres-affiliations">
-			<?php echo $childAffiliation['child_name'] ?>
-			<?php $pid = $childAffiliation['AffiliationsContact']['contact_father_id'] ?>
-			<?php echo $html->link($pid,array(
-				'controller'=>'users',
-				'action' => 'show_record', 
-				$pid
-			),array(
-				'class'=>'adres-ajax-anchor adres-show',
-			)) ?>
-		</div>
-		<?php endforeach ?>
-		
+			<?php foreach ($contact['ParentAffiliation'] as $parentAffiliation): ?>
+			<tr>
+				<td>
+					<?php 
+					echo $name;
+					$name = "&nbsp";	
+				 	?>
+				</td>
+				<td> 
+					<div class="adres-affiliations">
+						<?php echo $parentAffiliation['father_name'] ?>
+						<?php $pid = $parentAffiliation['AffiliationsContact']['contact_child_id'] ?>
+						<?php echo $html->link($pid,array(
+							'controller'=>'users',
+							'action' => 'show_record', 
+							$pid
+						),array(
+							'class'=>'adres-ajax-anchor adres-show',
+						)) ?>
+					</div>
+				</td>
+			</tr>
+			<?php endforeach ?>
+			
+			<?php foreach ($contact['ChildAffiliation'] as $childAffiliation): ?>
+			<div class="adres-affiliations">
+				<?php echo $childAffiliation['child_name'] ?>
+				<?php $pid = $childAffiliation['AffiliationsContact']['contact_father_id'] ?>
+				<?php echo $html->link($pid,array(
+					'controller'=>'users',
+					'action' => 'show_record', 
+					$pid
+				),array(
+					'class'=>'adres-ajax-anchor adres-show',
+				)) ?>
+			</div>
+			<?php endforeach ?>
+		</table>
+
 	</div>
+	
+	
 <script type="text/javascript">
 	// $(function(){
 	// 
@@ -72,5 +90,4 @@
 	// 		});
 	// 	});
 	// });
-</script>	
-	
+</script>

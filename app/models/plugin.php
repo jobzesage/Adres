@@ -74,9 +74,8 @@ class Plugin extends AppModel {
 		}
 		return '<tr>'.$output.'</tr>';
 	}
-	
-	
-	
+
+
 	
 	
 	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div'))
@@ -170,6 +169,7 @@ class Plugin extends AppModel {
 		$this->_input = null;	
 		$this->_field_id = null;
 	}
+	
 	
 	private function _setInputData($form){
 		if(isset($form['field_id'])){

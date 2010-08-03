@@ -217,12 +217,12 @@ class Contact extends AppModel {
 			));
 		}else{
                         //update section
-                        $this->Log->save(array(
-                                'log_dt'=>date(AppModel::SQL_DTF),
-                                'contact_id'=>$this->id,				
-                                'description' 	=> $this->log_message,
-                                'user_id'=>$this->user_id 
-                        ));	
+			$this->Log->save(array(
+				'log_dt'=>date(AppModel::SQL_DTF),
+				'contact_id'=>$this->id,				
+				'description' 	=> $this->log_message,
+				'user_id'=>$this->user_id 	
+			));	
 		}
 	}
 	
@@ -292,5 +292,6 @@ class Contact extends AppModel {
 			)	
 		));
 	}
+	
 }
 ?>
