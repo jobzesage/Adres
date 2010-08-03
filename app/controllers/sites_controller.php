@@ -33,8 +33,8 @@ class SitesController extends AppController {
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);
 		$output='';
 		
-		//Some metaprogramming is goin on the iterator
-		$output = $this->itearator($id,$plugins,"renderShowDetail");
+		//Some metaprogramming is goin on the getTitle
+		$output = $this->getTitle($id,$plugins,"renderShowDetail");
 		
 		$this->set('contact',$output); 
 		$this->set('contactId',$id);
@@ -69,15 +69,17 @@ class SitesController extends AppController {
 		//$this->redirect_if_not_ajax_request();
 		//$this->redirect_if_id_is_empty($contact_id);
 		$contact = $this->Contact->read(null,$contact_id);
-		$fields = $this->Field->getPluginTypes($contact['Contact']['contact_type_id'],null,array(
+		$contact_type_id = $contact['Contact']['contact_type_id'];
+		$plugins = $this->Field->getPluginTypes($contact_type_id,null,array(
 			'Field.is_descriptive'=>1	
 		));
 		
 		$descriptive_fields = "";
-		foreach ($fields as $column) {
-			$descriptive_fields .= $column['Field']['name']. " "; 
+		foreach ($plugins as $field) {
+			$descriptive_fields .= $field['Field']['name']. " "; 
 		}
-		$name = $this->itearator($contact_id,$fields);
+		
+		$name = $this->getTitle($contact_id,$plugins);
 		
 		if( $this->data){
 			$affiliation_id = substr($this->data['Affiliate']['affiliation_id'],1);
@@ -108,11 +110,17 @@ class SitesController extends AppController {
 			}
 		}// used to affiliate
 		
-		$contact = $this->Contact->getContactAffiliations($contact_id);
-		$contact = $this->addContactNameKey($contact);
+		$contact= $this->Contact->getContactAffiliations($contact_id);
+		$test = array();
 		
-		$this->set('affiliations',$this->Affiliation->getList($contact['Contact']['contact_type_id']));
-		$this->set(compact('contact','descriptive_fields','name'));	
+		foreach ($contact as $data) {
+			$data['affiliated_to'] = $this->getTitle($data['affiliated_contact_id'],$plugins);
+			$test[] = $data;
+		}
+		$contact = $test;
+		$this->set('affiliations',$this->Affiliation->getList($contact_type_id));
+		
+		$this->set(compact('contact','descriptive_fields','name','contact_id','test'));	
 				
 	}
 
@@ -146,7 +154,7 @@ class SitesController extends AppController {
     } 
     
     
-	private function itearator($id,$plugins,$function_name="")
+	private function getTitle($id,$plugins,$function_name="")
 	{
 		$output= "";
 		foreach($plugins as $field){
@@ -184,14 +192,7 @@ class SitesController extends AppController {
 		}
 		return $output;
 	}
-	
-	public function addContactNameKey($contacts)
-	{
-		// foreach ($contacts as $key => $value) {
-		// 	# code...
-		// }
-		return $contacts;
-	}
+
 	
 }
 ?>

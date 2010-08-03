@@ -238,7 +238,7 @@ class Contact extends AppModel {
 
 	public function getContactAffiliations($id)
 	{
-		return $this->find('first',array(
+		$contacts = $this->find('first',array(
 			'contain'=>array(
 				'ParentAffiliation',
 				'ChildAffiliation',				
@@ -246,6 +246,27 @@ class Contact extends AppModel {
 			'conditions' => array('Contact.id' => $id),
 			'limit'=>1
 		));
+		
+		$affiliations = array(
+			'ParentAffiliation'=>array(
+				'affiliated'=>'father_name',
+				'contact_id'=>'contact_child_id'
+			),
+			'ChildAffiliation'=>array(
+				'contact_id' => 'contact_father_id',
+				'affiliated'=>'child_name'
+			)
+		);
+		$data=array();
+		$i=0;
+		foreach ($affiliations as $affliation_name => $con) {
+			foreach ($contacts[$affliation_name] as $value){
+				$data[$i]['affiliated_contact_id']= $value['AffiliationsContact'][$con['contact_id']];
+				$data[$i]['affiliation_type']=$value[$con['affiliated']];
+				$i++;
+			}
+		}
+		return $data;
 	}
 	
 	public function getContactLogs($id)

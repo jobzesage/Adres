@@ -5,7 +5,7 @@
 			'url'=>array(
 				'controller'=>'sites',
 				'action'=>'affiliate',
-				$contact['Contact']['id']	
+				$contactId
 			),
 			'id'=>'adres-affiliate-form'
 		)) ?>
@@ -13,7 +13,7 @@
 			<?php echo $form->input('contact_id') ?>
 			<?php echo $form->input('current_contact_id',array(
 				'type'=>'hidden',
-				'value'=>$contact['Contact']['id']
+				'value'=>$contactId
 			)) ?>
 		<?php echo $form->end('Affiliate') ?>
 		
@@ -23,8 +23,8 @@
 				<th><?php echo $descriptiveFields ?></th>	
 				<th>Affiliations</th>
 			</tr>	
-			
-			<?php foreach ($contact['ParentAffiliation'] as $parentAffiliation): ?>
+		
+			<?php foreach ($contact as $affiliation): ?>
 			<tr>
 				<td>
 					<?php 
@@ -34,9 +34,10 @@
 				</td>
 				<td> 
 					<div class="adres-affiliations">
-						<?php echo $parentAffiliation['father_name'] ?>
-						<?php $pid = $parentAffiliation['AffiliationsContact']['contact_child_id'] ?>
-						<?php echo $html->link($pid,array(
+						<?php echo $affiliation['affiliation_type'] ?>
+						
+						<?php $pid = $affiliation['affiliated_contact_id'] ?>
+						<?php echo $html->link($affiliation['affiliated_to'],array(
 							'controller'=>'users',
 							'action' => 'show_record', 
 							$pid
@@ -47,22 +48,8 @@
 				</td>
 			</tr>
 			<?php endforeach ?>
-			
-			<?php foreach ($contact['ChildAffiliation'] as $childAffiliation): ?>
-			<div class="adres-affiliations">
-				<?php echo $childAffiliation['child_name'] ?>
-				<?php $pid = $childAffiliation['AffiliationsContact']['contact_father_id'] ?>
-				<?php echo $html->link($pid,array(
-					'controller'=>'users',
-					'action' => 'show_record', 
-					$pid
-				),array(
-					'class'=>'adres-ajax-anchor adres-show',
-				)) ?>
-			</div>
-			<?php endforeach ?>
+	
 		</table>
-
 	</div>
 	
 	
