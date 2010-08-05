@@ -84,31 +84,12 @@
 
 		<div id="adres-saved-group">
 		<?php echo $html->tag('h6',__('Groups',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>		
-		<?php foreach ($groups as $group): ?>
-			
-			<div class="adres-group">
-				<?php echo $html->link($group['Group']['name'],array(
-						'controller'=>'users',
-						'action'=>'load_group',
-						$group['Group']['id']	
-					),array(
-						'class'=>'adres-ajax-anchor adres-load-group'	
-					)
-				)?>
-				
-				
-                          <?php 
-                                /*echo $html->link('(x)',array(
-					'controller'=>'groups',
-					'action' => 'delete',
-					$group['Group']['id']
-				),array(
-					'class'=>'adres-ajax-anchor adres-delete-group'			
-				)
-                              ) */?>					
+			<div id="group-tree">
+				<?php echo $tree->generate($groups,array(
+					'model' => 'Group',
+					'element'=>'group_link'
+				)) ?>
 			</div>
-		
-		<?php endforeach ?>
 		</div><!-- adres-groups -->
 
 	<?php endif ?>
@@ -231,3 +212,14 @@
 	<?php echo $this->element('adres_data_grid') ?>	
 	
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('div#adres-saved-group div#group-tree').jstree({
+			'themes':{
+				'theme':'apple'
+			},
+			'plugins':['themes','html_data']
+		});
+		
+	});
+</script>

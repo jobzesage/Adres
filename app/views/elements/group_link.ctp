@@ -1,0 +1,1 @@
+<?php echo $html->link($data['Group']['name'], '#') ?>

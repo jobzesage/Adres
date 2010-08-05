@@ -5,7 +5,7 @@ class Group extends AppModel {
 	
 	public $useTable='groups';
 	
-	public $actsAs=array('Containable');
+	public $actsAs=array('Containable','Tree');
 	
 	public $belongsTo = array(
 		'Group' => array(
@@ -84,8 +84,35 @@ class Group extends AppModel {
 		foreach ($contact['Group'] as $group) {
 			unset($list[$group['id']]);
 		}
-
+		
 		return $list;
+	}
+	
+	/**
+	 * This function generates group tree data from nested data model
+	 * this will generate the cakephp array result set first
+	 * then the tree helper is used to wrap the tree nodes with proper html
+	 *
+	 * http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
+	 *
+	 * @param integer $contact_type 
+	 * @return void
+	 * @author Rajib
+	 */
+	public function getTree($contact_type_id=null){
+		$conditions = array();
+		if($contact_type_id){
+			$conditions = array(
+				'Group.contact_type_id' => $contact_type_id
+			);
+		}
+		
+		return $this->find('all',array(
+			'conditions' => $conditions,
+			'fields'=>array('name','lft','rght'),
+			'order' => 'Group.lft asc'
+		));
+		
 	}
 		
 }

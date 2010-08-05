@@ -20,7 +20,7 @@ foreach ($groups as $group):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $group['Group']['id']; ?>
+			<?php echo $group['Group']['id']; ?>	
 		</td>
 		<td>
 			<?php echo $group['Group']['name']; ?>

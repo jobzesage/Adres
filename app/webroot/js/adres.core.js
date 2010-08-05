@@ -267,6 +267,7 @@ jQuery(document).ready(function() {
 	});
 
 	$('body').trigger('click');
-	
+			
 	$('.adres-tabs').tabs();
-})
+	
+});

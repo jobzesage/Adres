@@ -4,7 +4,6 @@ class UsersController extends AppController {
     public $name ='Users';
     
     public $uses=array('User','Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
-    
     public $layout = "users";
     	
     public function index(){
@@ -182,7 +181,8 @@ class UsersController extends AppController {
 		
 		$filters = $this->Filter->getFilters($contact_type_id);
 		
-		$this->set('groups',$this->Group->getCurrentGroups($contact_type_id));
+		
+		$this->set('groups',$this->Group->getTree($contact_type_id));
 		
     	$this->set(compact('fields','filters','contact_type_id','paging','count'));
     	

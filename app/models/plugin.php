@@ -1,4 +1,4 @@
-<?php  
+<?php
 App::import('Sanatize');
 
 class Plugin extends AppModel {
@@ -78,9 +78,7 @@ class Plugin extends AppModel {
 
 	
 	
-	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div'))
-	{	
-		
+	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div')){	
 		
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
@@ -106,8 +104,8 @@ class Plugin extends AppModel {
 		return $label.$output;		
 	}
 	
-	public function advanceSearchFormField($field,$options=array())
-	{
+	public function advanceSearchFormField($field,$options=array()){
+		
 		$defaults = array('tag'=>'div','class'=>'text input');
 		$wrapper = am($defaults,$options);
 		

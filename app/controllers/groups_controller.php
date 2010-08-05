@@ -20,7 +20,6 @@ class GroupsController extends AppController {
 					),
 				#'conditions'=>array('Group.parent_id'=>0)	//only the parent groups are shown
 			));
-			
 		$this->set('groups', $this->paginate('Group'));
 	}
 

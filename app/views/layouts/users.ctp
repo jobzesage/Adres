@@ -27,6 +27,7 @@
 			'jquery-ui-1.8.custom.min',
 			'jquery.blockUI.js',
 			'jquery.validate.pack',
+			'jquery.jstree',
 			'jquery.cookie',
 			'adres.core'
 		));
