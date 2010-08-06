@@ -9,7 +9,6 @@ class GroupsController extends AppController {
 	
 
 	public function index() {
-		
 		$this->paginate=array(
 			'Group'=>array(
 				'contain'=>array(
