@@ -13,7 +13,6 @@ class GroupsController extends AppController {
 		$this->paginate=array(
 			'Group'=>array(
 				'contain'=>array(
-					'SubGroup',
 					#'Contact',
 					'ContactType',
 					#'Implementation'
@@ -28,7 +27,6 @@ class GroupsController extends AppController {
 		if (!$id) {
 		 	$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
-		$this->Group->contain('SubGroup');
 		$this->set('group', $this->Group->read(null, $id));
 	}
 
@@ -37,7 +35,7 @@ class GroupsController extends AppController {
 		$this->_setGroupList();
 		if (!empty($this->data)) {
 			$this->Group->create();
-			if ($this->Group->save($this->data)) {
+			if ($this->Group->save($this->data)){
 				$this->flash(__('Group saved.', true), array('action' => 'index'));
 			} else {
 			}
@@ -69,7 +67,8 @@ class GroupsController extends AppController {
 		if (!$id) {
 			//$this->flash(__('Invalid Group', true), array('action' => 'index'));
 		}
-		if ($this->Group->del($id)) {
+		$this->Group->id = $id;
+		if ($this->Group->delete()) {
             if(!$this->RequestHandler->isAjax()){
                 $this->redirect(array('action' => 'index'));
             }else{

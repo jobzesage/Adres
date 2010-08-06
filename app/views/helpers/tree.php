@@ -218,10 +218,12 @@ class TreeHelper extends AppHelper {
 				'lastChild' => $lastChild,
 				'hasVisibleChildren' => $hasVisibleChildren
 			);
+			
+			
 			$this->__settings = array_merge($this->__settings, $elementData);
 			/* Main Content */
 			if ($element) {
-				$content = $view->element($element,$elementData);
+				$content = $view->element($element,$elementData,$numberOfTotalChildren);
 			} elseif ($callback) {
 				list($content) = array_map($callback, array($elementData));
 			} else {

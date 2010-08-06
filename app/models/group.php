@@ -8,21 +8,10 @@ class Group extends AppModel {
 	public $actsAs=array('Containable','Tree');
 	
 	public $belongsTo = array(
-		'Group' => array(
-			'className' => 'Group', 
-			'foreignKey' => 'parent_id'
-		),
-		'ContactType'=>array(
+		'ContactType' => array(
 			'className' => 'ContactType', 
-			'foreignKey' => 'contact_type_id',
-		)
-	);
-	
-	public $hasMany = array(
-		'SubGroup' => array(
-			'className' => 'Group', 
-			'foreignKey' => 'parent_id'
-		));
+			'foreignKey' => 'contact_type_id'
+	));
 	
 	public $hasAndBelongsToMany = array(
 		'Contact' => array(
@@ -96,7 +85,7 @@ class Group extends AppModel {
 	 * http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
 	 *
 	 * @param integer $contact_type 
-	 * @return void
+	 * @return mixed
 	 * @author Rajib
 	 */
 	public function getTree($contact_type_id=null){
@@ -109,7 +98,7 @@ class Group extends AppModel {
 		
 		return $this->find('all',array(
 			'conditions' => $conditions,
-			'fields'=>array('name','lft','rght'),
+			'fields'=>array('id','name','lft','rght'),
 			'order' => 'Group.lft asc'
 		));
 		

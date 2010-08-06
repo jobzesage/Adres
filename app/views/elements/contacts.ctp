@@ -87,7 +87,7 @@
 			<div id="group-tree">
 				<?php echo $tree->generate($groups,array(
 					'model' => 'Group',
-					'element'=>'group_link'
+					'element'=>'group_link',
 				)) ?>
 			</div>
 		</div><!-- adres-groups -->
@@ -215,6 +215,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('div#adres-saved-group div#group-tree').jstree({
+			'core' : { 'initially_open' : [ 'root' ] },		
 			'themes':{
 				'theme':'apple'
 			},
