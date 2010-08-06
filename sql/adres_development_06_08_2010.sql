@@ -2,8 +2,8 @@
 -- version 3.2.4
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jul 10, 2010 at 01:59 AM
+-- হোষ্ট: localhost
+-- তৈরী করার জন্য সময়: আগস্ট 06, 2010 at 11:57 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `adres_development`
+-- ডাটাবেজ: `adres_development`
 --
 
 -- --------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `affiliations` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `affiliations`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `affiliations`
 --
 
 INSERT INTO `affiliations` (`id`, `contact_type_father_id`, `contact_type_child_id`, `father_name`, `child_name`, `created`, `modified`) VALUES
@@ -59,10 +59,10 @@ CREATE TABLE IF NOT EXISTS `affiliations_contacts` (
   `contact_child_id` int(10) unsigned NOT NULL,
   `after_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `affiliations_contacts`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `affiliations_contacts`
 --
 
 INSERT INTO `affiliations_contacts` (`id`, `affiliation_id`, `contact_father_id`, `contact_child_id`, `after_id`) VALUES
@@ -70,7 +70,12 @@ INSERT INTO `affiliations_contacts` (`id`, `affiliation_id`, `contact_father_id`
 (2, 1, 5, 71, 0),
 (3, 5, 5, 55, 0),
 (4, 1, 12, 5, 0),
-(5, 3, 5, 100, 0);
+(5, 3, 5, 100, 0),
+(6, 1, 1, 1, 0),
+(7, 5, 1, 1, 0),
+(10, 4, 3, 6, 0),
+(9, 3, 3, 1, 0),
+(8, 1, 3, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -83,10 +88,10 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `contact_type_id` int(11) NOT NULL,
   `trash_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=42 ;
 
 --
--- Dumping data for table `contacts`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`) VALUES
@@ -111,7 +116,26 @@ INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`) VALUES
 (19, 5, 0),
 (20, 5, 0),
 (21, 5, 0),
-(22, 11, 0);
+(22, 11, 0),
+(23, 8, 0),
+(24, 11, 0),
+(25, 11, 0),
+(26, 11, 0),
+(27, 5, 0),
+(28, 5, 0),
+(29, 5, 0),
+(30, 5, 0),
+(31, 5, 0),
+(32, 5, 0),
+(33, 5, 0),
+(34, 5, 0),
+(35, 5, 0),
+(36, 5, 0),
+(37, 5, 0),
+(38, 5, 0),
+(39, 5, 0),
+(40, 15, 0),
+(41, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -124,17 +148,18 @@ CREATE TABLE IF NOT EXISTS `contacts_groups` (
   `contact_id` int(11) unsigned NOT NULL,
   `group_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
--- Dumping data for table `contacts_groups`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `contacts_groups`
 --
 
 INSERT INTO `contacts_groups` (`id`, `contact_id`, `group_id`) VALUES
 (40, 2, 2),
 (41, 71, 2),
 (30, 3, 3),
-(42, 1, 2);
+(42, 1, 2),
+(43, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -148,16 +173,16 @@ CREATE TABLE IF NOT EXISTS `contact_types` (
   `contact_counter` int(11) unsigned NOT NULL,
   `implementation_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `contact_types`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `contact_types`
 --
 
 INSERT INTO `contact_types` (`id`, `name`, `contact_counter`, `implementation_id`) VALUES
-(5, 'People', 22, 4),
-(8, 'Kids', 0, 4),
-(11, 'Company', 1, 4);
+(5, 'People', 36, 4),
+(8, 'Kids', 1, 4),
+(11, 'Company', 4, 4);
 
 -- --------------------------------------------------------
 
@@ -174,21 +199,22 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `is_descriptive` tinyint(1) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
--- Dumping data for table `fields`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `fields`
 --
 
 INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_class_name`, `is_descriptive`, `required`) VALUES
 (3, 'First Name', 5, 5, 'TypeString', 1, 1),
 (4, 'Last Name', 5, 3, 'TypeString', 1, 1),
-(5, 'Age', 5, 4, 'TypeInteger', 1, 1),
-(6, 'sex', 5, 4, 'TypeString', 1, 1),
+(5, 'Age2', 5, 4, 'TypeInteger', 0, 0),
+(6, 'sex', 5, 4, 'TypeString', 0, 1),
 (9, 'name', 8, 2, 'TypeString', 1, 1),
-(12, 'created_at', 5, 10, 'TypeDate', 1, 1),
+(12, 'created_at', 5, 10, 'TypeDate', 0, 1),
 (13, 'parent name', 8, 12, 'TypeString', 1, 1),
-(14, 'Rubish', 11, 2, 'TypeBoolean', 1, 1);
+(14, 'Rubish', 11, 2, 'TypeBoolean', 1, 1),
+(15, 'Full Name', 8, 1, 'TypeString', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -203,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `field_types` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `field_types`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `field_types`
 --
 
 INSERT INTO `field_types` (`class_name`, `nice_name`) VALUES
@@ -225,10 +251,10 @@ CREATE TABLE IF NOT EXISTS `filters` (
   `keyword` varchar(512) NOT NULL,
   `contact_type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
--- Dumping data for table `filters`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `filters`
 --
 
 
@@ -249,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `forms`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `forms`
 --
 
 
@@ -268,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `forms_fields` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forms_fields`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `forms_fields`
 --
 
 
@@ -280,24 +306,36 @@ CREATE TABLE IF NOT EXISTS `forms_fields` (
 
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `lft` int(10) unsigned NOT NULL,
+  `rght` int(10) unsigned NOT NULL,
   `contact_type_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `group_parent_fk` (`parent_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `groups`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `groups`
 --
 
-INSERT INTO `groups` (`id`, `name`, `parent_id`, `contact_type_id`, `created`, `modified`) VALUES
-(1, 'testG3', 0, 5, '2010-02-19 20:18:22', '2010-02-19 21:52:37'),
-(2, 'testG2', 0, 5, '2010-02-19 20:18:52', '0000-00-00 00:00:00'),
-(3, 'testestsf', 0, 8, '2010-02-20 23:29:53', '2010-06-29 19:34:26'),
-(4, 'Spin', 0, 5, '2010-06-29 19:26:24', '2010-06-29 19:26:24');
+INSERT INTO `groups` (`id`, `name`, `parent_id`, `lft`, `rght`, `contact_type_id`, `created`, `modified`) VALUES
+(1, 'My Categories', 0, 1, 32, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Fun', 1, 2, 15, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Sport', 2, 3, 8, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Surfing', 3, 4, 5, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Extreme knitting', 3, 6, 7, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'Friends', 2, 9, 14, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'Gerald', 6, 10, 11, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'Gwendolyn', 6, 12, 13, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'Work', 1, 16, 29, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'Reports', 9, 17, 22, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 'Annual', 10, 18, 19, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 'Trips', 9, 23, 28, 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 'National', 13, 24, 25, 8, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'test', 1, 30, 31, 5, '2010-08-06 11:00:14', '2010-08-06 11:00:14');
 
 -- --------------------------------------------------------
 
@@ -311,10 +349,10 @@ CREATE TABLE IF NOT EXISTS `hidden_fields` (
   `contact_type_id` int(11) NOT NULL,
   `field_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `hidden_fields`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `hidden_fields`
 --
 
 INSERT INTO `hidden_fields` (`id`, `user_id`, `contact_type_id`, `field_id`) VALUES
@@ -333,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `implementations` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `implementations`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `implementations`
 --
 
 INSERT INTO `implementations` (`id`, `name`) VALUES
@@ -353,27 +391,47 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `logs`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `logs`
 --
 
 INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALUES
-(1, '2010-06-29 17:14:08', 'test', 12, 1),
-(2, '2010-06-29 17:14:27', 'test2', 11, 1),
-(3, '2010-06-30 15:15:39', 'Contact saved', 13, 1),
-(4, '2010-06-30 15:17:51', 'Contact saved', 14, 1),
-(5, '2010-06-30 15:21:53', 'Contact saved', 15, 1),
-(6, '2010-06-30 15:23:28', 'Contact saved', 16, 1),
-(7, '2010-06-30 15:24:28', 'Contact saved', 17, 1),
-(8, '2010-06-30 15:36:10', 'Contact saved', 18, 1),
-(9, '2010-06-30 15:41:34', 'Contact saved', 19, 1),
-(10, '2010-06-30 15:48:53', 'Contact saved', 20, 1),
-(11, '2010-06-30 15:51:04', 'Contact saved', 21, 1),
-(12, '2010-07-08 23:06:21', 'Contact saved', 22, 1),
-(13, '2010-07-10 00:34:22', 'Contact saved', 22, 1),
-(14, '2010-07-10 01:45:04', 'Changed <strong>Rubish</strong> from <i>0</i> to <i>1</i>', 22, 1);
+(1, '2010-07-10 06:21:00', 'Changed <strong>Rubish</strong> from <i>0</i> to <i>1</i>', 26, 1),
+(2, '2010-07-10 06:21:54', 'Changed <strong>Rubish</strong> from <i>1</i> to <i>0</i>', 26, 1),
+(3, '2010-07-10 06:25:15', 'Changed <strong>Rubish</strong> from <i>1</i> to <i>0</i>', 22, 1),
+(4, '2010-07-10 06:29:29', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:30</i>', 13, 1),
+(5, '2010-07-23 03:55:10', 'Contact saved', 27, 1),
+(6, '2010-07-23 03:56:36', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:30</i>', 27, 1),
+(7, '2010-07-23 04:00:45', 'Contact saved', 28, 1),
+(8, '2010-07-23 04:04:12', 'Contact saved', 29, 1),
+(9, '2010-07-23 04:10:56', 'Contact saved', 30, 1),
+(10, '2010-07-23 04:11:51', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:31</i>', 30, 1),
+(11, '2010-07-23 04:13:11', 'Contact saved', 31, 1),
+(12, '2010-07-23 04:15:27', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:07</i>', 31, 1),
+(13, '2010-07-23 04:19:58', 'Contact saved', 32, 1),
+(14, '2010-07-23 04:20:18', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:27</i>', 32, 1),
+(15, '2010-07-23 04:25:17', 'Contact saved', 33, 1),
+(16, '2010-07-23 04:27:28', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:24</i>', 33, 1),
+(17, '2010-07-23 04:29:41', 'Contact saved', 34, 1),
+(18, '2010-07-23 04:30:05', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:31</i>', 34, 1),
+(19, '2010-07-23 04:31:43', 'Contact saved', 35, 1),
+(20, '2010-07-23 04:32:33', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:31</i>', 35, 1),
+(21, '2010-07-23 04:33:19', 'Changed <strong>First Name</strong> from <i>Rajib2</i> to <i>Rajib</i>', 1, 1),
+(22, '2010-07-23 04:34:31', 'Contact saved', 36, 1),
+(23, '2010-07-23 04:35:51', 'Contact saved', 37, 1),
+(24, '2010-07-23 04:36:40', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:31</i>', 37, 1),
+(25, '2010-07-23 04:39:08', 'Contact saved', 38, 1),
+(26, '2010-07-23 04:39:33', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>sdfasdfas</i>', 38, 1),
+(27, '2010-07-23 04:44:29', 'Contact saved', 39, 1),
+(28, '2010-07-23 04:44:46', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:01</i>', 39, 1),
+(29, '2010-07-23 04:45:17', 'Changed <strong>First Name</strong> from <i>Rajib</i> to <i>Rajib3</i>', 1, 1),
+(30, '2010-07-25 06:31:52', 'Changed <strong>First Name</strong> from <i>Rajib3</i> to <i>Rajib</i>', 1, 1),
+(31, '2010-07-28 07:58:11', 'Contact saved', 40, 1),
+(32, '2010-07-31 11:01:47', 'Contact saved', 41, 1),
+(33, '2010-07-31 11:02:17', 'Changed <strong>created_at</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:07:22</i>', 41, 1),
+(34, '2010-08-02 13:54:59', 'joined group:testG2', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -390,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `tokens` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `tokens`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `tokens`
 --
 
 
@@ -410,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `trashes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `trashes`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `trashes`
 --
 
 
@@ -423,16 +481,19 @@ CREATE TABLE IF NOT EXISTS `trashes` (
 CREATE TABLE IF NOT EXISTS `type_boolean` (
   `field_id` int(11) NOT NULL,
   `contact_id` int(11) NOT NULL,
-  `data` tinyint(1) NOT NULL,
+  `data` int(11) NOT NULL,
   UNIQUE KEY `boolean_fk_unique` (`field_id`,`contact_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `type_boolean`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `type_boolean`
 --
 
 INSERT INTO `type_boolean` (`field_id`, `contact_id`, `data`) VALUES
-(14, 22, 1);
+(14, 22, 0),
+(14, 24, 1),
+(14, 25, 1),
+(14, 26, 0);
 
 -- --------------------------------------------------------
 
@@ -449,11 +510,11 @@ CREATE TABLE IF NOT EXISTS `type_date` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `type_date`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `type_date`
 --
 
 INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
-(12, 1, '2010-06-29 00:00:00'),
+(12, 1, '2010-07-24 00:00:00'),
 (12, 2, '2010-06-01 00:00:00'),
 (12, 3, '2010-06-30 00:00:00'),
 (12, 4, '2010-07-02 00:00:00'),
@@ -465,7 +526,7 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 10, '2010-08-06 00:00:00'),
 (12, 11, '2010-06-30 00:00:00'),
 (12, 12, '2010-06-15 00:00:00'),
-(12, 13, '0000-00-00 00:00:00'),
+(12, 13, '2010-07-30 00:00:00'),
 (12, 14, '0000-00-00 00:00:00'),
 (12, 15, '0000-00-00 00:00:00'),
 (12, 16, '0000-00-00 00:00:00'),
@@ -474,7 +535,21 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 19, '0000-00-00 00:00:00'),
 (12, 20, '0000-00-00 00:00:00'),
 (12, 21, '0000-00-00 00:00:00'),
-(12, 22, '0000-00-00 00:00:00');
+(12, 22, '0000-00-00 00:00:00'),
+(12, 27, '2010-07-30 00:00:00'),
+(12, 28, '0000-00-00 00:00:00'),
+(12, 29, '0000-00-00 00:00:00'),
+(12, 30, '2010-07-31 00:00:00'),
+(12, 31, '2010-07-07 00:00:00'),
+(12, 32, '2010-07-27 00:00:00'),
+(12, 33, '2010-07-24 00:00:00'),
+(12, 34, '2010-07-31 00:00:00'),
+(12, 35, '2010-07-31 00:00:00'),
+(12, 36, '0000-00-00 00:00:00'),
+(12, 37, '2010-07-31 00:00:00'),
+(12, 38, '0000-00-00 00:00:00'),
+(12, 39, '2010-07-01 00:00:00'),
+(12, 41, '2010-07-22 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -489,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `type_integer` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `type_integer`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `type_integer`
 --
 
 INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
@@ -505,7 +580,7 @@ INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 10, 32),
 (5, 11, 31),
 (5, 12, 31),
-(5, 13, NULL),
+(5, 13, 11),
 (5, 14, NULL),
 (5, 15, NULL),
 (5, 16, NULL),
@@ -514,7 +589,21 @@ INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 19, NULL),
 (5, 20, NULL),
 (5, 21, NULL),
-(5, 22, NULL);
+(5, 22, NULL),
+(5, 27, 32),
+(5, 28, NULL),
+(5, 29, 343),
+(5, 30, 2),
+(5, 31, 343),
+(5, 32, 9),
+(5, 33, 9),
+(5, 34, 90),
+(5, 35, 9088),
+(5, 36, NULL),
+(5, 37, 90),
+(5, 38, 9988),
+(5, 39, 33),
+(5, 41, NULL);
 
 -- --------------------------------------------------------
 
@@ -530,7 +619,7 @@ CREATE TABLE IF NOT EXISTS `type_string` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `type_string`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `type_string`
 --
 
 INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
@@ -570,9 +659,9 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (3, 12, 'Frank'),
 (4, 12, 'Lamperd'),
 (6, 12, 'male'),
-(3, 13, ''),
-(4, 13, ''),
-(6, 13, ''),
+(3, 13, 'Rajib A'),
+(4, 13, 'sasdfas'),
+(6, 13, 'male'),
 (3, 14, ''),
 (4, 14, ''),
 (6, 14, ''),
@@ -599,7 +688,53 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (6, 21, ''),
 (3, 22, ''),
 (4, 22, ''),
-(6, 22, '');
+(6, 22, ''),
+(9, 23, 'Bhowa'),
+(13, 23, 'as'),
+(15, 23, 'asda'),
+(3, 27, 'Hello'),
+(4, 27, 'World'),
+(6, 27, 'male'),
+(3, 28, ''),
+(4, 28, ''),
+(6, 28, ''),
+(3, 29, 'erqwerqw'),
+(4, 29, 'qwerwqerew'),
+(6, 29, 'male'),
+(3, 30, 'fsadfa'),
+(4, 30, 'fsadfa'),
+(6, 30, 'asdfas'),
+(3, 31, 'fasdf'),
+(4, 31, 'sdfs'),
+(6, 31, 'madfs'),
+(3, 32, 'hkjhk'),
+(4, 32, 'uiouoi'),
+(6, 32, 'kjhkj'),
+(3, 33, 'koppi'),
+(4, 33, 'gjhhgj'),
+(6, 33, 'ljkjlk'),
+(3, 34, 'wajkk'),
+(4, 34, 'gjgh'),
+(6, 34, 'kjkj'),
+(3, 35, 'Hello'),
+(4, 35, 'dhdfd'),
+(6, 35, 'hhkj'),
+(3, 36, ''),
+(4, 36, ''),
+(6, 36, ''),
+(3, 37, 'jgjhg'),
+(4, 37, 'dgfdg'),
+(6, 37, 'fhfh'),
+(3, 38, 'asa'),
+(4, 38, 'adfa'),
+(6, 38, 'ma'),
+(3, 39, 'asfasd'),
+(4, 39, 'dasdfsa'),
+(6, 39, 'sfasdfas'),
+(16, 40, '01212121'),
+(4, 41, 'ffsdfa'),
+(6, 41, 'dfasd'),
+(3, 41, 'fdfasd');
 
 -- --------------------------------------------------------
 
@@ -621,7 +756,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `users`
+-- টেবিল এর জন্য ডাটা ডাম্পিং করুন `users`
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `is_active`, `created`, `modified`) VALUES
