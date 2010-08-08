@@ -28,6 +28,8 @@
 			),null,null,false
 		) ?>	
 		
+		<?php echo $this->element('field_switchers') ?>
+	
 
 	</div>	
 	
@@ -40,13 +42,7 @@
 		<tr>
 			<th>ID</th>
 			<?php foreach ($fields as $field): ?>
-				<?php 
-					/*--------------------------------
-					|generating list of fields
-					|that are needed to be displayed
-					--------------------------------*/
-					$field_list[$field['Field']['id']] = $field['Field']['name'];
-				?>
+
 				<th>
 					<?php echo $field['Field']['name'] ?>
 					<?php echo $html->link('A', array(
@@ -138,35 +134,6 @@
 
 	<?php echo $this->element('paginator')?>
 	
-		<?php if (!empty($hidden_fields)): ?>
-			<?php echo $form->create('Field',array(
-				'url' => array(
-					'controller' => 'fields', 
-					'action'=>'update_hidden'
-				) 
-			)) ?>
-				<?php echo $form->input('id',array(
-					'type'=>'select',
-					'options'=>$hidden_fields,
-					'label' => false
-				)) ?>
-			<?php echo $form->end('Show') ?>
-		<?php endif ?>
-	
-		<?php if (!empty($fields)): ?>
-			<?php echo $form->create('Field',array(
-				'url' => array(
-					'controller' => 'fields', 
-					'action'=>'hide'
-				) 
-			)) ?>
-				<?php echo $form->input('id',array(
-					'type'=>'select',
-					'options'=>$field_list,
-					'label' => false
-				)) ?>
-			<?php echo $form->end('Hide') ?>
-			
-		<?php endif ?>
+
 
 </div>

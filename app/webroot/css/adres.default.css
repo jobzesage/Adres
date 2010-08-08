@@ -88,6 +88,14 @@
 #data-grid{
 	float:left;
 }
+
+form.adres-fields-switcher {
+	width:150px;
+	float:right;
+}
+/*form.adres-fields-switcher input{ width:70px}*/
+
+
 /*---------------------------------
 |	Buttons
 |---------------------------------*/
@@ -173,3 +181,4 @@ div#adres-dialog label{
 	margin-right: 1em; 
 }
 #adres-dialog .input,lable{ float:left}
+

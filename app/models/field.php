@@ -46,7 +46,7 @@ class Field extends AppModel {
 
 		}
 		$conditions = am($conditions,$options);
-		FireCake::fb($conditions);
+
 		$fields = $this->find('all',array(
 			'conditions' =>$conditions,
 			'order' => array('Field.order')
