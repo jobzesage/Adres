@@ -69,9 +69,9 @@ class TypeBoolean extends Plugin{
 		$input_style =' class="text span-5 " ';
 
 		$label = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
-		$label.= '<label for="'.$field['Field']['name'].' to" >'.$field['Field']['name'].' to</label>';
+		$label.= '<label class="cbox" for="'.$field['Field']['name'].'" >'.$field['Field']['name'].'</label>';
 		
-		$input = '<input type="checkbox"'.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="1">';  
+		$input = '<input class="testy" type="checkbox"'.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="1">';  
 		
 		$input.="</{$wrapper['tag']}>"; 
 
@@ -90,8 +90,8 @@ class TypeBoolean extends Plugin{
 			)));
 			
 		$data 	= $data[$this->name][$this->getDisplayFieldName()];
-		$label 	= '<'.$wrapper['tag'].' class="input text">';
-		$label .='<label for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
+		$label 	= '<'.$wrapper['tag'].' class="input text check-box">';
+		$label .='<label class="cbox" for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
 		
 		$label .= (int)$plugin['Field']['required'] ? " * " : "" ;
 		$label .= '</label>';

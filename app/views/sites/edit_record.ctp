@@ -15,4 +15,4 @@
 	))?>
 <?php echo $form_inputs ?>
 <br />
-	<?php echo $form->end(array('label'=>'Save','class'=>'adres-button', 'div' => false)) ?>	
+	<?php echo $form->end(array('label'=>'Save','class'=>'adres-button')) ?>	
