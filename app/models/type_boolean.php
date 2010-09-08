@@ -35,7 +35,7 @@ class TypeBoolean extends Plugin{
 				$logs[]= array(
 					'log_dt'		=>date(AppModel::SQL_DTF),
 					'contact_id'	=>$contact_id,				
-					'description' 	=>"Changed <strong>$field_name</strong> from <i>1</i> to <i>0</i>" ,
+					'description' 	=>"Changed <strong>$field_name</strong> from <i>{$old_data}</i> to <i>{$this->_input}</i>" ,
 					'user_id'		=>$user_id 
 				);
 			}			
@@ -105,11 +105,11 @@ class TypeBoolean extends Plugin{
 		$input_check.='</'.$wrapper['tag'].'>';
 		
 		$input_hidden = '<input type="hidden" ';
-		$input_hidden.= 'name="data['.$this->getJoinField().'_]['.$plugin['Field']['id'].']"';
+		$input_hidden.= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 		$input_hidden.= ' value="0"';
 		$input_hidden.= " >";
 		
-		return  $label.$input_check.$input_hidden;		
+		return  $label.$input_hidden.$input_check;		
 	}
 
 }

@@ -38,7 +38,7 @@ class Contact extends AppModel {
 		'Log' => array(
 			'className'=>'Log',
 			'foreignKey' => 'contact_id',
-			'order' => 'Log.log_dt ASC',
+			'order' => 'Log.log_dt DESC',
 			'limit'=>5
 		)
 	);
@@ -153,6 +153,7 @@ class Contact extends AppModel {
 				$save_data = array(
 					'data' => '\''.Sanitize::escape($data[0]).'\''
 				);
+				
 			ClassRegistry::init($className)->updateAll($save_data,array(
 					'field_id'=>$field_id[0],
 					'contact_id' =>$contact_id ));				
