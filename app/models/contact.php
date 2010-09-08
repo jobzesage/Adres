@@ -38,7 +38,7 @@ class Contact extends AppModel {
 		'Log' => array(
 			'className'=>'Log',
 			'foreignKey' => 'contact_id',
-			'order' => 'Log.log_dt DESC',
+			'order' => 'Log.log_dt ASC',
 			'limit'=>5
 		)
 	);
