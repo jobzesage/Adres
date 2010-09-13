@@ -111,7 +111,7 @@ class Plugin extends AppModel {
 		
 		$label = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
 		$label .= '<label for="'.$field['Field']['name'].'" >'.$field['Field']['name'].'</label>';
-		$input_style =' class="text span-5 ui-corner-all" ';
+		$input_style =' class="input text ui-corner-all" ';
 		$input_field = '<input '.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="">';  
 		$input_field.="</{$wrapper['tag']}>"; 
 		

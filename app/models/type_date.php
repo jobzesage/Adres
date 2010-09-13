@@ -63,7 +63,7 @@ class TypeDate extends Plugin{
 		$wrapper = am($defaults,$options);
 		
 		//CSS style for a input field
-		$input_style =' class="text date_time span-5 ui-corner-all" ';
+		$input_style =' class="input text date_time ui-corner-all" ';
 
 		
 		$label_from = "<{$wrapper['tag']} class='{$wrapper['class']}'>";

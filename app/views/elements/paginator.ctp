@@ -15,6 +15,12 @@
 		$page_count = $paging['pages'];
 		$start_at = $paging['page'];
 		$page_links = 9;
+
+		if($page_count >9 )
+			$test = $start_at+$page_links;	
+		else 
+			$test = $page_count;
+				
 	?>
 
 <div class="adres-paginator last ">
@@ -34,7 +40,7 @@
 		<?php echo $html->link($pervious,$options,$style) ?>
 	<?php endif ?>
 		
-	<?php for($i=$start_at ;$i<= $start_at+$page_links ;$i++): ?>
+	<?php for($i=$start_at ;$i<= $test ;$i++): ?>
 		<?php $options = am($options,array('page'=>$i))	?>
 		<span class="<?php echo ($paging['page']==$i)? "selected":"" ?>">
 			<?php echo $html->link($i,$options,$style) ?>

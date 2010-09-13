@@ -504,7 +504,7 @@ class UsersController extends AppController {
     
     
     
-    private function setContactSet($options = array())
+    public function setContactSet($options = array())
     {
     	$contact_type_id = $this->Session->read('Contact.contact_type_id');
 
@@ -519,20 +519,7 @@ class UsersController extends AppController {
 		
 		$this->set('fields',$fields);
 		
-		$affiliations = ClassRegistry::init('Affiliation')->getList($contact_type_id);
-
-		$this->set('affiliations',$affiliations);
-		
 		$this->set('hidden_fields',$hidden_fields_list);
-			
-		$advance_search_form = "";
-		
-		foreach ($fields as $field) {
-			$className = $field['Field']['field_type_class_name'];
-			$advance_search_form .= ClassRegistry::init($className)->advanceSearchFormField($field);
-		}
-		
-		$this->set('advance_search_form',$advance_search_form);
 		
 		$keyword  = "";
 		$criteria = "";

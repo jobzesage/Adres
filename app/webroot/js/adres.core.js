@@ -234,8 +234,19 @@ jQuery(document).ready(function() {
 	});
 	
 	$('#toggle-search').live('click',function(e){
-		$(this).closest(':header').toggleClass("ui-state-highlight");
-		$('#adres-advance-search').toggle('blind',{},500);
+		
+		// $(this).closest(':header').toggleClass("ui-state-highlight");
+		// $('#adres-advance-search').toggle('blind',{},500);
+		
+		$.ajax({
+			url:'/sites/advance_search',
+			//beforeSend:AJAX.LOADER.enable,
+			success:function(resp){
+				$('#adres-dialog').html(resp);
+				ADres.DIALOG.open();
+			}
+			//complete:AJAX.LOADER.disable	
+		});	
 		return false;
 	});	
 	

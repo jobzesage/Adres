@@ -39,39 +39,12 @@
 	<?php echo $html->tag('h6',$html->link('Advance Search',array('#'),array(
 			'id' => 'toggle-search', 
 		)),
-			array(
-				#options of html->tag
-				'class'=>'adres-button small ui-state-default ui-corner-all'
-			)) ?>	
+		array(
+			#options of html->tag
+			'class'=>'adres-button small ui-state-default ui-corner-all'
+		)) ?>	
 	<hr class="space" />
 	
-	<div id="adres-advance-search" style="display:none">
-		<?php echo $form->create('AdvanceSearch',array(
-			'url'=>array(
-				'controller'=>'users',
-				'action'=>'add_criteria'
-			),
-			'class' => 'adres-ajax-form'
-			)) ?>
-			<?php
-			/*-------------------------------
-			| Advance Search generated form 
-			| the plugin
-			|-------------------------------*/
-			?>
-			<?php echo $advance_search_form ?>
-			
-		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>
-		
-		<?php echo $form->create('Affiliation',array(
-			'url' => array(
-				'controller' => 'users', 
-				'action' => 'affiliation_search'
-			)))
-		 ?>
-
-		<?php echo $form->end('Aff Search') ?>
-	</div>
 
 	<?php  
 	/*-------------------------------

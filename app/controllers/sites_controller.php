@@ -3,7 +3,7 @@ class SitesController extends AppController {
     
     public $name ='Sites';
     
-    public $uses=array('Contact','Filter','ContactSet','ContactType','Field','Group','Affiliation','Log');
+    public $uses=array('Contact','User','Filter','ContactSet','ContactType','Field','Group','Affiliation','Log');
     
     public $layout = "users";
     	
@@ -198,6 +198,39 @@ class SitesController extends AppController {
 	{
 		debug($this->data);
 		$this->render("/elements/empty");	
+	}
+	
+	public function advance_search()
+	{
+		
+		$contact_type_id = $this->Session->read('Contact.contact_type_id');
+
+		$this->User->id = $this->Auth->user('id');
+		
+		$hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
+		
+		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
+		
+		# query optimization
+		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
+		
+		$this->set('fields',$fields);
+		
+		$affiliations = ClassRegistry::init('Affiliation')->getList($contact_type_id);
+
+		$this->set('affiliations',$affiliations);
+		
+		$this->set('hidden_fields',$hidden_fields_list);
+			
+		$advance_search_form = "";
+		
+		foreach ($fields as $field) {
+			$className = $field['Field']['field_type_class_name'];
+			$advance_search_form .= ClassRegistry::init($className)->advanceSearchFormField($field);
+		}
+		
+		$this->set('advance_search_form',$advance_search_form);
+		$this->set('status',true);
 	}
 
 	
