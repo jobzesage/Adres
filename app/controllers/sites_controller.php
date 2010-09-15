@@ -194,11 +194,7 @@ class SitesController extends AppController {
 	}
 	
 	
-	public function search_by_affiliation()
-	{
-		debug($this->data);
-		$this->render("/elements/empty");	
-	}
+
 	
 	public function advance_search()
 	{
@@ -232,7 +228,6 @@ class SitesController extends AppController {
 		$this->set('advance_search_form',$advance_search_form);
 		$this->set('status',true);
 	}
-
 	
 }
 ?>

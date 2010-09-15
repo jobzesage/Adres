@@ -414,6 +414,7 @@ class UsersController extends AppController {
 		$criteria 	= $this->Session->check('Filter.criteria')	? $this->Session->read('Filter.criteria')	:'';
 		$group		= $this->Session->check('Filter.group') 	? $this->Session->read('Filter.group') 	: null;
 		
+		
 		$contact_type_id = $this->Session->read('Contact.contact_type_id');
 		if ($this->Session->check('Filter') AND !empty($this->data)) {
 			$this->set('status',true);
@@ -523,6 +524,7 @@ class UsersController extends AppController {
 		
 		$keyword  = "";
 		$criteria = "";
+		$affiliation= "";
 		
 		if($this->Session->check('Filter.criteria')) 
 		{
@@ -531,10 +533,61 @@ class UsersController extends AppController {
 		
 		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
 		
-		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields);
+		// if($this->Session->check('Filter.affiliation')) $affiliation = $this->Session->read('Filter.affiliation');
+		
+		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields, 'affiliation'=>$affiliation);
 		
 		return am($search,$options); 
 		
     }    
+    
+    public function search_by_affiliation()
+	{
+		$this->set('status',true);
+		$affiliation_id = substr($this->data['Affiliation']['affiliation_id'],1);
+		$affiliation_type = substr($this->data['Affiliation']['affiliation_id'],0,1);
+		
+		$af = ClassRegistry::init('Affiliation')->findById($affiliation_id);
+
+		$contact_father_id  = $this->data['Affiliation']['contact_id'] ;
+		$sql = "";
+		
+		if($affiliation_type == 'f'){
+			$text = $af['Affiliation']['father_name'];
+		}else{
+			$text = $af['Affiliation']['child_name'];
+		}
+		
+		if( !empty($contact_father_id) ){
+			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id .' and contact_father_id ='.$contact_father_id;
+			$affiliations= $this->User->query( $sql );
+			$contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_child_id');
+			$tmp= $text;
+			$text = "contact ".$contact_father_id;
+			$text .=" ".$tmp;
+			
+		}else{
+			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id ;
+			$affiliations= $this->User->query( $sql );
+			$contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_father_id');
+		}
+		
+		$ids = implode($contact_ids,',');
+		
+		$group_filter =array();
+		//add to stack
+		$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
+		
+		$group_filter = array('name'=>$text,'sql'=>"Contact.id IN ($ids)");
+		
+		if(!in_array($group_filter,$previous_criterias))
+		{
+			$previous_criterias[]=$group_filter;
+		}
+		
+		$this->Session->write('Filter.criteria',serialize($previous_criterias));
+
+		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
+	}
 }
 ?>

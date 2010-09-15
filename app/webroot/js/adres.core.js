@@ -47,7 +47,7 @@ ADres.AJAX={
 					if ($form.hasClass('')) {
 						$('#adres-record').html(resp.data);
 					}
-					else if($form.is('#AdvanceSearchAddForm')){
+					else if($form.is('#AdvanceSearchAddForm') || $form.is('#AffiliationAddForm') ){
 						$('div#contacts').html(resp.data);
 					}
 					else if($form.is('.adres-save-filter')){
