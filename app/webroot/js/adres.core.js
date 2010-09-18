@@ -49,6 +49,7 @@ ADres.AJAX={
 					}
 					else if($form.is('#AdvanceSearchAddForm') || $form.is('#AffiliationAddForm') ){
 						$('div#contacts').html(resp.data);
+						ADres.DIALOG.close();
 					}
 					else if($form.is('.adres-save-filter')){
 						$form.remove();
