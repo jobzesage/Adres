@@ -1,5 +1,5 @@
 <?php
-App::import('Sanatize');
+App::import('Sanitize');
 
 class Plugin extends AppModel {
 	
@@ -169,15 +169,17 @@ class Plugin extends AppModel {
 	}
 	
 	
+	//String is escapsed here
 	private function _setInputData($form){
 		if(isset($form['field_id'])){
 			foreach($form['field_id'] as $fid=>$val){
 				if ($this->_field_id == $fid) {
-					$this->_input = $val; // apply Sanitization here
+					$this->_input = Sanitize::escape($val); // apply Sanitization here
 				}
 			}
 		}
 	}
+	
 	
 }
 ?>
