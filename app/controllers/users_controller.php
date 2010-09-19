@@ -306,12 +306,12 @@ class UsersController extends AppController {
 			
 			foreach($searchKeys as $field_id => $value)
 			{
-				if(!empty($value))
+				if(isset($value))
 				{
 					$pluginName = $this->Field->read(array('field_type_class_name','name'),$field_id);
 					$plugin = $pluginName['Field']['field_type_class_name'];
 					$column_name = $pluginName['Field']['name'];
-					$criterias[] = ClassRegistry::init($plugin)->processAdvancedSearch($field_id,$column_name,$value);		
+					$criterias[] = ClassRegistry::init($plugin)->processAdvancedSearch($field_id,$column_name,$value);	
 				}
 			}
 			
@@ -336,7 +336,6 @@ class UsersController extends AppController {
 			}
 		}
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
-
 	}
 	
 	

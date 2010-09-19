@@ -53,9 +53,19 @@ class TypeBoolean extends Plugin{
 
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
-		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' LIKE "%'.$value.'%" AND t.field_id = '.(int) $field_id. ' )';
-		$query_string['name'] = $column_name." like ".$value;
+		//TODO code needs to be upgraded its really poor code :(
+		if($value=="any" && is_string($value)){
+			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' IN(0,1) AND t.field_id = '.(int) $field_id. ' )';
+			$txt =" set to any" ;
+		}elseif($value==1){
+			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' ='.(int)$value.' AND t.field_id = '.(int) $field_id. ' )';
+			$txt = " set to on";
+		}else{
+			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' ='.(int)$value.' AND t.field_id = '.(int) $field_id. ' )';
+			$txt =" set to off" ;
+		}
 		
+		$query_string['name'] = $column_name.$txt;
 		return $query_string;
 	}
 	
@@ -67,11 +77,18 @@ class TypeBoolean extends Plugin{
 		
 		//CSS style for a input field
 		$input_style =' class="text span-5 " ';
-
+		
 		$label = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
 		$label.= '<label class="cbox" for="'.$field['Field']['name'].'" >'.$field['Field']['name'].'</label>';
 		
-		$input = '<input class="testy" type="checkbox"'.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="1">';  
+		//$input = '<input class="testy" type="checkbox"'.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].']" value="1">';  
+		
+		$input = "
+		<select  name='data[AdvanceSearch][".$field['Field']['id']."]' > 
+			<option value='any' selected > Any </option>
+			<option value='1'>On</option>
+			<option value='0'>Off</option>
+		</select>";
 		
 		$input.="</{$wrapper['tag']}>"; 
 
