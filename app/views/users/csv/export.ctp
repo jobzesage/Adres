@@ -8,12 +8,10 @@
 			$csv_line['Contact'][$k[0]]= $d[0];	
 		?>
 	<?php endforeach ?>
-	
 	<?php $contacts[] = $csv_line; 
 	?>
-<?php endforeach ?>	
-
-<?php  
-//debug($contacts);
- $csv->addGrid($contacts);
- echo $csv->render();
+	<?php endforeach ?>
+<?php 
+echo count($contacts); 
+//$csv->addGrid($contacts);
+//echo $csv->render();
