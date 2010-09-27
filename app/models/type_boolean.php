@@ -60,12 +60,19 @@ class TypeBoolean extends Plugin{
 		}elseif($value==1){
 			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' ='.(int)$value.' AND t.field_id = '.(int) $field_id. ' )';
 			$txt = " set to on";
-		}else{
+		}elseif($value == 'ignore'){	
+			$column_name=''; $txt = '';
+		}
+		else{
 			$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' ='.(int)$value.' AND t.field_id = '.(int) $field_id. ' )';
 			$txt =" set to off" ;
 		}
 		
 		$query_string['name'] = $column_name.$txt;
+
+		if(empty($query_string['sql'])){
+			$query_string = null;	
+		}
 		return $query_string;
 	}
 	
@@ -85,7 +92,8 @@ class TypeBoolean extends Plugin{
 		
 		$input = "
 		<select  name='data[AdvanceSearch][".$field['Field']['id']."]' > 
-			<option value='any' selected > Any </option>
+			<option value='ignore' selected >ignore</option>
+			<option value='any'> Any </option>
 			<option value='1'>On</option>
 			<option value='0'>Off</option>
 		</select>";

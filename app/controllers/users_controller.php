@@ -315,6 +315,8 @@ class UsersController extends AppController {
 				}
 			}
 			
+			## cleaning up for boolean to work
+			$criterias = Set::filter($criterias);
 			if(!empty($criterias)){
 				if($this->Session->check('Filter.criteria')){
 					//add to stack

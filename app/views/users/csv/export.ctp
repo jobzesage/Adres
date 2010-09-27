@@ -10,8 +10,4 @@
 	<?php endforeach ?>
 	<?php $contacts[] = $csv_line; 
 	?>
-	<?php endforeach ?>
-<?php 
-echo count($contacts); 
-//$csv->addGrid($contacts);
-//echo $csv->render();
+	<?php endforeach ?><?php $csv->addGrid($contacts); echo $csv->render();?>

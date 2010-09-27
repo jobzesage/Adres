@@ -140,8 +140,9 @@ class SitesController extends AppController {
 
 		if ($this->data){
 			$log = $this->data['ContactDelete'] ;
-			$log['user_id']=$this->Auth->User('id');
-			$log['log_dt']	= date(AppModel::SQL_DTF);
+			//$log['user_id']=$this->Auth->User('id');
+			//$log['log_dt']	= date(AppModel::SQL_DTF);
+			die($this->data);
 			$this->Log->save($log);	
 			$trash_id = $this->Log->getLastInsertID();	
 			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
