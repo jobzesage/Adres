@@ -52,7 +52,16 @@ foreach ($fields as $field):
 			<?php echo $field['Field']['order']; ?>
 		</td>
 		<td>
-			<?php echo $field['Field']['field_type_class_name']; ?>
+			<?php 
+			
+				echo $html->link($field['Field']['field_type_class_name'],
+					array(
+						'controller' => 'sites', 
+						'action' =>'plugin_options',
+						'contact_type_id' =>$field['ContactType']['id'],
+						'field_id' => $field['Field']['id']  
+					)
+			)?>
 		</td>
 		<td>
 			<?php echo $field['Field']['is_descriptive']; ?>
