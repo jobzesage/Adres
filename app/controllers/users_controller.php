@@ -150,7 +150,7 @@ class UsersController extends AppController {
     }
 	
     //FIXME : delete this when trashing works
-    public function delete_record($id=null){
+    /*public function delete_record($id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($id);
 		$this->Contact->id = $id;
@@ -160,7 +160,7 @@ class UsersController extends AppController {
 			$this->set('status',true);
 		}
     }    
-    
+    */
 
     public function display_contacts($contact_type_id=null){
 		

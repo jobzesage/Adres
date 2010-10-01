@@ -137,18 +137,29 @@ class SitesController extends AppController {
 		//$this->redirect_if_not_ajax_request();
 		//$this->redirect_if_id_is_empty($id);
 		$this->set('status',true);
-
-		if ($this->data){
-			$log = $this->data['ContactDelete'] ;
-			//$log['user_id']=$this->Auth->User('id');
-			//$log['log_dt']	= date(AppModel::SQL_DTF);
-			die($this->data);
-			$this->Log->save($log);	
-			$trash_id = $this->Log->getLastInsertID();	
+		$log = array();
+		if (!empty($this->data)){
+			
+			$this->Log->save(array(
+				'log_dt' 		=> date(AppModel::SQL_DTF),
+				'contact_id' => $this->data['ContactDelete']['contact_id']  
+			));
+			$trash_id = $this->Log->id;
 			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
 			$contact['Contact']['trash_id']= $trash_id;
 			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],-1);
+			
+			/**
+			 * this is done here because of afterSave call back is
+			 * used for record updating. So after saving a contact
+			 * generates a empty description and trash id
+			 * this is a work around for this problem
+			 */
+			
+			$this->Contact->log_message =  $this->data['ContactDelete']['description'];
+			$this->Contact->user_id  = $this->Auth->user('id');
 			$this->Contact->save($contact);
+
 			$this->redirect(array('controller'=>'users','action'=>'home'));	
 		}
 		$this->set('id',$id);
