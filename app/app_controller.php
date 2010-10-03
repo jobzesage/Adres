@@ -101,6 +101,12 @@ abstract class AppController extends Controller {
 		if (empty($id)) {
 			$this->redirect($address);
 		}
-	}	
+	}
+	
+	public function getFieldClassType($field_id){
+		
+		$field = ClassRegistry::init('Field')->read(null,$field_id);
+		return $field['Field']['field_type_class_name'];
+	}		
 }
 ?>

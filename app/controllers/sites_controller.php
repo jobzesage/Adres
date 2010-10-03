@@ -247,8 +247,8 @@ class SitesController extends AppController {
 	{
 		$params = $this->params['named'];
 		if(isset($params['contact_type_id']) && isset($params['field_id'])){
-			$field = $this->Field->read(null,$params['field_id']);
-			$className  = $field['Field']['field_type_class_name'];
+			
+			$className = $this->getFieldClassType($params['field_id']);
 			$optionsName = $className.'Option';
 			$output = ClassRegistry::init($optionsName)->displayOptions($params);
 			$this->set('output',$output);
