@@ -6,7 +6,7 @@ class TypeSelectOption extends AppModel {
 	
 	public $useTable='type_select_options';
 	
-	private $_data_field = 'value';
+	public $_data_field = 'value';
 	
 
 	private function getField($params){
@@ -31,7 +31,7 @@ class TypeSelectOption extends AppModel {
 		$label= '<div class="input text">
 				<label for="'.$field['Field']['name'].'">'.$field['Field']['name'].'</label>';
 		
-		$output ='<select name="'.$params['field_id'].'">'."\n";
+		$output ='<select name="data[field_id]['.$params['field_id'].']">'."\n";
 		foreach ($selects as $select) {
 			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
 		}
