@@ -25,6 +25,21 @@ class TypeSelectOption extends AppModel {
 		return $this->formatter($field,$params);
 	}
 	
+	public function display($params){
+		$selects = $this->getField($params);
+		$output = "<table class='adres-datagrid' >\n";
+		$output .= $this->getShowTableHeader();
+		
+		foreach ($selects as $select){
+			$output.="<tr>\n\t<td>";
+			$output.=$select[$this->name][$this->_data_field];
+			$output.="</td>\n<td>";
+			$output.= $this->getLinks($select,$params);
+			$output.="</td>\n\t</tr>";
+		}
+		return $output.="</table>\n";
+	}
+	
 	public function formatter($selects,$params){
 		$field = ClassRegistry::init('Field')->read(null,$params['field_id']);
 		
@@ -42,32 +57,56 @@ class TypeSelectOption extends AppModel {
 	
 	public function add($params){
 		$field = $this->getField($params);
-		$output  = '<input type="hidden" name="data[contact_type_id]" value="'.$params['contact_type_id'].'"]>';	
-		$output .= '<input type="hidden" name="data[field_id]" value="'.$params['field_id'].'">';	
-		$output .= '<input type="text" name="data['.$this->_data_field.']">';
-		return $output;
+		return $this->getFormField($params);
 	}
 	
-	public function processAdd($form_data){
+	public function process($form_data){
+		//unset($form_data['_Token']);
 		$this->save($form_data);
 	}	
 	
-	public function edit(){
-		
+	public function edit($params){
+		$option = $this->read(null,$params['id']);
+		return $this->getFormField($params,array(
+			'id'=>$params['id'],
+			'data'=>$option[$this->name][$this->_data_field]
+		));
 	}
 	
-	public function delete(){
-		
-		
+	
+	public function delete($params){
+		$this->del($params['id']);	
 	}
 	
 	public function list_view(){
 		
 	}
 	
-	public function getLinks($params){
-		
+	public function getLinks($select,$params){
+		$output = "";
+		$output.="<a href='/plugins/edit/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>Edit</a>";
+		$output.="<a href='/plugins/delete/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>Delete</a>";
+		return $output;
 	}
+
+	public function getShowTableHeader(){
+		return "<tr><th>Data</th>\n<th>operations</th></tr>\n";		
+	}	
 	
+	public function getFormField($params,$options=array('data'=>null,'id'=>null)){
+		extract($options);
+		$output="";
+		$output .= '<input type="hidden" name="data[field_id]" value="'.$params['field_id'].'">';
+
+		if(!empty($data)){
+			$value="value='{$data}'";
+			$output.='<input type="hidden" name="data[id]" value="'.$id.'">';
+		}else{
+			$output.= '<input type="hidden" name="data[contact_type_id]" value="'.$params['contact_type_id'].'"]>';	
+			$value='';
+		}	
+		$output .= '<input type="text" name="data['.$this->_data_field.']" '.$value.' >';
+		return $output;
+	}
 }
 ?>

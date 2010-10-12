@@ -56,8 +56,8 @@ foreach ($fields as $field):
 			
 				echo $html->link($field['Field']['field_type_class_name'],
 					array(
-						'controller' => 'sites', 
-						'action' =>'plugin_options',
+						'controller' => 'plugins', 
+						'action' =>'show',
 						'contact_type_id' =>$field['ContactType']['id'],
 						'field_id' => $field['Field']['id']  
 					)
