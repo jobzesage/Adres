@@ -41,12 +41,14 @@ class TypeSelectOption extends AppModel {
 	}
 	
 	public function formatter($selects,$params){
-		$field = ClassRegistry::init('Field')->read(null,$params['field_id']);
+		extract($params);
+		
+		$field = ClassRegistry::init('Field')->read(null,$field_id);
 		
 		$label= '<div class="input text">
 				<label for="'.$field['Field']['name'].'">'.$field['Field']['name'].'</label>';
 		
-		$output ='<select name="data[field_id]['.$params['field_id'].']">'."\n";
+		$output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
 		foreach ($selects as $select) {
 			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
 		}

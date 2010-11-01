@@ -9,14 +9,15 @@ class PluginsController extends AppController {
 	}
 
 	public function show() {
-		$params = $this->params['named'];
+		$params = am($this->params['named'],array('column_id'=>'data'));
 		$className = $this->getOptionClassName($params['field_id']);
 		$this->set('output',ClassRegistry::init($className)->display($params));		
 	}
 	
 	public function add(){
 		if (!$this->data) {
-			$params = $this->params['named'];
+			$params = am($this->params['named'],array('column_id'=>'data'));
+
 			$optionsName = $this->getOptionClassName($params['field_id']);
 			$this->set('input_field',ClassRegistry::init($optionsName)->add($params));
 			
@@ -34,7 +35,7 @@ class PluginsController extends AppController {
 
 	public function edit(){
 		if (!$this->data) {
-			$params = $this->params['named'];
+			$params = am($this->params['named'],array('column_id'=>'data'));
 			$optionsName = $this->getOptionClassName($params['field_id']);
 			$this->set('input_field',ClassRegistry::init($optionsName)->edit($params));
 		}else{
@@ -53,7 +54,7 @@ class PluginsController extends AppController {
 	}
 
 	public function delete(){
-		$params = $this->params['named'];
+		$params = am($this->params['named'],array('column_id'=>'data'));
 		$optionsName = $this->getOptionClassName($params['field_id']);
 		$optionData = ClassRegistry::init($optionsName)->read(null,$params['id']);
 		ClassRegistry::init($optionsName)->delete($params);

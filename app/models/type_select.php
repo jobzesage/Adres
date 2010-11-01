@@ -11,6 +11,7 @@ class TypeSelect extends Plugin {
 		$params = array();
 		$params['field_id'] = $plugin['Field']['id'];
 		$params['contact_type_id'] = $_SESSION['Contact']['contact_type_id'];
+		$params['column_id'] = 'data';
 		return ClassRegistry::init($this->optionsClass)->displayOptions($params);
 	}
 	
@@ -37,6 +38,29 @@ class TypeSelect extends Plugin {
 			$output.= '</'.$wrapper['tag'].'>';
 		}
 		return '<tr>'.$output.'</tr>';
+	}
+	
+
+	public function processAdvancedSearch($field_id,$column_name, $value)
+	{
+		
+		$optionsClass = ClassRegistry::init('TypeSelectOption');
+		$select_data = $optionsClass->read(null,$value);
+		
+		$query_string['sql'] =$this->name.'_'.$field_id .'.'.$this->getJoinContact().' IN (SELECT '.$this->getJoinContact().' FROM '.$this->useTable .' as t WHERE t.'.$this->getDisplayFieldName().' ='.$value.' AND t.field_id = '.(int) $field_id. ' )';
+		$query_string['name'] = $column_name." is ".$select_data[$optionsClass->name][$optionsClass->_data_field];
+		
+		return $query_string;
+	}
+	
+	public function advanceSearchFormField($field,$options=array()){
+		$params = array();
+		$params['field_id'] = $field['Field']['id'];
+		$params['contact_type_id'] = $_SESSION['Contact']['contact_type_id'];
+		$params['column_id'] = 'AdvanceSearch';
+		$selects = ClassRegistry::init($this->optionsClass)->displayOptions($params);
+		
+		return $selects;
 	}	
 		
 }
