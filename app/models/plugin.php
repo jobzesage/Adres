@@ -18,9 +18,13 @@ class Plugin extends AppModel {
 	public $_field_id = null;
 	
 
-	public function getDisplayFieldName()
+	public function getDisplayFieldName($options=array())
 	{
-		return $this->_display_field_name;
+		$table = '';
+		if(array_key_exists('custom_table',$options)){
+			$table = $options['custom_table'].'.';
+		}
+		return $table.$this->_display_field_name;
 	}
 	
 	
@@ -47,6 +51,13 @@ class Plugin extends AppModel {
 		return $this->_join_field_name;
 	}
 	
+	public function joinExt($data=array()){
+		return "";
+	}
+	
+	public function whereExt(){
+		return "";
+	}
 
 	
 

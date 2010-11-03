@@ -6,12 +6,27 @@ class TypeSelect extends Plugin {
 	public $useTable='type_select';
 	
 	public $optionsClass = 'TypeSelectOption';
+
+	public function getDisplayFieldName($options=array())
+	{
+		$table = '';
+		if(array_key_exists('custom_table',$options)){
+			return $table = 'tso_'.$options['field_id'].'.value';
+		}
+		return $this->_display_field_name;
+	}	
+	
+	
+	public function joinExt($options){
+		extract($options);
+		return ' LEFT JOIN type_select_options AS tso_'.$field_id.' ON ('.$custom_table.'.data = tso_'.$field_id.'.id ) ';
+	}
 	
 	public function renderEditForm($contact_id,$plugin,$options=array()){
 		$params = array();
 		$params['field_id'] = $plugin['Field']['id'];
 		$params['contact_type_id'] = $_SESSION['Contact']['contact_type_id'];
-		$params['column_id'] = 'data';
+		$params['column_id'] = 'field_id';
 		return ClassRegistry::init($this->optionsClass)->displayOptions($params);
 	}
 	
@@ -61,7 +76,9 @@ class TypeSelect extends Plugin {
 		$selects = ClassRegistry::init($this->optionsClass)->displayOptions($params);
 		
 		return $selects;
-	}	
+	}
+	
+		
 		
 }
 ?>

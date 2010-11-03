@@ -118,7 +118,14 @@ class ContactSet extends AppModel
 			
 			$plugin = $this->$pluginName;
 			
-			$select .= ' , '.$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName() ;
+			$metaOptions = array(
+				'custom_table' => $plugin->name.'_'.$field['Field']['id'],
+				'field_id' =>$field['Field']['id']	
+			);
+			
+			$select .= ' , '.$plugin->getDisplayFieldName($metaOptions) ;
+			
+			
 			$select .= '  AS "'.$field['Field']['name'].'"';
 			
 			$from.= ' LEFT JOIN '.$plugin->useTable .' AS ';
@@ -128,6 +135,8 @@ class ContactSet extends AppModel
 			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';
 			#change it to a func
 			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';
+			
+			$from.= $plugin->joinExt($metaOptions);
 			
 			
 			//stores the Types undersore name and data column to the field name association
@@ -150,6 +159,7 @@ class ContactSet extends AppModel
 		if($keyword != "")
 			$where = $where." AND ( ".$keyword." ) ";
 		
+		$where.=$plugin->whereExt();	
 		//sorting options
 		$ordering = " ";
 		$ordering  = " order by ".$orders[$sort]." ".$order;
