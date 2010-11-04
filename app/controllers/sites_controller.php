@@ -3,11 +3,20 @@ class SitesController extends AppController {
     
     public $name ='Sites';
     
-    public $uses=array('Contact','User','Filter','ContactSet','ContactType','Field','Group','Affiliation','Log');
+    public $uses=array(
+    	'Contact',
+    	'User',
+    	'Filter',
+    	'ContactSet',
+    	'ContactType',
+    	'Field',
+    	'Group',
+    	'Affiliation',
+    	'Log'
+    );
     
     public $layout = "users";
     	
-
     public function edit_record($contact_id=null){
 		$this->redirect_if_not_ajax_request();
 		$this->redirect_if_id_is_empty($contact_id);

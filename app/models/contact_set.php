@@ -1,8 +1,5 @@
 <?php  
 
-/**
-* 
-*/
 class ContactSet extends AppModel
 {
 	public $useTable =false;
@@ -136,6 +133,7 @@ class ContactSet extends AppModel
 			#change it to a func
 			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';
 			
+			//Adds up to the from clause as extension
 			$from.= $plugin->joinExt($metaOptions);
 			
 			
@@ -159,7 +157,10 @@ class ContactSet extends AppModel
 		if($keyword != "")
 			$where = $where." AND ( ".$keyword." ) ";
 		
+			
+		//Adds extention to the where clause from plugin
 		$where.=$plugin->whereExt();	
+		
 		//sorting options
 		$ordering = " ";
 		$ordering  = " order by ".$orders[$sort]." ".$order;
@@ -176,8 +177,6 @@ class ContactSet extends AppModel
 		
 		return $sql;
 	}	
-		
+
 }
-
-
 ?>
