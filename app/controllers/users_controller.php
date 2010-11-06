@@ -167,6 +167,7 @@ class UsersController extends AppController {
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		if($contact_type_id){
 			$this->Session->write('Contact.contact_type_id',$contact_type_id);
+			$this->Session->del('Contact.current_date_format');
 		}
     	
 		$search = $this->setContactSet();
