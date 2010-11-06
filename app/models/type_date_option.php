@@ -3,6 +3,7 @@
 class TypeDateOption extends AppModel{
 	
 	public $useTable='type_date_options';
+	
 	public $_data_field = 'format';
 	
 	private function getField($params){

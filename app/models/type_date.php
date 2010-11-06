@@ -6,15 +6,21 @@ class TypeDate extends Plugin{
 	
 	public $useTable = 'type_date';
 	
-	public $optionsClass = 'TypeSelectOption';
+	public $optionsClass = 'TypeDateOption';
 
 	public function after($key,$record=array()){
 		$value = $record[$key];
-		
-
 		$keys = array_keys($record);
 		$values = array_values($value);
-		$new_value = date('d-M-y',strtotime($values[0]));
+		if(!isset($_SESSION['Contact']['current_date_format'])){
+			$optionClass = ClassRegistry::init($this->optionsClass);
+			$format = $optionClass->find('first',array(
+				'contact_type_id'=> $_SESSION['Contact']['contact_type_id'],
+				'selected'=>1
+			));
+			$_SESSION['Contact']['current_date_format'] = $format[$this->optionsClass][$optionClass->_data_field];
+		}
+		$new_value = date($_SESSION['Contact']['current_date_format'],strtotime($values[0]));
 		$value = array($keys[0]=>$new_value);
 		return $value;
 	}
