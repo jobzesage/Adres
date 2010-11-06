@@ -6,6 +6,19 @@ class TypeDate extends Plugin{
 	
 	public $useTable = 'type_date';
 	
+	public $optionsClass = 'TypeSelectOption';
+
+	public function after($key,$record=array()){
+		$value = $record[$key];
+		
+
+		$keys = array_keys($record);
+		$values = array_values($value);
+		$new_value = date('d-M-y',strtotime($values[0]));
+		$value = array($keys[0]=>$new_value);
+		return $value;
+	}
+	
 	/**
 	 * 
 	 *
@@ -40,7 +53,6 @@ class TypeDate extends Plugin{
 		
 		//CSS style for a input field
 		$input_style =' class="input text date_time ui-corner-all" ';
-
 		
 		$label_from = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
 		$label_from .= '<label for="'.$field['Field']['name'].' from" >'.$field['Field']['name'].' from</label>';
@@ -48,7 +60,6 @@ class TypeDate extends Plugin{
 		$input_field_from = '<input '.$input_style.' name="data[AdvanceSearch]['.$field['Field']['id'].'][from]" value="">';  
 		
 		$input_field_from.="</{$wrapper['tag']}>"; 
-
 		$label_to = "<{$wrapper['tag']} class='{$wrapper['class']}'>";
 		$label_to .= '<label for="'.$field['Field']['name'].' to" >'.$field['Field']['name'].' to</label>';
 		

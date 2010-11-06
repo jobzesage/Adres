@@ -49,7 +49,27 @@ class ContactSet extends AppModel
 			$contacts['count']=$data[0][0]['id'];
 		}
 		
+		
+		$contacts = $this->after($contacts);
+		
 		return $contacts;
+	}
+	
+	private function after(Array $results){
+		$formatterData=array();
+		foreach ($results['data'] as $data) {
+			$keys = array_keys($data);
+			foreach ($keys as $key) {
+				$pluginType = preg_split('/_/',$key);
+				if(preg_match('/Type\w/',$pluginType[0])){
+					$pluginName = $pluginType[0];
+					$data[$key] = ClassRegistry::init($pluginName)->after($key,$data);
+				}
+			}
+			$formatterData[]=$data;
+		}
+		$results['data'] = $formatterData;
+		return $results;
 	}
 
 
