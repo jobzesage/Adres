@@ -87,6 +87,7 @@ class TypeDate extends Plugin{
 			)));
 			
 		$data 	= $data[$this->name][$this->getDisplayFieldName()];
+			
 		$label 	= '<'.$wrapper['tag'].' class="input text">';
 		$label .='<label for="'.$plugin['Field']['name'].'">'.$plugin['Field']['name'];
 		
@@ -103,7 +104,31 @@ class TypeDate extends Plugin{
 
 		return  $label.$output;		
 	}
-	
+
+
+	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'td')){
+		$data_column = $this->getDisplayFieldName();
+		$output ="";
+		$optionsClass = ClassRegistry::init($this->optionsClass);
+		$select_data = $optionsClass->find('first',array(
+			'contact_type_id'=>$_SESSION['Contact']['current_date_format'],
+			'selected'=>1
+		));
+		
+		$data_field_name = $optionsClass->_data_field;
+		$data = $select_data[$optionsClass->name][$data_field_name];
+		
+		if($value){
+			$output.= '<th>';
+			$output.= $field_name;
+			$output.= " : ";
+			$output.= '</th>';		
+			$output.= '<'.$wrapper['tag'].'>';
+			$output.= date($data,strtotime($value[$this->name][$data_column]));
+			$output.= '</'.$wrapper['tag'].'>';
+		}
+		return '<tr>'.$output.'</tr>';
+	}	
 		
 }
 ?>
