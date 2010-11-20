@@ -55,6 +55,14 @@ class ContactSet extends AppModel
 		return $contacts;
 	}
 	
+	
+	/**
+	 * This function is a after filter it will apply after function on each plugin type
+	 * ie. if a Column type is column TypeString_# it will call TypeString->after() with the 
+	 * data
+	 * @return mixed the string/integer/date value only formatted one
+	 * @author Rajib
+	 **/
 	private function after(Array $results){
 		$formatterData=array();
 		foreach ($results['data'] as $data) {
@@ -63,7 +71,14 @@ class ContactSet extends AppModel
 				$pluginType = preg_split('/_/',$key);
 				if(preg_match('/Type\w/',$pluginType[0])){
 					$pluginName = $pluginType[0];
-					$data[$key] = ClassRegistry::init($pluginName)->after($key,$data);
+					$column_info=array(
+						'plugin' => $pluginType[0],
+						'data'=>$data[$key],
+						'key'=>$key,
+						'field_id'=>$pluginType[1],
+						'contact_type_id'=>$_SESSION['Contact']['contact_type_id'] 	
+					);					
+					$data[$key] = ClassRegistry::init($pluginName)->after($column_info);
 				}
 			}
 			$formatterData[]=$data;

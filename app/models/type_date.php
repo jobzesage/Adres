@@ -1,28 +1,44 @@
 <?php  
 
 App::import('Model','Plugin');
+App::import('Helper','Time');
 
 class TypeDate extends Plugin{
 	
 	public $useTable = 'type_date';
 	
+	private $_time;
+	
 	public $optionsClass = 'TypeDateOption';
 
-	public function after($key,$record=array()){
-		$value = $record[$key];
-		$keys = array_keys($record);
-		$values = array_values($value);
-		if(!isset($_SESSION['Contact']['current_date_format'])){
-			$optionClass = ClassRegistry::init($this->optionsClass);
-			$format = $optionClass->find('first',array(
-				'contact_type_id'=> $_SESSION['Contact']['contact_type_id'],
-				'selected'=>1
-			));
-			$_SESSION['Contact']['current_date_format'] = $format[$this->optionsClass][$optionClass->_data_field];
+	public function __construct(){
+		$this->_time = new TimeHelper();
+		parent::__construct();
+	}
+	
+	
+	public function after(Array $dataum){
+		$dates = $_SESSION['Contact']['dates'];
+
+		if(is_array($dates) && !empty($dates)){
+			if(!array_key_exists($dataum['field_id'],$dates)){
+				$formatted_result = ClassRegistry::init('TypeDateOption')->getField($dataum);
+				$_SESSION['Contact']['dates'][$formatted_result[0]['TypeDateOption']['field_id']]=$formatted_result[0]['TypeDateOption'];
+			}
+		}else{
+			$formatted_result = ClassRegistry::init('TypeDateOption')->getField($dataum);
+			$_SESSION['Contact']['dates'][$formatted_result[0]['TypeDateOption']['field_id']]=$formatted_result[0]['TypeDateOption'];
 		}
-		$new_value = date($_SESSION['Contact']['current_date_format'],strtotime($values[0]));
-		$value = array($keys[0]=>$new_value);
-		return $value;
+
+		$date = array_values($dataum['data']);
+		
+		$output=null;
+		if(!empty($date[0])){
+			$output = $this->_time->{$_SESSION['Contact']['dates'][$dataum['field_id']]['format']}($date[0]);
+		}
+		$key = array_keys($dataum['data']);
+		
+		return array($key[0]=>$output);
 	}
 	
 	/**
@@ -109,10 +125,11 @@ class TypeDate extends Plugin{
 	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'td')){
 		$data_column = $this->getDisplayFieldName();
 		$output ="";
+		
 		$optionsClass = ClassRegistry::init($this->optionsClass);
 		$select_data = $optionsClass->find('first',array(
-			'contact_type_id'=>$_SESSION['Contact']['current_date_format'],
-			'selected'=>1
+			'contact_type_id'=>$_SESSION['Contact']['contact_type_id'],
+			'field_id'=>$value[$this->name]['field_id']
 		));
 		
 		$data_field_name = $optionsClass->_data_field;
@@ -124,7 +141,7 @@ class TypeDate extends Plugin{
 			$output.= " : ";
 			$output.= '</th>';		
 			$output.= '<'.$wrapper['tag'].'>';
-			$output.= date($data,strtotime($value[$this->name][$data_column]));
+			$output.= $this->_time->{$_SESSION['Contact']['dates'][$value[$this->name]['field_id']]['format']}($value[$this->name][$data_column]) ;
 			$output.= '</'.$wrapper['tag'].'>';
 		}
 		return '<tr>'.$output.'</tr>';

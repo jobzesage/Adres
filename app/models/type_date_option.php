@@ -6,7 +6,7 @@ class TypeDateOption extends AppModel{
 	
 	public $_data_field = 'format';
 	
-	private function getField($params){
+	public function getField($params){
 		return $this->find('all',array(
 			'conditions' => array(
 				'contact_type_id' => $params['contact_type_id'],

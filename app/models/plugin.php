@@ -191,9 +191,8 @@ class Plugin extends AppModel {
 		}
 	}
 	
-	public function after($key,$data=array()){
-		$value = $data[$key];
-		return $value;	
+	public function after(Array $column_info){
+		return $column_info['data'];
 	}
 }
 ?>

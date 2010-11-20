@@ -251,7 +251,6 @@ class SitesController extends AppController {
 	}
 	
 	
-	
 	public function plugin_options()
 	{
 		$params = $this->params['named'];

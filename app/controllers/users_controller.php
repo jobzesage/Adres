@@ -67,6 +67,10 @@ class UsersController extends AppController {
 	
 		$this->setImplementation();
 		
+		//for implementing the date on session
+		$this->Session->write('Contact.dates',array());
+		$this->Session->write('Contact.dates',array());
+		
 		if(!$this->Session->check('Filter')){
 		    //TODO have to implement Session filters
 		}
@@ -167,8 +171,8 @@ class UsersController extends AppController {
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
 		if($contact_type_id){
 			$this->Session->write('Contact.contact_type_id',$contact_type_id);
-			$this->Session->del('Contact.current_date_format');
 		}
+		
     	
 		$search = $this->setContactSet();
 		
