@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 03, 2010 at 02:31 AM
+-- Generation Time: Nov 20, 2010 at 11:32 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `affiliations` (
   `created` datetime NOT NULL,
   `modified` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `affiliations`
@@ -44,7 +44,8 @@ INSERT INTO `affiliations` (`id`, `contact_type_father_id`, `contact_type_child_
 (1, 5, 5, 'is the father of', 'is the son of', '2010-02-26 13:08:55', 1267189735),
 (3, 5, 11, 'is a boss of', 'is lead by', '2010-06-23 10:12:44', 1277287964),
 (4, 5, 11, 'is a manager in', 'is managed by', '2010-06-23 10:13:30', 1277288010),
-(5, 5, 11, 'is a employee of ', 'is employs', '2010-06-23 10:14:40', 1277288080);
+(5, 5, 11, 'is a employee of ', 'is employs', '2010-06-23 10:14:40', 1277288080),
+(13, 11, 0, '1', '', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `affiliations_contacts` (
   `contact_child_id` int(10) unsigned NOT NULL,
   `after_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `affiliations_contacts`
@@ -68,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `affiliations_contacts` (
 INSERT INTO `affiliations_contacts` (`id`, `affiliation_id`, `contact_father_id`, `contact_child_id`, `after_id`) VALUES
 (2, 5, 1, 7, 0),
 (1, 1, 1, 3, 0),
-(3, 1, 3, 10, 0);
+(3, 1, 3, 10, 0),
+(4, 3, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -145,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `contacts_groups` (
   `contact_id` int(11) unsigned NOT NULL,
   `group_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `contacts_groups`
@@ -157,7 +159,8 @@ INSERT INTO `contacts_groups` (`id`, `contact_id`, `group_id`) VALUES
 (30, 3, 3),
 (42, 1, 2),
 (43, 3, 2),
-(44, 1, 15);
+(44, 1, 15),
+(45, 2, 11);
 
 -- --------------------------------------------------------
 
@@ -197,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `is_descriptive` tinyint(1) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `fields`
@@ -211,9 +214,11 @@ INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_clas
 (9, 'name', 8, 2, 'TypeString', 1, 1),
 (12, 'created_at', 5, 10, 'TypeDate', 0, 1),
 (13, 'parent name', 8, 12, 'TypeString', 1, 1),
-(14, 'Rubish', 11, 2, 'TypeBoolean', 1, 1),
+(21, 'PPL', 11, 2, 'TypeSelect', 0, 1),
 (15, 'Full Name', 8, 1, 'TypeString', 1, 1),
-(19, 'Instruments', 5, 1, 'TypeSelect', 0, 0);
+(19, 'Instruments', 5, 1, 'TypeSelect', 0, 0),
+(20, 'Test', 11, 1, 'TypeSelect', 0, 1),
+(22, 'birthday', 5, 16, 'TypeDate', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -391,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `logs`
@@ -401,7 +406,28 @@ INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALU
 (1, '2010-10-01 04:15:31', 'hello world', 1, 1),
 (2, '2010-10-01 04:16:06', 'Changed <strong>Last Name</strong> from <i>Doe</i> to <i>Doeee</i>', 2, 1),
 (3, '2010-10-03 02:10:10', 'Changed <strong>Instruments</strong> from <i>1</i> to <i>2</i>', 2, 1),
-(4, '2010-10-03 02:10:35', 'Changed <strong>Instruments</strong> from <i>0</i> to <i>4</i>', 3, 1);
+(4, '2010-10-03 02:10:35', 'Changed <strong>Instruments</strong> from <i>0</i> to <i>4</i>', 3, 1),
+(5, '2010-11-01 21:11:02', 'Changed <strong>Instruments</strong> from <i>0</i> to <i>13</i>', 2, 1),
+(6, '2010-11-01 21:13:29', 'joined group:Annual', 2, 1),
+(7, '2010-11-03 01:43:15', 'Changed <strong>Instruments</strong> from <i>13</i> to <i></i>', 2, 1),
+(8, '2010-11-03 01:58:40', 'Changed <strong>Test</strong> from <i>0</i> to <i></i>', 22, 1),
+(9, '2010-11-03 01:58:57', 'Changed <strong>Test</strong> from <i>0</i> to <i></i>', 24, 1),
+(10, '2010-11-03 02:00:38', 'Changed <strong>Test</strong> from <i>0</i> to <i></i>', 22, 1),
+(11, '2010-11-03 02:09:01', 'Changed <strong>Instruments</strong> from <i>0</i> to <i></i>', 3, 1),
+(12, '2010-11-03 02:12:00', 'Changed <strong>Instruments</strong> from <i>0</i> to <i>13</i>', 3, 1),
+(13, '2010-11-03 02:12:48', 'Changed <strong>Instruments</strong> from <i>13</i> to <i>14</i>', 3, 1),
+(14, '2010-11-03 02:13:13', 'Changed <strong>Test</strong> from <i>0</i> to <i>16</i>', 22, 1),
+(15, '2010-11-03 02:13:30', 'Changed <strong>Test</strong> from <i>0</i> to <i>17</i>', 24, 1),
+(16, '2010-11-03 03:11:25', 'Changed <strong>Test</strong> from <i>0</i> to <i></i>', 25, 1),
+(17, '2010-11-03 03:13:19', 'Changed <strong>Test</strong> from <i>0</i> to <i>18</i>', 25, 1),
+(18, '2010-11-03 04:12:48', 'Changed <strong>Test</strong> from <i>0</i> to <i>19</i>', 26, 1),
+(19, '2010-11-03 05:35:27', 'Changed <strong>Instruments</strong> from <i>13</i> to <i>14</i>', 2, 1),
+(20, '2010-11-03 05:37:04', 'Changed <strong>Instruments</strong> from <i>14</i> to <i>12</i>', 2, 1),
+(21, '2010-11-03 05:46:59', 'Changed <strong>PPL</strong> from <i>0</i> to <i>20</i>', 22, 1),
+(22, '2010-11-04 22:19:28', 'Changed <strong>Test</strong> from <i>19</i> to <i>16</i>', 26, 1),
+(23, '2010-11-04 22:19:28', 'Changed <strong>PPL</strong> from <i>0</i> to <i>21</i>', 26, 1),
+(24, '2010-11-06 00:04:33', 'Changed <strong>created_at</strong> from <i>2010-06-01 00:00:00</i> to <i>2010:11:17</i>', 2, 1),
+(25, '2010-11-20 23:05:20', 'Changed <strong>birthday</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:11:24</i>', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -485,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `type_date` (
 
 INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 1, '2010-07-24 00:00:00'),
-(12, 2, '2010-06-01 00:00:00'),
+(12, 2, '2010-11-17 00:00:00'),
 (12, 3, '2010-06-30 00:00:00'),
 (12, 4, '2010-07-02 00:00:00'),
 (12, 5, '2010-06-16 00:00:00'),
@@ -519,7 +545,9 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 37, '2010-07-31 00:00:00'),
 (12, 38, '0000-00-00 00:00:00'),
 (12, 39, '2010-07-01 00:00:00'),
-(12, 41, '2010-07-22 00:00:00');
+(12, 41, '2010-07-22 00:00:00'),
+(22, 2, '2010-11-24 00:00:00'),
+(22, 3, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -528,15 +556,21 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `type_date_options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `contact_type_id` int(11) NOT NULL,
   `field_id` int(11) NOT NULL,
-  `selected_option` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `format` varchar(255) NOT NULL,
+  `selected` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `type_date_options`
 --
 
+INSERT INTO `type_date_options` (`id`, `contact_type_id`, `field_id`, `format`, `selected`) VALUES
+(1, 5, 12, 'timeAgoInWords', 1),
+(2, 5, 22, 'niceShort', 0);
 
 -- --------------------------------------------------------
 
@@ -609,8 +643,15 @@ CREATE TABLE IF NOT EXISTS `type_select` (
 --
 
 INSERT INTO `type_select` (`contact_id`, `field_id`, `data`) VALUES
-(2, 19, 2),
-(3, 19, 4);
+(2, 19, 12),
+(22, 20, 16),
+(24, 20, 17),
+(3, 19, 14),
+(25, 20, 18),
+(26, 20, 16),
+(4, 19, 13),
+(22, 21, 20),
+(26, 21, 21);
 
 -- --------------------------------------------------------
 
@@ -624,16 +665,22 @@ CREATE TABLE IF NOT EXISTS `type_select_options` (
   `field_id` int(11) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `type_select_options`
 --
 
 INSERT INTO `type_select_options` (`id`, `contact_type_id`, `field_id`, `value`) VALUES
-(1, 5, 19, 'Guitar'),
-(2, 5, 19, 'Tabla'),
-(4, 5, 19, 'hello world');
+(12, 5, 19, 'Guitar'),
+(13, 5, 19, 'Keybord'),
+(14, 5, 19, 'Cycles'),
+(16, 11, 20, 'Hello'),
+(17, 11, 20, 'world'),
+(18, 11, 20, 'check'),
+(19, 11, 20, 'woo'),
+(20, 11, 21, 'Nacho'),
+(21, 11, 21, 'libray');
 
 -- --------------------------------------------------------
 
