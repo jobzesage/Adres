@@ -5,11 +5,13 @@
 			<li><?php echo $html->link('<span>'.$type['ContactType']['name'].'</span>',array(
 				'controller' => 'users', 
 				'action' => 'display_contacts', 
-				$type['ContactType']['id']),array(
-					'title'=>'contacts',
+					$type['ContactType']['id']
+				),
+				array(
+					'title'=>'#contacts',
 					'class' => 'adres-tabs-button'	
 				),
-				null,null,false) ?></li>
+				false,false,false) ?></li>
 			<?php endforeach ?>
 		</ul>
 		<div id="contacts"></div>

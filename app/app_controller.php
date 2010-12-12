@@ -47,16 +47,16 @@ abstract class AppController extends Controller {
 
     public function autoLogoutMessage(){
     
-       // if(!$this->Session->check('logging_out_time') and $this->Session->valid()){
-       //      $this->Session->write('logging_out_time',$this->Session->sessionTime);
-       //  }else{
-       //      if($this->Session->time > $this->Session->read('logging_out_time')){
-       //          $this->Session->setFlash('You have been logged out due to inactivity');
-       //          //for error set the second parameter
-       //      }else{
-       //          $this->Session->write('logging_out_time',$this->Session->sessionTime);				
-       //      }
-       //  }
+       if(!$this->Session->check('logging_out_time') and $this->Session->valid()){
+            $this->Session->write('logging_out_time',$this->Session->sessionTime);
+        }else{
+            if($this->Session->time > $this->Session->read('logging_out_time')){
+                $this->Session->setFlash('You have been logged out due to inactivity');
+                //for error set the second parameter
+            }else{
+                $this->Session->write('logging_out_time',$this->Session->sessionTime);				
+            }
+        }
     }
 
     

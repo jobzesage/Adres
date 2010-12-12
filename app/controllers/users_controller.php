@@ -3,7 +3,16 @@ class UsersController extends AppController {
     
     public $name ='Users';
     
-    public $uses=array('User','Contact','Filter','ContactSet','ContactType','Field','Group','Implementation');
+    public $uses=array(
+    	'User',
+    	'Contact',
+    	'Filter',
+    	'ContactSet',
+    	'ContactType',
+    	'Field',
+    	'Group',
+    	'Implementation'
+    );
     public $layout = "users";
     	
     public function index(){
@@ -19,10 +28,10 @@ class UsersController extends AppController {
                 #if($this->User->validate()){
                     $this->User->create();
                     $this->User->save($this->data);
-                    $this->Session->setFlash(__("A email has been sent to your email address",true));
+                    $this->setFlash(__("A email has been sent to your email address",true));
                 #}
             }else{
-                $this->Session->setFlash(__('Password mismatch',true));
+                $this->setFlash(__('Password mismatch',true),'failure');
             }
         }else{
             #$this->redirect('/login');
@@ -69,7 +78,6 @@ class UsersController extends AppController {
 		
 		//for implementing the date on session
 		$this->Session->write('Contact.dates',array());
-		$this->Session->write('Contact.dates',array());
 		
 		if(!$this->Session->check('Filter')){
 		    //TODO have to implement Session filters
@@ -109,8 +117,8 @@ class UsersController extends AppController {
 
 
 	public function show_record($id=null){
-		//$this->redirect_if_not_ajax_request();
-		//$this->redirect_if_id_is_empty($id);
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($id);
 		$contact = $this->Contact->read(null,$id);
 		$value =array();
 		$plugins = $this->Field->getPluginTypes($contact['Contact']['contact_type_id']);

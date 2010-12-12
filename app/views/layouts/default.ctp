@@ -1,37 +1,7 @@
 <?php echo $html->docType('XTHML') ?>
-<html>
-<head>
-	<?php echo $html->charset(); ?>
-	<title>
-		<?php __('Adres the Adress Book',true); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
-	
-	<?php echo $html->meta('icon') ?>
-		
-	<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
 
-	<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
+	<?php echo $this->element('layout/_header')?>
 	
-	<!--[if lte IE 7]>
-	<?php	echo $html->css(array('blueprint/ie')) ?>		
-	<![endif]-->
-	<?php echo $html->css(array(
-			'adres.default',
-			'jquery-ui-1.7.2.modified'
-		)) ?>
-		
-	<?php	echo $javascript->link(array(
-			'jquery-1.4.2.min',
-			'jquery-ui-1.8.custom.min',
-			'jquery.blockUI.js',
-			'adres.core'
-		));
-
-		echo $scripts_for_layout;
-	?>
-</head>
-<body>
 	<div class="container">
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
@@ -48,10 +18,5 @@
 			
 			<?php echo $content_for_layout; ?>
 		</div>
-		<div id="footer" class="span-24 last">
-			(c) Copyright 2010 	. All Rights Reserved. 
-		</div>
-	</div>
-	<?php #echo $cakeDebug; ?>
-</body>
-</html>
+
+	<?php echo $this->element('layout/_footer')?>

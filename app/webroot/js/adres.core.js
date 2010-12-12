@@ -1,6 +1,6 @@
 var ADres={};
 ADres.version=0.1;
-
+var UI=null
 
 ADres.AJAX={
 	loaderImageSmall:'<img src="/img/loader_small.gif"/>',
@@ -202,19 +202,29 @@ jQuery(document).ready(function() {
 
 	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);
 	
+	// Hash Change Plugin integration
+	// http://benalman.com/code/projects/jquery-bbq/examples/fragment-jquery-ui-tabs
+	
+	$(window).bind('hashchange',function(e){
+		console.log(window.location.hash);	
+	});
+	
 	
 	$('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
-			beforeSend:ADres.LOADER.enable,
+			beforeSend:function(){
+				
+			},
 			complete:ADres.LOADER.disable
 		},
 		load: function(event, ui) {
+			//add hash change here
         	$('a.adres-tabs-button', ui.panel).click(function(e) {
-        	$(ui.panel).load(this.href);
-        	e.stopPropagation();
-        	return false;
-        });	}
+            	$(ui.panel).load(this.href);
+	        	e.stopPropagation();
+        	});
+    	}
 	});
 	
 	
@@ -279,7 +289,11 @@ jQuery(document).ready(function() {
 	});
 
 	$('body').trigger('click');
-			
-	$('.adres-tabs').tabs();
 	
+	// $('a.adres-tabs-button').bind('click',function(e){
+	// 	alert(this.hash);	
+	// });
+	
+	$('.adres-tabs').tabs();
+	$(window).trigger( 'hashchange' );	
 });
