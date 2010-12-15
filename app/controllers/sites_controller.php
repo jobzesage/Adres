@@ -267,8 +267,29 @@ class SitesController extends AppController {
         {
           $this->layout=null;
           if($this->RequestHandler->isAjax()){
-            $this->components[]="Autocomplete";
-            $this->set('hello',$this->params);
+            $contact_type_id = $this->Session->read('Contact.contact_type_id');
+            $descriptive_fields = $this->ContactType->Field->find('all',array(
+              'conditions'=>array(
+                'Field.is_descriptive'=>true,
+                'Field.contact_type_id'=> $contact_type_id
+              ),
+              'order'=>'Field.order'
+            ));
+
+              $plugin_classes=array();
+              
+              foreach ($descriptive_fields as $field){
+                $plugin_classes[$field['Field']['field_type_class_name']]['class_name'] =$field['Field']['field_type_class_name'];
+                $plugin_classes[$field['Field']['field_type_class_name']]['field_ids'][]   =$field['Field']['id'];
+              }
+              $sql=array();
+              $search_term = $this->params['url']['term'];
+              foreach ($plugin_classes as $plugin){
+                $result = ClassRegistry::init($plugin['class_name'])->search(array('term'=>$search_term,'fields'=>$plugin['field_ids'])) ;
+              }
+
+            $this->set('hello',$result);
+
           }else{
             $this->redirect('/');
           }

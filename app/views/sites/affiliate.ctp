@@ -76,21 +76,22 @@
 	// 			complete:ADres.LOADER.disable			
 	// 		});
 	// 	});
-                                                // });
-                                                //
-        $(function(){
-          $('#AffiliateContactId').addClass('adres-autocomplete')
-        $('.adres-autocomplete').autocomplete({
-          source:function(req,add){
-            $.getJSON('/sites/contact_picker.json?q=callback=?',req,function(data){
-              var suggestions=[];
-              $.each(data,function(i,val){
-                suggestions.push(val,name);
-              });
-              add(suggestions);
-            });
-          }
+  // });
+  
+  $(function() {  
+    $('#AffiliateContactId').autocomplete({
+      source:function(request,response) {
+        info= new Array();
+        $.getJSON('/sites/contact_picker.json',request,function(data){
+          $.each(data,function(index,item){
+            info.push("a");
+          });
         });
-
-        });
+        console.log(info);
+        response(info);    
+      }
+    });
+  
+  });
+          
 </script>

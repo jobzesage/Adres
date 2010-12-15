@@ -1,2 +1,1 @@
-<?php
-echo json_encode($hello);
+<?php echo json_encode($hello);
