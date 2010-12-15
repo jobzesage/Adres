@@ -1,6 +1,10 @@
 <?php
 
-	Configure::write('debug',2);
+      Configure::write('debug',2);
+      Configure::write('ADres.version','1.0.0beta');
+      Configure::write('ADres.auto_install',false);
+      Configure::write('ADres.url','url');
+
 /**
  * Application wide charset encoding
  */
@@ -11,7 +15,7 @@
 	//Configure::write('Routing.admin', 'admin');
 
 
-	//Configure::write('Cache.disable', true);
+	Configure::write('Cache.disable', true);
 
 	//Configure::write('Cache.check', true);
 

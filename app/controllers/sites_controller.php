@@ -261,6 +261,17 @@ class SitesController extends AppController {
 			$output = ClassRegistry::init($optionsName)->displayOptions($params);
 			$this->set('output',$output);
 		}
-	}
+        }
+
+        public function contact_picker()
+        {
+          $this->layout=null;
+          if($this->RequestHandler->isAjax()){
+            $this->components[]="Autocomplete";
+            $this->set('hello',$this->params);
+          }else{
+            $this->redirect('/');
+          }
+        }
 }
 ?>

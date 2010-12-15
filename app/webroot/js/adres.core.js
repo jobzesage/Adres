@@ -294,6 +294,10 @@ jQuery(document).ready(function() {
 	// 	alert(this.hash);	
 	// });
 	
+        $('.adres-autocomplete').autocomplete({
+            source:["rajib","sadh","monir","daere","aasdfsa"]
+        });
+
 	$('.adres-tabs').tabs();
 	$(window).trigger( 'hashchange' );	
 });

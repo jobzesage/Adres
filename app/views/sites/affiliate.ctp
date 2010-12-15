@@ -76,5 +76,21 @@
 	// 			complete:ADres.LOADER.disable			
 	// 		});
 	// 	});
-	// });
+                                                // });
+                                                //
+        $(function(){
+          $('#AffiliateContactId').addClass('adres-autocomplete')
+        $('.adres-autocomplete').autocomplete({
+          source:function(req,add){
+            $.getJSON('/sites/contact_picker.json?q=callback=?',req,function(data){
+              var suggestions=[];
+              $.each(data,function(i,val){
+                suggestions.push(val,name);
+              });
+              add(suggestions);
+            });
+          }
+        });
+
+        });
 </script>
