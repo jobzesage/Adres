@@ -265,34 +265,28 @@ class SitesController extends AppController {
 
         public function contact_picker()
         {
-          $this->layout=null;
-          if($this->RequestHandler->isAjax()){
-            $contact_type_id = $this->Session->read('Contact.contact_type_id');
-            $descriptive_fields = $this->ContactType->Field->find('all',array(
-              'conditions'=>array(
-                'Field.is_descriptive'=>true,
-                'Field.contact_type_id'=> $contact_type_id
-              ),
-              'order'=>'Field.order'
-            ));
-
-              $plugin_classes=array();
-              
-              foreach ($descriptive_fields as $field){
-                $plugin_classes[$field['Field']['field_type_class_name']]['class_name'] =$field['Field']['field_type_class_name'];
-                $plugin_classes[$field['Field']['field_type_class_name']]['field_ids'][]   =$field['Field']['id'];
-              }
-              $sql=array();
-              $search_term = $this->params['url']['term'];
-              foreach ($plugin_classes as $plugin){
-                $result = ClassRegistry::init($plugin['class_name'])->search(array('term'=>$search_term,'fields'=>$plugin['field_ids'])) ;
-              }
-
-            $this->set('hello',$result);
-
-          }else{
-            $this->redirect('/');
-          }
+          	$this->layout=null;
+			if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
+				$contact_type_id = $this->Session->read('Contact.contact_type_id');
+				$plugin_classes = $this->ContactType->Field->getPluginNames($contact_type_id);
+			
+				$sql=array();
+				$search_term = $this->params['url']['term'];
+				foreach ($plugin_classes as $plugin){
+					$result = ClassRegistry::init($plugin['class_name'])->search(array('term'=>$search_term,'fields'=>$plugin['field_ids'])) ;
+				}
+				$p = array();
+				$i=0;
+				foreach ($result as $data) {
+					$p[$i]['label']=$data['TypeString']['data'];
+					$p[$i]['id']=$data['TypeString']['contact_id'];
+					$i++;
+				}
+				$this->set('hello',$p);
+				
+			}else{
+				$this->redirect('/');
+			}
         }
 }
 ?>

@@ -79,5 +79,30 @@ class Field extends AppModel {
 			) 
 		));	
 	}
+	
+	public function getDescriptive($contact_type_id)
+	{
+		return $this->find('all',array(
+              'conditions'=>array(
+                'Field.is_descriptive'=>true,
+                'Field.contact_type_id'=> $contact_type_id
+              ),
+              'order'=>'Field.order'
+            ));
+	}
+	
+	
+	
+	public function getPluginNames($contact_type_id)
+	{
+		$plugin_classes=array();
+		$descriptive_fields = $this->getDescriptive($contact_type_id);
+					
+		foreach ($descriptive_fields as $field){
+			$plugin_classes[$field['Field']['field_type_class_name']]['class_name'] =$field['Field']['field_type_class_name'];
+			$plugin_classes[$field['Field']['field_type_class_name']]['field_ids'][]   =$field['Field']['id'];
+		}
+		return $plugin_classes;
+	}
 }
 ?>

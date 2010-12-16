@@ -10,7 +10,8 @@
 			'id'=>'adres-affiliate-form'
 		)) ?>
 			<?php echo $form->input('affiliation_id',array('type'=>'select','options'=>$affiliations)) ?>
-			<?php echo $form->input('contact_id') ?>
+			<?php echo $form->input('autocompleter') ?>
+			<?php echo $form->hidden('contact_id') ?>
 			<?php echo $form->input('current_contact_id',array(
 				'type'=>'hidden',
 				'value'=>$contactId
@@ -79,19 +80,14 @@
   // });
   
   $(function() {  
-    $('#AffiliateContactId').autocomplete({
-      source:function(request,response) {
-        info= new Array();
-        $.getJSON('/sites/contact_picker.json',request,function(data){
-          $.each(data,function(index,item){
-            info.push("a");
-          });
-        });
-        console.log(info);
-        response(info);    
-      }
-    });
-  
+    $('#AffiliateAutocompleter').autocomplete({
+			source: '/sites/contact_picker.json',
+			select: function( event, ui ) {
+				$('input#AffiliateContactId').val(ui.item.id);
+			}
+		});
+ 
+ 
   });
           
 </script>
