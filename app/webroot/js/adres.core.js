@@ -293,11 +293,9 @@ jQuery(document).ready(function() {
 	// $('a.adres-tabs-button').bind('click',function(e){
 	// 	alert(this.hash);	
 	// });
-	
-        $('.adres-autocomplete').autocomplete({
-            source:["rajib","sadh","monir","daere","aasdfsa"]
-        });
+
 
 	$('.adres-tabs').tabs();
 	$(window).trigger( 'hashchange' );	
+	
 });

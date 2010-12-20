@@ -268,17 +268,15 @@ class SitesController extends AppController {
           	$this->layout=null;
 			if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
 				$contact_type_id = $this->Session->read('Contact.contact_type_id');
-				$plugin_classes = $this->ContactType->Field->getPluginNames($contact_type_id);
+				$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
 			
-				$sql=array();
 				$search_term = $this->params['url']['term'];
-				foreach ($plugin_classes as $plugin){
-					$result = ClassRegistry::init($plugin['class_name'])->search(array('term'=>$search_term,'fields'=>$plugin['field_ids'])) ;
-				}
+				$result = ClassRegistry::init('TypeString')->search(array('term'=>$search_term,'fields'=>$plugin_classes['TypeString']['field_ids'])) ;
+				
 				$p = array();
 				$i=0;
 				foreach ($result as $data) {
-					$p[$i]['label']=$data['TypeString']['data'];
+					$p[$i]['label']=$data['TypeString']['contact_id'].": ".$data['TypeString']['data'];
 					$p[$i]['id']=$data['TypeString']['contact_id'];
 					$i++;
 				}

@@ -80,7 +80,7 @@ class Field extends AppModel {
 		));	
 	}
 	
-	public function getDescriptive($contact_type_id)
+	private function _getDescriptive($contact_type_id)
 	{
 		return $this->find('all',array(
               'conditions'=>array(
@@ -93,10 +93,10 @@ class Field extends AppModel {
 	
 	
 	
-	public function getPluginNames($contact_type_id)
+	public function getDescriptivePluginNames($contact_type_id)
 	{
 		$plugin_classes=array();
-		$descriptive_fields = $this->getDescriptive($contact_type_id);
+		$descriptive_fields = $this->_getDescriptive($contact_type_id);
 					
 		foreach ($descriptive_fields as $field){
 			$plugin_classes[$field['Field']['field_type_class_name']]['class_name'] =$field['Field']['field_type_class_name'];

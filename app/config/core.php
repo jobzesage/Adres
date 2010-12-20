@@ -1,13 +1,16 @@
 <?php
 
       Configure::write('debug',0);
+      
       Configure::write('ADres.version','1.0.0beta');
+      
       Configure::write('ADres.auto_install',false);
+      
       Configure::write('ADres.url','url');
 
-/**
- * Application wide charset encoding
- */
+	/**
+	 * Application wide charset encoding
+	 */
 	Configure::write('App.encoding', 'UTF-8');
 
 	//Configure::write('App.baseUrl', env('SCRIPT_NAME'));

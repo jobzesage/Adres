@@ -193,21 +193,6 @@ class Plugin extends AppModel {
 	
 	public function after(Array $column_info){
 		return $column_info['data'];
-        }
-
-
-        public function search($keys=array())
-        {
-          $field = $this->getDisplayFieldName();
-          return $this->find('all', array(
-            'conditions'=>array(
-            "$field REGEXP"=> "^$keys[term]",
-            'field_id'=>$keys['fields'] 
-          ),
-          'limit'=>10,
-          'order'=>$field
-        
-        ));
-        }
+    }
 }
 ?>

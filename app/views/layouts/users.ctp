@@ -2,8 +2,6 @@
 
 	<?php echo $this->element('layout/_header')?>
 
-
-
 		<div class="header">
 			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
 			<hr/>
