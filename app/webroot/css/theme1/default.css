@@ -1,0 +1,216 @@
+a			{
+			text-decoration: none;
+			}
+
+
+.container	{
+
+			}
+			
+/*/////////////////////////////// Header ///////////////////////////////////*/
+			
+.header		{
+			height: 40px;
+			background: url(images/header.jpg) repeat-x;
+			}
+			
+			.header .logo	{
+							padding: 11px 0 0 15px;
+							}
+
+			.header .adres-menu		{
+									float: right;
+									height: 36px;
+									margin: 2px 2px 0 0;
+									background: url(images/adres-menu.jpg) repeat-x;
+									}
+									
+			.header a.home			{
+									float: left;
+									height: 16px;
+									width: 60px;
+									padding: 10px 12px;
+									background: url(images/nav_home.png) no-repeat center center;
+									}
+									
+			.header a.home:hover	{
+									background: url(images/nav_home_hov.png) no-repeat center center;
+									}
+									
+			.header a.admin			{
+									float: left;
+									height: 16px;
+									width: 121px;
+									padding: 10px 12px;
+									background: url(images/nav_admin.png) no-repeat center center;
+									}
+									
+			.header a.admin:hover	{
+									background: url(images/nav_admin_hov.png) no-repeat center center;
+									}
+									
+			.header a.logout		{
+									float: left;
+									height: 16px;
+									width: 75px;
+									padding: 10px 12px;
+									background: url(images/nav_logout.png) no-repeat center center;
+									}
+									
+			.header a.logout:hover	{
+									background: url(images/nav_logout_hov.png) no-repeat center center;
+									}
+									
+/*/////////////////////////////// Adres Button ///////////////////////////////////*/
+			
+.top-button		{
+				text-indent: -9999px;
+				}
+									
+/*/////////////////////////////// Login ///////////////////////////////////*/
+			
+.login		{
+			margin: 0 auto;
+			width: 300px;
+			padding: 0 0 100px 0;
+			text-align: center;
+			}
+			
+			.big_logo		{
+							margin: 100px 0 -5px 0;
+							}
+			
+			.login_left		{
+							float: left;
+							height: 250px;
+							width: 5px;
+							background: url(images/login_left.png) no-repeat;
+							}
+							
+			.login_mid		{
+							float: left;
+							height: 250px;
+							width: 250px;
+							padding: 0 20px;
+							background: url(images/login_mid.png) repeat-x;
+							text-align: left;
+							}
+							
+							.login_mid h2		{
+												text-align: center;
+												font: normal 17px Arial;
+												color: #888;
+												letter-spacing: 2px;
+												text-transform: uppercase;
+												padding: 25px 0 5px 0;
+												}
+							
+							.login_mid input	{
+												width: 235px;
+												margin-top: 0px;
+												}
+												
+							.login_mid input.submit	{
+													float: left;
+													width: 67px;
+													height: 26px;
+													margin-top: 5px;
+													background: url(images/but_login.png) no-repeat;
+													border: none;
+													}
+													
+							.login_mid a.forgot		{
+													float: left;
+													font: normal 11px Arial;
+													color: #047;
+													margin: 11px 0 0 5px;
+													}
+													
+							.login_mid a.signup		{
+													clear: both;
+													float: left;
+													font: bold 12px Arial;
+													color: #333;
+													margin: 10px 0 0 0;
+													}
+							
+			.login_right	{
+							float: left;
+							height: 250px;
+							width: 5px;
+							background: url(images/login_right.png) no-repeat;
+							}
+							
+/*/////////////////////////////// Tabs ///////////////////////////////////*/
+							
+.ui-tabs { padding: 0; zoom: 1; background: none; border: none;}
+.ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: 0 0 0 201px; background: none; border: none; }
+.ui-tabs .ui-tabs-nav li { position: relative; float: left; border: none; background: url(images/tab_idle.png) no-repeat; width: 173px; height: 30px; 
+margin: 0 0 -1px 0; padding: 0; }
+.ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; width: 173px; height: 30px; line-height: 18px; color: #888; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; border: none; background: url(images/tab_selected.png) no-repeat; width: 173px; height: 30px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; color: #454545; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }
+.ui-tabs .ui-tabs-panel { padding: 0; display: block; border-width: 0; background: none; }
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
+.ui-tabs .ui-tabs-nav li.create-contact { position: relative; float: left; border: none; background: url(images/tab_plus.png) no-repeat; width: 37px; height: 30px; 
+margin: 0 0 -1px 0; padding: 0; opacity: 1; }
+.ui-tabs .ui-tabs-nav li.create-contact a { width: 37px; cursor: pointer; }
+							
+/*/////////////////////////////// Adres User Left Pannel ///////////////////////////////////*/
+
+.adres-left-sidebar		{
+						float: left;
+						width: 200px;
+						margin: 0 1px 0 0;
+						padding: 0;
+						border: none;
+						}
+						
+						.adres-left-sidebar-top		{
+													height: 3px;
+													overflow: hidden;
+													background: url(images/left_pannel_top.png) no-repeat;
+													}
+													
+						.adres-left-sidebar-mid		{
+													background-color: #e9e6e5;
+													}
+													
+						.adres-left-sidebar-bottom	{
+													height: 3px;
+													overflow: hidden;
+													background: url(images/left_pannel_bottom.png) no-repeat;
+													}
+													
+/*/////////////////////////////// Adres Contacts Pannel ///////////////////////////////////*/
+			
+#adres-contacts-holder	{
+						padding: 5px;
+						}
+						
+.adres-contacts-panel	{
+						float: left;
+						}
+						
+						.adres-right-sidebar-mid	{
+													background: url(images/right_pannel_mid.png) repeat-y;
+													}
+													
+						.adres-right-sidebar-bottom	{
+													height: 3px;
+													overflow: hidden;
+													background: url(images/right_pannel_bottom.png) no-repeat;
+													}
+									
+/*/////////////////////////////// Footer ///////////////////////////////////*/
+
+#footer		{
+			clear: both;
+			text-align: center;
+			height: 50px;
+			font: normal 10px Arial;
+			color: #aaa;
+			line-height: 50px;
+			}

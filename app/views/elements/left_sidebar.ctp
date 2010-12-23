@@ -6,7 +6,7 @@
 	?>
 	
 	<?php echo $html->tag('h6',"Search",array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
-	<hr class="space" />
+
 	<?php echo $form->create('Search',array(
 		'url'=>array(
 			'controller'=>'users',
@@ -30,7 +30,6 @@
 			<?php echo $form->end(array('label'=>'Search','class' => 'adres-button small')) ?>
 		</div>
 
-	<hr class="space" />
 	<?php  
 	/*-------------------------------
 	| Advance Search Section
