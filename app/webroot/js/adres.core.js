@@ -296,4 +296,5 @@ jQuery(document).ready(function() {
 	
 	$('.adres-tabs').tabs();
 	$(window).trigger( 'hashchange' );	
+
 });

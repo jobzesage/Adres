@@ -10,8 +10,8 @@
 		if (!isset($paging['page'])) {
 			$paging['page'] =1;
 		}
-		$next = "next";
-		$pervious = "previous";
+		$next = "Next";
+		$pervious = "Previous";
 		$page_count = $paging['pages'];
 		$start_at = $paging['page'];
 		$page_links = 9;
@@ -23,7 +23,7 @@
 				
 	?>
 
-<div class="adres-paginator last ">
+<div class="adres-paginator last">
 	
 	<?php  $options = array(
 		'controller' => 'users', 
@@ -51,6 +51,6 @@
 		<?php $p = $start_at+1 ?>
 		<?php $options = am($options,array('page'=>$p))	?>
 		<?php echo $html->link($next,$options,$style) ?>
-	<?php endif ?> of total <span><?php echo $page_count ?></span>
+	<?php endif ?> of total <span class="total-page"><?php echo $page_count ?></span>
 </div>
 <?php endif ?>

@@ -58,27 +58,34 @@
 |	DataGrids
 |---------------------------------*/
 #datagrid{
-	overflow-x:scroll;
+	
+}
+
+table.adres-datagrid {
 }
 .adres-datagrid th{
-    border: 1px #ccc solid;
-    background: #d2d2d2;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    background: url(theme1/images/table_th.gif) repeat-x;
+    color: #454545;
 }
 
 .adres-datagrid td{
-    border: 1px #ccc solid;
+    border-left: 1px solid #e2dfdf;
+    border-top: 1px solid #e2dfdf;
+    color: #454545;
 }
 
 .adres-datagrid .zebra{
 	background-color: #e2e2e2;
 }
 .adres-attr{
-	line-height:30px;
+	line-height: 30px;
 }
 .adres-attr.name{
-	background:#ccc;
-	color:green;
-	font-weight:bold;
+	background: #ccc;
+	color: green;
+	font-weight: bold;
 }
 .adres-attr.value{
 	background:#ccc;
@@ -90,8 +97,8 @@
 }
 
 form.adres-fields-switcher {
-	width:150px;
-	float:right;
+	margin-right: 5px;
+	float: right;
 }
 /*form.adres-fields-switcher input{ width:70px}*/
 
@@ -115,7 +122,7 @@ form.adres-fields-switcher {
 }
 /*#contacts{float:left}
 #contact{float:left}*/
-.ades-toolbar { padding: .5em; margin: 0; width:50%; }
+.ades-toolbar { padding: .5em; margin: 0; width:100%; }
 .ades-toolbar .adres-buttonset { margin-right:1.5em; padding-left: 1px; }
 .ades-toolbar .adres-button { font-size: 1em;  }
 #contacts{overflow:hidden} 
@@ -164,7 +171,7 @@ div.growlUI h2 {
 #toggle-search{
 }
 .adres-button.open{
-	color:#000000;
+	color:#444;
 }
 .adres-group,.adres-criteria{
 	margin-left:10px;
