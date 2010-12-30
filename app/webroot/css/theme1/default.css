@@ -1,5 +1,6 @@
 a			{
 			text-decoration: none;
+			color: #047;
 			}
 			
 body		{
@@ -22,9 +23,9 @@ body		{
 			background: url(images/header.jpg) repeat-x;
 			}
 			
-			.header .logo	{
-							padding: 11px 0 0 15px;
-							}
+			.header .logo			{
+									padding: 11px 0 0 15px;
+									}
 
 			.header .adres-menu		{
 									float: right;
@@ -33,8 +34,27 @@ body		{
 									background: url(images/adres-menu.jpg) repeat-x;
 									}
 									
-			.header a.home			{
+			.header a				{
 									float: left;
+									height: 36px;
+									padding: 0 7px;
+									font: bold 13px/35px Arial;
+									color: #ccc;
+									border-left: 1px solid #444;
+									overflow: hidden;
+									}
+									
+			.header a:hover			{
+									color: #fff;
+									background-color: #444;
+									}
+									
+			.header a.selected		{
+									color: #fff;
+									background-color: #444;
+									}
+									
+			.header a.home			{
 									height: 16px;
 									width: 60px;
 									padding: 10px 12px;
@@ -46,7 +66,6 @@ body		{
 									}
 									
 			.header a.admin			{
-									float: left;
 									height: 16px;
 									width: 121px;
 									padding: 10px 12px;
@@ -58,7 +77,6 @@ body		{
 									}
 									
 			.header a.logout		{
-									float: left;
 									height: 16px;
 									width: 75px;
 									padding: 10px 12px;
@@ -131,7 +149,7 @@ body		{
 													float: left;
 													font: normal 11px Arial;
 													color: #047;
-													margin: 11px 0 0 5px;
+													margin: 10px 0 0 5px;
 													}
 													
 							.login_mid a.signup		{
@@ -153,52 +171,40 @@ body		{
 							
 .ui-tabs { padding: 0; zoom: 1; background: none; border: none;}
 .ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: 0 0 0 201px; background: none; border: none; }
-.ui-tabs .ui-tabs-nav li { position: relative; float: left; border: none; background: url(images/tab_idle.png) no-repeat; width: 173px; height: 30px; 
-margin: 0 0 -1px 0; padding: 0; }
-.ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; width: 173px; height: 30px; line-height: 18px; color: #888; }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; border: none; background: url(images/tab_selected.png) no-repeat; width: 173px; height: 30px; }
+.ui-tabs .ui-tabs-nav li { position: relative; float: left; border: none; background: url(images/tab_idle.png) repeat-x; height: 30px; margin: 0 0 -1px 0; padding: 0 0 0 10px; border-top: 1px solid #cdcdcd; border-left: 1px solid #cdcdcd; border-right: 1px solid #cdcdcd; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; -khtml-border-radius: 5px 5px 0 0; }
+.ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; height: 30px; font-size: 13px; line-height: 18px; color: #888; padding-right: 25px; }
+.ui-tabs .ui-tabs-nav li a:hover { color: #333; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; background: url(images/tab_selected.png) repeat-x; height: 30px; border-top: 1px solid #E9E6E5; border-left: 1px solid #E9E6E5; border-right: 1px solid #E9E6E5; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; color: #454545; }
 .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }
 .ui-tabs .ui-tabs-panel { padding: 0; display: block; border-width: 0; background: none; }
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
-.ui-tabs .ui-tabs-nav li.create-contact { position: relative; float: left; border: none; background: url(images/tab_plus.png) no-repeat; width: 37px; height: 30px; 
-margin: 0 0 -1px 0; padding: 0; opacity: 1; }
+.ui-tabs .ui-tabs-nav li.create-contact { position: relative; float: left; border: none; background: url(images/tab_plus.png) no-repeat; width: 37px; height: 30px; margin: 0 0 -1px 0; padding: 0; opacity: 1; border-top: 1px solid #E9E6E5; border-left: 1px solid #E9E6E5; border-right: 1px solid #E9E6E5; }
 .ui-tabs .ui-tabs-nav li.create-contact a { width: 37px; cursor: pointer; }
 							
 /*/////////////////////////////// Adres User Left Pannel ///////////////////////////////////*/
 
 .adres-left-sidebar		{
 						float: left;
-						width: 200px;
+						width: 198px;
 						margin: 0 1px 0 0;
-						padding: 0;
+						padding: 2px 0 2px 2px;
 						border: none;
 						overflow: hidden;
+						xborder: 1px solid #efefef;
+						border-radius: 4px; 
+						-moz-border-radius: 4px; 
+						-webkit-border-radius: 4px; 
+						-khtml-border-radius: 4px;
 						}
-						
-						.adres-left-sidebar-top		{
-													height: 3px;
-													overflow: hidden;
-													background: url(images/left_pannel_top.png) no-repeat;
-													}
-													
-						.adres-left-sidebar-mid		{
-													background-color: #e9e6e5;
-													padding-left: 3px;
-													}
-													
-						.adres-left-sidebar-bottom	{
-													height: 3px;
-													overflow: hidden;
-													background: url(images/left_pannel_bottom.png) no-repeat;
-													}
 													
 /*/////////////////////////////// Adres User Left Pannel Box ///////////////////////////////////*/
 
 .adres-left-sidebar-box		{
 							width: 194px;
 							margin-top: 3px;
+							overflow: hidden;
 							}
 
 .adres-left-sidebar-head	{
@@ -242,11 +248,13 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 															
 .adres-left-sidebar-content	{
 							width: 194px;
+							overflow: hidden;
 							}
 							
 							.adres-left-sidebar-content-mid		{
 																padding: 10px 5px 5px 5px;
 																background: url(images/left_pannel_content_mid.png) repeat;
+																overflow: hidden;
 																}	
 															
 							.adres-left-sidebar-content-bottom	{
@@ -343,8 +351,12 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 .adres-contacts-panel	{
 						float: left;
 						overflow: hidden;
-						background-color: #F6F2F1;
 						border: 1px solid #E9E6E5;
+						background: url(images/right_top.jpg) repeat-x;
+						border-radius: 0 4px 4px 4px; 
+						-moz-border-radius: 0 4px 4px 4px; 
+						-webkit-border-radius: 0 4px 4px 4px;  
+						-khtml-border-radius: 0 4px 4px 4px; 
 						}
 						
 /*/////////////////////////////// Adres Basic Pannel ///////////////////////////////////*/
@@ -391,6 +403,8 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 													padding: 0;
 													font: normal 11px Arial;
 													color: #444;
+													background: url(images/basic_pannel_button.png) no-repeat;
+													border: none;
 													}
 													
 /*/////////////////////////////// Adres Data Grid ///////////////////////////////////*/
@@ -424,6 +438,8 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 							
 .up-down a					{
 							float: left;
+							padding-left: 0 !important; 
+							margin-top: -3px;
 							}
 							
 .up-down span				{
@@ -478,6 +494,124 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 									color: #333;
 									}
 									
+/*/////////////////////////////// Adres Administrator Pannel ///////////////////////////////////*/
+			
+.index h2	{
+			padding: 15px 0 10px 5px;
+			margin-bottom: 0px;
+			font: normal 15px Verdana;
+			color: #666;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			}
+			
+.index p	{
+			padding: 0 0 10px 5px;
+			margin-bottom: 0px;
+			font: normal 12px Verdana;
+			color: #999;
+			}
+			
+table.adres-datagrid th a	{
+							font-size: 13px;
+							color: #333;
+							padding-left: 5px;
+							}
+			
+table.adres-datagrid td		{
+							padding: 5px 10px;
+							}
+							
+table.adres-datagrid td a	{
+							color: #555;
+							}
+							
+/*/////////////////////////////// Adres Disabled ///////////////////////////////////*/
+			
+.paging .disabled		{
+						float: left;
+						font: bold 11px Arial;
+						text-transform: capitalize;
+						padding: 9px 0 0 5px;
+						}
+			
+.paging span			{
+						float: left;
+						padding: 7px 0 0 5px;
+						}
+						
+/*/////////////////////////////// Adres Actions ///////////////////////////////////*/
+			
+.add_action				{
+						clear: both;
+						padding: 10px 0 0 0;
+						}
+						
+.add_action ul			{
+						margin: 0;
+						padding: 0;
+						}
+						
+.add_action ul li		{
+						float: left;
+						clear: both;
+						list-style: none;
+						background: url(images/add_action.png) no-repeat left center;
+						margin-bottom: 7px;
+						height: 24px;
+						}
+						
+.add_action ul li a			{
+							float: left;
+							font: bold 12px/23px Arial;
+							color: #00aaef;
+							padding-left: 27px;
+							}
+							
+.add_action ul li a:hover	{
+							color: #047;
+							}
+							
+.actions a	{
+			margin-right: 5px;
+			}
+			
+/*/////////////////////////////// Adres Form ///////////////////////////////////*/
+			
+.container h1			{
+						font: normal 22px Arial;
+						color: #008AB0;
+						margin: 15px 0;
+						}
+
+.form fieldset			{
+						margin: 15px 0 10px 0;
+						padding: 5px 20px 20px 20px;
+						}
+						
+.form fieldset legend	{
+						color: #008AB0;
+						}
+						
+.form fieldset label	{
+						color: #999;
+						}
+						
+.form fieldset input, .form fieldset select	{
+											margin: 15px 5px 0 15px;
+											font: normal 12px Arial;
+											color: #555;
+											}
+						
+.form input, .form select	{
+							margin: 0 0 15px 0;
+							}
+
+.regi_link a				{
+							float: left;
+							margin: 10px 10px 0 0;
+							}						
+									
 /*/////////////////////////////// Footer ///////////////////////////////////*/
 
 #footer		{
@@ -488,3 +622,90 @@ margin: 0 0 -1px 0; padding: 0; opacity: 1; }
 			color: #aaa;
 			line-height: 50px;
 			}
+			
+/*/////////////////////////////// Popup ///////////////////////////////////*/
+
+.ui-widget-overlay		{
+						background: #000 url(images/x.png) repeat;
+						}
+						
+.ui-dialog				{
+						border-radius: 4px; 
+						-moz-border-radius: 4px; 
+						-webkit-border-radius: 4px; 
+						-khtml-border-radius: 4px;
+						background: #dbdbdb url(images/popup_bg.png) repeat-x;
+						}
+						
+.ui-widget-content .ui-widget-content		
+						{
+						background: url(images/xpopup_bg.png) repeat-x;
+						}
+						
+.ui-widget-content .ui-tabs .ui-tabs-nav		
+						{
+						padding: 0;
+						margin-top: 4px;
+						}
+						
+.ui-widget-content .ui-tabs .ui-tabs-nav li 
+						{  
+						padding: 0 5px;
+						}
+						
+.ui-widget-content .ui-tabs .ui-tabs-nav li a
+						{  
+						font-size: 12px;
+						line-height: 26px;
+						}
+						
+.ui-widget-content .ui-tabs .ui-tabs-nav li.ui-tabs-selected 
+						{  
+						border-top: 1px solid #bcbcbc; 
+						border-left: 1px solid #bcbcbc; 
+						border-right: 1px solid #bcbcbc;
+						background: #fff url(images/xpopup_bg.png) repeat-x;
+						}
+						
+#contact-window table, #contact-window form
+						{
+						padding: 12px 7px 10px 7px;
+						border: 1px solid #bcbcbc;
+						background-color: #fff;
+						font: normal 11px Arial;
+						margin-bottom: 15px;
+						color: #555;
+						}
+						
+#adres-dialog			{
+						padding: 5px;
+						}
+						
+#adres-dialog h3		{
+						font: bold 12px Arial;
+						}
+						
+#adres-dialog input.adres-button
+			 			{
+						font: bold 11px Arial;
+						}
+						
+.ui-dialog .ui-dialog-content
+						{
+						padding: 0 0 0 1px;
+						}
+						
+.ui-dialog-titlebar		{
+						border-radius: 4px; 
+						-moz-border-radius: 4px; 
+						-webkit-border-radius: 4px; 
+						-khtml-border-radius: 4px;
+						background: #cdd2e6 url(images/basic_pannel.jpg) repeat-x;
+						margin: 1px 0 0 1px;
+						padding: 0;
+						}
+						
+.ui-dialog-titlebar span	{
+							font-size: 13px;
+							}
+						

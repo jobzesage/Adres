@@ -5,7 +5,7 @@
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('ContactType.name');?></th>
-	<th class="actions"><?php __('Actions');?></th>
+	<th class="actions" style="font-size: 13px; padding-left: 10px;"><?php __('Actions');?></th>
 </tr>
 <?php
 $i = 0;

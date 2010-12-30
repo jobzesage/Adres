@@ -61,9 +61,11 @@
                             'class' => 'text'
                         ));
                     ?>
-                <?php echo $form->end('submit')?>
-                <span class='span-3'><?php echo $html->link(__('Forget Password',true),'#')?></span>
-                <span class='span-3'><?php echo $html->link(__('Login',true),'#')?></span>
+                <?php echo $form->end('Submit')?>
+                
+                <span class='regi_link'><?php echo $html->link(__('Forget Password',true),'#')?></span>
+                <span class='regi_link'><?php echo $html->link(__('Login',true),'#')?></span>
+                
              </div>
  
         </div>

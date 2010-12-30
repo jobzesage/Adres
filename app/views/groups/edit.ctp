@@ -23,7 +23,7 @@
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>
-<div class="actions">
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('Group.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Group.id'))); ?></li>
 		<li><?php echo $html->link(__('List Groups', true), array('action' => 'index'));?></li>

@@ -1,9 +1,5 @@
 <div class="adres-left-sidebar">
-	<div class="adres-left-sidebar-top"></div>
-	<div class="adres-left-sidebar-mid">
 	<?php echo $this->element('left_sidebar') ?>
-    </div>
-    <div class="adres-left-sidebar-bottom"></div>
 </div>
 
 <?php  
@@ -33,7 +29,6 @@
 			'plugins':['themes','html_data']
 		});
 		
-		
 		$('.adres-contacts-panel table tr').each(function(i,d){
    			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
    			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
@@ -57,8 +52,4 @@
 		
 		$('.adres-contacts-panel table tr:even').addClass("tr-even");
 	});
-	
-
-	
-	
 </script>

@@ -195,7 +195,6 @@ jQuery(document).ready(function() {
 	
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
-	$('.adres-datagrid tr:even').addClass('zebra');
 	$('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
 	$('form.adres-ajax-search').live('submit',ADres.AJAX.form_search);
 	$('a.adres-ajax-anchor').live('click',ADres.AJAX.link);
@@ -295,6 +294,13 @@ jQuery(document).ready(function() {
 	// });
 	
 	$('.adres-tabs').tabs();
-	$(window).trigger( 'hashchange' );	
+	//$(window).trigger( 'hashchange' );	
+	
+	$('table.adres-datagrid tr').each(function(i,d){
+			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
+			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
+	});
+	
+	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
 
 });

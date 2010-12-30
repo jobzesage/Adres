@@ -18,7 +18,7 @@
 <?php echo $form->end('Submit');?>
 
 </div>
-<div class="actions">
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('ContactType.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('ContactType.id'))); ?></li>
 		<li><?php echo $html->link(__('List ContactTypes', true), array('action' => 'index'));?></li>
