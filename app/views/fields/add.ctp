@@ -5,4 +5,5 @@
 	<ul>
 		<li><?php echo $html->link(__('List Fields', true), array('action' => 'index'));?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

@@ -1,4 +1,4 @@
-<div class="adres-left-sidebar span-5">
+<div class="adres-left-sidebar">
 	<?php echo $form->create('Search',array(
 		'url'=>array(
 			'controller'=>'users',

@@ -37,14 +37,12 @@ foreach ($fieldTypes as $fieldType):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
- 	<span>|</span> 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+
+<?php echo $this->element('layout/_default_paging') ?>
 
 <div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('New FieldType', true), array('action' => 'add')); ?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

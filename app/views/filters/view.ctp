@@ -28,11 +28,13 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Edit Filter', true), array('action' => 'edit', $filter['Filter']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Delete Filter', true), array('action' => 'delete', $filter['Filter']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $filter['Filter']['id'])); ?> </li>
 		<li><?php echo $html->link(__('List Filters', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Filter', true), array('action' => 'add')); ?> </li>
 	</ul>
+	<div class="clear"></div>
 </div>

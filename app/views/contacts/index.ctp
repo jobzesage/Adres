@@ -56,4 +56,5 @@ foreach ($contacts as $contact):
 	<ul>
 		<li><?php echo $html->link(__('New Contact', true), array('action' => 'add')); ?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

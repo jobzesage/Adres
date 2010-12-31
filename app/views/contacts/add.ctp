@@ -14,4 +14,5 @@
 	<ul>
 		<li><?php echo $html->link(__('List Contacts', true), array('action' => 'index'));?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

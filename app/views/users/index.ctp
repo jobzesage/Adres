@@ -39,11 +39,7 @@ foreach ($users as $user):
 </table>
 </div>
 	
-<div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
- 	<span>|</span> 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
-</div>
+<?php echo $this->element('layout/_default_paging') ?>
 
 <div class="add_action">
 	<ul>
@@ -52,4 +48,5 @@ foreach ($users as $user):
 		'action' => 'register', 
 	)) ?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

@@ -54,3 +54,13 @@
 	<?php endif ?> of total <span class="total-page"><?php echo $page_count ?></span>
 </div>
 <?php endif ?>
+<script type="text/javascript">
+	$('table.adres-datagrid  tr:even').addClass('tr-even');
+		
+	$('table.adres-datagrid tr').each(function(i,d){
+			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
+			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
+	});
+	
+	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
+</script>

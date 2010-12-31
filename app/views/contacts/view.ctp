@@ -36,4 +36,5 @@
 		<li><?php echo $html->link(__('List Contacts', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Contact', true), array('action' => 'add')); ?> </li>
 	</ul>
+	<div class="clear"></div>
 </div>

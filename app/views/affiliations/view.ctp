@@ -86,9 +86,10 @@
 	</table>
 <?php endif; ?>
 
-	<div class="actions">
+	<div class="add_action">
 		<ul>
 			<li><?php echo $html->link(__('New Contact', true), array('controller' => 'contacts', 'action' => 'add'));?> </li>
 		</ul>
+		<div class="clear"></div>
 	</div>
 </div>
