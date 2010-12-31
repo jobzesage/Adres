@@ -2,12 +2,8 @@
 
 	<?php echo $this->element('layout/_header')?>
 
-		<div class="header">
-			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
-			<hr/>
-		</div>
 		<?php #echo $this->element('implementations/list') ?>
-		<?php echo $this->element('users_navigation') ?>		
+		<?php //echo $this->element('users_navigation') ?>		
 		<div id="content" class='clear'>
 
 			<?php 

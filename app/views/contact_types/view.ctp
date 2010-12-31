@@ -18,11 +18,12 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Edit ContactType', true), array('action' => 'edit', $contactType['ContactType']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Delete ContactType', true), array('action' => 'delete', $contactType['ContactType']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $contactType['ContactType']['id'])); ?> </li>
 		<li><?php echo $html->link(__('List ContactTypes', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New ContactType', true), array('action' => 'add')); ?> </li>
 	</ul>
+		<div class="clear"></div>
 </div>

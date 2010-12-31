@@ -1,7 +1,9 @@
-		<div id="footer" class="span-24 last">
-			(c) Copyright 2010 	. All Rights Reserved. 
+		<div id="footer" class="last">
+			&copy; Copyright 2010. All Rights Reserved. 
 		</div>
-	</div>
-	<?php #echo $cakeDebug; ?>
+        
+	</div><!--Container-->
+
 </body>
+
 </html>

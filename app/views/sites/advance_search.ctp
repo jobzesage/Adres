@@ -1,5 +1,5 @@
 <div class="adres-tabs">
-		<ul>
+	<ul>
 		<li><a href="#tabs-1"><span> Avd Search</span></a></li>
 		<li><a href="#tabs-2"><span> Aff Search</span></a></li>
 		<li><a href="#tabs-3"><span> Customize</span></a></li>
@@ -47,24 +47,6 @@
 <script type="text/javascript">
 
 	$(function(){
-		$('.adres-tabs').tabs({
-			// spinner: ADres.AJAX.loaderImageSmall,
-			// ajaxOptions:{
-			// 	beforeSend:function(){
-			// 		//TODO
-			// 	}
-			// 	,
-			// 	complete:function(){
-			// 		//TODO
-			// 	}
-			// },
-			// load: function(event, ui) {
-			// 	        	$('a.adres-tab-link', ui.panel).click(function(e) {
-			// 		        	$(ui.panel).load(this.href);
-			// 		        	e.stopPropagation();
-			// 		        	return false;
-			// 		        });
-			// 		    }
-		});
+		$('.adres-tabs').tabs();
 	});
 </script>

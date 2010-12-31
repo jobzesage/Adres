@@ -13,11 +13,13 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Edit Implementation', true), array('action' => 'edit', $implementation['Implementation']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Delete Implementation', true), array('action' => 'delete', $implementation['Implementation']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $implementation['Implementation']['id'])); ?> </li>
 		<li><?php echo $html->link(__('List Implementations', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Implementation', true), array('action' => 'add')); ?> </li>
 	</ul>
+	<div class="clear"></div>
 </div>

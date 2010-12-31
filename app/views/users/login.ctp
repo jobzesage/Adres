@@ -1,51 +1,68 @@
 <?php echo $html->docType() ?>
-<html>
-<head>
-	<?php echo $html->charset(); ?>
-	<title>
-		<?php __('Adres the Adress Book',true); ?>
-		<?php echo $title_for_layout; ?>
-	</title>
-	
-	<?php echo $html->meta('icon') ?>
-		
-	<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
 
-	<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
-	
-	<!--[if lte IE 7]>
-	<?php	echo $html->css(array('blueprint/ie')) ?>		
-	<![endif]-->
-	<?php echo $html->css(array(
-			'adres.default',
-			'jquery-ui-1.7.2.modified'
-		)) ?>
+<html>
+	<head>
+		<?php echo $html->charset(); ?>
+		<title>
+			<?php __('Adres the Adress Book',true); ?>
+			<?php #echo $title_for_layout; ?>
+		</title>
 		
-	<?php	echo $javascript->link(array(
-			'jquery-1.4.2.min',
-			'jquery-ui-1.8.custom.min',
-			'jquery.blockUI.js',
-			'adres.core'
-		));
-	?>
-</head>
-<body>
-	<div class="container" style='background:#f2f2f2'>
-		<div class="header">
-			<h1><?php echo $html->link(__('Adres', true), '#'); ?></h1>
-			<hr/>
-		</div>
-		<div id="content" class='clearfix'  >
+		<?php echo $html->meta('icon') ?>
+			
+		<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
+	
+		<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
+				
+		<!--[if lte IE 7]>
+		<?php	echo $html->css(array('blueprint/ie')) ?>		
+		<![endif]-->
+		<?php echo $html->css(array(
+				'adres.default',
+				'jquery-ui-1.7.2.modified'
+			)) ?>
+			
+		<?php	echo $html->css('theme1/default') ?>
+			
+		<?php	echo $javascript->link(array(
+				'jquery-1.4.2.min',
+				'jquery-ui-1.8.custom.min',
+				'jquery.blockUI.js',
+				'jquery.ba-bbq.min',
+				'jquery.cookie',
+				'jquery.jstree',
+				'jquery.validate.pack',
+				'adres.core'
+			));
+			
+			
+			#echo $scripts_for_layout;
+		?>
+	</head>
+    
+	<body>
+    
+		<div class="container">
+        
+		<div id="content" class="clearfix">
 
 			<?php 
 				if($session->check('Message'))	
 					$session->flash();
 			?>
 
-      <div class="prepend-7 clear" style >
-      			<h2>Login</h2>
+      <div class="login">
+      
+			<img class="big_logo" src="/css/theme1/images/big_logo.png" alt="" />
+            <div style="clear: both;"></div>
+      
+     		<div class="login_left"></div>
+     		<div class="login_mid">
+      
+      			<h2>Login Pannel</h2>
+                
                 <?php echo $session->flash(); ?>
-                <div class='span-8'>
+                
                 <?php echo $form->create('User',array(
                  'url'=>array(
                  'controller'=>'users',
@@ -73,26 +90,18 @@
                         ));
                     ?>
  
-                <?php echo $form->end('submit')?>
-                </div>
+                <?php //echo $form->end('submit')?>
+                
+                <input class="submit" type="submit" value="" />
+                
+                <a class="forgot" href="#">Forgot your password?</a>
+                
+                <a class="signup" href="#">Not Registered? Sign Up Now!</a>
+
+			</div>
+     		<div class="login_right"></div>
+            <div style="clear: both;"></div>
  
         </div>
-		</div>
-		<div id="footer" class="span-24 last">
-			(c) Copyright 2010 	. All Rights Reserved. 
-		</div>
-	</div>
-</body>
-</html>
 
-
-
-
-
-
-
-
-
-
-
-
+	<?php echo $this->element('layout/_footer')?>

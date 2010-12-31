@@ -13,11 +13,12 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Edit FieldType', true), array('action' => 'edit', $fieldType['FieldType']['class_name'])); ?> </li>
 		<li><?php echo $html->link(__('Delete FieldType', true), array('action' => 'delete', $fieldType['FieldType']['class_name']), null, sprintf(__('Are you sure you want to delete # %s?', true), $fieldType['FieldType']['class_name'])); ?> </li>
 		<li><?php echo $html->link(__('List FieldTypes', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New FieldType', true), array('action' => 'add')); ?> </li>
 	</ul>
+	<div class="clear"></div>
 </div>

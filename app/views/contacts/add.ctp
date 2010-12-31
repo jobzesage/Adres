@@ -9,8 +9,10 @@
 	</fieldset>
 <?php echo $form->end('Submit');?>
 </div>
-<div class="actions">
+
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('List Contacts', true), array('action' => 'index'));?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

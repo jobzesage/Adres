@@ -5,7 +5,7 @@
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('ContactType.name');?></th>
-	<th class="actions"><?php __('Actions');?></th>
+	<th class="actions" style="font-size: 13px; padding-left: 10px;"><?php __('Actions');?></th>
 </tr>
 <?php
 $i = 0;
@@ -34,13 +34,12 @@ foreach ($filters as $filter):
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
-</div>
-<div class="actions">
+
+<?php echo $this->element('layout/_default_paging') ?>
+
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('New Filter', true), array('action' => 'add')); ?></li>
 	</ul>
+	<div class="clear"></div>
 </div>

@@ -2906,7 +2906,7 @@
 			'#vakata-contextmenu li ul { display:none; position:absolute; top:-2px; left:100%; background:#ebebeb; border:1px solid gray; } ' + 
 			'#vakata-contextmenu .right { right:100%; left:auto; } ' + 
 			'#vakata-contextmenu .bottom { bottom:-1px; top:auto; } ' + 
-			'#vakata-contextmenu li.vakata-separator { min-height:0; height:1px; line-height:1px; font-size:1px; overflow:hidden; margin:0 2px; background:silver; /* border-top:1px solid #fefefe; */ padding:0; } ';
+			'#vakata-contextmenu li.vakata-separator { min-height:0; height:1px; line-height:1px; font-size:1px; overflow:hidden; margin:0 2px; background:red; /* border-top:1px solid #fefefe; */ padding:0; } ';
 		$.vakata.css.add_sheet({ str : css_string });
 		$.vakata.context.cnt
 			.delegate("a","click", function (e) { e.preventDefault(); })

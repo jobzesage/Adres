@@ -268,7 +268,7 @@
 ----------------------------------*/
 
 /* Corner radius */
-.ui-corner-tl { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; }
+/*.ui-corner-tl { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; }
 .ui-corner-tr { -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; }
 .ui-corner-bl { -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; }
 .ui-corner-br { -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; }
@@ -276,7 +276,7 @@
 .ui-corner-bottom { -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; }
 .ui-corner-right {  -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; }
 .ui-corner-left { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; }
-.ui-corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.ui-corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px; }*/
 
 /* Overlays */
 .ui-widget-overlay { background: #6e4f1c url(/img/jq-ui/ui-bg_diagonal-maze_20_6e4f1c_10x10.png) 50% 50% repeat; opacity: .60;filter:Alpha(Opacity=60); }

@@ -30,10 +30,8 @@
 		
 		<?php echo $this->element('field_switchers') ?>
 	
-
 	</div>	
 	
-	<hr class="space" />
 	<?php if (!empty($values) && isset($values)): ?>
 
 
@@ -44,27 +42,36 @@
 			<?php foreach ($fields as $field): ?>
 
 				<th>
+					
+					<?php $img_a = $html->image("/css/theme1/images/up_arrow.png") ?>
+					<?php $img_d = $html->image("/css/theme1/images/down_arrow.png") ?>
+					
 					<?php echo $field['Field']['name'] ?>
-					<?php echo $html->link('A', array(
-						'controller' => 'users',
-						'action' => 'paging',
-						'page'=>isset($paging['page']) ? $paging['page'] : 1,
-						'sort'=>urlencode($field['Field']['name']),
-						'order'=>'asc'
-					),array(
-						'class' => 'adres-ajax-anchor sort', 	
-					))  ?> 
-					| 
-					<?php echo $html->link('D', array(
-						'controller' => 'users',
-						'action' =>'paging',
-						'page'=>isset($paging['page']) ? $paging['page'] : 1,
-						'sort'=>urlencode($field['Field']['name']),
-						'order'=>'desc'					
-					),array(
-						'class' => 'adres-ajax-anchor sort', 	
-					)
-					)  ?>
+					
+					<div class="up-down">
+					
+							<?php echo $html->link($img_a,array(
+								'controller' => 'users',
+								'action' => 'paging',
+								'page'=>isset($paging['page']) ? $paging['page'] : 1,
+								'sort'=>urlencode($field['Field']['name']),
+								'order'=>'asc'
+							),array(
+								'class' => 'adres-ajax-anchor sort', 	
+							), null, null, false)  ?> 
+							<span>|</span> 
+							<?php echo $html->link($img_d,array(
+								'controller' => 'users',
+								'action' =>'paging',
+								'page'=>isset($paging['page']) ? $paging['page'] : 1,
+								'sort'=>urlencode($field['Field']['name']),
+								'order'=>'desc'					
+							),array(
+								'class' => 'adres-ajax-anchor sort', 	
+							), null, null, false)  ?>
+					
+					</div>
+					
 				</th>
 			<?php endforeach ?>
 			<th>Links</th>
@@ -86,54 +93,27 @@
 			<?php endforeach ?>
 			<td>
 				<div class="adres-toolbar">
-					<!--
-					<?php $span = '<span class=\'ui-icon ui-icon-trash \'></sapn>edit';
-						$span = 'delete';	
-				 	?>
-					<?php echo $html->link(__($span,true),array( 
-						'controller' => 'users',
-						'action' => 'show_contact_panel', 
-						$value['Contact']['id']),array(
-							'title' => 'Edit Contact', 
-							'class' => 'adres-button small adres-contact-tabs-panel ui-state-default ui-corner-all', 
-						),null,false)
-					?>
-					
-					<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit';
-						$span = 'edit';	
-					 ?>
-					<?php echo $html->link(__($span,true),array( 
-										'controller' => 'users',
-										'action' => 'edit_record', 
-										$value['Contact']['id']),array(
-											'title' => 'Edit Contact', 
-											'class' => 'adres-button small adres-ajax-anchor adres-edit ui-state-default ui-corner-all', 
-										),null,false)
-									?>
-									-->					
-									<?php $span = '<span class=\'ui-icon ui-icon-trash\'></sapn>delete';
-											$span = 'del';	
-									 ?>
-									<?php echo $html->link($span,array( 
-										'controller' => 'sites',
-										'action' => 'delete_record', 
-										$value['Contact']['id']),array(
-											'title' => 'Delete Contact', 
-											'class' => 'adres-button small adres-delete adres-ajax-anchor ui-state-default ui-corner-all', 
-										),null,false)
-									?>				
+
+						<?php echo $html->link("del",array( 
+							'controller' => 'sites',
+							'action' => 'delete_record', 
+							$value['Contact']['id']),array(
+								'title' => 'Delete Contact', 
+								'class' => 'adres-delete adres-ajax-anchor', 
+							),null,false)
+						?>				
 				</div>
 			</td>
 		</tr>		
 		<?php endforeach ?>
 	</table>
 			<?php else: ?>
-					<?php echo " no records found" ?>
+					<div class="no-record">
+					<?php echo "No Records Found" ?>
+					</div>
 			<?php endif  ?>
 	</table>
 
 	<?php echo $this->element('paginator')?>
 	
-
-
 </div>
