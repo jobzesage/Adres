@@ -140,7 +140,9 @@ ADres.AJAX={
 					}else if($link.hasClass('adres-leave-group')){
 						$('#adres-groups').html(resp.data);
 					}else if($link.is('.sort')){
+						var header_indx = parseInt($link.closest('th').index()) +1;
 						$('#datagrid').replaceWith(resp.data);
+						$.cookie("header_index",header_indx);
 					}
 					else{
 						$('div#contacts').html(resp.data);

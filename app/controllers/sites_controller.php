@@ -276,12 +276,13 @@ class SitesController extends AppController {
 				$p = array();
 				$i=0;
 				foreach ($result as $data) {
-					$p[$i]['label']=$data['TypeString']['contact_id'].": ".$data['TypeString']['data'];
+					$p[$i]['label']=$data['TypeString']['contact_id'].": ".$data[0]['data'];
 					$p[$i]['id']=$data['TypeString']['contact_id'];
 					$i++;
 				}
-				$this->set('hello',$p);
 				
+				$this->set('hello',$p);
+
 			}else{
 				$this->redirect('/');
 			}

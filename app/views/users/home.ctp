@@ -1,3 +1,4 @@
+<?php $this->set("title_for_layout","my home") ?>
 <div id="adres-contacts-holder">
 
 	<div id="adres-tabs">

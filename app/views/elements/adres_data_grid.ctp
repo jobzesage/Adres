@@ -117,3 +117,13 @@
 	<?php echo $this->element('paginator')?>
 	
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var header_index = 0;
+		header_index = $.cookie('header_index');
+		if(header_index){
+			$('table.adres_data_grid > tbody > tr > td:nth-child('+header_indx+')').css("background","#f2f2f2");
+		}	
+	});
+	
+</script>

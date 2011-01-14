@@ -70,6 +70,7 @@ class UsersController extends AppController {
 
 
     public function home(){
+    	
 		if(!$this->isAuthenticated()){
 			$this->flash('Something wrong','/');
 		}
@@ -83,6 +84,7 @@ class UsersController extends AppController {
 		    //TODO have to implement Session filters
 		}
         $this->set('types',$this->ContactType->getAllByImplementationId($this->Session->read('Implementation.id')));
+        
     }
     	
 	

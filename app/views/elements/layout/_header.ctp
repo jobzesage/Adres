@@ -1,11 +1,9 @@
 <html>
 	<head>
 		<?php echo $html->charset(); ?>
-		<title>
-			<?php __('Adres the Adress Book',true); ?>
-			<?php #echo $title_for_layout; ?>
-		</title>
 		
+		<title><?php echo isset($page_title) ? h($page_title) : __('ADres - Dashboard', true)?></title>
+
 		<?php echo $html->meta('icon') ?>
 			
 		<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>

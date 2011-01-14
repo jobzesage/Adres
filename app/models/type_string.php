@@ -11,15 +11,16 @@ class TypeString extends Plugin {
 	
     public function search($keys=array())
     {
-      $field = $this->getDisplayFieldName();
-      return $this->find('all', array(
-	        'conditions'=>array(
-	        "$field REGEXP"=> "^$keys[term]",
-	        'field_id'=>$keys['fields'] 
-	      ),
-			'limit'=>10,
-			'order'=>$field
-	    ));
+		$field = $this->getDisplayFieldName();
+			      
+			
+		return $this->find("all",array(
+			'conditions' => array(
+				'TypeString.field_id'=>$keys['fields'] 
+			),
+			'fields' => array("DISTINCT contact_id, GROUP_CONCAT( TypeString.data SEPARATOR ' ') as data"), 
+			'group' => "TypeString.contact_id having data REGEXP '^{$keys['term']}'" 
+		));
     }	
 		
 }

@@ -4,7 +4,7 @@
 		
 		<title>
 			<?php __('Adres the Adress Book',true); ?>
-			<?php #echo $title_for_layout; ?>
+			<?php echo $title_for_layout; ?>
 		</title>
 		
 		<?php echo $html->meta('icon') ?>

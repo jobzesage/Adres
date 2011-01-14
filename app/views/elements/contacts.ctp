@@ -51,5 +51,6 @@
 		});
 		
 		$('.adres-contacts-panel table tr:even').addClass("tr-even");
+				
 	});
 </script>
