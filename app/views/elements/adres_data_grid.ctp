@@ -93,6 +93,15 @@
 			<?php endforeach ?>
 			<td>
 				<div class="adres-toolbar">
+					
+						<?php echo $html->link("del",array( 
+							'controller' => 'sites',
+							'action' => 'delete_record', 
+							$value['Contact']['id']),array(
+								'title' => 'Edit Contact', 
+								'class' => 'adres-edit adres-ajax-anchor', 
+							),null,false)
+						?>	
 
 						<?php echo $html->link("del",array( 
 							'controller' => 'sites',
