@@ -261,31 +261,34 @@ class SitesController extends AppController {
 			$output = ClassRegistry::init($optionsName)->displayOptions($params);
 			$this->set('output',$output);
 		}
-        }
+    }
 
-        public function contact_picker()
-        {
-          	$this->layout=null;
-			if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
-				$contact_type_id = $this->Session->read('Contact.contact_type_id');
-				$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
+    public function contact_picker()
+    {
+      	$this->layout=null;
+		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
+			$contact_type_id = $this->Session->read('Contact.contact_type_id');
+			$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
+		
+			$search_term = $this->params['url']['term'];
+			$result = ClassRegistry::init('TypeString')->search(array(
+				'term'=>$search_term,
+				'fields'=>$plugin_classes['TypeString']['field_ids']
+			)) ;
 			
-				$search_term = $this->params['url']['term'];
-				$result = ClassRegistry::init('TypeString')->search(array('term'=>$search_term,'fields'=>$plugin_classes['TypeString']['field_ids'])) ;
-				
-				$p = array();
-				$i=0;
-				foreach ($result as $data) {
-					$p[$i]['label']=$data['TypeString']['contact_id'].": ".$data[0]['data'];
-					$p[$i]['id']=$data['TypeString']['contact_id'];
-					$i++;
-				}
-				
-				$this->set('contacts',$p);
-
-			}else{
-				$this->redirect('/');
+			$p = array();
+			$i=0;
+			foreach ($result as $data) {
+				$p[$i]['label']=$data['TypeString']['contact_id'].": ".$data[0]['data'];
+				$p[$i]['id']=$data['TypeString']['contact_id'];
+				$i++;
 			}
-        }
+			
+			$this->set('hello',$p);
+
+		}else{
+			$this->redirect('/');
+		}
+    }
 }
 ?>

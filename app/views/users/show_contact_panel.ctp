@@ -87,6 +87,9 @@
 		        	e.stopPropagation();
 		        	return false;
 		        });
+	        	$('select').selectmenu({
+	        		width:230
+	        	});
 		    }
 		});
 	});

@@ -1,1 +1,1 @@
-<?php echo json_encode($contacts);
+<?php echo json_encode($hello);

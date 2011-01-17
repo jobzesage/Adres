@@ -16,7 +16,8 @@
 		<?php echo $html->css(array(
 				'adres.default',
 				'jquery-ui-1.7.2.modified',
-				'jquery.ui.selectmenu'
+				'jquery.ui.selectmenu',
+				'flick/jquery.ui.all'
 			)) ?>
 			
 		<?php	echo $html->css('theme1/default') ?>
