@@ -281,7 +281,7 @@ class SitesController extends AppController {
 					$i++;
 				}
 				
-				$this->set('hello',$p);
+				$this->set('contacts',$p);
 
 			}else{
 				$this->redirect('/');

@@ -3,10 +3,7 @@
 <html>
 	<head>
 		<?php echo $html->charset(); ?>
-		<title>
-			<?php __('Adres the Adress Book',true); ?>
-			<?php #echo $title_for_layout; ?>
-		</title>
+		<title>Login | ADres</title>
 		
 		<?php echo $html->meta('icon') ?>
 			
