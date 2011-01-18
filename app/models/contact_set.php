@@ -177,7 +177,7 @@ class ContactSet extends AppModel
 			$orders[$field['Field']['name']] = $pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName(); 
 			
 			if($searchKeyword!=null){
-				#change it to session key word
+				#change it to session keyword
 				if($i != 0)	$keyword = $keyword." OR ";
 				$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.$plugin->getDisplayFieldName();
 				//$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName();
@@ -187,10 +187,22 @@ class ContactSet extends AppModel
 			$i++;
 		}
 		
+		//For adding search by global contact ID
+		if (!empty($searchKeyword) && is_numeric($searchKeyword)) {
+			$contact_id = (int) $searchKeyword;
+			//Had clear number search on data column
+			// Because with OR sections contact id search does not work
+			if($contact_id > 0)	{
+				$keyword =" Contact.id=".$contact_id;
+			}
+		}		
+		
 		$where = $where.$filters;
 		
-		if($keyword != "")
-			$where = $where." AND ( ".$keyword." ) ";
+		//Add keyword search to where clause
+		if($keyword != "")	$where = $where." AND ( ".$keyword." ) ";
+
+
 		
 			
 		//Adds extention to the where clause from plugin

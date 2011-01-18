@@ -236,7 +236,9 @@ jQuery(document).ready(function() {
 		var action = $link.attr('href');
 		$.ajax({
 			url:action,
-			//beforeSend:AJAX.LOADER.enable,
+			beforeSend:function(){
+				$link.closest('tr').addClass("adres-row-highlight");
+			},
 			success:function(resp){
 				$('#adres-dialog').html(resp);
 				ADres.DIALOG.open();
@@ -244,6 +246,8 @@ jQuery(document).ready(function() {
 			//complete:AJAX.LOADER.disable	
 		});		
 	});
+	
+	
 	
 	$('#toggle-search').live('click',function(e){
 		

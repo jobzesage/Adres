@@ -48,5 +48,6 @@
 
 	$(function(){
 		$('.adres-tabs').tabs();
+		$('select').selectmenu({width:230});
 	});
 </script>
