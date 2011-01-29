@@ -4,7 +4,18 @@ class ContactSet extends AppModel
 {
 	public $useTable =false;
 	
-	public $records = null;
+    public $records = null;
+
+    protected $_defaults = array(
+ 			'searchKeyword'=>null,
+			'plugins'=>null,
+			'page'=>1,	
+			'sort'=>'id',
+			'order'=>'asc',
+			'paging'=>true,
+			'include_trash'=>false
+    );
+
 
 	
 	/**
@@ -15,23 +26,13 @@ class ContactSet extends AppModel
 	 **/
 	public function getContactSet($contact_type_id,$options=array())
 	{
-		$defaults = array(
-			'searchKeyword'=>null,
-			'filters'=>null,
-			'plugins'=>null,
-			'page'=>1,	
-			'sort'=>'id',
-			'order'=>'asc',
-			'paging'=>true,
-			'include_trash'=>false,
-		);
-		
-		$options = am($defaults,$options);
+		$options = am($this->_defaults,$options);
 		
 		$ctype = ClassRegistry::init('ContactType')->read(null,$contact_type_id);
 		
 		$sql = $this->build_query($contact_type_id,$options);
-		
+        
+        
 		$contacts['data'] = $this->query($sql);
 		
 		//Counter Cache implementation
@@ -223,7 +224,30 @@ class ContactSet extends AppModel
 		$sql = $select.$from.$where.$ordering.$limit;
 		
 		return $sql;
-	}	
+    }
+
+
+    public function getContactIds($contact_type_id, Array $options =array()){
+        $options = am($this->_defaults,$options);
+	    $options['paging'] = 0;	
+		$sql = $this->build_query($contact_type_id,$options);
+        $contacts = $this->query($sql);
+        $ids =array();
+        $i = 0;
+
+        foreach ($contacts as $contact){
+            $ids[$i]['contact_id'] = $contact['Contact']['id'];
+            $ids[$i]['group_id']   = $options['group_id'];
+            $i++;
+        }
+        return $ids;
+    }  
+
+
+    public function beforeSQLExecute($sql)
+    {
+        return $sql;
+    }  
 
 }
 ?>
