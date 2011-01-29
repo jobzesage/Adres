@@ -171,9 +171,16 @@
 				),array(
 					'class'=>'adres-ajax-anchor adres-delete-keyword filter-bullet'
 				)) ?>				
-			</div>
+            </div>
+            
+            <?php echo $html->link('Add Result Set To Group',array(
+                'controller'=>'users',
+                'action'=>'add_to_group'     
+            ),array(
+                'class'=>'adres-ajax-anchor'    
+            )) ?>
 		<?php endif ?>
-		
+	    
 		
 	<?php  
 	/*-------------------------------

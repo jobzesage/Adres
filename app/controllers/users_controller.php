@@ -496,18 +496,13 @@ class UsersController extends AppController {
 	public function show_contact_panel($id)
 	{
 		$this->set('contact_id',$id);
-	}
+    }
+
+
+
+
 	
     //private functions
-    
-
-    private function getSQL(Array $criterias){
-    	$where = ' ';
-		foreach($criterias as $value){
-			$where = $where.' AND '.$value['sql'];
-		}
-		return $where;
-	}
 
     private function setImplementation(){
     	if(!$this->Session->check('Implementation')){
@@ -555,7 +550,19 @@ class UsersController extends AppController {
 		
 		return am($search,$options); 
 		
-    }    
+    }   
+
+
+    public function add_to_group()
+    {
+	    $contact_type_id = $this->Session->read('Contact.contact_type_id');
+		$search = $this->setContactSet();
+        $search['group_id'] = 4;
+        $grp = array();
+        $grp = $this->ContactSet->getContactIds($contact_type_id,$search);
+        $this->Group->ContactsGroup->saveAll($grp); 
+        $this->set('status',true);
+    }
     
     public function search_by_affiliation()
 	{
