@@ -28,5 +28,16 @@ class AppHelper extends Helper {
     	$output .= "</table>\n ";
     	return $output;    	
     }
+
+	
+	public function generateGroupList($groups){
+		$list = array();
+		foreach ($groups as $group) {
+			$list[$group['Group']['id']]=$group['Group']['name'];
+		}
+		return $list;
+	}
+
 }
+
 ?>

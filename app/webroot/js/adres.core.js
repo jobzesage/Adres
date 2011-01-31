@@ -310,5 +310,8 @@ jQuery(document).ready(function() {
 	});
 	
 	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
+	
+	setTimeout(function(){ $("#flashMessage").fadeOut() }, 5000);
+
 
 });
