@@ -401,23 +401,20 @@ class UsersController extends AppController {
 		if($id){
 			$group = $this->Group->read(null,$id);
 			$group_children = $this->Group->children($id);
-			
+		    // leaf node of the group tree
+			$ids = $id;
 			if(!empty($group_children))
 			{
 				$children_ids = Set::extract('/Group/id',$group_children);
 				$children_ids[] = $id;
 				$ids = implode($children_ids, ',' );
-			}else{
-				// leaf node of the group tree
-				$ids = $id;
-			}
-		
+            }
+
 			$group_filter =array();
 			//add to stack
 			$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
 			$group_filter = array('name'=>'Group :'.$group['Group']['name'],'sql'=>"ContactGroup.group_id IN($ids)");
-			if(!in_array($group_filter,$previous_criterias))
-			{
+			if(!in_array($group_filter,$previous_criterias)){
 				$previous_criterias[]=$group_filter;
 			}
 		}
