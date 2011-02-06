@@ -401,11 +401,15 @@ class UsersController extends AppController {
 		if($id){
 			$group = $this->Group->read(null,$id);
 			$group_children = $this->Group->children($id);
+			
 			if(!empty($group_children))
 			{
 				$children_ids = Set::extract('/Group/id',$group_children);
 				$children_ids[] = $id;
 				$ids = implode($children_ids, ',' );
+			}else{
+				// leaf node of the group tree
+				$ids = $id;
 			}
 		
 			$group_filter =array();
@@ -556,11 +560,14 @@ class UsersController extends AppController {
     public function add_to_group()
     {
 	    $contact_type_id = $this->Session->read('Contact.contact_type_id');
-		$search = $this->setContactSet();
-        $search['group_id'] = 4;
-        $grp = array();
-        $grp = $this->ContactSet->getContactIds($contact_type_id,$search);
-        $this->Group->ContactsGroup->saveAll($grp); 
+	    if ($this->data) {
+			$search = $this->setContactSet();
+	        $search['group_id'] = $this->data['Group']['group_id'];
+	        $grp = array();
+	        $grp = $this->ContactSet->getContactIds($contact_type_id,$search);
+	        $this->Group->ContactsGroup->saveAll($grp); 	    	
+	    }
+
         $this->set('status',true);
     }
     
