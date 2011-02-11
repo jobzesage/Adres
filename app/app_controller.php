@@ -15,7 +15,8 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-    	'DebugKit.Toolbar'
+        'DebugKit.Toolbar',
+        'SwiftMailer'
     );
     
     
@@ -37,7 +38,7 @@ abstract class AppController extends Controller {
         $this->Auth->userModel = 'User';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
-		
+	    
         parent::beforeFilter();
         
         $this->Security->blackHoleCallback = 'blackHole';
