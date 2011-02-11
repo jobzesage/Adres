@@ -139,7 +139,7 @@ class Plugin extends AppModel {
 			$this->_field_id = $field_id;
 		}
 		
-		//iterate through dataaset
+		//iterate through dataset
 		if(!isset($this->_input)){
 			$this->_setInputData($form);
 		}
@@ -166,8 +166,10 @@ class Plugin extends AppModel {
 		}
 
 		if($this->_input!=""){
-			//$value[$className][$data_column] = $this->_input;
-			$this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
+            //$value[$className][$data_column] = $this->_input;
+            if($this->validates()){
+			    $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
+            }
 		}
 		
 	 	if(!empty($logs)){
@@ -181,7 +183,7 @@ class Plugin extends AppModel {
 	
 	
 	//String is escapsed here
-	private function _setInputData($form){
+	protected function _setInputData($form){
 		if(isset($form['field_id'])){
 			foreach($form['field_id'] as $fid=>$val){
 				if ($this->_field_id == $fid) {
@@ -194,5 +196,22 @@ class Plugin extends AppModel {
 	public function after(Array $column_info){
 		return $column_info['data'];
     }
+
+
+    /*public function updateAll($fields, $conditions = true) {
+        $db =& ConnectionManager::getDataSource($this->useDbConfig);
+        $created = FALSE;
+        $options = array();
+
+        if($db->update($this, $fields, null, $conditions)) {
+            $created = TRUE;
+            $this->Behaviors->trigger($this, 'afterSave', array($created, $options));
+            $this->afterSave($created);
+            $this->_clearCache();
+            $this->id = false;
+            return true;
+        }
+        return FALSE;
+    }*/
 }
 ?>
