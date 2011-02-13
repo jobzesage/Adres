@@ -451,4 +451,4 @@ class SwiftMailerComponent extends Object {
         }
     }
 }
-?> 
+?>
