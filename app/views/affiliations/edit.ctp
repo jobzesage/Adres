@@ -1,6 +1,5 @@
-<div class="affiliations form">
+<div class="affiliations">
 	<?php echo $this->element('affiliations/_form'); ?>
-
 </div>
 <div class="add_action">
 	<ul>
