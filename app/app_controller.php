@@ -15,7 +15,8 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-    	'DebugKit.Toolbar'
+        'DebugKit.Toolbar',
+        'SwiftMailer'
     );
     
     
@@ -37,7 +38,7 @@ abstract class AppController extends Controller {
         $this->Auth->userModel = 'User';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
-		
+	    
         parent::beforeFilter();
         
         $this->Security->blackHoleCallback = 'blackHole';
@@ -107,6 +108,31 @@ abstract class AppController extends Controller {
 		
 		$field = ClassRegistry::init('Field')->read(null,$field_id);
 		return $field['Field']['field_type_class_name'];
-	}		
+    }	
+
+    public function setContactSet($options = array()){
+
+    }          
+
+
+    protected function getSQL(Array $criterias){
+    	$where = ' ';
+		foreach($criterias as $value){
+			$where = $where.' AND '.$value['sql'];
+		}
+		return $where;
+	}
+
+    private function setImplementation(){
+    	if(!$this->Session->check('Implementation')){
+    		$implementation = ClassRegistry::init('Implementation')->find(
+    			'first',array(
+    				'fields'=>array('id','name')
+    			));
+			$this->Session->write('Implementation',$implementation['Implementation']);
+    	}
+    }
+
+
 }
 ?>

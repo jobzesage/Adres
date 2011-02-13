@@ -46,11 +46,16 @@
 			});
 		});
 		
-		$('.adres-contacts-panel table tr').hover(function(e){
-			$(this).toggleClass("tr-select");
-		});
+		// $('.adres-contacts-panel table tr').hover(function(){
+		// 		$(this).addClass("highlight");
+		// 	},
+		// 	function(){
+		// 		$(this).removeClass("highlight");
+		// });
 		
 		$('.adres-contacts-panel table tr:even').addClass("tr-even");
+		
+		$("select").selectmenu({width:120});
 				
 	});
 </script>

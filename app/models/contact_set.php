@@ -4,7 +4,18 @@ class ContactSet extends AppModel
 {
 	public $useTable =false;
 	
-	public $records = null;
+    public $records = null;
+
+    protected $_defaults = array(
+ 			'searchKeyword'=>null,
+			'plugins'=>null,
+			'page'=>1,	
+			'sort'=>'id',
+			'order'=>'asc',
+			'paging'=>true,
+			'include_trash'=>false
+    );
+
 
 	
 	/**
@@ -15,23 +26,13 @@ class ContactSet extends AppModel
 	 **/
 	public function getContactSet($contact_type_id,$options=array())
 	{
-		$defaults = array(
-			'searchKeyword'=>null,
-			'filters'=>null,
-			'plugins'=>null,
-			'page'=>1,	
-			'sort'=>'id',
-			'order'=>'asc',
-			'paging'=>true,
-			'include_trash'=>false,
-		);
-		
-		$options = am($defaults,$options);
+		$options = am($this->_defaults,$options);
 		
 		$ctype = ClassRegistry::init('ContactType')->read(null,$contact_type_id);
 		
 		$sql = $this->build_query($contact_type_id,$options);
-		
+        
+        
 		$contacts['data'] = $this->query($sql);
 		
 		//Counter Cache implementation
@@ -177,7 +178,7 @@ class ContactSet extends AppModel
 			$orders[$field['Field']['name']] = $pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName(); 
 			
 			if($searchKeyword!=null){
-				#change it to session key word
+				#change it to session keyword
 				if($i != 0)	$keyword = $keyword." OR ";
 				$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.$plugin->getDisplayFieldName();
 				//$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName();
@@ -187,10 +188,22 @@ class ContactSet extends AppModel
 			$i++;
 		}
 		
+		//For adding search by global contact ID
+		if (!empty($searchKeyword) && is_numeric($searchKeyword)) {
+			$contact_id = (int) $searchKeyword;
+			//Had clear number search on data column
+			// Because with OR sections contact id search does not work
+			if($contact_id > 0)	{
+				$keyword =" Contact.id=".$contact_id;
+			}
+		}		
+		
 		$where = $where.$filters;
 		
-		if($keyword != "")
-			$where = $where." AND ( ".$keyword." ) ";
+		//Add keyword search to where clause
+		if($keyword != "")	$where = $where." AND ( ".$keyword." ) ";
+
+
 		
 			
 		//Adds extention to the where clause from plugin
@@ -211,7 +224,30 @@ class ContactSet extends AppModel
 		$sql = $select.$from.$where.$ordering.$limit;
 		
 		return $sql;
-	}	
+    }
+
+
+    public function getContactIds($contact_type_id, Array $options =array()){
+        $options = am($this->_defaults,$options);
+	    $options['paging'] = 0;	
+		$sql = $this->build_query($contact_type_id,$options);
+        $contacts = $this->query($sql);
+        $ids =array();
+        $i = 0;
+
+        foreach ($contacts as $contact){
+            $ids[$i]['contact_id'] = $contact['Contact']['id'];
+            $ids[$i]['group_id']   = $options['group_id'];
+            $i++;
+        }
+        return $ids;
+    }  
+
+
+    public function beforeSQLExecute($sql)
+    {
+        return $sql;
+    }  
 
 }
 ?>

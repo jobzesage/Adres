@@ -401,19 +401,20 @@ class UsersController extends AppController {
 		if($id){
 			$group = $this->Group->read(null,$id);
 			$group_children = $this->Group->children($id);
+		    // leaf node of the group tree
+			$ids = $id;
 			if(!empty($group_children))
 			{
 				$children_ids = Set::extract('/Group/id',$group_children);
 				$children_ids[] = $id;
 				$ids = implode($children_ids, ',' );
-			}
-		
+            }
+
 			$group_filter =array();
 			//add to stack
 			$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
 			$group_filter = array('name'=>'Group :'.$group['Group']['name'],'sql'=>"ContactGroup.group_id IN($ids)");
-			if(!in_array($group_filter,$previous_criterias))
-			{
+			if(!in_array($group_filter,$previous_criterias)){
 				$previous_criterias[]=$group_filter;
 			}
 		}
@@ -496,18 +497,13 @@ class UsersController extends AppController {
 	public function show_contact_panel($id)
 	{
 		$this->set('contact_id',$id);
-	}
+    }
+
+
+
+
 	
     //private functions
-    
-
-    private function getSQL(Array $criterias){
-    	$where = ' ';
-		foreach($criterias as $value){
-			$where = $where.' AND '.$value['sql'];
-		}
-		return $where;
-	}
 
     private function setImplementation(){
     	if(!$this->Session->check('Implementation')){
@@ -555,7 +551,22 @@ class UsersController extends AppController {
 		
 		return am($search,$options); 
 		
-    }    
+    }   
+
+
+    public function add_to_group()
+    {
+	    $contact_type_id = $this->Session->read('Contact.contact_type_id');
+	    if ($this->data) {
+			$search = $this->setContactSet();
+	        $search['group_id'] = $this->data['Group']['group_id'];
+	        $grp = array();
+	        $grp = $this->ContactSet->getContactIds($contact_type_id,$search);
+	        $this->Group->ContactsGroup->saveAll($grp); 	    	
+	    }
+
+        $this->set('status',true);
+    }
     
     public function search_by_affiliation()
 	{

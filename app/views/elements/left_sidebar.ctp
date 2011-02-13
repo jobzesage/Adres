@@ -171,9 +171,11 @@
 				),array(
 					'class'=>'adres-ajax-anchor adres-delete-keyword filter-bullet'
 				)) ?>				
-			</div>
+            </div>
+            
+
 		<?php endif ?>
-		
+	    
 		
 	<?php  
 	/*-------------------------------
@@ -201,10 +203,35 @@
 			<?php endforeach ?>
 		<?php endif ?>
 		
+            <!-- <?php echo $html->link('Add Result Set To Group',array(
+                'controller'=>'users',
+                'action'=>'add_to_group'     
+            ),array(
+                'class'=>'adres-ajax-anchor'    
+            )) ?> -->
+            
+            <?php echo $form->create('Group',array(
+            	'url' => array(
+            		'controller' => 'users', 
+            		'action' => 'add_to_group'
+            	),
+            	'class' => 'adres-ajax-form' 
+            )) ?>
+            
+            	<?php echo $form->input('group_id',array(
+            		'options' => $html->generateGroupList($groups),
+            		'label' => false,
+            		'div' => false  
+            	)) ?>
+            <?php echo $form->end('Add to group') ?>
+            
+            
+
 		
 						<div class="clear"></div>
-						</div>			
-		
+						
+						
+						</div><!-- adres-filter-hold -->
 				</div>
 				<div class="adres-left-sidebar-content-bottom"></div>
 			

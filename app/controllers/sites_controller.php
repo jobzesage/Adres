@@ -54,11 +54,10 @@ class SitesController extends AppController {
 	public function update_contact(){
 		$this->set('status',true);
 		if(!empty($this->data)){
-			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
-						
-			ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
+		    $plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+            ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
 		}
-		$this->render(null);
+		$this->render(false);
 	}
 	
 	

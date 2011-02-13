@@ -131,7 +131,13 @@ class GroupsController extends AppController {
 		$this->set(compact('contact','groups','contact_id'));	
 		
 		$this->render('/elements/contact_groups')	;		
-	}	
+    }	
+
+
+    public function add_to_group(){
+        $this->layout = 'users';
+        $contact_type_id = $this->Session->read('Contact.contact_type_id');
+    }
 	
 	#application use only
 	private function _setGroupList(){

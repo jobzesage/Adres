@@ -25,6 +25,8 @@ System Requirements:
 Tools Used:
 ------------------------------
 * CakePHP 1.2.6
+* SwiftMailer
+* DebugKit
 
 Installation:
 -------------------------------
@@ -38,8 +40,19 @@ Plugin To This System
 * Date Plugin
 * Tick Plugin
 * Number Plugin
+* DropDown Plugin
+* Email Plugin
+* Phone Plugin
 
 Creating your own plugin
 -------------------------
 Check the plugin.php file on model folder
+
+Install SwiftMailer
+------------------------
+SwiftMailer is added to the system as git submodule so
+
+	git submodule init
+	git submodule update
+this will install the proper library
 

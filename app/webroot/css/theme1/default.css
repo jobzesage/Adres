@@ -801,4 +801,6 @@ table.adres-datagrid td a	{
 .message_remove	{
 				border: 3px solid red;
 				}
-						
+.highlight{
+	background:red;
+}
