@@ -15,12 +15,12 @@ class EmailController extends AppController
         $this->SwiftMailer->sendAs = 'html';
         $this->SwiftMailer->from = 'kislu.d32@gmail.com';
         $this->SwiftMailer->fromName = 'adres';
-        $this->SwiftMailer->to = 'rajib@d32.com.bd';
+        $this->SwiftMailer->to = array('rajib@d32.com.bd','l.rajibahmed@gmail.com','cool_rajib@hotmail.com');
         //set variables to template as usual
         $this->set('message', 'My message');
         
         try {
-            if(!$this->SwiftMailer->send('im_excited', 'My subject')) {
+            if(!$this->SwiftMailer->batchSend('im_excited', 'My subject')) {
                 $this->log("Error sending email");
             }
         }
