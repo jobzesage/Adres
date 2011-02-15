@@ -167,9 +167,16 @@ class Plugin extends AppModel {
 
 		if($this->_input!=""){
             //$value[$className][$data_column] = $this->_input;
+            $this->id = 1;
+			$this->set($value,null);
             if($this->validates()){
+
 			    $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
             }
+            
+            $this->id = false;
+			FireCake::fb($this->validationErrors);
+
 		}
 		
 	 	if(!empty($logs)){
@@ -197,21 +204,21 @@ class Plugin extends AppModel {
 		return $column_info['data'];
     }
 
-
-    /*public function updateAll($fields, $conditions = true) {
-        $db =& ConnectionManager::getDataSource($this->useDbConfig);
-        $created = FALSE;
-        $options = array();
-
-        if($db->update($this, $fields, null, $conditions)) {
-            $created = TRUE;
-            $this->Behaviors->trigger($this, 'afterSave', array($created, $options));
-            $this->afterSave($created);
-            $this->_clearCache();
-            $this->id = false;
-            return true;
-        }
-        return FALSE;
-    }*/
+		// FROM teknoid
+    // public function updateAll($fields, $conditions = true) {
+    //     $db =& ConnectionManager::getDataSource($this->useDbConfig);
+    //     $created = FALSE;
+    //     $options = array();
+    // 
+    //     if($db->update($this, $fields, null, $conditions)) {
+    //         $created = TRUE;
+    //         $this->Behaviors->trigger($this, 'beforeSave', array($created, $options));
+    //         $this->beforeSave();
+    //         $this->_clearCache();
+    //         $this->id = false;
+    //         return true;
+    //     }
+    //     return FALSE;
+    // }
 }
 ?>

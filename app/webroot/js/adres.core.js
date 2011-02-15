@@ -57,7 +57,7 @@ ADres.AJAX={
 					}
 					else if($form.is('#edit-contact')){
 						ADres.DIALOG.close();
-						window.location.reload(true);
+						//window.location.reload(true);
 					}
 					else if($form.is('#SearchAddForm')){
 						$('div#contacts').html(resp.data);
