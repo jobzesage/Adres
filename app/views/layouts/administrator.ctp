@@ -64,7 +64,7 @@
 		
 				<?php echo $html->link(__('Field Types',true),array('controller'=>'field_types','action'=>'index')) ?>
 	
-				><?php echo $html->link(__('Trash',true),array('controller'=>'users','action'=>'trash')) ?>
+				<?php echo $html->link(__('Trash',true),array('controller'=>'users','action'=>'trash')) ?>
 				
 				<?php echo $html->link(__('Users',true),array('controller'=>'users','action'=>'index')) ?>
 		

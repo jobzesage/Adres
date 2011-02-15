@@ -1,4 +1,5 @@
-<?php echo $form->create('Affiliation');?>
+<!--?php echo $form->create('Affiliation');?-->
+
 	<fieldset>
  		<legend><?php __('Add Affiliation');?></legend>
 	<?php
@@ -22,4 +23,5 @@
 		echo $form->input('child_name');
 	?>
 	</fieldset>
+
 <?php echo $form->end('Submit');?>

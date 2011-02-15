@@ -2,12 +2,12 @@ a			{
 			text-decoration: none;
 			color: #047;
 			}
-			
+
 body		{
 			font-size: 11px;
 			color: #444;
 			}
-			
+
 .clear		{
 			clear: both;
 			}
@@ -15,14 +15,14 @@ body		{
 .container	{
 			width: 100%;
 			}
-			
+
 /*/////////////////////////////// Header ///////////////////////////////////*/
-			
+
 .header		{
 			height: 40px;
 			background: url(images/header.jpg) repeat-x;
 			}
-			
+
 			.header .logo			{
 									padding: 11px 0 0 15px;
 									}
@@ -33,7 +33,7 @@ body		{
 									margin: 2px 2px 0 0;
 									background: url(images/adres-menu.jpg) repeat-x;
 									}
-									
+
 			.header a				{
 									float: left;
 									height: 36px;
@@ -44,58 +44,58 @@ body		{
 									overflow: hidden;
 									outline: none;
 									}
-									
+
 			.header a:hover			{
 									color: #fff;
 									background-color: #444;
 									}
-									
+
 			.header a.selected		{
 									color: #fff;
 									background-color: #444;
 									}
-									
+
 			.header a.home			{
 									height: 16px;
 									width: 60px;
 									padding: 10px 12px;
 									background: url(images/nav_home.png) no-repeat center center;
 									}
-									
+
 			.header a.home:hover	{
 									background: url(images/nav_home_hov.png) no-repeat center center;
 									}
-									
+
 			.header a.admin			{
 									height: 16px;
 									width: 121px;
 									padding: 10px 12px;
 									background: url(images/nav_admin.png) no-repeat center center;
 									}
-									
+
 			.header a.admin:hover	{
 									background: url(images/nav_admin_hov.png) no-repeat center center;
 									}
-									
+
 			.header a.logout		{
 									height: 16px;
 									width: 75px;
 									padding: 10px 12px;
 									background: url(images/nav_logout.png) no-repeat center center;
 									}
-									
+
 			.header a.logout:hover	{
 									background: url(images/nav_logout_hov.png) no-repeat center center;
 									}
-									
+
 /*/////////////////////////////// Adres Button ///////////////////////////////////*/
-			
+
 .top-button		{
 				text-indent: -9999px;
 				}
-									
+
 /*/////////////////////////////// Login ///////////////////////////////////*/
-			
+
 .login		{
 			margin: 0 auto;
 			width: 300px;
@@ -103,18 +103,18 @@ body		{
 			text-align: center;
 			outline: none;
 			}
-			
+
 			.big_logo		{
 							margin: 100px 0 -5px 0;
 							}
-			
+
 			.login_left		{
 							float: left;
 							height: 250px;
 							width: 5px;
 							background: url(images/login_left.png) no-repeat;
 							}
-							
+
 			.login_mid		{
 							float: left;
 							height: 250px;
@@ -123,7 +123,7 @@ body		{
 							background: url(images/login_mid.png) repeat-x;
 							text-align: left;
 							}
-							
+
 							.login_mid h2		{
 												text-align: center;
 												font: normal 17px Arial;
@@ -132,13 +132,13 @@ body		{
 												text-transform: uppercase;
 												padding: 25px 0 5px 0;
 												}
-							
+
 							.login_mid input	{
 												width: 235px;
 												margin-top: 0px;
 												outline: none;
 												}
-												
+
 							.login_mid input.submit	{
 													float: left;
 													width: 67px;
@@ -148,7 +148,7 @@ body		{
 													border: none;
 													outline: none;
 													}
-													
+
 							.login_mid a.forgot		{
 													float: left;
 													font: normal 11px Arial;
@@ -156,7 +156,7 @@ body		{
 													margin: 10px 0 0 5px;
 													outline: none;
 													}
-													
+
 							.login_mid a.signup		{
 													clear: both;
 													float: left;
@@ -165,17 +165,17 @@ body		{
 													margin: 10px 0 0 0;
 													outline: none;
 													}
-							
+
 			.login_right	{
 							float: left;
 							height: 250px;
 							width: 5px;
 							background: url(images/login_right.png) no-repeat;
 							}
-							
+
 /*/////////////////////////////// Tabs ///////////////////////////////////*/
-							
-.ui-tabs { padding: 0; zoom: 1; background: none; border: none;}
+
+.ui-tabs { padding: 0; zoom: 1; background: none; border: none; }
 .ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: 0 0 0 201px; background: none; border: none; }
 .ui-tabs .ui-tabs-nav li { position: relative; float: left; border: none; background: url(images/tab_idle.png) repeat-x; height: 30px; margin: 0 0 -1px 0; padding: 0 0 0 10px; border-top: 1px solid #cdcdcd; border-left: 1px solid #cdcdcd; border-right: 1px solid #cdcdcd; border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; -khtml-border-radius: 5px 5px 0 0; }
 .ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; height: 30px; font-size: 13px; line-height: 18px; color: #888; padding-right: 25px; }
@@ -188,23 +188,22 @@ body		{
 
 .ui-tabs .ui-tabs-nav li.create-contact { position: relative; float: left; border: none; background: url(images/tab_plus.png) no-repeat; width: 37px; height: 30px; margin: 0 0 -1px 0; padding: 0; opacity: 1; border-top: 1px solid #E9E6E5; border-left: 1px solid #E9E6E5; border-right: 1px solid #E9E6E5; }
 .ui-tabs .ui-tabs-nav li.create-contact a { width: 37px; cursor: pointer; }
-							
+
 /*/////////////////////////////// Adres User Left Pannel ///////////////////////////////////*/
 
 .adres-left-sidebar		{
 						float: left;
 						width: 198px;
 						margin: 0 1px 0 0;
-						padding: 2px 0 2px 2px;
+						padding: 3px 0 2px 2px;
 						border: none;
 						overflow: hidden;
-						xborder: 1px solid #efefef;
 						border-radius: 4px; 
 						-moz-border-radius: 4px; 
 						-webkit-border-radius: 4px; 
 						-khtml-border-radius: 4px;
 						}
-													
+
 /*/////////////////////////////// Adres User Left Pannel Box ///////////////////////////////////*/
 
 .adres-left-sidebar-box		{
@@ -216,59 +215,59 @@ body		{
 .adres-left-sidebar-head	{
 							width: 194px;
 							}
-							
+
 							.adres-left-sidebar-head-left	{
 															float: left;
 															width: 3px;
 															height: 30px;
 															background: url(images/left_pannel_head_left.png) no-repeat;
-															}	
-															
+															}
+
 							.adres-left-sidebar-head-mid	{
 															float: left;
 															width: 188px;
 															height: 30px;
 															background: url(images/left_pannel_head_mid.png) repeat-x;
 															}
-															
+
 							.adres-left-sidebar-head-mid p	{
 															font: bold 12px/30px Arial;
 															color: #5c5c5c;
 															text-indent: 5px;
 															text-transform: uppercase;
 															}
-															
-							.adres-left-sidebar-head-mid img	{
-																float: right;
-																height: 16px;
-																width: 16px;
-																margin: 7px 5px 0 -2px;
-																}
-															
+
+							.adres-left-sidebar-head-mid img{
+															float: right;
+															height: 16px;
+															width: 16px;
+															margin: 7px 5px 0 -2px;
+															}
+
 							.adres-left-sidebar-head-right	{
 															float: left;
 															width: 3px;
 															height: 30px;
 															background: url(images/left_pannel_head_right.png) no-repeat;
-															}	
-															
+															}
+
 .adres-left-sidebar-content	{
 							width: 194px;
 							overflow: hidden;
 							}
-							
+
 							.adres-left-sidebar-content-mid		{
 																padding: 10px 5px 5px 5px;
 																background: url(images/left_pannel_content_mid.png) repeat;
 																overflow: hidden;
-																}	
-															
+																}
+
 							.adres-left-sidebar-content-bottom	{
 																height: 5px;
 																overflow: hidden;
 																background: url(images/left_pannel_content_bottom.png) no-repeat;
 																}
-															
+
 /*/////////////////////////////// Adres User Search ///////////////////////////////////*/
 
 .adres-search			{
@@ -285,7 +284,7 @@ body		{
 						padding: 2px 0 2px 5px;
 						outline: none;
 						}
-						
+
 .adres-search .search-submit	{
 								width: 29px;
 								background: url(images/search_button.png) no-repeat;
@@ -293,36 +292,36 @@ body		{
 								cursor: pointer;
 								height: 20px;
 								}	
-								
+
 .adres-search a.advance			{
 								font: normal 11px Arial;
 								color: #437ba5;
 								margin: 3px 0 -5px 2px;
 								outline: none;
 								}
-								
+
 .adres-search a.advance:hover	{
 								color: #047;
-								}			
-								
+								}
+
 /*/////////////////////////////// Adres User Filter ///////////////////////////////////*/
 
 .adres-filter-hold			{
 							color: #888;
 							}
-						
+
 .adres-filter-hold input	{
 							height: 18px;
 							width: 176px;
 							font: normal 11px Arial;
 							padding: 2px 0 2px 4px;
 							}
-							
+
 .adres-filter-hold label	{
 							float: left;
-							margin-bottom: -5px;
+							margin-bottom: 0;
 							}
-							
+
 .adres-filter-hold a		{
 							float: left;
 							height: 20px;
@@ -330,17 +329,17 @@ body		{
 							color: #047;
 							margin-right: 10px;
 							}
-							
+
 .adres-filter-hold a:hover	{
 							text-decoration: underline;
 							}
-							
+
 .adres-filter-hold a.filter-bullet	{
 									background: url(images/bullet.png) no-repeat left center;
 									padding-left: 18px;
 									margin-top: -1px;
 									}
-						
+
 .adres-filter-hold .filter-save		{
 									width: 49px;
 									height: 20px;
@@ -349,13 +348,13 @@ body		{
 									border: none;
 									margin-bottom: 15px;
 									}
-													
+
 /*/////////////////////////////// Adres Contacts Pannel ///////////////////////////////////*/
 			
 #adres-contacts-holder	{
 						padding: 5px;
 						}
-						
+
 .adres-contacts-panel	{
 						float: left;
 						overflow: hidden;
@@ -364,47 +363,55 @@ body		{
 						border-radius: 0 4px 4px 4px; 
 						-moz-border-radius: 0 4px 4px 4px; 
 						-webkit-border-radius: 0 4px 4px 4px;  
-						-khtml-border-radius: 0 4px 4px 4px; 
+						-khtml-border-radius: 0 4px 4px 4px;
 						}
-						
+
 /*/////////////////////////////// Adres Basic Pannel ///////////////////////////////////*/
-			
+
 #adres-basic-panel		{
 						height: 30px;
 						background: url(images/basic_pannel.jpg) repeat-x;
 						margin-top: 2px;
 						}
-						
+
 						#adres-basic-panel a		{
 													float: left;
 													height: 20px;
 													width: 90px;
-													background: url(images/basic_pannel_button.png) no-repeat;
 													margin: 5px 0 0 5px;
-													border: none;
 													padding: 0;
 													font: bold 11px/20px Arial;
 													color: #555;
+													background-color: #ededed;
+													border: 1px solid #bbb;
 													outline: none;
+													border-radius: 3px;
+													-moz-border-radius: 3px;
+													-webkit-border-radius: 3px;
+													-khtml-border-radius: 3px;
 													}
-													
+
 						#adres-basic-panel a:hover	{
 													color: #252525;
 													}
-													
+
 						#adres-basic-panel select	{
 													float: left;
 													height: 20px;
 													width: 90px;
-													background: url(images/basic_pannel_button.png) no-repeat;
+													background-color: #ededed;
 													margin: 5px 0 0 5px;
-													border: none;
 													padding: 0;
 													font: normal 11px Arial;
 													color: #666;
 													outline: none;
+													border: 1px solid #bbb;
+													border-radius: 3px; 
+													-moz-border-radius: 3px; 
+													-webkit-border-radius: 3px;  
+													-khtml-border-radius: 3px;
 													}
-													
+
 						#adres-basic-panel input	{
 													float: left;
 													height: 20px;
@@ -413,26 +420,30 @@ body		{
 													padding: 0;
 													font: normal 11px Arial;
 													color: #444;
-													background: url(images/basic_pannel_button.png) no-repeat;
-													border: none;
+													background-color: #ededed;
+													border: 1px solid #bbb;
 													outline: none;
+													border-radius: 3px; 
+													-moz-border-radius: 3px; 
+													-webkit-border-radius: 3px;  
+													-khtml-border-radius: 3px;
 													}
-													
+
 /*/////////////////////////////// Adres Data Grid ///////////////////////////////////*/
-			
+
 .adres-datagrid				{
 							padding: 6px 5px;
 							}
-						
+
 .adres-datagrid .tr-select		{
 								border-top: 1px solid #bbb;
 								border-bottom: 1px solid #bbb;
 								}
-							
+
 .adres-datagrid .tr-even		{
 								background-color: #f3f3f3;
 								}
-								
+
 .adres-toolbar a.adres-edit		{
 								float: left;
 								height: 16px;
@@ -440,7 +451,7 @@ body		{
 								text-indent: -9999px;
 								background: url(images/edit.png) no-repeat center center;
 								}
-								
+
 .adres-toolbar a.adres-delete	{
 								float: left;
 								height: 16px;
@@ -448,36 +459,36 @@ body		{
 								text-indent: -9999px;
 								background: url(images/delete.png) no-repeat center center;
 								}
-								
+
 .up-down					{
 							float: right;
 							width: 30px;
 							color: #bbb;
 							}
-							
+
 .up-down a					{
 							float: left;
 							padding-left: 0 !important; 
 							margin-top: -3px;
 							}
-							
+
 .up-down span				{
 							float: left;
 							}
-								
+
 .no-record					{
 							padding: 20px 0 5px 5px;
 							font: bold 12px Verdana;
 							color: #00A7B8;
 							}
-								
+
 /*/////////////////////////////// Adres Data Grid Page Count ///////////////////////////////////*/
-			
+
 .adres-paginator			{
 							padding: 6px 5px;
 							color: #555;
 							}
-							
+
 .adres-paginator a			{
 							font: bold 12px Arial;
 							color: #333;
@@ -485,36 +496,36 @@ body		{
 							border: 1px solid #e1e2e2;
 							padding: 3px 5px;
 							}
-							
+
 .adres-paginator a:hover	{
 							background-color: #CFD4E7;
 							}
-							
+
 .adres-paginator span		{
 							border: none;
 							margin: 0;
 							padding: 0;
 							}
-							
+
 .adres-paginator span.selected		{
 									border: none;
 									background: none;
 									margin: 0;
 									padding: 0;
 									}
-									
+
 .adres-paginator span.selected a	{
 									color: #fff;
 									background-color: #555;
 									}
-									
+
 .adres-paginator span.total-page	{
 									font-weight: bold;
 									color: #333;
 									}
-									
+
 /*/////////////////////////////// Adres Administrator Pannel ///////////////////////////////////*/
-			
+
 .index h2	{
 			padding: 15px 0 10px 5px;
 			margin-bottom: 0px;
@@ -523,28 +534,27 @@ body		{
 			letter-spacing: 2px;
 			text-transform: uppercase;
 			}
-			
+
 .index p	{
 			padding: 0 0 10px 5px;
 			margin-bottom: 0px;
 			font: normal 12px Verdana;
 			color: #999;
 			}
-			
+
 table.adres-datagrid th a	{
 							font-size: 13px;
 							color: #333;
-							padding-left: 5px;
 							}
-			
+
 table.adres-datagrid td		{
 							padding: 5px 10px;
 							}
-							
+
 table.adres-datagrid td a	{
 							color: #555;
 							}
-							
+
 /*/////////////////////////////// Adres Disabled ///////////////////////////////////*/
 
 .paging .disabled		{
@@ -553,7 +563,7 @@ table.adres-datagrid td a	{
 						text-transform: capitalize;
 						padding: 9px 0 0 5px;
 						}
-						
+
 .paging a				{
 						float: left;
 						font: bold 11px Arial;
@@ -561,37 +571,37 @@ table.adres-datagrid td a	{
 						text-transform: capitalize;
 						padding: 9px 0 0 5px;
 						}
-						
+
 .paging a:hover			{
 						color: #047;
 						}
-			
+
 .paging span			{
 						float: left;
 						padding: 7px 0 0 5px;
 						}
-						
+
 .paging span a			{
 						padding: 2px 0 0 0;
 						font-weight: normal;
 						}
-						
+
 .paging span.current	{
 						font: bold 13px Arial;
 						}
-						
+
 /*/////////////////////////////// Adres Actions ///////////////////////////////////*/
-			
+
 .add_action				{
 						padding: 15px 0 0 0;
 						clear: both;
 						}
-						
+
 .add_action ul			{
 						margin: 0;
 						padding: 0;
 						}
-						
+
 .add_action ul li		{
 						float: left;
 						list-style: none;
@@ -600,7 +610,7 @@ table.adres-datagrid td a	{
 						height: 36px;
 						padding-left: 40px;
 						}
-						
+
 .add_action ul li a			{
 							float: left;
 							font: bold 12px/37px Arial;
@@ -610,17 +620,17 @@ table.adres-datagrid td a	{
 							background: url(images/add_action.jpg) no-repeat top right;
 							outline: none;
 							}
-							
+
 .add_action ul li a:hover	{
 							color: #047;
 							}
-							
+
 .actions a	{
 			margin-right: 5px;
 			}
-			
+
 /*/////////////////////////////// Adres Form ///////////////////////////////////*/
-			
+
 .container h1			{
 						font: normal 22px Arial;
 						color: #008AB0;
@@ -631,21 +641,21 @@ table.adres-datagrid td a	{
 						margin: 15px 0 10px 0;
 						padding: 5px 20px 20px 20px;
 						}
-						
+
 .form fieldset legend	{
 						color: #008AB0;
 						}
-						
+
 .form fieldset label	{
 						color: #999;
 						}
-						
+
 .form fieldset input, .form fieldset select	{
 											margin: 15px 5px 0 15px;
 											font: normal 12px Arial;
 											color: #555;
 											}
-						
+
 .form input, .form select	{
 							margin: 0 0 15px 0;
 							}
@@ -654,7 +664,7 @@ table.adres-datagrid td a	{
 							float: left;
 							margin: 10px 10px 0 0;
 							}						
-									
+
 /*/////////////////////////////// Footer ///////////////////////////////////*/
 
 #footer		{
@@ -667,13 +677,21 @@ table.adres-datagrid td a	{
 			margin-top: 5px;
 			border-top: 1px solid #F3F3F3;
 			}
-			
+
 /*/////////////////////////////// Popup ///////////////////////////////////*/
+
+div#adres-dialog label	{
+						line-height: 22px;
+						}
+
+.ui-autocomplete-input	{
+						padding: 3px;
+						}
 
 .ui-widget-overlay		{
 						background: #000 url(images/x.png) repeat;
 						}
-						
+
 .ui-dialog				{
 						border-radius: 4px; 
 						-moz-border-radius: 4px; 
@@ -681,37 +699,37 @@ table.adres-datagrid td a	{
 						-khtml-border-radius: 4px;
 						background: #dbdbdb url(images/popup_bg.png) repeat-x;
 						}
-						
+
 .ui-widget-content .ui-widget-content		
 						{
 						background: url(images/xpopup_bg.png) repeat-x;
 						}
-						
+
 .ui-widget-content .ui-tabs .ui-tabs-nav		
 						{
 						padding: 0;
 						margin-top: 4px;
 						}
-						
+
 .ui-widget-content .ui-tabs .ui-tabs-nav li 
 						{  
 						padding: 0 5px;
 						}
-						
+
 .ui-widget-content .ui-tabs .ui-tabs-nav li a
-						{  
+						{
 						font-size: 12px;
 						line-height: 26px;
 						}
-						
+
 .ui-widget-content .ui-tabs .ui-tabs-nav li.ui-tabs-selected 
-						{  
+						{
 						border-top: 1px solid #bcbcbc; 
 						border-left: 1px solid #bcbcbc; 
 						border-right: 1px solid #bcbcbc;
 						background: #fff url(images/xpopup_bg.png) repeat-x;
 						}
-						
+
 #contact-window table, #contact-window form
 						{
 						padding: 12px 7px 10px 7px;
@@ -725,7 +743,12 @@ table.adres-datagrid td a	{
 						-webkit-border-radius: 0 4px 4px 4px;
 						-khtml-border-radius: 0 4px 4px 4px;
 						}
-						
+
+#contact-window table th, #contact-window form th, #contact-window table td, #contact-window form td
+						{
+						border: 1px solid #f1f1f1;
+						}
+
 #AdvanceSearchAddForm, #AffiliationAddForm
 						{
 						padding: 12px 7px 12px 12px;
@@ -739,29 +762,25 @@ table.adres-datagrid td a	{
 						-webkit-border-radius: 0 4px 4px 4px;
 						-khtml-border-radius: 0 4px 4px 4px;
 						}
-						
-.ui-widget-content		{
-						background: none;
-						}
-						
+
 #adres-dialog			{
-						padding: 5px;
+						padding: 10px;
 						}
-						
+
 #adres-dialog h3		{
 						font: bold 12px Arial;
 						}
-						
+
 #adres-dialog input.adres-button
 			 			{
 						font: bold 11px Arial;
 						}
-						
+
 .ui-dialog .ui-dialog-content
 						{
 						padding: 0 0 0 1px;
 						}
-						
+
 .ui-dialog-titlebar		{
 						border-radius: 4px;
 						-moz-border-radius: 4px;
@@ -771,17 +790,62 @@ table.adres-datagrid td a	{
 						margin: 5px 4px 0 5px;
 						padding: 0;
 						}
-						
+
 .ui-dialog-titlebar span	{
 							font-size: 13px;
 							}
-							
+
 .ui-dialog-titlebar a.ui-dialog-titlebar-close:hover
 							{
 							background: none;
 							border: none;
 							}
-							
+
+input[type="text"], input[type="password"], input.text, input.title, textarea, select
+							{
+							margin: 0;
+							}
+
+.input, .select, .text, .submit
+							{
+							margin: 10px 0 0 0;
+							}
+
+/*/////////////////////////////// Group Data ///////////////////////////////////*/
+
+#content h2	{
+			padding: 15px 0 5px 3px;
+			margin-bottom: 0px;
+			font: normal 15px Verdana;
+			color: #666;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			}
+
+#content h3	{
+			padding: 10px 0 5px 3px;
+			margin-bottom: 0px;
+			font: normal 12px Verdana;
+			color: #666;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			}
+
+dt			{
+			font: bold 12px Arial;
+			color: #777;
+			margin: 15px 0 3px 0;
+			border-bottom: 1px solid #BAD840;
+			padding-left: 4px;
+			}
+
+dd			{
+			font: normal 12px Arial;
+			color: #444;
+			margin: 0;
+			padding-left: 4px;
+			}
+
 /*/////////////////////////////// Flash Message ///////////////////////////////////*/
 
 .message	{
@@ -793,14 +857,18 @@ table.adres-datagrid td a	{
 			margin: 10px 5px 0 5px;
 			border: 3px solid #BAD840;
 			}
-			
+
 .message_add	{
 				border: 3px solid #BAD840;
 				}
-				
+
 .message_remove	{
 				border: 3px solid red;
+<<<<<<< Updated upstream
 				}
 .highlight{
 	background:red;
 }
+=======
+				}
+>>>>>>> Stashed changes

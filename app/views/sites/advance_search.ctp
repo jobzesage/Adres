@@ -1,9 +1,11 @@
 <div class="adres-tabs">
+	
 	<ul>
-		<li><a href="#tabs-1"><span> Avd Search</span></a></li>
-		<li><a href="#tabs-2"><span> Aff Search</span></a></li>
-		<li><a href="#tabs-3"><span> Customize</span></a></li>
+		<li><a href="#tabs-1"><span>Avd Search</span></a></li>
+		<li><a href="#tabs-2"><span>Aff Search</span></a></li>
+		<li><a href="#tabs-3"><span>Customize</span></a></li>
 	</ul>
+	
 	<div id="tabs-1">
 		<?php echo $form->create('AdvanceSearch',array(
 			'url'=>array(
@@ -22,6 +24,7 @@
 			
 		<?php echo $form->end(array('label'=>'Advance Search','class'=>'adres-button')) ?>	
 	</div>
+	
 	<div id="tabs-2">
 		<?php echo $form->create('Affiliation',array(
 			'url' => array(
@@ -44,6 +47,7 @@
 	</div>
 
 </div>
+
 <script type="text/javascript">
 
 	$(function(){
