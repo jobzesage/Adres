@@ -4,25 +4,33 @@
  */
 class MailerController extends AppController
 {
-    public $uses = null;
-     public function check()
+    public $uses = array('TypeEmail');
+     public function send($field_id=null)
      {
+        $addresses = $this->TypeEmail->find('all',array('conditions'=>array(
+            'field_id'=>$field_id
+        ))) ;
+        $email_addresses = array();
+        $email_addresses = Set::extract('/TypeEmail/'.$this->TypeEmail->getDisplayFieldName(),$addresses);
+        if (!empty($email_addresses)) {
+           $email_addresses = array_unique($email_addresses); 
+        }
 
         $this->SwiftMailer->smtpType = 'tls';
         $this->SwiftMailer->smtpHost = 'smtp.gmail.com';
-        $this->SwiftMailer->smtpPort = 465;
+        $this->SwiftMailer->smtpPasdfasdafort = 465;
         $this->SwiftMailer->smtpUsername = 'kislu.d32@gmail.com';
         $this->SwiftMailer->smtpPassword = '123456!!';
 
         $this->SwiftMailer->sendAs = 'html';
         $this->SwiftMailer->from = 'noone@d32.com';
         $this->SwiftMailer->fromName = 'New bakery component';
-        $this->SwiftMailer->to = array('l.rajibahmed@gmail.com','rajib@d32.com.bd','cool_rajib@hotmail.com');
+        $this->SwiftMailer->to = $email_addresses; 
         //set variables to template as usual
         $this->set('message', 'My message');
         
         try {
-            if(!$this->SwiftMailer->send('im_excited', 'My subject')) {
+            if(!$this->SwiftMailer->batchSend('im_excited', 'My subject')) {
                 $this->log("Error sending email");
             }
         }

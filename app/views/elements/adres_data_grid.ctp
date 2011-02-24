@@ -12,10 +12,18 @@
 			),array(
 				'class' => 'adres-button small ui-state-default ui-corner-all' )
 		) ?>
-		
-		<?php echo $html->link('<strike>Send Email('.$count.')</strike>', array(
-			'controller'=>'users',
-			'action'=>'#'
+        <?php
+            $email='';
+            foreach ($fields as $field){
+                if($field['Field']['field_type_class_name']=='TypeEmail'){
+                    $email= $field['Field']['id'];
+                } 
+	    	}
+	    ?>
+		<?php echo $html->link('Send Email('.$count.')', array(
+			'controller'=>'mailer',
+            'action'=>'send',
+            $email
 			),array(
 				'class' => 'adres-button small ui-state-default ui-corner-all' 
 			),null,null,false
