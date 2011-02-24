@@ -143,7 +143,10 @@ ADres.AJAX={
 						var header_indx = parseInt($link.closest('th').index()) +1;
 						$('#datagrid').replaceWith(resp.data);
 						$.cookie("header_index",header_indx);
-					}
+					}else if($link.is('#send_email')){
+    					$('#adres-dialog').html(resp.data);
+    					ADres.DIALOG.open();
+                    }
 					else{
 						$('div#contacts').html(resp.data);
 					}

@@ -40,5 +40,14 @@ class MailerController extends AppController
         $this->redirect($this->referer(), null, true);
         
      }
+
+
+
+    public function open_message($id=null)
+    {
+        $this->layout = 'default';
+        $status=$this->RequestHandler->isAjax();
+       $this->set(compact('id','status')); 
+    }
 }
 ?>

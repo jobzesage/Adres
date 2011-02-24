@@ -22,10 +22,11 @@
 	    ?>
 		<?php echo $html->link('Send Email('.$count.')', array(
 			'controller'=>'mailer',
-            'action'=>'send',
+            'action'=>'open_message',
             $email
 			),array(
-				'class' => 'adres-button small ui-state-default ui-corner-all' 
+                'class' => 'adres-button adres-ajax-anchor small ui-state-default ui-corner-all' ,
+                'id'=>'send_email'
 			),null,null,false
 		) ?>
 		<?php echo $html->link('<strike>Send SMS</strike>', array(
