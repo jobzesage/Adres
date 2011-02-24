@@ -15,7 +15,13 @@ class Plugin extends AppModel {
 	
 	public $_input = null;
 
-	public $_field_id = null;
+    public $_field_id = null;
+
+    protected $_adresValidate = array();
+
+    protected $_registered_callbacks = array('adresBeforeSave','adresAfterSave');
+
+    public $adresValidationErrors=array();
 	
 
 	public function getDisplayFieldName($options=array())
@@ -59,7 +65,11 @@ class Plugin extends AppModel {
 		return "";
 	}
 
-	
+
+    public function registerCallback($name)
+    {
+        $this->_registered_callbacks[]=$name;
+    }
 
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
@@ -166,17 +176,9 @@ class Plugin extends AppModel {
 		}
 
 		if($this->_input!=""){
-            //$value[$className][$data_column] = $this->_input;
-            $this->id = 1;
-			$this->set($value,null);
-            if($this->validates()){
-
-			    $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
-            }
-            
-            $this->id = false;
-			FireCake::fb($this->validationErrors);
-
+			if ($this->adresValidates()) {
+                $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
+			}
 		}
 		
 	 	if(!empty($logs)){
@@ -204,21 +206,22 @@ class Plugin extends AppModel {
 		return $column_info['data'];
     }
 
-		// FROM teknoid
-    // public function updateAll($fields, $conditions = true) {
-    //     $db =& ConnectionManager::getDataSource($this->useDbConfig);
-    //     $created = FALSE;
-    //     $options = array();
-    // 
-    //     if($db->update($this, $fields, null, $conditions)) {
-    //         $created = TRUE;
-    //         $this->Behaviors->trigger($this, 'beforeSave', array($created, $options));
-    //         $this->beforeSave();
-    //         $this->_clearCache();
-    //         $this->id = false;
-    //         return true;
-    //     }
-    //     return FALSE;
-    // }
+
+    public function adresValidates(){
+
+        foreach ($this->_adresValidate as $validator){
+            switch ($validator['rule']) {
+                case 'regex':
+                    return preg_match($validator['pattern'],$this->_input);
+                    break;
+                case 'notEmpty':
+                   return !empty($this->_input); 
+                default:
+                    return true;
+                    break;
+            }
+        }
+    }
+
 }
 ?>
