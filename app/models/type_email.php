@@ -8,7 +8,7 @@ class TypeEmail extends Plugin{
         'email'=>array(
             'rule'=>'regex',
             'message'=>'Email is not validate',
-            'pattern'=>'/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/'    
+            'pattern'=>'/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})/'    
         ),
         'emailNotEmpty'=>array(
             'rule'=>'notEmpty',
