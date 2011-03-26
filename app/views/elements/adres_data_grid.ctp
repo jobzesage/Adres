@@ -12,6 +12,8 @@
 			),array(
 				'class' => 'adres-button small ui-state-default ui-corner-all' )
 		) ?>
+
+
         <?php
             $email='';
             foreach ($fields as $field){
@@ -20,6 +22,8 @@
                 } 
 	    	}
 	    ?>
+
+
 		<?php echo $html->link('Send Email('.$count.')', array(
 			'controller'=>'mailer',
             'action'=>'open_message',

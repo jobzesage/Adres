@@ -144,8 +144,8 @@ ADres.AJAX={
 						$('#datagrid').replaceWith(resp.data);
 						$.cookie("header_index",header_indx);
 					}else if($link.is('#send_email')){
-    					$('#adres-dialog').html(resp.data);
-    					ADres.DIALOG.open();
+						$('#adres-dialog').html(resp.data);
+						ADres.DIALOG.open();
                     }
 					else{
 						$('div#contacts').html(resp.data);

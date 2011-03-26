@@ -1,12 +1,11 @@
 <?php
-/**
- * 
- */
-class MailerController extends AppController
-{
-    public $uses = array('TypeEmail');
-     public function send($field_id=null)
-     {
+
+class MailerController extends AppController{
+	
+	public $uses = array('TypeEmail');
+	
+	public function send($field_id=null){
+		
         $addresses = $this->TypeEmail->find('all',array('conditions'=>array(
             'field_id'=>$field_id
         ))) ;
@@ -28,7 +27,7 @@ class MailerController extends AppController
         $this->SwiftMailer->to = $email_addresses; 
         //set variables to template as usual
         $this->set('message', 'My message');
-        
+        debug($this->SwiftMailer->to);
         try {
             if(!$this->SwiftMailer->batchSend('im_excited', 'My subject')) {
                 $this->log("Error sending email");
@@ -37,7 +36,8 @@ class MailerController extends AppController
         catch(Exception $e) {
               $this->log("Failed to send email: ".$e->getMessage());
         }
-        $this->redirect($this->referer(), null, true);
+        
+        //$this->redirect($this->referer(), null, true);
         
      }
 
@@ -45,9 +45,9 @@ class MailerController extends AppController
 
     public function open_message($id=null)
     {
-        $this->layout = 'default';
-        $status=$this->RequestHandler->isAjax();
-       $this->set(compact('id','status')); 
+		$this->layout = 'default';
+		$status=true;
+		$this->set(compact('id','status')); 
     }
 }
 ?>
