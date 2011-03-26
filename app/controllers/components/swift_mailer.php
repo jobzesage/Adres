@@ -200,6 +200,15 @@ class SwiftMailerComponent extends Object {
      */
     var $postErrors = array();
     
+    
+    /**
+     * For send batch Newsletter mail
+     *
+     * @var boolean 
+     * @access Private
+     */
+    var $__batchSend = false;
+    
     /**
      * Initialize component
      * 
@@ -413,7 +422,11 @@ class SwiftMailerComponent extends Object {
         $this->__runCallback($message, 'beforeSend');
         
         // Attempt to send the email.
-        return $mailer->send($message, $this->postErrors);
+        if(!$this->__batchSend){
+        	return $mailer->send($message, $this->postErrors);
+        }else{
+			return $mailer->batchSend($message);	
+        }
     }
     
     /**
@@ -449,6 +462,12 @@ class SwiftMailerComponent extends Object {
         if (method_exists($this->__controller, $call)) {
             $this->__controller->{$call}($object);
         }
+    }
+    
+    
+    function batchSend(){
+		$this->__batchSend = true;
+		return $this->send();
     }
 }
 ?>
