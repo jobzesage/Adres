@@ -245,6 +245,7 @@ class SwiftMailerComponent extends Object {
         
         $content = $View->element($this->viewPath.DS.$type.DS.$template, array('content' => ""), true);
         $View->layoutPath = $this->viewPath.DS.$type;
+
         $content = $View->renderLayout($content);
         
         // Run content check callback
@@ -373,11 +374,13 @@ class SwiftMailerComponent extends Object {
         switch ($method) {
             case 'smtp':
                 $transport = Swift_SmtpTransport::newInstance($this->smtpHost, $this->smtpPort, $this->smtpType);
+
                 $transport->setTimeout($this->smtpTimeout);
                 if (!empty($this->smtpUsername)) {
                     $transport->setUsername($this->smtpUsername);
                     $transport->setPassword($this->smtpPassword);
                 }
+
                 break;
             case 'sendmail':
                 $transport = Swift_SendmailTransport::newInstance($this->sendmailCmd);
@@ -465,9 +468,11 @@ class SwiftMailerComponent extends Object {
     }
     
     
-    function batchSend(){
-		$this->__batchSend = true;
-		return $this->send();
+    function batchSend($subject{
+        $this->__batchSend = true;
+        $options = am(array('subject'=>"something"),$options);
+        extract($options);
+		return $this->send(null,$subject);
     }
 }
 ?>

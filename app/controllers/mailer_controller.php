@@ -17,19 +17,19 @@ class MailerController extends AppController{
 
         $this->SwiftMailer->smtpType = 'tls';
         $this->SwiftMailer->smtpHost = 'smtp.gmail.com';
-        $this->SwiftMailer->smtpPasdfasdafort = 465;
+        $this->SwiftMailer->smtpPort = 465;
         $this->SwiftMailer->smtpUsername = 'kislu.d32@gmail.com';
         $this->SwiftMailer->smtpPassword = '123456!!';
 
         $this->SwiftMailer->sendAs = 'html';
         $this->SwiftMailer->from = 'noone@d32.com';
-        $this->SwiftMailer->fromName = 'New bakery component';
+        $this->SwiftMailer->fromName = 'ADres';
         $this->SwiftMailer->to = $email_addresses; 
         //set variables to template as usual
         $this->set('message', 'My message');
         debug($this->SwiftMailer->to);
         try {
-            if(!$this->SwiftMailer->batchSend('im_excited', 'My subject')) {
+            if(!$this->SwiftMailer->batchSend(null)) {
                 $this->log("Error sending email");
             }
         }
