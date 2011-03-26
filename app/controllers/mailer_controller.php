@@ -18,18 +18,25 @@ class MailerController extends AppController{
         $this->SwiftMailer->smtpType = 'tls';
         $this->SwiftMailer->smtpHost = 'smtp.gmail.com';
         $this->SwiftMailer->smtpPort = 465;
-        $this->SwiftMailer->smtpUsername = 'kislu.d32@gmail.com';
-        $this->SwiftMailer->smtpPassword = '123456!!';
+        $this->SwiftMailer->smtpUsername = 'l.rajibahmed@gmail.com';
+        $this->SwiftMailer->smtpPassword = 'satriani';
 
         $this->SwiftMailer->sendAs = 'html';
         $this->SwiftMailer->from = 'noone@d32.com';
+
         $this->SwiftMailer->fromName = 'ADres';
+        
+        if(isset($this->data['Mailer']['from'])) {
+            $this->SwiftMailer->fromName = $this->data['Mailer']['from'];
+        }
+        
         $this->SwiftMailer->to = $email_addresses; 
+
         //set variables to template as usual
-        $this->set('message', 'My message');
-        debug($this->SwiftMailer->to);
+        $this->set('message', $this->data['Mailer']['message']);
+        $subject = $this->data['Mailer']['subject'];
         try {
-            if(!$this->SwiftMailer->batchSend(null)) {
+            if(!$this->SwiftMailer->batchSend($subject)) {
                 $this->log("Error sending email");
             }
         }
@@ -37,8 +44,8 @@ class MailerController extends AppController{
               $this->log("Failed to send email: ".$e->getMessage());
         }
         
-        //$this->redirect($this->referer(), null, true);
-        
+        $this->Session->setFlash("You save sent mails to <br/> ". implode(',',$email_addresses));
+        $this->redirect($this->referer(), null, true);
      }
 
 

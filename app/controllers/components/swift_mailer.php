@@ -468,11 +468,9 @@ class SwiftMailerComponent extends Object {
     }
     
     
-    function batchSend($subject{
+    function batchSend($subject="hi"){
         $this->__batchSend = true;
-        $options = am(array('subject'=>"something"),$options);
-        extract($options);
-		return $this->send(null,$subject);
+		return $this->send("send",$subject);
     }
 }
 ?>
