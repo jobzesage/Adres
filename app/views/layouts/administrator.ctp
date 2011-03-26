@@ -76,7 +76,7 @@
 
 		</div>
 	
-		<div id="content" class='clear'>
+		<div id="content" class='clear' style="padding: 10px 0 0 0;">
 
 			<?php 
 				if($session->check('Message'))	

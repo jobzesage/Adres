@@ -3,7 +3,7 @@
 
 <table class="adres-datagrid ui-widget">
 
-	<tr style="font-size: 13px; padding-left: 10px; color: #333;">
+	<tr>
 		<th>Date</th>
 		<th>User</th>
 		<th>Message </th>
@@ -26,14 +26,14 @@
 				'controller'=>'contacts',
 				'action'=>'restore',
 				$trash['Contact']['id']),array(
-					'class'=>'adres-delete adres-ajax-anchor'	
+					'class'=>'adres-ajax-anchor'	
 				), null, null, false)  ?></td>
 		</tr>		
 		<?php endforeach ?>	
 	<?php else: ?>
 		<tr>
 			<td colspan="6">
-				<?php echo __("Nothing to restore", true) ?>
+				<?php echo __("Nothing to Restore", true) ?>
 			</td>
 		</tr>	
 	<?php endif ?>

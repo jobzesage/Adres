@@ -31,9 +31,6 @@
 				'jquery.validate.pack',
 				'adres.core'
 			));
-			
-			
-			#echo $scripts_for_layout;
 		?>
 	</head>
     
@@ -52,13 +49,14 @@
       
 			<img class="big_logo" src="/css/theme1/images/big_logo.png" alt="" />
             <div style="clear: both;"></div>
-      
-     		<div class="login_left"></div>
-     		<div class="login_mid">
+
+     		<div class="login_con">
       
       			<h2>Login Pannel</h2>
                 
                 <?php echo $session->flash(); ?>
+                
+                <div class="login_form">
                 
                 <?php echo $form->create('User',array(
                  'url'=>array(
@@ -94,10 +92,10 @@
                 <a class="forgot" href="#">Forgot your password?</a>
                 
                 <a class="signup" href="#">Not Registered? Sign Up Now!</a>
+                
+                </div>
 
 			</div>
-     		<div class="login_right"></div>
-            <div style="clear: both;"></div>
  
         </div>
 

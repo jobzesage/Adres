@@ -9,22 +9,13 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<div class="adres-left-sidebar-head-left"></div>
-				<div class="adres-left-sidebar-head-mid">
-					
-					<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-					<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
-					<p>Search</p>
-					
-				</div>
-				<div class="adres-left-sidebar-head-right"></div>
-				<div class="clear"></div>
+				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<p>Search</p>
 			
 		</div>
 		
 		<div class="adres-left-sidebar-content">
-			
-				<div class="adres-left-sidebar-content-mid" style="padding-bottom: 0;">
 					
 						<div class="adres-search">
 					
@@ -69,9 +60,6 @@
 								
 						<div class="clear"></div>
 						</div>			
-		
-				</div>
-				<div class="adres-left-sidebar-content-bottom"></div>
 			
 		</div>
 		
@@ -88,41 +76,30 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<div class="adres-left-sidebar-head-left"></div>
-				<div class="adres-left-sidebar-head-mid">
-					
-					<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-					<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
-					<p>Groups</p>
-					
-				</div>
-				<div class="adres-left-sidebar-head-right"></div>
-				<div class="clear"></div>
+				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<p>Groups</p>
 			
 		</div>
 		
 		<div class="adres-left-sidebar-content">
+
+				<?php if (isset($groups) and !empty($groups)): ?>
 			
-				<div class="adres-left-sidebar-content-mid">
-
-	<?php if (isset($groups) and !empty($groups)): ?>
-
-		<div id="adres-saved-group">
-		<?php //echo $html->tag('h6',__('Groups',true),array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>		
-			<div id="group-tree" style="float: left; width: 184px; overflow: hidden;">
-				<?php echo $tree->generate($groups,array(
-					'model' => 'Group',
-					'element'=>'group_link',
-				)) ?>
-			</div>
-		</div><!-- adres-groups -->
-
-	<?php endif ?>
+					<div id="adres-saved-group">
+							
+						<div id="group-tree" style="float: left; width: 184px; overflow: hidden; margin-bottom: 5px;">
+							<?php echo $tree->generate($groups,array(
+								'model' => 'Group',
+								'element'=>'group_link',
+							)) ?>
+						</div>
+					
+					</div>
+			
+				<?php endif ?>
 								
-						<div class="clear"></div>		
-		
-				</div>
-				<div class="adres-left-sidebar-content-bottom"></div>
+				<div class="clear"></div>		
 			
 		</div>
 		
@@ -133,22 +110,13 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<div class="adres-left-sidebar-head-left"></div>
-				<div class="adres-left-sidebar-head-mid">
-					
-					<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-					<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
-					<p>Criterias</p>
-					
-				</div>
-				<div class="adres-left-sidebar-head-right"></div>
-				<div class="clear"></div>
+				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<p>Criterias</p>
 			
 		</div>
 		
 		<div class="adres-left-sidebar-content">
-			
-				<div class="adres-left-sidebar-content-mid">
 					
 						<div class="adres-filter-hold">
 							
@@ -164,11 +132,11 @@
 
 		<?php if ($session->check('Filter.keyword')): ?>
 			<div class="adres-criteria">
-				<?php echo $html->link("Keyword : {$keyword}",array(
+				<?php echo $html->link("Keyword : {$keyword}", array(
 					'controller'=>'users',
 					'action' => 'delete_keyword', 
 					$keyword
-				),array(
+				), array(
 					'class'=>'adres-ajax-anchor adres-delete-keyword filter-bullet'
 				)) ?>				
             </div>
@@ -209,7 +177,7 @@
             ),array(
                 'class'=>'adres-ajax-anchor'    
             )) ?> -->
-            
+
             <?php echo $form->create('Group',array(
             	'url' => array(
             		'controller' => 'users', 
@@ -217,26 +185,22 @@
             	),
             	'class' => 'adres-ajax-form' 
             )) ?>
-            
+
             	<?php echo $form->input('group_id',array(
             		'options' => $html->generateGroupList($groups),
             		'label' => false,
-            		'div' => false  
+            		'div' => false,
+            		'class'=>'group_list'
             	)) ?>
-            <?php echo $form->end('Add to group') ?>
-            
-            
 
-		
+			<?php echo $form->end(array('label'=>'Add to group','class'=>'filter-add adres-button')) ?>
+
 						<div class="clear"></div>
-						
-						
+
 						</div><!-- adres-filter-hold -->
-				</div>
-				<div class="adres-left-sidebar-content-bottom"></div>
-			
+
 		</div>
-		
+
 </div>	
 
 
@@ -245,22 +209,13 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<div class="adres-left-sidebar-head-left"></div>
-				<div class="adres-left-sidebar-head-mid">
-					
-					<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-					<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
-					<p>Filters</p>
-					
-				</div>
-				<div class="adres-left-sidebar-head-right"></div>
-				<div class="clear"></div>
+				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<p>Filters</p>
 			
 		</div>
 		
 		<div class="adres-left-sidebar-content">
-			
-				<div class="adres-left-sidebar-content-mid">
 					
 						<div class="adres-filter-hold">
 		
@@ -306,9 +261,6 @@
 								
 						<div class="clear"></div>
 						</div>			
-		
-				</div>
-				<div class="adres-left-sidebar-content-bottom"></div>
 			
 		</div>
 		

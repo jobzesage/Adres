@@ -1,4 +1,4 @@
-<div class="fieldTypes form">
+s<div class="fieldTypes form">
 	<?php echo $this->element('field_types/_form') ?>
 </div>
 <div class="add_action">

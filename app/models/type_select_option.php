@@ -81,18 +81,20 @@ class TypeSelectOption extends AppModel {
 	}
 	
 	public function list_view(){
-		
+	
 	}
 	
 	public function getLinks($select,$params){
 		$output = "";
-		$output.="<a href='/plugins/edit/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>Edit</a>";
-		$output.="<a href='/plugins/delete/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>Delete</a>";
+		$output.="<a class='adres-edit' href='/plugins/edit/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>
+		Edit</a>";
+		$output.="<a class='adres-delete' href='/plugins/delete/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>
+		Delete</a>";
 		return $output;
 	}
 
 	public function getShowTableHeader(){
-		return "<tr><th>Data</th>\n<th>operations</th></tr>\n";		
+		return "<tr><th>Data</th>\n<th>Operations</th></tr>\n";		
 	}	
 	
 	public function getFormField($params,$options=array('data'=>null,'id'=>null)){

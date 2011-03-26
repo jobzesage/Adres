@@ -70,6 +70,7 @@ table.adres-datagrid {
     background: url(theme1/images/table_th.gif) repeat-x;
     color: #454545;
     padding-left: 10px;
+    text-transform: capitalize;
 }
 
 .adres-datagrid td{
@@ -186,8 +187,7 @@ div.growlUI h2 {
 div#adres-dialog label{
 	display:block;
 	float: left;    
-	width: 7em;    
-	margin-right: 1em; 
+	margin-right: 5em; 
 }
 #adres-dialog lable{ float:left}
 #adres-dialog .submit{ display:block;clear: left;}

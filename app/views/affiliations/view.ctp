@@ -38,7 +38,7 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+<div class="add_action">
 	<ul>
 		<li><?php echo $html->link(__('Edit Affiliation', true), array('action' => 'edit', $affiliation['Affiliation']['id'])); ?> </li>
 		<li><?php echo $html->link(__('Delete Affiliation', true), array('action' => 'delete', $affiliation['Affiliation']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $affiliation['Affiliation']['id'])); ?> </li>
@@ -50,6 +50,9 @@
 		<li><?php echo $html->link(__('New Contact', true), array('controller' => 'contacts', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
+<div class="clear"></div>
+
 <div class="related">
 	<h3><?php __('Related Contacts');?></h3>
 	<?php if (!empty($affiliation['Contact'])):?>

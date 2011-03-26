@@ -1,8 +1,3 @@
-<style type="text/css">
-	#adres-contact-window ul li a{
-		padding:0.2em 0.5em;
-	}
-</style>
 
 <div id="adres-contact-window" class="adres-tabs">
 	<ul>

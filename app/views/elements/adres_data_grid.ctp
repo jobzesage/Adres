@@ -69,7 +69,6 @@
 							),array(
 								'class' => 'adres-ajax-anchor sort', 	
 							), null, null, false)  ?>
-					
 					</div>
 					
 				</th>
@@ -126,6 +125,7 @@
 	<?php echo $this->element('paginator')?>
 	
 </div>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		var header_index = 0;

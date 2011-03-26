@@ -38,11 +38,15 @@
 				'type' => 'select', 
 				'options' => $affiliations
 			)) ?>
-			<?php echo $form->input('contact_id') ?>
+			<?php echo $form->input('contact_id',array(
+				'class' => 'advance_search_contact'
+			)) ?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
 	
 	<div id="tabs-3">
+		
+		
 		
 	</div>
 
@@ -54,4 +58,5 @@
 		$('.adres-tabs').tabs();
 		$('select').selectmenu({width:230});
 	});
+	
 </script>

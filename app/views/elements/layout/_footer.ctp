@@ -1,5 +1,5 @@
 		<div id="footer" class="last">
-			&copy; Copyright 2010. All Rights Reserved. 
+			&copy; Copyright 2011. All Rights Reserved. 
 		</div>
         
 	</div><!--Container-->
