@@ -7,7 +7,13 @@ class TypeString extends Plugin {
 	public $actsAs=array('Containable');
 	
 	public $useTable='type_string';
-	
+
+	public $_adresValidate=array(
+        'notEmptyFields'=>array(
+            'rule'=>'notEmpty',
+            'message'=>'field can not be blank'    
+        )        
+    );	
 	
     public function search($keys=array())
     {
