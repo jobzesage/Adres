@@ -18,8 +18,8 @@ class MailerController extends AppController{
         $this->SwiftMailer->smtpType = 'tls';
         $this->SwiftMailer->smtpHost = 'smtp.gmail.com';
         $this->SwiftMailer->smtpPort = 465;
-        $this->SwiftMailer->smtpUsername = 'l.rajibahmed@gmail.com';
-        $this->SwiftMailer->smtpPassword = 'satriani';
+        $this->SwiftMailer->smtpUsername = 'kislu.d32@gmail.com';
+        $this->SwiftMailer->smtpPassword = '123456!!';
 
         $this->SwiftMailer->sendAs = 'html';
         $this->SwiftMailer->from = 'noone@d32.com';
