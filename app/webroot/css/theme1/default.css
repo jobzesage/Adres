@@ -956,11 +956,12 @@ dd			{
 
 .message	{
 			text-align: center;
-			height: 25px;
+/*			height: 25px;*/
 			font: bold 12px Arial;
 			color: #555;
-			line-height: 25px;
+			line-height: 20px;
 			margin: 10px 5px 0 5px;
+			padding: 5px 0 ;
 			border: 3px solid #BAD840;
 			}
 
