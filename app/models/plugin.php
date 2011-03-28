@@ -1,7 +1,10 @@
 <?php
+
+require_once 'plugin_interface.php';
+
 App::import('Sanitize');
 
-class Plugin extends AppModel {
+class Plugin extends AppModel implements iPlugin {
 	
 	public $useTable = false;
 	
@@ -175,11 +178,16 @@ class Plugin extends AppModel {
 			);
 		}
 
-		if($this->_input!=""){
-			if ($this->adresValidates()) {
-                $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
-			}
+		// if($this->_input!=""){
+		// 	if ($this->adresValidates()) {
+		//                 $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
+		// 	}
+		// }
+
+		if ($this->adresValidates()) {
+            $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
 		}
+
 		
 	 	if(!empty($logs)){
 			ClassRegistry::init('Log')->saveAll($logs);
@@ -208,19 +216,24 @@ class Plugin extends AppModel {
 
 
     public function adresValidates(){
-
+		$status = false;		
         foreach ($this->_adresValidate as $validator){
             switch ($validator['rule']) {
                 case 'regex':
-                    return preg_match($validator['pattern'],$this->_input);
+                    $status = preg_match($validator['pattern'],$this->_input);
                     break;
                 case 'notEmpty':
-                   return !empty($this->_input); 
+                	$status = !empty($this->_input); 
+                	break;
                 default:
                     return true;
                     break;
             }
+
+        	if($status) $this->adresValidationErrors[] = $validator['message'];          
+            return $status;   
         }
+        
     }
 
 }
