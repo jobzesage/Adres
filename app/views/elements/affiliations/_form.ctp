@@ -1,4 +1,4 @@
-<!--?php echo $form->create('Affiliation');?-->
+<?php echo $form->create('Affiliation',array('id'=>'Affiliation-form')) ?>
 
 	<fieldset>
  		<legend><?php __('Add Affiliation');?></legend>
