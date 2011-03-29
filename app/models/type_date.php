@@ -8,7 +8,9 @@ class TypeDate extends Plugin{
 	public $useTable = 'type_date';
 	
 	private $_time;
-	
+    
+    const EMPTY_DATE = "Not Set";
+        
 	public $optionsClass = 'TypeDateOption';
 
 	public function __construct(){
@@ -32,10 +34,12 @@ class TypeDate extends Plugin{
 
 		$date = array_values($dataum['data']);
 		
-		$output=null;
-		if(!empty($date[0])){
+        $output= self::EMPTY_DATE;
+
+		if(!empty($date[0]) && strtotime($date[0])){
 			$output = $this->_time->{$_SESSION['Contact']['dates'][$dataum['field_id']]['format']}($date[0]);
-		}
+        }
+
 		$key = array_keys($dataum['data']);
 		
 		return array($key[0]=>$output);
