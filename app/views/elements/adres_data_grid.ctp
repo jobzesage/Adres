@@ -1,4 +1,4 @@
-<div id="datagrid" >
+<div id="datagrid">
 	<div id="adres-basic-panel" class="adres-panel">
 		<?php echo $html->link('New', array(
 			'controller'=>'users',
@@ -47,19 +47,20 @@
 	
 	<?php if (!empty($values) && isset($values)): ?>
 
+	<div id="main_table">
 
 	<table border="0" class="adres-datagrid">
 		<thead>
 		<tr>
-			<th>ID</th>
+			<th style="min-width: 25px;">ID</th>
 			<?php foreach ($fields as $field): ?>
 
-				<th>
+				<th style="min-width: 150px;">
 					
 					<?php $img_a = $html->image("/css/theme1/images/up_arrow.png") ?>
 					<?php $img_d = $html->image("/css/theme1/images/down_arrow.png") ?>
 					
-					<?php echo $field['Field']['name'] ?>
+					<span class="field_name"><?php echo $field['Field']['name'] ?></span>
 					
 					<div class="up-down">
 					
@@ -82,11 +83,12 @@
 							),array(
 								'class' => 'adres-ajax-anchor sort', 	
 							), null, null, false)  ?>
+							
 					</div>
 					
 				</th>
 			<?php endforeach ?>
-			<th>Links</th>
+			<th style="min-width: 50px;">Links</th>
 		</tr>
 		</thead>
 		<?php foreach ($values as $value): ?>
@@ -108,7 +110,7 @@
 					
 						<?php echo $html->link("del",array( 
 							'controller' => 'sites',
-							'action' => 'delete_record', 
+							'action' => 'show_contact_panel', 
 							$value['Contact']['id']),array(
 								'title' => 'Edit Contact', 
 								'class' => 'adres-edit adres-ajax-anchor', 
@@ -134,6 +136,8 @@
 					</div>
 			<?php endif  ?>
 	</table>
+	
+	</div>
 
 	<?php echo $this->element('paginator')?>
 	

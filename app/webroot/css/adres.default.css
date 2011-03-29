@@ -67,7 +67,7 @@ table.adres-datagrid {
 .adres-datagrid th{
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
-    background: url(theme1/images/table_th.gif) repeat-x;
+    background: #DCDCDC url(theme1/images/table_th.gif) repeat-x;
     color: #454545;
     padding-left: 10px;
     text-transform: capitalize;

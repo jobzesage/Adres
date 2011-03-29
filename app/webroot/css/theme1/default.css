@@ -427,7 +427,7 @@ body		{
 /*/////////////////////////////// Adres Data Grid ///////////////////////////////////*/
 
 .adres-datagrid				{
-							padding: 6px 5px;
+							padding: 6px 0;
 							}
 
 .adres-datagrid .tr-select	{
@@ -971,6 +971,29 @@ dd			{
 
 .message_remove	{
 				border: 3px solid red;
+				}
+				
+/****************** Send Mail *****************/
+
+.mailer			{
+				margin: 0 5px;
+				}
+				
+				.mailer label		{
+									float: left;
+									width: 15px;
+									margin-bottom: 3px;
+									}
+				
+				.mailer textarea	{
+									width: 350px;
+									}
+				
+/****************** Main Table *****************/
+
+#main_table		{
+				overflow: auto;
+				margin: 0 5px;
 				}
 				
 /*<<<<<<< Updated upstream*/
