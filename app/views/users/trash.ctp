@@ -26,7 +26,7 @@
 				'controller'=>'contacts',
 				'action'=>'restore',
 				$trash['Contact']['id']),array(
-					'class'=>'adres-ajax-anchor'	
+					'class'=>'adres-ajax-anchor adres-trash'	
 				), null, null, false)  ?></td>
 		</tr>		
 		<?php endforeach ?>	

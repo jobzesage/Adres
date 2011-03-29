@@ -31,7 +31,8 @@
 				'jquery.jstree',
 				'jquery.validate.pack',
 				'jquery.ui.selectmenu',
-				'adres.core'
+                'jquery.qtip-1.0.0.min.js',
+                'adres.core'
 			));
 			
 			
