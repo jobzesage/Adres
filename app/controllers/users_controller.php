@@ -461,7 +461,7 @@ class UsersController extends AppController {
 		$search = $this->setContactSet();
 		
 		$search['paging'] = false;		#to export all the records filtered or not filtered have to disable the paging	
-		
+	    $search['include_trash']=false;	
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		$this->set('values',$values['data']);
 	}
