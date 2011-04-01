@@ -37,12 +37,12 @@
 		$('.adres-contacts-panel table tr:last td').css({borderBottom:'1px solid #e2dfdf'});
 
 		$('.adres-contacts-panel').css({
-			width: ($(window).width() - 213).toString() + "px"	
+			width: ($(window).width() - 215).toString() + "px"	
 		})
 		
 		$(window).resize(function(e){
 			$('.adres-contacts-panel').css({
-				width: ($(window).width() - 213).toString() + "px"	
+				width: ($(window).width() - 215).toString() + "px"	
 			});
 		});
 		
@@ -55,7 +55,7 @@
 		
 		$('.adres-contacts-panel table tr:even').addClass("tr-even");
 		
-		$("select").selectmenu({width:120});
+		$("select").selectmenu({width:150});
 				
 	});
 </script>

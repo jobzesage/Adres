@@ -31,7 +31,7 @@
 				'jquery.jstree',
 				'jquery.validate.pack',
 				'jquery.ui.selectmenu',
-                'jquery.qtip-1.0.0.min.js',
+		        'jquery.qtip-1.0', #Downloaded from launch pad Ref. 55
                 'adres.core'
 			));
 			

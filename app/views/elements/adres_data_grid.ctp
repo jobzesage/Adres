@@ -3,14 +3,14 @@
 		<?php echo $html->link('New', array(
 			'controller'=>'users',
 			'action'=>'add_record'),array(
-				'class'=>'adres-button  small adres-ajax-anchor  adres-add ui-state-default ui-corner-all' ))
+				'class'=>'adres-button  small adres-ajax-anchor  adres-add ui-state-default ui-corner-all basic' ))
 		 ?>
 		 
-		<?php echo $html->link('Export File('.$count.')', array(
+		<?php echo $html->link('Export File ('.$count.')', array(
 			'controller'=>'users',
 			'action'=>'export.csv'
 			),array(
-				'class' => 'adres-button small ui-state-default ui-corner-all' )
+				'class' => 'adres-button small ui-state-default ui-corner-all basic' )
 		) ?>
 
 
@@ -24,12 +24,12 @@
 	    ?>
 
 
-		<?php echo $html->link('Send Email('.$count.')', array(
+		<?php echo $html->link('Send Email ('.$count.')', array(
 			'controller'=>'mailer',
             'action'=>'open_message',
             $email
 			),array(
-                'class' => 'adres-button adres-ajax-anchor small ui-state-default ui-corner-all' ,
+                'class' => 'adres-button adres-ajax-anchor small ui-state-default ui-corner-all basic' ,
                 'id'=>'send_email'
 			),null,null,false
 		) ?>
@@ -37,7 +37,7 @@
 			'controller'=>'users',
 			'action'=>'#'
 			),array(
-				'class' => 'adres-button small ui-state-default ui-corner-all' 			
+				'class' => 'adres-button small ui-state-default ui-corner-all basic' 			
 			),null,null,false
 		) ?>	
 		
