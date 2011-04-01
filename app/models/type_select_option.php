@@ -48,7 +48,9 @@ class TypeSelectOption extends AppModel {
 		$label= '<div class="input text">
 				<label for="'.$field['Field']['name'].'">'.$field['Field']['name'].'</label>';
 		
-		$output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
+        $output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
+
+        $output .="<option value='0'>Select One</option >";
 		foreach ($selects as $select) {
 			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
 		}

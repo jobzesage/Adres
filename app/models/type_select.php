@@ -58,7 +58,8 @@ class TypeSelect extends Plugin {
 
 	public function processAdvancedSearch($field_id,$column_name, $value)
 	{
-		
+        if(empty($value)) return null; #disable processing for "select one" option
+
 		$optionsClass = ClassRegistry::init('TypeSelectOption');
 		$select_data = $optionsClass->read(null,$value);
 		
@@ -73,8 +74,7 @@ class TypeSelect extends Plugin {
 		$params['field_id'] = $field['Field']['id'];
 		$params['contact_type_id'] = $_SESSION['Contact']['contact_type_id'];
 		$params['column_id'] = 'AdvanceSearch';
-		$selects = ClassRegistry::init($this->optionsClass)->displayOptions($params);
-		
+        $selects = ClassRegistry::init($this->optionsClass)->displayOptions($params);
 		return $selects;
 	}
 	
