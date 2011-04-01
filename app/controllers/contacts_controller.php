@@ -71,14 +71,14 @@ class ContactsController extends AppController {
 	}
 	
 
-	
-	public function export()
-	{
-		$this->helpers = array('Csv');
-		$this->set('data',$this->User->find('all'));
-	}
-	
-	public function restore($id=null)
+	public function trash(){
+        $this->layout = "administrator";
+        $this->paginate= $this->Contact->findTrashed(); 
+        $this->set('trashed',$this->paginate('Contact'));
+    }
+
+
+    public function restore($id=null)
 	{
 		$this->set('status',true);
 		$contact = $this->Contact->read(null,$id);
