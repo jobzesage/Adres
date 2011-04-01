@@ -307,12 +307,13 @@ class Contact extends AppModel {
 	
 	public function findTrashed()
 	{
-		return $this->find('all',array(
+		return array(
 			'contain'=>array('ContactType','Trash','Trasher'),
 			'conditions'=>array(
 				'Contact.trash_id !=0'	
-			)	
-		));
+            ),
+            'order'=>'Log.log_dt DESC'    
+		);
 	}
 	
 }

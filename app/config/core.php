@@ -8,6 +8,9 @@
       
       Configure::write('ADres.url','url');
 
+      Configure::write('ADres.language','en');
+
+      
 	/**
 	 * Application wide charset encoding
 	 */

@@ -5,7 +5,7 @@ class ContactsController extends AppController {
 
 	public $name = 'Contacts';
 	
-	public $uses = array('Contact','User');
+	public $uses = array('Contact');
 
 	public function index() {
 		$this->paginate=array(
@@ -71,22 +71,32 @@ class ContactsController extends AppController {
 	}
 	
 
-	
-	public function export()
-	{
-		$this->helpers = array('Csv');
-		$this->set('data',$this->User->find('all'));
-	}
-	
-	public function restore($id=null)
+	public function trash(){
+        $this->layout = "administrator";
+
+        $this->paginate= $this->Contact->findTrashed(); 
+        $this->set('trashed',$this->paginate('Contact'));
+    }
+
+
+    public function restore($id=null)
 	{
 		$this->set('status',true);
 		$contact = $this->Contact->read(null,$id);
-		if(!empty($contact)){
+        if(!empty($contact) && $this->data){
+
+            $log=array(
+                'user_id'=>$this->Auth->User('id'),
+                'contact_id'=>$id,
+                'description'=>$this->data['Contact']['message']
+            );
 			$contact['Contact']['trash_id']=0;
 			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],1); 
 			#adds a record to counter cache for restoring a contact
-			$this->Contact->save($contact);
+            if($this->Contact->save($contact)){
+                $this->Contact->Log->save($log); 
+            }
+            $this->redirect(array('action'=>'trash'));
 		}
 	}
 }

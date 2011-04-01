@@ -40,3 +40,21 @@
 
 </table>
 </div>
+<?php echo $this->element('layout/_default_paging') ?>
+<div id="trash-dialog" class="hide">
+    <?php echo $form->create('Contact',array('url'=>null ,'id'=>'adres-restore-form'))?>
+    <?php echo $form->input('message',array('type'=>'textarea')) ?>
+    <?php echo $form->end('Restore')?>
+</div>
+<script type="text/javascript" language="javascript" charset="utf-8">
+//<![CDATA[
+    $(function(){
+        $('.adres-trash').click(function(e){
+            var link = $(this).attr('href');
+            $('form#adres-restore-form').attr('action',link);
+            $('#trash-dialog').dialog({title:'Restore Window'});
+            return false;
+        });      
+    })
+//]]>
+</script>

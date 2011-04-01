@@ -1,16 +1,11 @@
 <html>
 	<head>
 		<?php echo $html->charset(); ?>
-		
 		<title>
-			<?php __('Adres the Adress Book',true); ?>
-			<?php #echo $title_for_layout; ?>
+			<?php echo empty($title_for_layout) ? __('Adres the Adress Book',true): $title_for_layout; ?>
 		</title>
-		
-		<?php echo $html->meta('icon') ?>
-			
+		<?php   echo $html->meta('icon') ?>
 		<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
-	
 		<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
 				
 		<!--[if lte IE 7]>
@@ -64,7 +59,7 @@
 		
 				<?php echo $html->link(__('Field Types',true),array('controller'=>'field_types','action'=>'index')) ?>
 	
-				<?php echo $html->link(__('Trash',true),array('controller'=>'users','action'=>'trash')) ?>
+				<?php echo $html->link(__('Trash',true),array('controller'=>'contacts','action'=>'trash')) ?>
 				
 				<?php echo $html->link(__('Users',true),array('controller'=>'users','action'=>'index')) ?>
 		
@@ -88,4 +83,3 @@
 		</div>
 
 	<?php echo $this->element('layout/_footer')?>
-	

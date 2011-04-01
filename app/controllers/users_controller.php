@@ -486,20 +486,12 @@ class UsersController extends AppController {
 	}
 	
 	
-	
-	public function trash()
-	{
-		$this->layout = "administrator";
-		$this->set('trashed',$this->Contact->findTrashed());
-	}
-	
+
 	// generates the links for tabs panel
 	public function show_contact_panel($id)
 	{
 		$this->set('contact_id',$id);
     }
-
-
 
 
 	
