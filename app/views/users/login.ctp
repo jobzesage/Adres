@@ -89,9 +89,9 @@
                 
                 <input class="submit" type="submit" value="" />
                 
-                <a class="forgot" href="#">Forgot your password?</a>
+                <!--a class="forgot" href="#">Forgot your password?</a>
                 
-                <a class="signup" href="#">Not Registered? Sign Up Now!</a>
+                <a class="signup" href="#">Not Registered? Sign Up Now!</a-->
                 
                 </div>
 

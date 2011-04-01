@@ -413,7 +413,7 @@ class UsersController extends AppController {
 			$group_filter =array();
 			//add to stack
 			$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
-			$group_filter = array('name'=>'Group :'.$group['Group']['name'],'sql'=>"ContactGroup.group_id IN($ids)");
+			$group_filter = array('name'=>'Group : '.$group['Group']['name'],'sql'=>"ContactGroup.group_id IN($ids)");
 			if(!in_array($group_filter,$previous_criterias)){
 				$previous_criterias[]=$group_filter;
 			}

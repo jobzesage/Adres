@@ -1,4 +1,4 @@
-	
+
 	<?php  
 	/*-------------------------------
 	| Keyword Search Section
@@ -9,8 +9,8 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/help.png" alt="" title="help text here"></a>
+				<!--a href="#"><img src="/css/theme1/images/add.png" alt="" title="add text here"></a-->
 				<p>Search</p>
 			
 		</div>
@@ -76,8 +76,8 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/help.png" alt="" title="help text here"></a>
+				<!--a href="#"><img src="/css/theme1/images/add.png" alt="" title="add text here"></a-->
 				<p>Groups</p>
 			
 		</div>
@@ -110,8 +110,8 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/help.png" alt="" title="help text here"></a>
+				<!--a href="#"><img src="/css/theme1/images/add.png" alt="" title="add text here"></a-->
 				<p>Criterias</p>
 			
 		</div>
@@ -209,8 +209,8 @@
 
 		<div class="adres-left-sidebar-head">
 			
-				<a href="#"><img src="/css/theme1/images/help.png" alt=""></a>
-				<a href="#"><img src="/css/theme1/images/add.png" alt=""></a>
+				<a href="#"><img src="/css/theme1/images/help.png" alt="" title="help text here"></a>
+				<!--a href="#"><img src="/css/theme1/images/add.png" alt="" title="add text here"></a-->
 				<p>Filters</p>
 			
 		</div>
@@ -265,3 +265,7 @@
 		</div>
 		
 </div>	
+
+<script type="text/javascript">
+$('.adres-left-sidebar-head a img[title]').qtip({ style: { name: 'blue', tip: true } })
+</script>
