@@ -1,6 +1,6 @@
 <?php
 
-      Configure::write('debug',1);
+      Configure::write('debug',0);
       
       Configure::write('ADres.version','1.0.0beta');
       

@@ -311,7 +311,8 @@ class Contact extends AppModel {
 			'contain'=>array('ContactType','Trash','Trasher'),
 			'conditions'=>array(
 				'Contact.trash_id !=0'	
-			)	
+            ),
+            'order'=>'Log.log_dt DESC'    
 		);
 	}
 	
