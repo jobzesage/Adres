@@ -40,3 +40,4 @@
 
 </table>
 </div>
+<?php echo $this->element('layout/_default_paging') ?>

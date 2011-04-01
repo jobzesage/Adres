@@ -489,8 +489,9 @@ class UsersController extends AppController {
 	
 	public function trash()
 	{
-		$this->layout = "administrator";
-		$this->set('trashed',$this->Contact->findTrashed());
+        $this->layout = "administrator";
+        $this->paginate= $this->Contact->findTrashed(); 
+        $this->set('trashed',$this->paginate('Contact'));
 	}
 	
 	// generates the links for tabs panel
