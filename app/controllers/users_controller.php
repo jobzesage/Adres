@@ -213,9 +213,8 @@ class UsersController extends AppController {
 
 	public function add_record(){
 		$this->set('status',true);		
-		if(!empty($this->data)){
+		if(empty($this->data)){
 			
-		}else {
 			$this->Contact->user_id = $this->Auth->user('id');
 			$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
 			

@@ -259,12 +259,12 @@ jQuery(document).ready(function() {
 		
 		$.ajax({
 			url:'/sites/advance_search',
-			//beforeSend:AJAX.LOADER.enable,
+			beforeSend:ADres.LOADER.enable,
 			success:function(resp){
 				$('#adres-dialog').html(resp);
 				ADres.DIALOG.open();
-			}
-			//complete:AJAX.LOADER.disable	
+			},
+			complete:ADres.LOADER.disable	
 		});	
 		return false;
 	});	
