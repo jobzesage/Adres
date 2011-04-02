@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.3.7deb5build0.10.10.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2010 at 11:32 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Generation Time: Apr 02, 2011 at 01:45 AM
+-- Server version: 5.1.49
+-- PHP Version: 5.3.3-1ubuntu9.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `adres_dev`
+-- Database: `adres_development`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `affiliations` (
   `created` datetime NOT NULL,
   `modified` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `affiliations`
@@ -45,7 +45,7 @@ INSERT INTO `affiliations` (`id`, `contact_type_father_id`, `contact_type_child_
 (3, 5, 11, 'is a boss of', 'is lead by', '2010-06-23 10:12:44', 1277287964),
 (4, 5, 11, 'is a manager in', 'is managed by', '2010-06-23 10:13:30', 1277288010),
 (5, 5, 11, 'is a employee of ', 'is employs', '2010-06-23 10:14:40', 1277288080),
-(13, 11, 0, '1', '', '0000-00-00 00:00:00', 0);
+(14, 5, 5, 'is owner', 'is employee', '2011-03-29 18:54:21', 1301424861);
 
 -- --------------------------------------------------------
 
@@ -83,14 +83,14 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `contact_type_id` int(11) NOT NULL,
   `trash_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`) VALUES
-(1, 5, 1),
+(1, 5, 0),
 (2, 5, 0),
 (3, 5, 0),
 (4, 5, 0),
@@ -134,7 +134,9 @@ INSERT INTO `contacts` (`id`, `contact_type_id`, `trash_id`) VALUES
 (42, 0, 0),
 (43, 0, 0),
 (44, 0, 0),
-(45, 0, 0);
+(45, 0, 0),
+(46, 5, 0),
+(47, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `contacts_groups` (
   `contact_id` int(11) unsigned NOT NULL,
   `group_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `contacts_groups`
@@ -160,7 +162,13 @@ INSERT INTO `contacts_groups` (`id`, `contact_id`, `group_id`) VALUES
 (42, 1, 2),
 (43, 3, 2),
 (44, 1, 15),
-(45, 2, 11);
+(45, 2, 11),
+(46, 2, 4),
+(47, 3, 4),
+(48, 9, 4),
+(49, 5, 8),
+(50, 12, 8),
+(51, 13, 8);
 
 -- --------------------------------------------------------
 
@@ -181,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `contact_types` (
 --
 
 INSERT INTO `contact_types` (`id`, `name`, `contact_counter`, `implementation_id`) VALUES
-(5, 'People', 27, 4),
+(5, 'People', 30, 4),
 (8, 'Kids', 1, 4),
 (11, 'Company', 4, 4);
 
@@ -200,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `is_descriptive` tinyint(1) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `fields`
@@ -218,7 +226,9 @@ INSERT INTO `fields` (`id`, `name`, `contact_type_id`, `order`, `field_type_clas
 (15, 'Full Name', 8, 1, 'TypeString', 1, 1),
 (19, 'Instruments', 5, 1, 'TypeSelect', 0, 0),
 (20, 'Test', 11, 1, 'TypeSelect', 0, 1),
-(22, 'birthday', 5, 16, 'TypeDate', 0, 0);
+(22, 'birthday', 5, 16, 'TypeDate', 0, 0),
+(23, 'Email Adress', 11, 1, 'TypeEmail', 1, 0),
+(24, 'mbstu', 8, 1, 'TypeBoolean', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -241,7 +251,8 @@ INSERT INTO `field_types` (`class_name`, `nice_name`) VALUES
 ('TypeInteger', 'integer'),
 ('TypeDate', 'Date'),
 ('TypeBoolean', 'True/false'),
-('TypeSelect', 'Select');
+('TypeSelect', 'Select'),
+('TypeEmail', 'Email');
 
 -- --------------------------------------------------------
 
@@ -320,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `group_parent_fk` (`parent_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `groups`
@@ -396,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `contact_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
 -- Dumping data for table `logs`
@@ -427,7 +438,43 @@ INSERT INTO `logs` (`id`, `log_dt`, `description`, `contact_id`, `user_id`) VALU
 (22, '2010-11-04 22:19:28', 'Changed <strong>Test</strong> from <i>19</i> to <i>16</i>', 26, 1),
 (23, '2010-11-04 22:19:28', 'Changed <strong>PPL</strong> from <i>0</i> to <i>21</i>', 26, 1),
 (24, '2010-11-06 00:04:33', 'Changed <strong>created_at</strong> from <i>2010-06-01 00:00:00</i> to <i>2010:11:17</i>', 2, 1),
-(25, '2010-11-20 23:05:20', 'Changed <strong>birthday</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:11:24</i>', 2, 1);
+(25, '2010-11-20 23:05:20', 'Changed <strong>birthday</strong> from <i>0000-00-00 00:00:00</i> to <i>2010:11:24</i>', 2, 1),
+(26, '2011-02-07 00:17:58', 'Changed <strong>Test</strong> from <i>17</i> to <i>16</i>', 24, 1),
+(27, '2011-02-07 00:17:58', 'Changed <strong>PPL</strong> from <i>0</i> to <i>20</i>', 24, 1),
+(28, '2011-02-07 00:21:30', 'Changed <strong>Test</strong> from <i>18</i> to <i>16</i>', 25, 1),
+(29, '2011-02-07 00:21:31', 'Changed <strong>PPL</strong> from <i>0</i> to <i>20</i>', 25, 1),
+(30, '2011-02-07 00:22:29', 'Changed <strong>Email Adress</strong> from <i>asda</i> to <i>da</i>', 25, 1),
+(31, '2011-02-07 00:27:32', 'Changed <strong>Email Adress</strong> from <i>da</i> to <i>asdfasdafas d</i>', 25, 1),
+(32, '2011-02-07 00:28:37', 'Changed <strong>Email Adress</strong> from <i>asdfasdafas d</i> to <i>asdfasdaf</i>', 25, 1),
+(33, '2011-02-07 00:55:35', 'Changed <strong>PPL</strong> from <i>21</i> to <i>20</i>', 26, 1),
+(34, '2011-02-07 00:58:06', 'Changed <strong>Email Adress</strong> from <i>asda</i> to <i>raju</i>', 26, 1),
+(35, '2011-02-24 11:25:09', 'Changed <strong>Last Name</strong> from <i>Doeee</i> to <i>EE</i>', 2, 1),
+(36, '2011-02-24 11:26:22', 'Changed <strong>Last Name</strong> from <i>EE</i> to <i>EEoo</i>', 2, 1),
+(37, '2011-02-24 11:42:07', 'Changed <strong>Last Name</strong> from <i>EE</i> to <i>aa</i>', 2, 1),
+(38, '2011-02-24 11:42:38', 'Changed <strong>Last Name</strong> from <i>EE</i> to <i>rajib@d32.com.bd</i>', 2, 1),
+(39, '2011-02-24 11:45:19', 'Changed <strong>Email Adress</strong> from <i>sada</i> to <i>aaaaa</i>', 24, 1),
+(40, '2011-02-24 11:45:40', 'Changed <strong>Email Adress</strong> from <i>sada</i> to <i>rajib@d32.com.bd</i>', 24, 1),
+(41, '2011-02-24 11:52:09', 'Changed <strong>Email Adress</strong> from <i>rajib@d32.com.bd</i> to <i></i>', 24, 1),
+(42, '2011-02-24 11:52:29', 'Changed <strong>Email Adress</strong> from <i>rajib@d32.com.bd</i> to <i>adib@d32.com.bd</i>', 24, 1),
+(43, '2011-02-24 11:56:33', 'Changed <strong>Email Adress</strong> from <i>asdfasdaf</i> to <i>l.rajibahmed@gmail.com</i>', 25, 1),
+(44, '2011-02-24 11:56:57', 'Changed <strong>Email Adress</strong> from <i>asda</i> to <i>utpol.quraishy@gmail.com</i>', 26, 1),
+(45, '2011-02-24 11:57:21', 'Changed <strong>Email Adress</strong> from <i>asdfasdaf</i> to <i>l.rajibahmed@gmail.com</i>', 25, 1),
+(46, '2011-02-24 12:02:54', 'Changed <strong>Email Adress</strong> from <i>asdfasdaf</i> to <i>l.rajibahmed@gmail.com</i>', 25, 1),
+(47, '2011-02-24 12:03:11', 'Changed <strong>Email Adress</strong> from <i>l.rajibahmed@gmail.com</i> to <i>l.rajibahmed@gmail</i>', 25, 1),
+(48, '2011-03-26 19:01:03', 'fsada', 26, 1),
+(49, '2011-03-28 15:39:12', 'Changed <strong>Email Adress</strong> from <i>l.rajibahmed@gmail.com</i> to <i>jonathan@tbbmi.no</i>', 25, 1),
+(50, '2011-03-28 15:42:54', 'Changed <strong>First Name</strong> from <i>John</i> to <i>Jonathan</i>', 2, 1),
+(51, '2011-03-29 17:20:25', 'test', 24, 1),
+(52, '2011-03-29 18:42:32', 'hello ......', 2, 1),
+(53, '2011-04-01 09:32:55', 'it is deleted by me Rajib', 1, 1),
+(54, '2011-04-01 10:44:38', 'asdfasd asd', 1, 1),
+(55, '2011-04-01 10:55:09', 'hkjhk', 1, 1),
+(56, '2011-04-01 11:09:38', 'wow this is fun', 4, 1),
+(57, '2011-04-01 11:10:26', 'this is so cool !!!', 4, 1),
+(58, '2011-04-01 22:17:43', 'Changed <strong>Instruments</strong> from <i>12</i> to <i>14</i>', 2, 1),
+(59, '2011-04-01 23:08:48', 'Contact saved', 46, 1),
+(60, '2011-04-01 23:13:36', 'Contact saved', 47, 1),
+(61, '2011-04-01 23:40:51', 'Changed <strong>mbstu</strong> from <i>0</i> to <i>1</i>', 23, 1);
 
 -- --------------------------------------------------------
 
@@ -489,7 +536,8 @@ INSERT INTO `type_boolean` (`field_id`, `contact_id`, `data`) VALUES
 (14, 22, 0),
 (14, 24, 1),
 (14, 25, 1),
-(14, 26, 0);
+(14, 26, 0),
+(24, 23, 0);
 
 -- --------------------------------------------------------
 
@@ -547,7 +595,12 @@ INSERT INTO `type_date` (`field_id`, `contact_id`, `data`) VALUES
 (12, 39, '2010-07-01 00:00:00'),
 (12, 41, '2010-07-22 00:00:00'),
 (22, 2, '2010-11-24 00:00:00'),
-(22, 3, '0000-00-00 00:00:00');
+(22, 3, '0000-00-00 00:00:00'),
+(12, 46, '0000-00-00 00:00:00'),
+(22, 46, '0000-00-00 00:00:00'),
+(22, 33, '0000-00-00 00:00:00'),
+(12, 47, '0000-00-00 00:00:00'),
+(22, 47, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -571,6 +624,28 @@ CREATE TABLE IF NOT EXISTS `type_date_options` (
 INSERT INTO `type_date_options` (`id`, `contact_type_id`, `field_id`, `format`, `selected`) VALUES
 (1, 5, 12, 'timeAgoInWords', 1),
 (2, 5, 22, 'niceShort', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_email`
+--
+
+CREATE TABLE IF NOT EXISTS `type_email` (
+  `field_id` int(11) NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `data` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type_email`
+--
+
+INSERT INTO `type_email` (`field_id`, `contact_id`, `data`) VALUES
+(23, 22, 'rajib@d32.com.bd'),
+(23, 24, 'adib@d32.com.bd'),
+(23, 25, 'jonathan@tbbmi.no'),
+(23, 26, 'utpol.quraishy@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -624,7 +699,9 @@ INSERT INTO `type_integer` (`field_id`, `contact_id`, `data`) VALUES
 (5, 37, 90),
 (5, 38, 9988),
 (5, 39, 33),
-(5, 41, NULL);
+(5, 41, NULL),
+(5, 46, NULL),
+(5, 47, NULL);
 
 -- --------------------------------------------------------
 
@@ -645,13 +722,18 @@ CREATE TABLE IF NOT EXISTS `type_select` (
 INSERT INTO `type_select` (`contact_id`, `field_id`, `data`) VALUES
 (2, 19, 12),
 (22, 20, 16),
-(24, 20, 17),
+(24, 20, 16),
 (3, 19, 14),
-(25, 20, 18),
+(25, 20, 16),
 (26, 20, 16),
 (4, 19, 13),
 (22, 21, 20),
-(26, 21, 21);
+(26, 21, 20),
+(24, 21, 20),
+(25, 21, 20),
+(46, 19, 0),
+(33, 19, 0),
+(47, 19, 0);
 
 -- --------------------------------------------------------
 
@@ -704,7 +786,7 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (4, 1, 'Ahmed'),
 (6, 1, 'male'),
 (3, 2, 'John'),
-(4, 2, 'Doeee'),
+(4, 2, 'EE'),
 (6, 2, 'male'),
 (3, 3, 'Jonathan'),
 (4, 3, 'Bigler'),
@@ -811,7 +893,13 @@ INSERT INTO `type_string` (`field_id`, `contact_id`, `data`) VALUES
 (16, 40, '01212121'),
 (4, 41, 'ffsdfa'),
 (6, 41, 'dfasd'),
-(3, 41, 'fdfasd');
+(3, 41, 'fdfasd'),
+(4, 46, ''),
+(6, 46, ''),
+(3, 46, ''),
+(4, 47, ''),
+(6, 47, ''),
+(3, 47, '');
 
 -- --------------------------------------------------------
 
@@ -829,7 +917,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_active` tinyint(1) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
@@ -840,7 +929,3 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `pass
 (1, 'test', 'test', 'test', 'test@hotmail.com', 'c4a58768bbcec0a0c8e4abc84cc3e3c13d4bc1f8', 1, '2010-02-16 19:18:07', '2010-02-16 19:18:07'),
 (3, 'Rajib', 'Ahmed', 'rajib', 'l.rajibahmed@gmail.com', '413eb47b96ca90c897dda9685f4d0374a7393c32', 1, '2010-06-15 13:59:43', '2010-06-15 13:59:43'),
 (4, 'Jonathan', 'Bigler', 'mybigler', 'mybigler@gmail.com', '52340dec5d55864c9c63f0e5e57ecfbbd6d0b025', 1, '2010-07-07 01:54:24', '2010-07-07 01:54:24');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
