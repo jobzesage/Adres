@@ -4,7 +4,7 @@ require_once 'plugin_interface.php';
 
 App::import('Sanitize');
 
-class Plugin extends AppModel implements iPlugin {
+class Plugin extends AppModel{
 	
 	public $useTable = false;
 	
@@ -20,7 +20,12 @@ class Plugin extends AppModel implements iPlugin {
 
     public $_field_id = null;
 
-    protected $_adresValidate = array();
+    //For accessing the default case to return true where there is no 
+    // validator defined
+    protected $_adresValidate = array(
+        'None'=>array(
+            'rule'=>null
+    )); 
 
     protected $_registered_callbacks = array('adresBeforeSave','adresAfterSave');
 
@@ -184,7 +189,7 @@ class Plugin extends AppModel implements iPlugin {
 		// 	}
 		// }
 
-		if ($this->adresValidates()) {
+		if ($this->adresValidates() && $this->_input !="") {
             $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
 		}
 

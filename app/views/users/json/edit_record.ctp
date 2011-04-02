@@ -1,6 +1,8 @@
 <script type="text/javascript">
 	$(function(){
-		$('form#edit-contact').validate();
+        $('form#edit-contact').validate();
+		$("select").selectmenu({width:150});
+ 
 	});	
 </script>
 
