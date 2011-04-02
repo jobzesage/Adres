@@ -1,7 +1,6 @@
 <?php  
-
+require_once 'type_date_helper.php';
 App::import('Model','Plugin');
-App::import('Helper','Time');
 
 class TypeDate extends Plugin{
 	
@@ -14,7 +13,7 @@ class TypeDate extends Plugin{
 	public $optionsClass = 'TypeDateOption';
 
 	public function __construct(){
-		$this->_time = new TimeHelper();
+		$this->_time = new AdresTimeHelper();
 		parent::__construct();
 	}
 	
