@@ -4,7 +4,7 @@ require_once 'plugin_interface.php';
 
 App::import('Sanitize');
 
-class Plugin extends AppModel{
+class Plugin extends AppModel implements iPlugin{
 	
 	public $useTable = false;
 	
@@ -189,7 +189,7 @@ class Plugin extends AppModel{
 		// 	}
 		// }
 
-		if ($this->adresValidates() && $this->_input !="") {
+		if ($this->adresValidates()) {
             $this->updateAll(array($data_column =>'\''.$this->_input.'\''),$condition);
 		}
 

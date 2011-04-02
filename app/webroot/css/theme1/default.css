@@ -1031,3 +1031,7 @@ dd			{
 .highlight		{
 				background: red;
 				}
+
+.text.area{
+    width:333px;
+}

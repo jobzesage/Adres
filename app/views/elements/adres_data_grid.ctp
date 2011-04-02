@@ -113,7 +113,7 @@
 							'action' => 'show_contact_panel', 
 							$value['Contact']['id']),array(
 								'title' => 'Edit Contact', 
-								'class' => 'adres-edit adres-ajax-anchor', 
+								'class' => 'adres-edit', 
 							),null,false)
 						?>	
 

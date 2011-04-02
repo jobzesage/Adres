@@ -191,6 +191,13 @@ ADres.DIALOG={
 	}
 }
 
+ADres.i18n = {
+	less: 'less',
+	more: 'more',
+	confirmDelete: 'Are you sure you want to delete?'
+};
+
+
 jQuery(document).ready(function() {
 
 	var ajax_options={
@@ -316,5 +323,19 @@ jQuery(document).ready(function() {
 	
 	setTimeout(function(){ $("#flashMessage").fadeOut() }, 5000);
 
+	$('table.adres-datagrid tr td').live('click', function(e) {
+       /*         if ($(this).text() == ADres.i18n.more) {*/
+			//$(this).closest('td').find('span:first').hide();
+			//$(this).closest('td').find('span.full_text').show();
+			//$(this).text(FocusBuilder.i18n.less);
+		//} else {
+			//$(this).closest('td').find('span.full_text').hide();
+			//$(this).closest('td').find('span:first').show();
+			//$(this).text(ADres.i18n.more);
+		//}
+		
+		e.stopPropagation();
+		e.preventDefault();
+	});
 
 });
