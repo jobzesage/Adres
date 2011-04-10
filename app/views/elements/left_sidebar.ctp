@@ -17,35 +17,33 @@
 		
 		<div class="adres-left-sidebar-content">
 					
-						<div class="adres-search">
-					
-	<?php //echo $html->tag('h6',"Search",array('class'=>'adres-button small ui-state-default ui-corner-all')) ?>
+				<div class="adres-search">
 
-	<?php echo $form->create('Search',array(
-		'url'=>array(
-			'controller'=>'users',
-			'action'=>'add_keyword'
-		),
-		'type'=>'get',
-		'class' => 'adres-ajax-search', 
-		)) ?>
-		
-		<div class="text input">
-			<?php echo $form->input('keyword',array(
-				'class'=>'text ui-corner-all',
-				'value'=>'', # can set the inital value
-				'label'=>false,
-				'div'=>false
-			)) ?>
-			<?php echo $form->hidden('contact_type_id',array(
-				'value' => 5
-			)); ?>
-
-			<input type="submit" value="submit" class="search-submit" />
-
-			<?php echo $form->end() ?>
+						<?php echo $form->create('Search',array(
+						'url'=>array(
+							'controller'=>'users',
+							'action'=>'add_keyword'
+						),
+						'type'=>'get',
+						'class' => 'adres-ajax-search', 
+						)) ?>
+						
+						<div class="text input">
+							<?php echo $form->input('keyword',array(
+								'class'=>'text ui-corner-all',
+								'value'=>'', # can set the inital value
+								'label'=>false,
+								'div'=>false
+							)) ?>
+						<?php echo $form->hidden('contact_type_id',array(
+							'value' => 5
+						)); ?>
+				
+						<input type="submit" value="submit" class="search-submit" />
+				
+						<?php echo $form->end() ?>
 			
-		</div>
+				</div>
 
 	<?php  
 	/*-------------------------------
@@ -53,14 +51,14 @@
 	|--------------------------------*/
 	?>
 	
-	<?php echo $html->link('Advance Search',array('#'),array(
-			'id' => 'toggle-search', 			
-			'class' => 'advance', 
-		)) ?>
+				<?php echo $html->link('Advance Search',array('#'),array(
+					'id' => 'toggle-search', 			
+					'class' => 'advance', 
+				)) ?>
 								
-						<div class="clear"></div>
-						</div>			
-			
+				<div class="clear"></div>
+				</div>	
+	
 		</div>
 		
 </div>
@@ -104,7 +102,14 @@
 		</div>
 		
 </div>
-	
+
+
+							
+	<?php  
+	/*-------------------------------
+	| Keyword Filter Section
+	|--------------------------------*/
+	?>
 	
 <div class="adres-left-sidebar-box">
 
@@ -119,30 +124,24 @@
 		<div class="adres-left-sidebar-content">
 					
 						<div class="adres-filter-hold">
-							
-	<?php  
-	/*-------------------------------
-	| Keyword Filter Section
-	|--------------------------------*/
-	?>
 	
-	<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
-
-		<?php $keyword = $session->read('Filter.keyword') ?>
-
-		<?php if ($session->check('Filter.keyword')): ?>
-			<div class="adres-criteria">
-				<?php echo $html->link("Keyword : {$keyword}", array(
-					'controller'=>'users',
-					'action' => 'delete_keyword', 
-					$keyword
-				), array(
-					'class'=>'adres-ajax-anchor adres-delete-keyword filter-bullet'
-				)) ?>				
-            </div>
-            
-
-		<?php endif ?>
+								<?php if ($session->check('Filter.keyword') || $session->check('Filter.criteria')): ?>
+						
+								<?php $keyword = $session->read('Filter.keyword') ?>
+						
+								<?php if ($session->check('Filter.keyword')): ?>
+									<div class="adres-criteria">
+										<?php echo $html->link("Keyword : {$keyword}", array(
+											'controller'=>'users',
+											'action' => 'delete_keyword', 
+											$keyword
+										), array(
+											'class'=>'adres-ajax-anchor adres-delete-keyword filter-bullet'
+										)) ?>				
+						            </div>
+						            
+						
+								<?php endif ?>
 	    
 		
 	<?php  
@@ -195,6 +194,36 @@
 
 			<?php echo $form->end(array('label'=>'Add to group','class'=>'filter-add adres-button')) ?>
 
+
+	<?php  
+	/*-------------------------------
+	| Filter Section
+	|--------------------------------*/
+	?>
+	
+						<div class="filter_line"></div>
+					
+						<div class="adres-filter-hold">
+		
+								<?php echo $form->create('Filter',array(
+									'url'=>array(
+										'controller'=>'users',
+										'action' => 'save_filter'
+									),
+									'class' => 'adres-ajax-form adres-save-filter',
+								)) ?>
+								
+									<?php echo $form->input('name',array(
+										'class'=>'text ui-corner-all',
+										'lable'=>array('text'=>'Write a Name')
+									)) ?>
+									
+								<?php echo $form->end(array('label'=>'save','class'=>'filter-save adres-button')) ?>
+								
+						</div>
+						
+								<?php endif ?>
+						
 						<div class="clear"></div>
 
 						</div><!-- adres-filter-hold -->
@@ -202,9 +231,13 @@
 		</div>
 
 </div>	
-
-
-			
+	
+						<?php  
+						/*-------------------------------
+						| Saved Filter Section
+						|--------------------------------*/
+						?>
+						
 <div class="adres-left-sidebar-box">
 
 		<div class="adres-left-sidebar-head">
@@ -216,51 +249,27 @@
 		</div>
 		
 		<div class="adres-left-sidebar-content">
-					
+			
 						<div class="adres-filter-hold">
-		
-		<?php echo $form->create('Filter',array(
-			'url'=>array(
-				'controller'=>'users',
-				'action' => 'save_filter'
-			),
-			'class' => 'adres-ajax-form adres-save-filter',
-		)) ?>
-		
-			<?php echo $form->input('name',array(
-				'class'=>'text ui-corner-all',
-				'lable'=>array('text'=>'Write a Name')
-			)) ?>
-			
-		<?php echo $form->end(array('label'=>'save','class'=>'filter-save adres-button')) ?>
-		
-	<?php endif ?>	
-	
-	
-	
-	<?php  
-	/*-------------------------------
-	| Saved Filter Section
-	|--------------------------------*/
-	?>
-			
-	<div id="adres-saved-filters">
-	
-		<div class="ajax-response" style="margin-left: 10px;">
-			
-		<?php 
-			/*-------------------------------
-			| Shows the filters list from same element
-			|--------------------------------*/			
-			echo $this->element('ajax/save_filter') 
-		?>
-		
-		
-		</div>	
-	</div><!-- // adres-saved-filters -->	
 								
-						<div class="clear"></div>
-						</div>			
+						<div id="adres-saved-filters">
+						
+							<div class="ajax-response" style="margin-left: 10px;">
+								
+							<?php 
+								/*-------------------------------
+								| Shows the filters list from same element
+								|--------------------------------*/			
+								echo $this->element('ajax/save_filter') 
+							?>
+							
+							</div>	
+							
+						</div><!-- // adres-saved-filters -->	
+								
+						<div class="clear"></div>	
+						
+						</div>		
 			
 		</div>
 		

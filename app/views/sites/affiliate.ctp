@@ -54,48 +54,4 @@
 	</div>
 	
 	
-<script type="text/javascript">
-	// $(function(){
-	// 
-	// 			
-	// 	$('form#adres-affiliate-form').bind('submit',function(e){
-	// 		e.stopPropagation();
-	// 		e.preventDefault();
-	// 		var $form = $(this);
-	// 		var action = $form.attr('action');
-	// 
-	// 		$.ajax({
-	// 			url:action,
-	// 			dataType:'json',
-	// 			type:'POST',
-	// 			data:$form.serialize(),
-	// 			beforeSend:ADres.LOADER.enable,
-	// 			success:function(resp){
-	// 				console.log($('div#adres-affiliation'));	
-	// 				$('div.affiliation_container').replaceWith(resp);				
-	// 			},
-	// 			complete:ADres.LOADER.disable			
-	// 		});
-	// 	});
-  // });
-  
-  $(function() {  
-    $('#AffiliateAutocompleter').autocomplete({
-			source: '/sites/contact_picker.json',
-			select: function( event, ui ) {
-				$('input#AffiliateContactId').val(ui.item.id);
-			}
-		});
-		
-		//ui autocomplete highlight hack 
-	 	$.ui.autocomplete.prototype._renderItem = function (ul, item) {
-		     item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
-		     return $("<li></li>")
-		             .data("item.autocomplete", item)
-		             .append("<a>" + item.label + "</a>")
-		             .appendTo(ul);
-		 };	
- 
-  });
-          
-</script>
+<script type="text/javascript" src="/js/adres-contact-autocompleter.js"></script>

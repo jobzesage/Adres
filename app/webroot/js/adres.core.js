@@ -1,6 +1,7 @@
 var ADres={};
 ADres.version=0.1;
 var UI=null
+var test;
 
 ADres.AJAX={
 	loaderImageSmall:'<img src="/img/loader_small.gif"/>',
@@ -57,7 +58,7 @@ ADres.AJAX={
 					}
 					else if($form.is('#edit-contact')){
 						ADres.DIALOG.close();
-						//window.location.reload(true);
+					    adresTabReload();
 					}
 					else if($form.is('#SearchAddForm')){
 						$('div#contacts').html(resp.data);
@@ -216,12 +217,9 @@ jQuery(document).ready(function() {
 	// Hash Change Plugin integration
 	// http://benalman.com/code/projects/jquery-bbq/examples/fragment-jquery-ui-tabs
 	
-	$(window).bind('hashchange',function(e){
-		console.log(window.location.hash);	
-	});
+
 	
-	
-	$('#adres-tabs').tabs({
+	$tab = $('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
 			beforeSend:function(){
@@ -229,13 +227,9 @@ jQuery(document).ready(function() {
 			},
 			complete:ADres.LOADER.disable
 		},
-		load: function(event, ui) {
-			//add hash change here
-        	$('a.adres-tabs-button', ui.panel).click(function(e) {
-            	$(ui.panel).load(this.href);
-	        	e.stopPropagation();
-        	});
-    	}
+        show:function(e,ui){
+            $.cookie('contacts_link', $(ui.tab).data('href.tabs'));
+        }
 	});
 	
 	
@@ -303,16 +297,10 @@ jQuery(document).ready(function() {
 		}).focus();
 	});
 
-	$('body').trigger('click');
-	
-	// $('a.adres-tabs-button').bind('click',function(e){
-	// 	alert(this.hash);	
-	// });
 
 
 	$('.adres-tabs').tabs();
 
-	//$(window).trigger( 'hashchange' );	
 	
 	$('table.adres-datagrid tr').each(function(i,d){
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
@@ -338,4 +326,24 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 	});
 
+    //need to use this after a new one gets created to solve this
+     
+
 });
+
+
+function adresTabReload() {
+    var href = $.cookie('contacts_link');
+    $('#adres-tabs a.adres-tabs-button').each(function(){
+       var contact_type_id = $.cookie('CakeCookie[contact_type_id]');
+       console.log(href);
+
+       if(href==='/users/display_contacts/'+ contact_type_id);
+        {
+            //$(this).trigger('click');
+
+            console.log(this);
+        }
+
+    })     
+}

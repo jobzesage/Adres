@@ -39,7 +39,7 @@
 				'options' => $affiliations
 			)) ?>
 			<?php echo $form->input('contact_id',array(
-				'class' => 'advance_search_contact'
+				'class' => 'advance_search_contact adres-contact-picker'
 			)) ?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
@@ -60,3 +60,5 @@
 	});
 	
 </script>
+
+<script src="/js/adres-contact-autocompleter.js" type="text/javascript" charset="utf-8"></script>

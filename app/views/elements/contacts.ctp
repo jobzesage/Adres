@@ -19,5 +19,4 @@
 	<?php echo $this->element('adres_data_grid') ?>
 	
 </div>
-
-<script src="/js/adres-contacts.js" type="text/javascript"></script>
+<script src="/js/adres-contacts.js.php" type="text/javascript"></script>
