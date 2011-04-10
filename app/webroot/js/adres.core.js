@@ -219,17 +219,11 @@ jQuery(document).ready(function() {
 	
 
 	
-	$tab = $('#adres-tabs').tabs({
+	$('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
-			beforeSend:function(){
-				
-			},
 			complete:ADres.LOADER.disable
-		},
-        show:function(e,ui){
-            $.cookie('contacts_link', $(ui.tab).data('href.tabs'));
-        }
+		}
 	});
 	
 	
@@ -333,17 +327,13 @@ jQuery(document).ready(function() {
 
 
 function adresTabReload() {
-    var href = $.cookie('contacts_link');
-    $('#adres-tabs a.adres-tabs-button').each(function(){
-       var contact_type_id = $.cookie('CakeCookie[contact_type_id]');
-       console.log(href);
-
-       if(href==='/users/display_contacts/'+ contact_type_id);
+    var contact_type_id = $.cookie('CakeCookie[contact_type_id]');
+    var $link=null
+    $.each($('#adres-tabs a.adres-tabs-button'),function(i,link){
+        $link = $(link);
+        if($link.data('href.tabs') === '/users/display_contacts/'+ contact_type_id)     
         {
-            //$(this).trigger('click');
-
-            console.log(this);
+            $('#contacts').load($link.data('href.tabs'));
         }
-
-    })     
+    });
 }
