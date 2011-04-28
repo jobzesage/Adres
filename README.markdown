@@ -42,7 +42,6 @@ Plugin To This System
 * Number Plugin
 * DropDown Plugin
 * Email Plugin
-* Phone Plugin
 
 Creating your own plugin
 -------------------------
