@@ -312,7 +312,7 @@ class Contact extends AppModel {
 			'conditions'=>array(
 				'Contact.trash_id !=0'	
             ),
-            'order'=>'Log.log_dt DESC'    
+            'order'=>'Trash.log_dt DESC'    
 		);
 	}
 	
