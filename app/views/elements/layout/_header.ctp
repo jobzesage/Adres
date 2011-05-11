@@ -13,6 +13,7 @@
 		<!--[if lte IE 7]>
 		<?php	echo $html->css(array('blueprint/ie')) ?>		
 		<![endif]-->
+		
 		<?php echo $html->css(array(
 				'adres.default',
 				'jquery-ui-1.7.2.modified',
@@ -25,8 +26,7 @@
 		<?php	echo $javascript->link(array(
 				'jquery-1.4.2.min',
 				'jquery-ui-1.8.custom.min',
-				'jquery.blockUI.js',
-				'jquery.ba-bbq.min',
+				'jquery.blockUI',
 				'jquery.cookie',
 				'jquery.jstree',
 				'jquery.validate.pack',
@@ -36,7 +36,7 @@
 			));
 			
 			
-			#echo $scripts_for_layout;
+			echo $scripts_for_layout;
 		?>
 	</head>
     

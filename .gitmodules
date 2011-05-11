@@ -1,3 +1,6 @@
 [submodule "app/vendors/swiftmailer"]
 	path = app/vendors/swiftmailer
 	url = git://github.com/swiftmailer/swiftmailer.git
+[submodule "app/plugins/debug_kit"]
+	path = app/plugins/debug_kit
+	url = git://github.com/cakephp/debug_kit.git
