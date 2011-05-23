@@ -36,7 +36,7 @@
 			));
 			
 			
-			echo $scripts_for_layout;
+			#echo $scripts_for_layout;
 		?>
 	</head>
     

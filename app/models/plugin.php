@@ -4,7 +4,7 @@ require_once 'plugin_interface.php';
 
 App::import('Sanitize');
 
-class Plugin extends AppModel implements iPlugin{
+class Plugin extends AppModel{
 	
 	public $useTable = false;
 	
@@ -17,7 +17,7 @@ class Plugin extends AppModel implements iPlugin{
 	protected $_join_field_name = 'field_id';	
 	
 	public $_input = null;
-
+    
     public $_field_id = null;
 
     //For accessing the default case to return true where there is no 
