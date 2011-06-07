@@ -266,6 +266,8 @@ class SitesController extends AppController {
     {
       	$this->layout=null;
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
+			$this->disableDebugger();
+			
 			$contact_type_id = $this->Session->read('Contact.contact_type_id');
 			$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
 		
