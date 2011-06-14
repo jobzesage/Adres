@@ -1,6 +1,7 @@
 <?php  
 
 App::import('Model','Plugin');
+App::import('Model', 'TypeStringOption');
 
 class TypeString extends Plugin {
 	
@@ -27,7 +28,19 @@ class TypeString extends Plugin {
 			'fields' => array("DISTINCT contact_id, GROUP_CONCAT( TypeString.data SEPARATOR ' ') as data"), 
 			'group' => "TypeString.contact_id having data REGEXP '^{$keys['term']}'" 
 		));
-    }	
+    }
+
+
+
+    //@override 
+    public function after(Array $column){
+        $tso = TypeStringOption::getInstrance();
+        $k = array_keys($column['data']);
+        $d = array_values($column['data']);
+        $data = $tso->addElipse($d[0]);
+        
+        return array($k[0]=>$data['modified']);
+    }    
 		
 }
 ?>

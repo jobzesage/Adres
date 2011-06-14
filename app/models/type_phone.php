@@ -10,9 +10,12 @@ class TypePhone extends Plugin{
         'notEmptyFields'=>array(
             'rule'=>'notEmpty',
             'message'=>'field can not be blank'    
+        ),
+        // add phone validation
+        'phone'=>array(
+            'rule'=>'phone',
+            'message'=>'not a valid phone number'
         )
-        // add phone validation        
-
     );	    
 
 }

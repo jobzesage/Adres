@@ -150,7 +150,8 @@ class Plugin extends AppModel{
 	
 	
 	public function processEditForm($options)
-	{
+    {
+        //not a good idea to use extract :(
 		extract($options);
 		
 		if(!empty($field_id)){
@@ -229,7 +230,11 @@ class Plugin extends AppModel{
                     break;
                 case 'notEmpty':
                 	$status = !empty($this->_input); 
-                	break;
+                    break;
+                case 'phone':
+                    // add phone validation regex here
+                    $status = true;
+                    break;
                 default:
                     return true;
                     break;
