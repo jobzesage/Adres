@@ -12,7 +12,7 @@ ADres.AJAX={
 		var $select = $(this);
 		var $form = $select.closest('form');
 		var action = $form.attr('action')+'.json';
-			
+
 		$.ajax({
 			url:action,
 			dataType:'json',
@@ -36,7 +36,7 @@ ADres.AJAX={
 		var action = $form.attr('action')+'.json';
 
 		var contact_id = $form.find('input#edit-contact-id').val();
-				
+
 		$.ajax({
 			url:action,
 			dataType:'json',
@@ -72,7 +72,7 @@ ADres.AJAX={
 		});
 	},
 	form_search:function(e){
-		
+
 		e.stopPropagation();
 		e.preventDefault();
 
@@ -90,9 +90,9 @@ ADres.AJAX={
 				}
 			},
 			complete:ADres.LOADER.disable
-		});		
+		});
 	},
-	
+
 	link:function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -103,8 +103,8 @@ ADres.AJAX={
 				return false;
 			}
 		}
-		
-		
+
+
 		$.ajax({
 			url:action,
 			dataType:'json',
@@ -112,13 +112,13 @@ ADres.AJAX={
 			success:function(resp){
 				if(resp.status){
 					if($link.hasClass('adres-delete')){
-						$('#adres-dialog').html(resp.data);						
+						$('#adres-dialog').html(resp.data);
 						ADres.DIALOG.open();
-						
+
 					}else if($link.hasClass('adres-trash')){
 						$link.closest('tr').animate({'backgroundColor':'red'},300);
-						$link.closest('tr').fadeOut(200,function(){ 
-							$(this).remove();	
+						$link.closest('tr').fadeOut(200,function(){
+							$(this).remove();
 						});
 					}
 					else if($link.hasClass('adres-show')){
@@ -188,7 +188,7 @@ ADres.DIALOG={
 		});
 	},
 	close:function(){
-		$('#adres-dialog').dialog("close");		
+		$('#adres-dialog').dialog("close");
 	}
 }
 
@@ -205,7 +205,7 @@ jQuery(document).ready(function() {
 		beforeSend:ADres.LOADER.enable,
 		complete:ADres.LOADER.disable
 	};
-	
+
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);
@@ -213,20 +213,20 @@ jQuery(document).ready(function() {
 	$('a.adres-ajax-anchor').live('click',ADres.AJAX.link);
 
 	// $('form#ContactAddForm').live('submit',ADres.AJAX.form_submit);
-	
+
 	// Hash Change Plugin integration
 	// http://benalman.com/code/projects/jquery-bbq/examples/fragment-jquery-ui-tabs
-	
 
-	
+
+
 	$('#adres-tabs').tabs({
 		spinner: ADres.AJAX.loaderImageSmall,
 		ajaxOptions:{
 			complete:ADres.LOADER.disable
 		}
 	});
-	
-	
+
+
 	$('a.adres-contact-tabs-panel').live('click',function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -241,17 +241,17 @@ jQuery(document).ready(function() {
 				$('#adres-dialog').html(resp);
 				ADres.DIALOG.open();
 			}
-			//complete:AJAX.LOADER.disable	
-		});		
+			//complete:AJAX.LOADER.disable
+		});
 	});
-	
-	
-	
+
+
+
 	$('#toggle-search').live('click',function(e){
-		
+
 		// $(this).closest(':header').toggleClass("ui-state-highlight");
 		// $('#adres-advance-search').toggle('blind',{},500);
-		
+
 		$.ajax({
 			url:'/sites/advance_search',
 			beforeSend:ADres.LOADER.enable,
@@ -259,11 +259,11 @@ jQuery(document).ready(function() {
 				$('#adres-dialog').html(resp);
 				ADres.DIALOG.open();
 			},
-			complete:ADres.LOADER.disable	
-		});	
+			complete:ADres.LOADER.disable
+		});
 		return false;
-	});	
-	
+	});
+
 	$('form#adres-affiliate-form').live('submit',function(e){
 		e.stopPropagation();
 		e.preventDefault();
@@ -277,17 +277,17 @@ jQuery(document).ready(function() {
 			success:function(resp){
 				$form.closest('#adres-affiliation').replaceWith(resp);
 			},
-			complete:ADres.LOADER.disable			
+			complete:ADres.LOADER.disable
 		});
-			
+
 	});
-	
+
 	$('input.date_time').live('click',function(e){
 		$(this).datepicker({
 			buttonImage: '/img/ui/calendar.gif',
 			buttonImageOnly: true,
 			dateFormat:'yy:mm:dd'
-			
+
 		}).focus();
 	});
 
@@ -295,33 +295,19 @@ jQuery(document).ready(function() {
 
 	$('.adres-tabs').tabs();
 
-	
+
 	$('table.adres-datagrid tr').each(function(i,d){
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
 			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
 	});
-	
+
 	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
-	
+
 	setTimeout(function(){ $("#flashMessage").fadeOut() }, 5000);
 
-	$('table.adres-datagrid tr td').live('click', function(e) {
-       /*         if ($(this).text() == ADres.i18n.more) {*/
-			//$(this).closest('td').find('span:first').hide();
-			//$(this).closest('td').find('span.full_text').show();
-			//$(this).text(FocusBuilder.i18n.less);
-		//} else {
-			//$(this).closest('td').find('span.full_text').hide();
-			//$(this).closest('td').find('span:first').show();
-			//$(this).text(ADres.i18n.more);
-		//}
-		
-		e.stopPropagation();
-		e.preventDefault();
-	});
 
     //need to use this after a new one gets created to solve this
-     
+
 
 });
 
@@ -331,7 +317,7 @@ function adresTabReload() {
     var $link=null
     $.each($('#adres-tabs a.adres-tabs-button'),function(i,link){
         $link = $(link);
-        if($link.data('href.tabs') === '/users/display_contacts/'+ contact_type_id)     
+        if($link.data('href.tabs') === '/users/display_contacts/'+ contact_type_id)
         {
             $('#contacts').load($link.data('href.tabs'));
         }
