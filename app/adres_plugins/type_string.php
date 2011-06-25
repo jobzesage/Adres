@@ -1,6 +1,7 @@
 <?php
 
 App::import('Model','Plugin');
+App::import('Model', 'TypeStringOption');
 
 class TypeString extends Plugin {
 
@@ -28,6 +29,8 @@ class TypeString extends Plugin {
 			'group' => "TypeString.contact_id having data REGEXP '^{$keys['term']}'"
 		));
     }
+
+
 
 
 
