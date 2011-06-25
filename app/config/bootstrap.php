@@ -40,5 +40,6 @@
  * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
  *
  */
+$modelPaths = array(ROOT.DS.APP_DIR."/adres_plugins");
 //EOF
 ?>

@@ -1,16 +1,16 @@
 <?php
 
-      Configure::write('debug',0);
-      
+      Configure::write('debug',2);
+
       Configure::write('ADres.version','1.0.0beta');
-      
+
       Configure::write('ADres.auto_install',false);
-      
+
       Configure::write('ADres.url','url');
 
       Configure::write('ADres.language','en');
 
-      
+
 	/**
 	 * Application wide charset encoding
 	 */
@@ -43,9 +43,9 @@
 	Configure::write('Session.checkAgent', true);
 
 	Configure::write('Security.level', 'medium');
-        
+
     Configure::write('Security.salt', '0b45c67ad0b7839011f37ba97a8f8fadeaef533c');
-        
+
         //Configure::write('Asset.timestamp', true);
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
