@@ -1,7 +1,7 @@
 <?php
 
 App::import('model','Plugin');
-  
+
 class TypeEncrypt extends Plugin{
     public $useTable = "type_encrypt";
 
@@ -13,6 +13,7 @@ class TypeEncrypt extends Plugin{
 
 
     public function after($dataum){
+        FireCake::fb($dataum);
         return $this->convert_to_readable($dataum);
     }
 
@@ -26,8 +27,8 @@ class TypeEncrypt extends Plugin{
 
 
     public function decrypt($data,$options=array()){
-       return $data; 
+       return $data;
     }
 
- 
+
 }

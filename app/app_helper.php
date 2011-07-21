@@ -3,12 +3,12 @@
 App::import('Helper', 'Helper', false);
 
 class AppHelper extends Helper {
-	
+
     public function getPluginName($className){
-    	return 'Type'.ucwords($className);				
+    	return 'Type'.ucwords($className);
     }
-    
-    
+
+
     public function generateDataGrid($columns,$contacts)
     {
     	$output = "<table class='adres-datagrid' border='0'>\n ";
@@ -16,7 +16,7 @@ class AppHelper extends Helper {
     	foreach ($columns as $column) {
 			$output.= "\t<th>".$column['Field']['name']."</th>\n";
     	}
-    	
+
     	foreach ($contacts as $contact) {
     		$output.= "\t<tr>\n";
 			foreach ($contact as $key => $data) {
@@ -26,10 +26,10 @@ class AppHelper extends Helper {
     		$output.= "\t</tr>\n";
     	}
     	$output .= "</table>\n ";
-    	return $output;    	
+    	return $output;
     }
 
-	
+
 	public function generateGroupList($groups){
 		$list = array();
 		foreach ($groups as $group) {
@@ -38,6 +38,12 @@ class AppHelper extends Helper {
 		return $list;
 	}
 
+
+    /* This function should add css class to stortable column
+     *
+     */
+    public function addSortingClassToColumn(){
+        // code...
+    }
 }
 
-?>

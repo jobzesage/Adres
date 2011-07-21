@@ -4,9 +4,9 @@ App::import('Security');
 Security::setHash('SHA1');
 
 abstract class AppController extends Controller {
-	
+
     public $layout = "administrator"; #layout file for all administraive panel
-    
+
     public $helpers =array('Html','Form','Session','Javascript','Time','Text','Tree');
 
     public $components = array(
@@ -15,22 +15,20 @@ abstract class AppController extends Controller {
     	'Cookie',
     	'RequestHandler',
     	'Security',
-        'DebugKit.Toolbar',
-        'SwiftMailer'
+      'SwiftMailer'
     );
-    
-    
-    
+
+
+
     public function beforeFilter() {
-    	
-    	$this->autoLogoutMessage();
-		
+
+
         $this->Auth->fields = array(
             'username' => 'username',
             'password' => 'password'
         );
 		$this->Auth->allow('register','login');
-        
+
         #$this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
         $this->Auth->authenticate = $this;
@@ -38,16 +36,16 @@ abstract class AppController extends Controller {
         $this->Auth->userModel = 'User';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
-	    
+
         parent::beforeFilter();
-        
+
         $this->Security->blackHoleCallback = 'blackHole';
     }
 
 
 
     public function autoLogoutMessage(){
-    
+
        if(!$this->Session->check('logging_out_time') and $this->Session->valid()){
             $this->Session->write('logging_out_time',$this->Session->sessionTime);
         }else{
@@ -55,12 +53,12 @@ abstract class AppController extends Controller {
                 $this->Session->setFlash('You have been logged out due to inactivity');
                 //for error set the second parameter
             }else{
-                $this->Session->write('logging_out_time',$this->Session->sessionTime);				
+                $this->Session->write('logging_out_time',$this->Session->sessionTime);
             }
         }
     }
 
-    
+
     public function isAuthenticated() {
         return !!$this->Auth->user('id');
     }
@@ -70,11 +68,11 @@ abstract class AppController extends Controller {
 		return true;
 	}
 
-    
+
     protected function setFlash($message,$layout='success') {
         $this->Session->setFlash($message);
     }
-    
+
 
     public function beforeRender(){
 			$this->set('implementations_list', $this->getImplementaions());
@@ -103,16 +101,16 @@ abstract class AppController extends Controller {
 			$this->redirect($address);
 		}
 	}
-	
+
 	public function getFieldClassType($field_id){
-		
+
 		$field = ClassRegistry::init('Field')->read(null,$field_id);
 		return $field['Field']['field_type_class_name'];
-    }	
+    }
 
     public function setContactSet($options = array()){
 
-    }          
+    }
 
 
     protected function getSQL(Array $criterias){
