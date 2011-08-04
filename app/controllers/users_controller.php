@@ -79,6 +79,7 @@ class UsersController extends AppController {
 		
 		//for implementing the date on session
 		$this->Session->write('Contact.dates',array());
+		$this->Session->write('Contact.encrytor_key',null);
 		
 		if(!$this->Session->check('Filter')){
 		    //TODO have to implement Session filters
@@ -609,4 +610,3 @@ class UsersController extends AppController {
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
 	}
 }
-?>

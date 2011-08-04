@@ -291,5 +291,12 @@ class SitesController extends AppController {
 			$this->redirect('/');
 		}
     }
+    
+    
+    public function interact(){
+    	if($this->RequestHandler->isPost()){
+    		$this->Session->write("Contact.encrytor_key",$this->data['Contact']['key']);
+    	}
+    	$this->set("status",true);
+    }
 }
-?>

@@ -37,7 +37,7 @@ class TypeDate extends Plugin{
 
 		if(!empty($date[0]) && strtotime($date[0])){
 			$output = $this->_time->{$_SESSION['Contact']['dates'][$dataum['field_id']]['format']}($date[0]);
-        }
+     }
 
 		$key = array_keys($dataum['data']);
 		

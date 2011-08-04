@@ -53,7 +53,18 @@
 			array(
 				'title' =>'contact-window',
 				'class' =>'adres-tab-link'  	
-			),null,null,false) ?></li>
+			),null,null,false) ?>
+		</li>
+		
+		<li><?php echo $html->link('<span>Key</span>', array(
+			'controller' => 'sites', 
+			'action' => 'interact'
+			),
+			array(
+				'title' =>'contact-window',
+				'class' =>'adres-tab-link'  	
+			),null,null,false) ?>
+		</li>
 	</ul>
 	
 	<div id="contact-window">

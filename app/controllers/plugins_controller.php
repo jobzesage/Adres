@@ -11,6 +11,7 @@ class PluginsController extends AppController {
 	public function show() {
 		$params = am($this->params['named'],array('column_id'=>'data'));
 		$className = $this->getOptionClassName($params['field_id']);
+		FireCake::fb($params);
 		$this->set('output',ClassRegistry::init($className)->display($params));		
 	}
 	
