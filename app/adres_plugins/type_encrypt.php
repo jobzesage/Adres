@@ -4,11 +4,13 @@ App::import('model','Plugin');
 
 class TypeEncrypt extends Plugin{
     public $useTable = "type_encrypt";
+    public $optionClass = "TypeEncryptOption";
+    
     private $key = null;
     private $vi  = null;
     
 
-    public function setKey($key="adres_encryptor"){
+    public function setKey($key){
         $this->key = $key;
     }
     
@@ -20,7 +22,11 @@ class TypeEncrypt extends Plugin{
     }
 
     private function getKey(){
-      return $this->key;
+		if(!empty($_SESSION['Contact']['encrytor_key'])){
+			return $_SESSION['Contact']['encrytor_key'];				
+		}else{
+			return $this->key;
+		}
     }
 
     public function after($dataum){
@@ -48,6 +54,11 @@ class TypeEncrypt extends Plugin{
     
 	protected function _setInputData($form){
 		parent::_setInputData($form);
+		
+		$array=array('field_id'=>$this->_field_id,'contact_type_id'=>$_SESSION['Contact']['contact_type_id']);
+		$stored_key = ClassRegistry::init($this->optionClass)->getField($array);
+		
+		$this->setKey($stored_key[0][$this->optionClass]['hash']);
 		$this->_input = $this->encrypt($this->_input);
 	}
 

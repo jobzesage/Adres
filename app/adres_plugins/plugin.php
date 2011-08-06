@@ -16,9 +16,9 @@ class Plugin extends AppModel{
 
 	protected $_join_field_name = 'field_id';
 
-	public $_input = null;
+	protected $_input = null;
 
-    public $_field_id = null;
+    protected $_field_id = null;
 
     //For accessing the default case to return true where there is no
     // validator defined

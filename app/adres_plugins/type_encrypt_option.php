@@ -1,15 +1,13 @@
 <?php
 
 class TypeEncryptOption extends AppModel {
-	
-	public $name = 'TypeEncryptOption';
-	
+		
 	public $useTable='type_encrypt_options';
 	
 	public $_data_field = 'hash';
 	
 
-	private function getField($params){
+	public function getField($params){
 		return $this->find('all',array(
 			'conditions' => array(
 				'contact_type_id' => $params['contact_type_id'],

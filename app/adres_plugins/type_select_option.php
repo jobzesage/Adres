@@ -115,4 +115,3 @@ class TypeSelectOption extends AppModel {
 		return $output;
 	}
 }
-?>
