@@ -55,17 +55,34 @@ class UsersController extends AppController {
         
     }
     
+    
+    public function edit($id=null){
+		if (!$id) {
+			$this->flash(__('Invalid User', true), array('action' => 'index'));
+		}
+		
+		$user = $this->User->findById($id);
+		
+		if (!empty($this->data)){
+			if($this->User->save($this->data)){
+				$this->flash(__("User updated", true), array('action'=>"index"));
+			}
+		}		
+		if(!empty($user)){
+			$this->data = $user;
+		}
+		
+    }
+    
 
 	public function delete($id=null){
 		if (!$id) {
 			$this->flash(__('Invalid User', true), array('action' => 'index'));
 		}
 		if ($this->User->del($id)) {
-			$this->flash(__('Group deleted', true), array('action' => 'index'));
+			$this->flash(__('User deleted', true), array('action' => 'index'));
 		}
-		$this->flash(__('The Group could not be deleted. Please, try again.', true), array('action' => 'index'));
-		
-		
+		$this->flash(__('The User could not be deleted. Please, try again.', true), array('action' => 'index'));
 	}
 
 

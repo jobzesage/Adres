@@ -29,7 +29,7 @@ foreach ($users as $user):
 		<td class="actions">
 			
 			<?php $img_delete = $html->image("/css/theme1/images/delete.png", array("title"=>"Delete")) ?>
-
+			<?php echo $html->link("Edit", array('action'=>"edit",$user['User']['id'])) ?>
 			<?php echo $html->link(__($img_delete, true), array('action' => 'delete', $user['User']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $user['User']['id']), null, null, false)  ?>
 		</td>
 	</tr>
