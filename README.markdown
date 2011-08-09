@@ -42,6 +42,7 @@ Plugin To This System
 * Number Plugin
 * DropDown Plugin
 * Email Plugin
+* Encryption Plugin (php-openssl extension must be enabled to use this feature )
 
 Creating your own plugin
 -------------------------
