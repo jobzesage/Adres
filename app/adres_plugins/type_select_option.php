@@ -52,6 +52,11 @@ class TypeSelectOption extends AppModel {
 
         $output .="<option value='0'>Select One</option >";
 		foreach ($selects as $select) {
+			
+			if($select[$this->name]['id']==$contact_data_id){
+				$output.='<option selected value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
+			}
+			
 			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
 		}
 		return $label.$output.='</select></div>';	

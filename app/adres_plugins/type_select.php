@@ -27,7 +27,15 @@ class TypeSelect extends Plugin {
 		$params['field_id'] = $plugin['Field']['id'];
 		$params['contact_type_id'] = $_SESSION['Contact']['contact_type_id'];
 		$params['column_id'] = 'field_id';
-		return ClassRegistry::init($this->optionsClass)->displayOptions($params);
+                
+        $contact = $this->find('first',array(
+          'conditions'=>array(
+            'contact_id'=>$contact_id,
+            'field_id'=>$plugin['Field']['id']
+        ))); 
+        
+        $params['contact_data_id']=$contact[$this->name][$this->getDisplayFieldName()];
+        return ClassRegistry::init($this->optionsClass)->displayOptions($params);
 	}
 	
 	public function renderShowDetail($field_name,$value,$wrapper=array('tag'=>'td')){
