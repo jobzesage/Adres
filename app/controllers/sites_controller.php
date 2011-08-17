@@ -74,10 +74,12 @@ class SitesController extends AppController {
 	
 	public function affiliate($contact_id)
 	{
-		//$this->redirect_if_not_ajax_request();
-		//$this->redirect_if_id_is_empty($contact_id);
+		$this->redirect_if_not_ajax_request();
+		$this->redirect_if_id_is_empty($contact_id);
+		
 		$contact = $this->Contact->read(null,$contact_id);
 		$contact_type_id = $contact['Contact']['contact_type_id'];
+		
 		$plugins = $this->Field->getPluginTypes($contact_type_id,null,array(
 			'Field.is_descriptive'=>1	
 		));
