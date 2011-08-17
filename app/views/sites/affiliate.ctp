@@ -11,6 +11,7 @@
 		)) ?>
 			<?php echo $form->input('affiliation_id',array('type'=>'select','options'=>$affiliations)) ?>
 			<?php echo $form->input('autocompleter') ?>
+			<?php echo $form->input('contact_type_id', array('type' => 'select','values' => $contactTypes )) ?>
 			<?php echo $form->hidden('contact_id') ?>
 			<?php echo $form->input('current_contact_id',array(
 				'type'=>'hidden',
@@ -29,8 +30,7 @@
 			<tr>
 				<td>
 					<?php 
-					echo $name;
-					$name = "&nbsp";	
+					echo $name ." &nbsp";	
 				 	?>
 				</td>
 				<td> 
@@ -54,4 +54,4 @@
 	</div>
 	
 	
-<script type="text/javascript" src="/js/adres-contact-autocompleter.js"></script>
+<script type="text/javascript" src="/js/adres-contact-autocompleter.js.php"></script>

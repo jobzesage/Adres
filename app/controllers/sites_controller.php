@@ -82,6 +82,8 @@ class SitesController extends AppController {
 			'Field.is_descriptive'=>1	
 		));
 		
+		$contact_types = $this->Contact->ContactType->find('list');
+		
 		$descriptive_fields = "";
 		foreach ($plugins as $field) {
 			$descriptive_fields .= $field['Field']['name']. " "; 
@@ -128,7 +130,7 @@ class SitesController extends AppController {
 		$contact = $test;
 		$this->set('affiliations',$this->Affiliation->getList($contact_type_id));
 		
-		$this->set(compact('contact','descriptive_fields','name','contact_id','test'));	
+		$this->set(compact("contact_types", 'contact','descriptive_fields','name','contact_id','test'));	
 				
 	}
 
@@ -268,7 +270,8 @@ class SitesController extends AppController {
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
 			$this->disableDebugger();
 			
-			$contact_type_id = $this->Session->read('Contact.contact_type_id');
+			$contact_type_id = (int) substr($this->params['url']['contact_type_id'],1);
+			
 			$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
 		
 			$search_term = $this->params['url']['term'];

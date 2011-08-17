@@ -1,7 +1,30 @@
-var ADres={};
+window.ADres={} ;
 ADres.version=0.1;
 var UI=null
-var test;
+
+ADres.SELECT = {
+	update_contact_picker:function(e){
+		ADres.SELECT.autocomplete_affliation($(this).val());
+	},
+	autocomplete_affliation:function(contact_id){
+		
+		$('#AffiliateAutocompleter, input.adres-contact-picker').autocomplete({
+	  		source: '/sites/contact_picker.json?contact_type_id='+ contact_id,
+	  		select: function( event, ui ) {
+	  			$('input#AffiliateContactId').val(ui.item.id);
+	  		}
+	  	});
+	  	
+	  	//ui autocomplete highlight hack 
+	   	$.ui.autocomplete.prototype._renderItem = function (ul, item) {
+	  	     item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
+	  	     return $("<li></li>")
+	  	             .data("item.autocomplete", item)
+	  	             .append("<a>" + item.label + "</a>")
+	  	             .appendTo(ul);
+	  	 };		
+	}
+}
 
 ADres.AJAX={
 	loaderImageSmall:'<img src="/img/loader_small.gif"/>',

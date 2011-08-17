@@ -17,7 +17,7 @@
 		<?php echo $html->css(array(
 				'adres.default',
 				'jquery-ui-1.7.2.modified',
-				'jquery.ui.selectmenu',
+				#'jquery.ui.selectmenu',
 				#'flick/jquery.ui.all'
 			)) ?>
 			
@@ -30,7 +30,7 @@
 				'jquery.cookie',
 				'jquery.jstree',
 				'jquery.validate.pack',
-				'jquery.ui.selectmenu',
+				#'jquery.ui.selectmenu',
 		        'jquery.qtip-1.0', #Downloaded from launch pad Ref. 55
                 'adres.core'
 			));

@@ -19,8 +19,7 @@ class TypeString extends Plugin {
     public function search($keys=array())
     {
 		$field = $this->getDisplayFieldName();
-
-
+		
 		return $this->find("all",array(
 			'conditions' => array(
 				'TypeString.field_id'=>$keys['fields']
