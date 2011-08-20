@@ -9,7 +9,7 @@ ADres.SELECT = {
 	autocomplete_affliation:function(contact_id){
 		
 		$('#AffiliateAutocompleter, input.adres-contact-picker').autocomplete({
-	  		source: '/sites/contact_picker.json?contact_type_id='+ contact_id,
+	  		source: '/sites/contact_picker.json?affiliation_id='+ contact_id,
 	  		select: function( event, ui ) {
 	  			$('input#AffiliateContactId').val(ui.item.id);
 	  		}

@@ -269,13 +269,24 @@ class SitesController extends AppController {
     public function contact_picker()
     {
       	$this->layout=null;
+		$this->disableDebugger();
+
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
-			$this->disableDebugger();
 			
-			$contact_type_id = (int) substr($this->params['url']['contact_type_id'],1);
+			$affiliation_id = (int) substr($this->params['url']['affiliation_id'],1);
+			$affiliation_type = substr($this->params['url']['affiliation_id'],0,1);
+			
+			$affiliation = $this->Affiliation->read(null,$affiliation_id);
+			
+			$contact_type_id = $affiliation['Affiliation']['contact_type_child_id'];
+			
+			if($affiliation_type==='f'){
+				$contact_type_id = $affiliation['Affiliation']['contact_type_father_id'];
+			}
+			
 			
 			$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
-		
+				
 			$search_term = $this->params['url']['term'];
 			$result = ClassRegistry::init('TypeString')->search(array(
 				'term'=>$search_term,
