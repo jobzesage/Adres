@@ -45,7 +45,7 @@ class AffiliationsController extends AppController {
 	}
 
 	public function edit($id = null) {
-		if (!$id && empty($this->data)) {
+		if (!$id) {
 			$this->Session->setFlash(__('Invalid Affiliation', true));
 			$this->redirect(array('action' => 'index'));
 		}
