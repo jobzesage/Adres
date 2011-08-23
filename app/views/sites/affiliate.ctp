@@ -9,7 +9,11 @@
 			),
 			'id'=>'adres-affiliate-form'
 		)) ?>
-			<?php echo $form->input('affiliation_id',array('type'=>'select','options'=>$affiliations)) ?>
+			<?php echo $form->input('affiliation_id',array(
+				'type'=>'select',
+				'options'=>$affiliations
+				)
+			) ?>
 			<?php echo $form->input('autocompleter') ?>
 			<?php echo $form->hidden('contact_id') ?>
 			<?php echo $form->input('current_contact_id',array(

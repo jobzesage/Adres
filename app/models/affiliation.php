@@ -45,11 +45,13 @@ class Affiliation extends AppModel {
 		foreach ($fathers as $father) {
 			$list1['f'.$father['Affiliation']['id']] = $father['Affiliation']['father_name']; 
 		}
-
+		
+		$empty_select = array("Select one ..");
 		foreach ($childs as $child) {
 			$list2['s'.$child['Affiliation']['id']] = $child['Affiliation']['child_name']; 
 		}		
-		return am($list1,$list2);
+		
+		return am($empty_select,$list1,$list2);
 	}
 	
 }
