@@ -200,6 +200,7 @@ class UsersController extends AppController {
 		if($contact_type_id){
             $this->Session->write('Contact.contact_type_id',$contact_type_id);
             $this->Cookie->write('contact_type_id',$contact_type_id,false);
+            $this->Session->write('Contact.dates',array());
 		}
 		
     	
@@ -350,6 +351,7 @@ class UsersController extends AppController {
 			
 			## cleaning up for boolean to work
 			$criterias = Set::filter($criterias);
+			
 			if(!empty($criterias)){
 				if($this->Session->check('Filter.criteria')){
 					//add to stack

@@ -6,7 +6,7 @@ class TypeDate extends Plugin{
 	
 	public $useTable = 'type_date';
 	
-	private $_time;
+	protected $_time;
     
     const EMPTY_DATE = "Not Set";
         
@@ -20,7 +20,8 @@ class TypeDate extends Plugin{
 	
 	public function after(Array $dataum){
 		$dates = $_SESSION['Contact']['dates'];
-
+		
+		
 		if(is_array($dates) && !empty($dates)){
 			if(!array_key_exists($dataum['field_id'],$dates)){
 				$formatted_result = ClassRegistry::init('TypeDateOption')->getField($dataum);
@@ -35,9 +36,15 @@ class TypeDate extends Plugin{
 		
         $output= self::EMPTY_DATE;
 
+		$method_name = $_SESSION['Contact']['dates'][$dataum['field_id']]['format'];
+
+		if(empty($method_name)){
+			$method_name="ddmmyyyy";
+		}
+		
 		if(!empty($date[0]) && strtotime($date[0])){
-			$output = $this->_time->{$_SESSION['Contact']['dates'][$dataum['field_id']]['format']}($date[0]);
-     }
+			$output = $this->_time->{$method_name}($date[0]);
+     	}
 
 		$key = array_keys($dataum['data']);
 		
