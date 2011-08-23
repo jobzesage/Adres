@@ -7,4 +7,9 @@ class AdresTimeHelper extends TimeHelper{
     return $this->timeAgoInWords($date,array('end'=>'+150 years'));
   }
   
+  public function ddmmyyyy($date)
+  {
+  	return $this->format( $format = 'd.m.Y', $date);
+  }
+  
 }

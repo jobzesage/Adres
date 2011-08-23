@@ -150,5 +150,5 @@ class TypeDate extends Plugin{
 		return '<tr>'.$output.'</tr>';
 	}	
 		
+
 }
-?>
