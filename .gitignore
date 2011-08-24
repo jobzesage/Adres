@@ -3,6 +3,7 @@ _Store
 Icon?
 app/config/database.php
 app/tmp/**/*
+app/webroot/css/theme1/images/logo.png
 .eprj
 *.swp*
 *~
