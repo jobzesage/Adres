@@ -336,13 +336,12 @@ body		{
 									}
 									
 .adres-filter-hold .group_list		{
-									width: 150px;
+									width: 160px;
 									margin: 5px 0 0 10px;
 									border-radius: 4px; 
 									-moz-border-radius: 4px; 
 									-webkit-border-radius: 4px; 
 									-khtml-border-radius: 4px;
-									text-indent: 10px;
 									}
 
 /*/////////////////////////////// Adres Contacts Pannel ///////////////////////////////////*/
@@ -395,11 +394,11 @@ body		{
 													padding: 0 15px 0 5px;
 													}
 
-/*						#adres-basic-panel select	{
+						#adres-basic-panel select	{
 													float: left;
-													width: 90px;
+													width: 110px;
 													margin: 5px 0 0 5px;
-													padding: 2px 0;
+													padding: 2px;
 													font: normal 11px Arial;
 													color: #444;
 													background-color: #f1f1f1;
@@ -409,7 +408,7 @@ body		{
 													-moz-border-radius: 3px; 
 													-webkit-border-radius: 3px;  
 													-khtml-border-radius: 3px;
-													}*/
+													}
 
 						#adres-basic-panel input	{
 													float: left;
@@ -720,7 +719,7 @@ div#adres-dialog label	{
 						line-height: 18px;
 						text-transform: capitalize;
 						color: #179BAA;
-						width: 250px;
+						width: 265px;
 						margin-right: 0;
 						}
 

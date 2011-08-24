@@ -192,6 +192,7 @@ div#adres-dialog label{
 #adres-dialog lable{ float:left}
 #adres-dialog .submit{ display:block;clear: left;}
 #adres-dialog .check-box, #adres-dialog input{ clear:both}
+#adres-dialog select { padding: 2px; width: 150px;}
 .cbox{
 	display:block;	
 }

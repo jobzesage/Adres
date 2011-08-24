@@ -21,12 +21,12 @@
 <div class="fields index">
 <h2><?php __('Fields');?></h2>
 <!-- .adres-search -->
-<div class="adres-search">
+<!--div class="adres-search">
     <form method="get" action="/fields">
         <input type="text" name="name" value="" id="adres-search-name"/>
         <input type="submit" name="submit" value="" id=""/>
     </form>
-</div>
+</div-->
 <!-- /.adres-search -->
 <table class="adres-datagrid ui-widget">
 <tr>
