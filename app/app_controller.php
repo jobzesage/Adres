@@ -16,7 +16,7 @@ abstract class AppController extends Controller {
     	'RequestHandler',
     	'Security',
       	'SwiftMailer',
-      	#'DebugKit.Toolbar'
+      	'DebugKit.Toolbar'
     );
 
 
