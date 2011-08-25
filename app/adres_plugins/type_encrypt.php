@@ -4,7 +4,8 @@ App::import('model','Plugin');
 
 class TypeEncrypt extends Plugin{
     public $useTable = "type_encrypt";
-    public $optionClass = "TypeEncryptOption";
+    
+    public $optionsClass = "TypeEncryptOption";
     
     private $key = null;
     private $vi  = null;

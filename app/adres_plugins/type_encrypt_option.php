@@ -1,12 +1,11 @@
-<?php
+<?php  
 
-class TypeEncryptOption extends AppModel {
-		
+class TypeEncryptOption extends AppModel{
+	
 	public $useTable='type_encrypt_options';
 	
-	public $_data_field = 'hash';
+	public $_data_field = 'format';
 	
-
 	public function getField($params){
 		return $this->find('all',array(
 			'conditions' => array(
@@ -17,8 +16,7 @@ class TypeEncryptOption extends AppModel {
 		
 	}
 	
-	public function displayOptions($params)
-	{
+	public function displayOptions($params){
 		$field = $this->getField($params);
 		return $this->formatter($field,$params);
 	}
@@ -27,7 +25,6 @@ class TypeEncryptOption extends AppModel {
 		$selects = $this->getField($params);
 		$output = "<table class='adres-datagrid' >\n";
 		$output .= $this->getShowTableHeader();
-		
 		
 		foreach ($selects as $select){
 			$output.="<tr>\n\t<td>";
@@ -47,9 +44,7 @@ class TypeEncryptOption extends AppModel {
 		$label= '<div class="input text">
 				<label for="'.$field['Field']['name'].'">'.$field['Field']['name'].'</label>';
 		
-        $output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
-
-        $output .="<option value='0'>Select One</option >";
+		$output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
 		foreach ($selects as $select) {
 			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
 		}
@@ -82,14 +77,14 @@ class TypeEncryptOption extends AppModel {
 	}
 	
 	public function list_view(){
-	
+		
 	}
 	
 	public function getLinks($select,$params){
 		$output = "";
 		$output.="<a class='adres-edit' href='/plugins/edit/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>
 		Edit</a>";
-		$output.="<a class='adres-delete' href='/plugins/delete/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>
+		$output.="<a class=xadres-delete' href='/plugins/delete/id:{$select[$this->name]['id']}/field_id:{$params['field_id']}'>
 		Delete</a>";
 		return $output;
 	}
@@ -112,6 +107,5 @@ class TypeEncryptOption extends AppModel {
 		}	
 		$output .= '<input type="text" name="data['.$this->_data_field.']" '.$value.' >';
 		return $output;
-	}
+	}	
 }
-?>
