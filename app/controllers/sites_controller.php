@@ -269,7 +269,7 @@ class SitesController extends AppController {
     public function contact_picker()
     {
       	$this->layout=null;
-		// $this->disableDebugger();
+		$this->disableDebugger();
 
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
 			
@@ -277,8 +277,6 @@ class SitesController extends AppController {
 			
 			$affiliation_type = substr($this->params['url']['affiliation_id'],0,1);
 			
-			FireCake::fb($affiliation_type);
-			FireCake::fb($affiliation_id);
 			
 			$affiliation = $this->Affiliation->read(null,$affiliation_id);
 			
@@ -300,7 +298,6 @@ class SitesController extends AppController {
 			)) ;
 			
 			
-			
 			$p = array();
 			$i=0;
 			foreach ($result as $data) {
@@ -309,7 +306,6 @@ class SitesController extends AppController {
 				$i++;
 			}
 			
-			FireCake::fb($p);
 			
 			$this->set('hello',$p);
 
