@@ -5,7 +5,9 @@ require_once 'plugin_interface.php';
 App::import('Sanitize');
 
 class Plugin extends AppModel{
-
+	
+	public $actsAs=array('Containable');
+	
 	public $useTable = false;
 
 	public $primaryKey = false;
@@ -245,6 +247,21 @@ class Plugin extends AppModel{
         }
 
     }
+    
+    public function search($keys=array())
+    {
+		#$field = $this->getDisplayFieldName();
+		$on_field = "{$this->name}.field_id";
+		return $this->find("all",array(
+			'conditions' => array(
+				$on_field =>$keys['fields'],
+				'Contact.trash_id=0'
+			),
+			'contain' => array('Contact'), 
+			'fields' => array("DISTINCT contact_id, GROUP_CONCAT( {$this->name}.{$this->getDisplayFieldName()} SEPARATOR ' ') as data"),
+			'group' => "{$this->name}.contact_id having data REGEXP '^{$keys['term']}'"
+		));
+    }
+    
 
 }
-?>

@@ -58,11 +58,7 @@ class AffiliationsController extends AppController {
 			}
 		}
 		if (empty($this->data)) {
-			$this->data = $this->Affiliation->findById($id,array(
-				'contain'=>array(
-					'FatherContactType',
-					'ChildContactType'
-			)));
+			$this->data = $this->Affiliation->findById($id);
 		}
 		$fatherContactTypes = $this->Affiliation->FatherContactType->find('list');
 		$childContactTypes = $this->Affiliation->ChildContactType->find('list');

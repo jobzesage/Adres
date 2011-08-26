@@ -3,6 +3,7 @@ App::import('Model','Plugin');
 
 class TypeEmail extends Plugin{
     public $useTable = 'type_email';     
+    public $actsAs = array('Containable');
 
     public $_adresValidate=array(
         'email'=>array(
