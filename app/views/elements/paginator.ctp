@@ -52,6 +52,12 @@
 		<?php $options = am($options,array('page'=>$p))	?>
 		<?php echo $html->link($next,$options,$style) ?>
 	<?php endif ?> of total <span class="total-page"><?php echo $page_count ?></span>
+	<span>
+		<form id="goto_page" action="/users/paginator" method="get" >
+			<input id="page_val" type="text"  name="page" >
+			<input type="submit" value="Go!">
+		</form>
+	</span>
 </div>
 <?php endif ?>
 <script type="text/javascript">
@@ -61,6 +67,8 @@
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
 			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
 	});
+	
+
 	
 	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
 </script>

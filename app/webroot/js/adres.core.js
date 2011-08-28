@@ -318,7 +318,24 @@ jQuery(document).ready(function() {
 
 	$('.adres-tabs').tabs();
 
-
+	$('form#goto_page').live("submit",function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var action = "/users/paging/page:";
+		var page = parseInt($("input#page_val").val());
+		if(typeof page==="undefined"){
+			$("input#page_val").css({border:"1px red"});
+		}else{
+			$.ajax({
+				url: action+page,
+				success:function(data){
+					$('div#datagrid').replaceWith(data);
+				}
+			});
+		}
+	});
+	
+	
 	$('table.adres-datagrid tr').each(function(i,d){
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
 			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
