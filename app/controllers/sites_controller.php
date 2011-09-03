@@ -317,7 +317,8 @@ class SitesController extends AppController {
     
     public function interact(){
     	if($this->RequestHandler->isPost()){
-    		$this->Session->write("Contact.encrytor_key",$this->data['Contact']['key']);
+    		$field_id = $this->data['Contact']['field_id'];
+    		$this->Session->write("Contact.encrytor_key.{$field_id}.key",$this->data['Contact']['key']);
     	}
     	$this->set("status",true);
     }

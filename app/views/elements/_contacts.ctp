@@ -125,7 +125,10 @@
 			<tr>
 	            <th>ID</th>
 				<?php foreach ($contactType['Field'] as $field): ?>
+				
 				<th><?php echo $field['name'] ?></th>
+
+				
 				<?php endforeach ?>
 				<th><?php echo __('Actions',true) ?></th>
 			</tr>
