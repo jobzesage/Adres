@@ -13,7 +13,6 @@
 				'class' => 'adres-button small ui-state-default ui-corner-all basic' )
 		) ?>
 
-
         <?php
             $email='';
             foreach ($fields as $field){
@@ -22,7 +21,6 @@
                 } 
 	    	}
 	    ?>
-
 
 		<?php echo $html->link('Send Email ('.$count.')', array(
 			'controller'=>'mailer',
@@ -63,6 +61,7 @@
 					<span class="field_name">
 						<?php echo $field['Field']['name'] ?>
 						<?php if ($field['Field']['field_type_class_name'] == "TypeEncrypt"): ?>
+							<div class="encrypt_hold">
 							<div class="encrypt">
 								<?php echo $form->create("Contact",array('url'=>array(
 									'controller' => 'sites', 
@@ -76,7 +75,8 @@
 										'value' => $field['Field']['id']  
 									)) ?>
 								<?php echo $form->end("Submit") ?>
-							</div>	
+							</div>
+							</div>
 						<?php endif ?>
 					</span>
 					

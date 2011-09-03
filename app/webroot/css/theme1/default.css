@@ -336,6 +336,7 @@ body		{
 									}
 									
 .adres-filter-hold .group_list		{
+									font-size: 11px;
 									width: 160px;
 									margin: 5px 0 0 10px;
 									border-radius: 4px; 
@@ -1031,6 +1032,62 @@ dd			{
 				background: red;
 				}
 
-.text.area{
-    width:333px;
-}
+.text.area		{
+    			width:333px;
+				}
+
+form#goto_page	{
+    			display: inline;
+    			margin-left: 10px;
+				}
+				
+form#goto_page input[type="text"]
+				{
+    			width: 50px;
+    			font: normal 11px Arial;
+    			padding: 2px;
+				}
+				
+form#goto_page input[type="submit"]
+				{
+    			font: bold 11px Arial;
+				}
+				
+.encrypt_hold	{
+				float: right;
+				}
+				
+.encrypt		{
+				position: absolute;
+				margin: 24px 0 0 -206px;
+				padding: 2px 10px;
+				width: 190px;
+				background-color: #eaebec;
+				border-radius: 			0 0 4px 4px;
+				-moz-border-radius: 	0 0 4px 4px;
+				-webkit-border-radius: 	0 0 4px 4px;
+				-khtml-border-radius: 	0 0 4px 4px;
+				font: bold 11px Arial;
+				border: 1px solid #E2DFDF;
+				}
+				
+.encrypt div	{
+    			float: left;
+				}
+				
+.encrypt input	{
+    			margin-left: 5px;
+				}
+				
+.encrypt input[type="text"]
+				{
+    			width: 100px;
+    			font: normal 11px Arial;
+    			padding: 4px 3px 3px 3px;
+				}
+				
+.encrypt input[type="submit"]
+				{
+    			font: bold 10px Arial;
+    			width: 50px;
+				}
