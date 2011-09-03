@@ -71,6 +71,9 @@ ADres.AJAX={
 					if ($form.hasClass('')) {
 						$('#adres-record').html(resp.data);
 					}
+					else if($form.hasClass('settings_form')){
+						adresTabReload();	
+					}
 					else if($form.is('#AdvanceSearchAddForm') || $form.is('#AffiliationAddForm') ){
 						$('div#contacts').html(resp.data);
 						ADres.DIALOG.close();
@@ -228,6 +231,7 @@ jQuery(document).ready(function() {
 		beforeSend:ADres.LOADER.enable,
 		complete:ADres.LOADER.disable
 	};
+	
 
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
@@ -335,6 +339,12 @@ jQuery(document).ready(function() {
 		}
 	});
 	
+	//For the setting on per field column
+	$('a.settings').live('click',function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		$(this).next('.holders').toggle();
+	});
 	
 	$('table.adres-datagrid tr').each(function(i,d){
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});

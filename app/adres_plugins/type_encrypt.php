@@ -27,6 +27,13 @@ class TypeEncrypt extends Plugin{
 		return $this->key;
     }
 
+	/**
+	 * This method is called after the records are fetched from the database
+	 * this a hook method to modify data while displaying
+	 *
+	 * @return void
+	 * @author Rajib Ahmed
+	 **/
     public function after($dataum){
     	$encryptor_keys = $_SESSION['Contact']['encrytor_key'];
     	$key = array_keys($dataum['data']);
@@ -42,12 +49,17 @@ class TypeEncrypt extends Plugin{
         return array($key[0]=>$output);
     }
 
+
+	
     public function convert($data){
 		if($this->getKey()){
 			return $this->decrypt($data);
 		}
    		return $data;
     }
+
+
+
 
     public function encrypt($data,$options=array()){
    		return openssl_encrypt($data,'aes-128-cbc',$this->getKey(), false, $this->getVI());
@@ -58,6 +70,14 @@ class TypeEncrypt extends Plugin{
        return openssl_decrypt($data,'aes-128-cbc',$this->getKey(), false, $this->getVI());
    	}
     
+   	
+   	/**
+   	 * This takes the form field and sets to the input property
+   	 *
+   	 * @param array $form 
+   	 * @return void
+   	 * @author Rajib Ahmed
+   	 */
 	protected function _setInputData($form){
 		parent::_setInputData($form);
 		

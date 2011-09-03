@@ -65,17 +65,17 @@
 							<div class="settings_hold">
 								
 								<?php echo $html->link($img_s,array(
-									'action' => 'interact'
+									'action' => '#'
 								),array(
-									'class' => 'settings', 	
+									'class' => 'settings'
 								), null, null, false)  ?>
 									
-								<div class="encrypt">
+								<div class="encrypt holders hide">
 									<?php echo $form->create("Contact",array('url'=>array(
 										'controller' => 'sites', 
 										'action' => 'interact'
 									),
-									'class' => 'adres-ajax-form'
+									'class' => 'adres-ajax-form settings_form'
 									)) ?>
 										<?php echo $form->input("key") ?>
 										<?php echo $form->input("field_id", array(
