@@ -1053,8 +1053,13 @@ form#goto_page input[type="submit"]
     			font: bold 11px Arial;
 				}
 				
-.encrypt_hold	{
+.settings_hold	{
 				float: right;
+				}
+				
+.settings		{
+				position: absolute;
+				margin: 2px 0 0 -55px;
 				}
 				
 .encrypt		{

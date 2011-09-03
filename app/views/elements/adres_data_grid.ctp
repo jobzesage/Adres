@@ -57,25 +57,34 @@
 					
 					<?php $img_a = $html->image("/css/theme1/images/up_arrow.png") ?>
 					<?php $img_d = $html->image("/css/theme1/images/down_arrow.png") ?>
+					<?php $img_s = $html->image("/css/theme1/images/settings.png") ?>
 					
 					<span class="field_name">
 						<?php echo $field['Field']['name'] ?>
 						<?php if ($field['Field']['field_type_class_name'] == "TypeEncrypt"): ?>
-							<div class="encrypt_hold">
-							<div class="encrypt">
-								<?php echo $form->create("Contact",array('url'=>array(
-									'controller' => 'sites', 
+							<div class="settings_hold">
+								
+								<?php echo $html->link($img_s,array(
 									'action' => 'interact'
-								),
-								'class' => 'adres-ajax-form'
-								)) ?>
-									<?php echo $form->input("key") ?>
-									<?php echo $form->input("field_id", array(
-										'type' => 'hidden',
-										'value' => $field['Field']['id']  
+								),array(
+									'class' => 'settings', 	
+								), null, null, false)  ?>
+									
+								<div class="encrypt">
+									<?php echo $form->create("Contact",array('url'=>array(
+										'controller' => 'sites', 
+										'action' => 'interact'
+									),
+									'class' => 'adres-ajax-form'
 									)) ?>
-								<?php echo $form->end("Submit") ?>
-							</div>
+										<?php echo $form->input("key") ?>
+										<?php echo $form->input("field_id", array(
+											'type' => 'hidden',
+											'value' => $field['Field']['id']  
+										)) ?>
+									<?php echo $form->end("Submit") ?>
+								</div>
+								
 							</div>
 						<?php endif ?>
 					</span>
