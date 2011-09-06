@@ -2,8 +2,7 @@
 
 class TypeEncryptOption extends AppModel{
 	
-	public $useTable='type_encrypt_options';
-	
+	public $useTable	='type_encrypt_options';
 	public $_data_field = 'hash';
 	
 	public function getField($params){
@@ -26,13 +25,14 @@ class TypeEncryptOption extends AppModel{
 		$output = "<table class='adres-datagrid' >\n";
 		$output .= $this->getShowTableHeader();
 		
-		foreach ($selects as $select){
-			$output.="<tr>\n\t<td>";
-			$output.=$select[$this->name][$this->_data_field];
-			$output.="</td>\n<td>";
-			$output.= $this->getLinks($select,$params);
-			$output.="</td>\n\t</tr>";
+		$output.="<tr>\n\t<td>";
+		$output.=$selects[$this->name][$this->_data_field];
+		$output.="</td>\n<td>";
+		if(!empty($selects)){
+			$output.= $this->getLinks($selects,$params);
 		}
+		$output.="</td>\n\t</tr>";
+		
 		return $output.="</table>\n";
 	}
 	
@@ -44,11 +44,9 @@ class TypeEncryptOption extends AppModel{
 		$label= '<div class="input text">
 				<label for="'.$field['Field']['name'].'">'.$field['Field']['name'].'</label>';
 		
-		$output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
-		foreach ($selects as $select) {
-			$output.='<option value='.$select[$this->name]['id'].'>'.$select[$this->name][$this->_data_field].'</option>'."\n";
-		}
-		return $label.$output.='</select></div>';	
+		//$output ='<select name="data['.$column_id.']['.$field_id.']">'."\n";
+		$output.='<option value='.$selects[$this->name]['id'].'>'.$selects[$this->name][$this->_data_field] .'</option>'."\n";
+		return $label.$output.='</div>';	
 	}
 	
 	
@@ -102,10 +100,11 @@ class TypeEncryptOption extends AppModel{
 			$value="value='{$data}'";
 			$output.='<input type="hidden" name="data[id]" value="'.$id.'">';
 		}else{
-			$output.= '<input type="hidden" name="data[contact_type_id]" value="'.$params['contact_type_id'].'"]>';	
+			$output.='<input type="hidden" name="data[contact_type_id]" value="'.$params['contact_type_id'].'">';	
 			$value='';
 		}	
-		$output .= '<input type="text" name="data['.$this->_data_field.']" '.$value.' >';
+		$output .= '<input type="text" name="data['.$this->_data_field.']" value="'.$value.'">';
+		
 		return $output;
 	}	
 }

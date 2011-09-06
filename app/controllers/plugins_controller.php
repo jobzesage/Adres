@@ -17,7 +17,6 @@ class PluginsController extends AppController {
 	public function add(){
 		if (!$this->data) {
 			$params = am($this->params['named'],array('column_id'=>'data'));
-
 			$optionsName = $this->getOptionClassName($params['field_id']);
 			$this->set('input_field',ClassRegistry::init($optionsName)->add($params));
 			

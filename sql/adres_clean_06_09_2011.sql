@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2011 at 06:27 PM
+-- Generation Time: Sep 06, 2011 at 05:06 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `trash_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_contacts_contact_types` (`contact_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=72 ;
 
 -- --------------------------------------------------------
 
@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`contact_id`),
   KEY `fk_logs_contacts` (`contact_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=129 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=133 ;
 
 -- --------------------------------------------------------
 
@@ -357,10 +357,8 @@ CREATE TABLE IF NOT EXISTS `type_encrypt_options` (
   `contact_type_id` int(11) NOT NULL,
   `field_id` int(11) NOT NULL,
   `hash` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `encrypt_contact_type_fkey` (`contact_type_id`),
-  UNIQUE KEY `encrypt_field_fkey` (`field_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -431,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `type_select_options` (
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_type_select_options_fields` (`field_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 

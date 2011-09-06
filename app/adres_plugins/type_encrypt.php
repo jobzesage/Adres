@@ -6,7 +6,7 @@ class TypeEncrypt extends Plugin{
 	
     public $useTable = "type_encrypt";
     
-    public $optionClass = "TypeEncryptOption";
+    public $optionsClass = "TypeEncryptOption";
     
     private $key = null;
     private $vi  = null;
@@ -49,16 +49,13 @@ class TypeEncrypt extends Plugin{
         return array($key[0]=>$output);
     }
 
-
 	
     public function convert($data){
 		if($this->getKey()){
 			return $this->decrypt($data);
 		}
-   		return $data;
+		return $data;
     }
-
-
 
 
     public function encrypt($data,$options=array()){
@@ -82,9 +79,8 @@ class TypeEncrypt extends Plugin{
 		parent::_setInputData($form);
 		
 		$array=array('field_id'=>$this->_field_id,'contact_type_id'=>$_SESSION['Contact']['contact_type_id']);
-		$stored_key = ClassRegistry::init($this->optionClass)->getField($array);
-		$this->setKey($stored_key[$this->optionClass]['hash']);
+		$stored_key = ClassRegistry::init($this->optionsClass)->getField($array);
+		$this->setKey($stored_key[$this->optionsClass]['hash']);
 		$this->_input = $this->encrypt($this->_input);
 	}
-
 }

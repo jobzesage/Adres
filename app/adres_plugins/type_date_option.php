@@ -50,7 +50,7 @@ class TypeDateOption extends AppModel{
 		}
 		return $label.$output.='</select></div>';	
 	}
-	
+		
 	
 	
 	public function add($params){
