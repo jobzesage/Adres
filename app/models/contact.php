@@ -12,6 +12,8 @@ class Contact extends AppModel {
 	
 	public $log_message = "";
 	
+	public $cdata = "";
+	
 	public $belongsTo = array(
 		'ContactType',
 		'ContactTrash'=>array(
@@ -217,13 +219,16 @@ class Contact extends AppModel {
 				'user_id'=>$this->user_id 
 			));
 		}else{
+			
                         //update section
 			$this->Log->save(array(
 				'log_dt'=>date(AppModel::SQL_DTF),
+				'data' => $this->cdata, 
 				'contact_id'=>$this->id,				
 				'description' 	=> $this->log_message,
 				'user_id'=>$this->user_id 	
-			));	
+			));
+			
 		}
 	}
 	
@@ -269,6 +274,25 @@ class Contact extends AppModel {
 		}
 		return $data;
 	}
+	
+	
+	public function getCSVContact($contact)
+	{
+
+		$plugins = $this->ContactType->Field->getPluginTypes($contact['Contact']['contact_type_id']);
+
+		$contact = ClassRegistry::init('ContactSet')->getByIdAndType($contact['Contact']['id'],$contact['Contact']['contact_type_id'], $plugins);
+		$contact_data=array();
+
+		$data = array_values($contact['data'][0]);
+		foreach($data as $key=>$val){
+			$tmp = array_values($val);
+			$contact_data[] = $tmp[0];
+		}
+		
+		return implode(", ", $contact_data);
+	}
+	
 	
 	public function getContactLogs($id)
 	{
@@ -317,4 +341,3 @@ class Contact extends AppModel {
 	}
 	
 }
-?>

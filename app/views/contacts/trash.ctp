@@ -7,8 +7,10 @@
 		<th>Date</th>
 		<th>User</th>
 		<th>Message </th>
+		
 		<th>Contact Type</th>
 		<th>Contact ID</th>
+		<th>data</th>
 		<th>Restore </th>
 	</tr>
 	
@@ -20,7 +22,7 @@
 			<td><?php echo $trash['Trash']['description'] ?></td>
 			<td><?php echo $trash['ContactType']['name'] ?></td>
 			<td><?php echo $trash['Contact']['id'] ?></td>
-			
+			<td><?php echo $trash['Trash']['data'] ?></td>
 			<?php $img_restore = $html->image("/css/theme1/images/restore.png", array("title"=>"Restore")) ?>
 			<td><?php echo $html->link($img_restore,array(
 				'controller'=>'contacts',

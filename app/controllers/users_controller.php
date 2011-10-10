@@ -200,7 +200,7 @@ class UsersController extends AppController {
 		if($contact_type_id){
             $this->Session->write('Contact.contact_type_id',$contact_type_id);
             $this->Cookie->write('contact_type_id',$contact_type_id,false);
-            $this->Session->write('Contact.dates',array());
+            $this->Session->write('Contact.dates');
 		}
 		
     	

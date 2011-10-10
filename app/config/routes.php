@@ -13,5 +13,7 @@
 	// changed the data structure routes for easy user understanding
 	Router::connect('/data_structure/:action',	array('controller' => 'fields','action'=>'index'));
 	
+	//need to create an api for this application
+	
 	// Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 ?>

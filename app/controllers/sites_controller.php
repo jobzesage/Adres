@@ -159,7 +159,9 @@ class SitesController extends AppController {
 			$trash_id = $this->Log->id;
 			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
 			$contact['Contact']['trash_id']= $trash_id;
+			
 			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],-1);
+			
 			
 			/**
 			 * this is done here because of afterSave call back is
@@ -167,9 +169,10 @@ class SitesController extends AppController {
 			 * generates a empty description and trash id
 			 * this is a work around for this problem
 			 */
-			
+			$contact_log = $this->Contact->getCSVContact($contact);
 			$this->Contact->log_message =  $this->data['ContactDelete']['description'];
 			$this->Contact->user_id  = $this->Auth->user('id');
+			$this->Contact->cdata = $contact_log;
 			$this->Contact->save($contact);
 
 			$this->redirect(array('controller'=>'users','action'=>'home'));	

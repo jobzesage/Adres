@@ -47,7 +47,7 @@ class ContactSet extends AppModel
 			$matches[1] = "";
 			$sql = preg_replace($patterns,$matches,$sql);
 			$data = $this->query($sql);
-			$contacts['count']=$data[0][0]['id'];
+			//$contacts['count']=$data[0][0]['id'];
 		}
 		
 		
@@ -113,7 +113,7 @@ class ContactSet extends AppModel
 		
 		
 		if(!$include_trash){
-			$trash = " AND Contact.trash_id =0  "; #gets all the active contacts 
+			$trash = " AND Contact.trash_id=0  "; #gets all the active contacts 
 		}else{
 			$trash = " AND Contact.trash_id !=0  "; #get all the trashed contacts
 		}
@@ -249,5 +249,9 @@ class ContactSet extends AppModel
         return $sql;
     }  
 
+		
+	
+	public function getByIdAndType($contact_id,$contact_type_id,$plugins){
+		return $this->getContactSet($contact_type_id, array('searchKeyword'=>(int) $contact_id, 'filters'=>null,'plugins'=>$plugins, 'affiliation'=>null ));
+	}
 }
-?>
