@@ -143,15 +143,32 @@
 								'class' => 'adres-edit', 
 							),null,false)
 						?>	
-
-						<?php echo $html->link("del",array( 
-							'controller' => 'sites',
-							'action' => 'delete_record', 
+						
+						<?php 	/**
+						 * this is for toggling between the resort and delete button
+						 */ ?>
+						<?php if (isset($includeTrash)): ?>
+							
+							<?php $img_restore = $html->image("/css/theme1/images/restore.png", array("title"=>"Restore")) ?>
+							<?php echo $html->link($img_restore,array(
+							'controller'=>'contacts',
+							'action'=>'restore',
 							$value['Contact']['id']),array(
-								'title' => 'Delete Contact', 
-								'class' => 'adres-delete adres-ajax-anchor', 
-							),null,false)
-						?>				
+								'class'=>'adres-ajax-anchor adres-trash'	
+							), null, null, false)  ?>
+							
+						<?php else: ?>
+
+							<?php echo $html->link("del",array( 
+								'controller' => 'sites',
+								'action' => 'delete_record', 
+								$value['Contact']['id']),array(
+									'title' => 'Delete Contact', 
+									'class' => 'adres-delete adres-ajax-anchor', 
+								),null,false)
+							?>
+						<?php endif ?>
+										
 				</div>
 			</td>
 		</tr>		

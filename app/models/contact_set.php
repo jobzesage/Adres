@@ -47,7 +47,7 @@ class ContactSet extends AppModel
 			$matches[1] = "";
 			$sql = preg_replace($patterns,$matches,$sql);
 			$data = $this->query($sql);
-			//$contacts['count']=$data[0][0]['id'];
+			$contacts['count']=$data[0][0]['id'];
 		}
 		
 		

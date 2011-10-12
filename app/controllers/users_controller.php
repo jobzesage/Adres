@@ -197,14 +197,20 @@ class UsersController extends AppController {
     public function display_contacts($contact_type_id=null){
 		
 		$types = $this->ContactType->getList($this->Session->read('Implementation.id'));
+		
 		if($contact_type_id){
             $this->Session->write('Contact.contact_type_id',$contact_type_id);
             $this->Cookie->write('contact_type_id',$contact_type_id,false);
             $this->Session->write('Contact.dates');
 		}
 		
+		$options = array();
+		if(isset($this->params['url']['include_trash'])){
+			$options = array('include_trash'=>true);
+			$include_trash=true;
+		}
     	
-		$search = $this->setContactSet();
+		$search = $this->setContactSet($options);
 		
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 		
@@ -221,9 +227,11 @@ class UsersController extends AppController {
 		
 //		$this->set('affs',$ = ClassRegistry::init('Affiliation')->getList($contact_type_id));
 		
-    	$this->set(compact('fields','filters','contact_type_id','paging','count'));
-    	
-    	$this->set(compact('contact_types','contact_type_id'));
+    	$this->set(compact(
+    		'fields','filters','paging','count',
+    		'contact_types','contact_type_id',
+    		'include_trash'
+    	));
 
 		$this->render('/elements/contacts');
     }

@@ -42,7 +42,7 @@
 						<input type="submit" value="submit" class="search-submit" />
 				
 						<?php echo $form->end() ?>
-			
+						
 				</div>
 
 	<?php  
@@ -55,7 +55,10 @@
 					'id' => 'toggle-search', 			
 					'class' => 'advance', 
 				)) ?>
-								
+				<?php echo $html->link("Show trashed",array("{$contactTypeId}?include_trash=true"),array(
+					'id' => 'show_trashed',
+					'class' => 'advance' 
+				)) ?>
 				<div class="clear"></div>
 				</div>	
 	
