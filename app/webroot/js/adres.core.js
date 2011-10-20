@@ -317,7 +317,12 @@ jQuery(document).ready(function() {
 		}).focus();
 	});
 
-	
+    $('.adres-trash').live("click",function(e){
+        var link = $(this).attr('href');
+        $('form#adres-restore-form').attr('action',link);
+        $('#trash-dialog').dialog({title:'Restore Window'});
+        return false;
+    }); 	
 
 	$("a.adres-trash-icon").live("click",function(e){
 		var $link= $(this);

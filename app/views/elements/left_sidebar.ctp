@@ -286,7 +286,7 @@
 		</div>
 		
 </div>	
-
+<?php echo $this->element("trash_dialog") ?>
 <script type="text/javascript">
 $('.adres-left-sidebar-head a img[title]').qtip({ style: { name: 'blue', tip: true } })
 </script>
