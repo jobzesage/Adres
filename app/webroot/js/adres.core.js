@@ -314,11 +314,23 @@ jQuery(document).ready(function() {
 			buttonImage: '/img/ui/calendar.gif',
 			buttonImageOnly: true,
 			dateFormat:'yy:mm:dd'
-
 		}).focus();
 	});
 
+	
 
+	$("a.adres-trash-icon").live("click",function(e){
+		var $link= $(this);
+		$.ajax({
+			url: this.href,
+			beforeSend:ADres.LOADER.enable,
+			success:function(data){
+				$("#contacts").html(data);
+			},
+			complete: ADres.LOADER.disable
+		});
+		return false;
+	});
 
 	$('.adres-tabs').tabs();
 
