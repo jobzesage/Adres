@@ -43,11 +43,7 @@
 </table>
 </div>
 <?php echo $this->element('layout/_default_paging') ?>
-<div id="trash-dialog" class="hide">
-    <?php echo $form->create('Contact',array('url'=>null ,'id'=>'adres-restore-form'))?>
-    <?php echo $form->input('message',array('type'=>'textarea')) ?>
-    <?php echo $form->end('Restore')?>
-</div>
+<?php echo $this->element("trash_dialog") ?>
 <script type="text/javascript" language="javascript" charset="utf-8">
 //<![CDATA[
     $(function(){

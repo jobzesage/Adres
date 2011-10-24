@@ -55,10 +55,19 @@
 					'id' => 'toggle-search', 			
 					'class' => 'advance', 
 				)) ?>
-				<?php echo $html->link("Show trashed",array("{$contactTypeId}?include_trash=true"),array(
-					'id' => 'show_trashed',
-					'class' => 'advance' 
-				)) ?>
+				
+				<?php if(isset($this->params["url"]["include_trash"])): ?>
+					<?php echo $html->link("Show contact",array("{$contactTypeId}"),array(
+						'id' => 'show_trashed',
+						'class' => 'advance adres-trash-icon' 
+					)) ?>
+				<?php else: ?>
+					<?php echo $html->link("Show trashed",array("{$contactTypeId}?include_trash=true"),array(
+						'id' => 'show_trashed',
+						'class' => 'advance adres-trash-icon' 
+					)) ?>
+				<?php endif ?>
+				
 				<div class="clear"></div>
 				</div>	
 	
@@ -277,7 +286,7 @@
 		</div>
 		
 </div>	
-
+<?php echo $this->element("trash_dialog") ?>
 <script type="text/javascript">
 $('.adres-left-sidebar-head a img[title]').qtip({ style: { name: 'blue', tip: true } })
 </script>
