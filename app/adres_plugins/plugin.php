@@ -259,7 +259,7 @@ class Plugin extends AppModel{
 			),
 			'contain' => array('Contact'), 
 			'fields' => array("DISTINCT contact_id, GROUP_CONCAT( {$this->name}.{$this->getDisplayFieldName()} SEPARATOR ' ') as data"),
-			'group' => "{$this->name}.contact_id having data REGEXP '^{$keys['term']}'"
+			'group' => "{$this->name}.contact_id having data like '%{$keys['term']}%'"
 		));
     }
     

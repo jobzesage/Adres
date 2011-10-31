@@ -442,6 +442,15 @@ body		{
 .adres-datagrid .tr-even	{
 							background-color: #f3f3f3;
 							}
+							
+a.adres-affiliate			{
+							float: left;
+							height: 16px;
+							width: 16px;
+							text-indent: -9999px;
+							background: url(images/link.png) no-repeat center center;
+							outline: none;
+							}
 
 a.adres-edit				{
 							float: left;
@@ -1074,6 +1083,30 @@ form#goto_page input[type="submit"]
 				-khtml-border-radius: 	0 0 4px 4px;
 				font: bold 11px Arial;
 				border: 1px solid #E2DFDF;
+				}
+				
+.affiliate		{
+				position: absolute;
+				margin: -5px 0 0 -225px;
+				padding: 2px 10px;
+				width: 190px;
+				background-color: #f5f5f5;
+				border-radius: 			4px;
+				-moz-border-radius: 	4px;
+				-webkit-border-radius: 	4px;
+				-khtml-border-radius: 	4px;
+				font: bold 11px Arial;
+				border: 1px solid #E2DFDF;
+				box-shadow:			0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* CSS3 */
+				-moz-box-shadow:	0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* Firefox */
+				-webkit-box-shadow:	0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* Safari and Chrome */
+				-khtml-box-shadow:	0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* Linux Browsers */
+				}
+				
+.affiliate .arrow
+				{
+				position: absolute;
+				margin: -3px 0 0 188px;
 				}
 				
 .encrypt div	{

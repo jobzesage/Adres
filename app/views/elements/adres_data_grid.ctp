@@ -115,7 +115,7 @@
 					
 				</th>
 			<?php endforeach ?>
-			<th style="min-width: 50px;">Links</th>
+			<th style="min-width: 55px;">Links</th>
 		</tr>
 		</thead>
 		<?php foreach ($values as $value): ?>
@@ -134,6 +134,22 @@
 			<?php endforeach ?>
 			<td>
 				<div class="adres-toolbar">
+					
+						<div class="affiliate">
+							
+							<img class="arrow" src="/css/theme1/images/right_arrow.png" alt="" />
+							<br /><br /><br /><br /><br /><br />
+							
+						</div>
+					
+						<?php echo $html->link("affiliate",array( 
+							'controller' => 'sites',
+							'action' => 'show_contact_panel', 
+							$value['Contact']['id']),array(
+								'title' => 'Affiliate', 
+								'class' => 'adres-affiliate', 
+							),null,false)
+						?>						
 					
 						<?php echo $html->link("del",array( 
 							'controller' => 'sites',
@@ -194,6 +210,7 @@
 		if(header_index){
 			$('table.adres_data_grid > tbody > tr > td:nth-child('+header_indx+')').css("background","#f2f2f2");
 		}	
+		$(".affiliate:not(:eq(0))").hide()
 	});
 	
 </script>

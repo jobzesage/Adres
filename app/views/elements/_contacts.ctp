@@ -153,7 +153,7 @@
 									'title' => 'Show Contact', 
 									'class' => 'adres-button adres-show adres-ajax-anchor ui-state-default ui-corner-all', 
 								),null,false)
-							?>							
+							?>					
 							<?php $span = '<span class=\'ui-icon ui-icon-pencil\'></sapn>edit' ?>
 							<?php echo $html->link(__($span,true),array( 
 								'controller' => 'users',
