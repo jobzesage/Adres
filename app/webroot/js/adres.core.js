@@ -374,7 +374,16 @@ jQuery(document).ready(function() {
 
 
     //need to use this after a new one gets created to solve this
-
+	$("a.adres-affiliate").live("click",function(e){
+		e.preventDefault();
+		var $link = $(this);
+		$link.siblings("div.adres-affiliate-box").show("slow");
+	});
+	
+	$("a.adres-box-closer").live("click",function(e){
+		e.preventDefault();
+		$(this).parent("div").hide("slow");
+	});
 
 });
 

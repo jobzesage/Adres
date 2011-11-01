@@ -1,3 +1,6 @@
+<?php if (!isset($contactTypeId)): ?>
+	<?php $contactTypeId = $session->read("Contact.contact_type_id") ?>	
+<?php endif ?>
 <div id="datagrid">
 	<div id="adres-basic-panel" class="adres-panel">
 		<?php echo $html->link('New', array(
@@ -156,9 +159,9 @@
 						<?php else: ?>
 							
 							<?php echo $html->link("affiliate",array( 
-								"/#affiliate:{$value['Contact']['id']}") ,array(
+								"#") ,array(
 									'title' => 'Affiliate', 
-									'class' => 'adres-affiliate', 
+									'class' => 'adres-affiliate'
 								),null,false)
 							?>								
 	
@@ -207,16 +210,6 @@
 			$('table.adres_data_grid > tbody > tr > td:nth-child('+header_indx+')').css("background","#f2f2f2");
 		}	
 		
-		$("a.adres-affiliate").bind("click",function(e){
-			e.preventDefault();
-			var $link = $(this);
-			$link.siblings("div.adres-affiliate-box").show("slow");
-		});
-		
-		$("a.adres-box-closer").bind("click",function(e){
-			e.preventDefault();
-			$(this).parent("div").hide("slow");
-		});
-		
+
 	});
 </script>
