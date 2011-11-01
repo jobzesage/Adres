@@ -241,13 +241,15 @@ class UsersController extends AppController {
 
 	public function add_record(){
 		$this->set('status',true);		
+		
+		
 		if(empty($this->data)){
 			
 			$this->Contact->user_id = $this->Auth->user('id');
 			$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
 			
 			$this->Contact->save(array(
-				'contact_type_id'=>$this->Session->read('Contact.contact_type_id')
+				'contact_type_id'=>$this->Contact->ContactType->id 
 			));
 			$contact_id = $this->Contact->getLastInsertID();
 			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
@@ -277,10 +279,12 @@ class UsersController extends AppController {
 				$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
 			}
 			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
+			
 			$this->set('form_inputs',$form_inputs);
 			$this->set('contactId',$contact_id);
+			
+			$this->set('affiliations',$this->Contact->Affiliation->getList($this->Contact->ContactType->id));
 			$this->render('edit_record');
-
 		}
 
 	}

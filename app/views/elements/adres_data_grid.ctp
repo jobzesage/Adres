@@ -135,36 +135,16 @@
 			<td>
 				<div class="adres-toolbar">
 					
-						<div class="affiliate">
-							
+						<div class="adres-affiliate-box hide">
 							<img class="arrow" src="/css/theme1/images/right_arrow.png" alt="" />
-							<br /><br /><br /><br /><br /><br />
-							
+								
+							<?php echo $html->link("x","#",array("class"=>"adres-box-closer")) ?>	
 						</div>
-					
-						<?php echo $html->link("affiliate",array( 
-							'controller' => 'sites',
-							'action' => 'show_contact_panel', 
-							$value['Contact']['id']),array(
-								'title' => 'Affiliate', 
-								'class' => 'adres-affiliate', 
-							),null,false)
-						?>						
-					
-						<?php echo $html->link("del",array( 
-							'controller' => 'sites',
-							'action' => 'show_contact_panel', 
-							$value['Contact']['id']),array(
-								'title' => 'Edit Contact', 
-								'class' => 'adres-edit', 
-							),null,false)
-						?>	
+
+
 						
-						<?php 	/**
-						 * this is for toggling between the resort and delete button
-						 */ ?>
+
 						<?php if (isset($includeTrash)): ?>
-							
 							<?php $img_restore = $html->image("/css/theme1/images/restore.png", array("title"=>"Restore")) ?>
 							<?php echo $html->link($img_restore,array(
 							'controller'=>'contacts',
@@ -174,7 +154,23 @@
 							), null, null, false)  ?>
 							
 						<?php else: ?>
-
+							
+							<?php echo $html->link("affiliate",array( 
+								"/#affiliate:{$value['Contact']['id']}") ,array(
+									'title' => 'Affiliate', 
+									'class' => 'adres-affiliate', 
+								),null,false)
+							?>								
+	
+							<?php echo $html->link("del",array( 
+								'controller' => 'sites',
+								'action' => 'show_contact_panel', 
+								$value['Contact']['id']),array(
+									'title' => 'Edit Contact', 
+									'class' => 'adres-edit', 
+								),null,false)
+							?>	
+							
 							<?php echo $html->link("del",array( 
 								'controller' => 'sites',
 								'action' => 'delete_record', 
@@ -210,7 +206,17 @@
 		if(header_index){
 			$('table.adres_data_grid > tbody > tr > td:nth-child('+header_indx+')').css("background","#f2f2f2");
 		}	
-		$(".affiliate:not(:eq(0))").hide()
+		
+		$("a.adres-affiliate").bind("click",function(e){
+			e.preventDefault();
+			var $link = $(this);
+			$link.siblings("div.adres-affiliate-box").show("slow");
+		});
+		
+		$("a.adres-box-closer").bind("click",function(e){
+			e.preventDefault();
+			$(this).parent("div").hide("slow");
+		});
+		
 	});
-	
 </script>

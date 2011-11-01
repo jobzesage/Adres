@@ -131,8 +131,12 @@ abstract class AppController extends Controller {
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
     }
+    
 
+	
 
+	
+	
 	protected function disableDebugger(){
 		if (Configure::read('debug') > 0) {
 			Configure::write('debug',0);
