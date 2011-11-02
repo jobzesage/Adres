@@ -729,7 +729,7 @@ div#adres-dialog label	{
 						line-height: 18px;
 						text-transform: capitalize;
 						color: #179BAA;
-						width: 265px;
+						width: 125px;
 						margin-right: 0;
 						}
 
@@ -806,6 +806,10 @@ div#adres-dialog label	{
 						padding: 5px;
 						}
 						
+#contact-window table th{
+						width: 150px;
+						}
+						
 #contact-window a		{
 						border-radius: 3px;
 						-moz-border-radius: 3px;
@@ -816,6 +820,10 @@ div#adres-dialog label	{
 #contact-window a span, #AdvanceSearchAddForm a span, #AffiliationAddForm a span
 						{
 						padding: 4px 0 0 5px;
+						}
+						
+.ui-datetime-calendar	{
+						background: url(images/popup_bg.png) repeat-x;
 						}
 
 #AdvanceSearchAddForm, #AffiliationAddForm
@@ -1135,4 +1143,15 @@ form#goto_page input[type="submit"]
 				{
     			font: bold 10px Arial;
     			width: 50px;
+				}
+				
+.adres-double	{
+    			float: left;
+    			width: 380px;
+				}
+				
+.affiliation_container
+				{
+    			float: left;
+    			width: 380px;
 				}
