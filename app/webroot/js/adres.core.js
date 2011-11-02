@@ -210,7 +210,7 @@ ADres.DIALOG={
 	open:function(){
 		$('#adres-dialog').dialog({
 			modal:true,
-			width:380
+			width:800
 		});
 	},
 	close:function(){

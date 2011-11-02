@@ -819,11 +819,20 @@ div#adres-dialog label	{
 						
 #contact-window a span, #AdvanceSearchAddForm a span, #AffiliationAddForm a span
 						{
-						padding: 4px 0 0 5px;
+						xpadding: 4px 0 0 5px;
+						padding: 0;
 						}
 						
-.ui-datetime-calendar	{
-						background: url(images/popup_bg.png) repeat-x;
+.ui-datetime-calendar, .ui-datetime-clock
+						{
+						background: url(images/popup_bg.png) repeat-x !important;
+						overflow: hidden;
+						}
+						
+.ui-datetime-slider-hour, .ui-datetime-slider-mins
+						{
+						border: none;
+						padding: 5px;
 						}
 
 #AdvanceSearchAddForm, #AffiliationAddForm

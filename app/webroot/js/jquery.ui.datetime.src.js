@@ -79,10 +79,10 @@
     },
 
     _generate: function(){
-      this.calendar = $('<div>').addClass('ui-datetime-calendar ui-widget ui-widget-content ui-corner-all').appendTo(this.container);
+      this.calendar = $('<div>').addClass('ui-widget ui-widget-content ui-corner-all ui-datetime-calendar').appendTo(this.container);
       this.calendar.css('width', (17*this.options.numMonths).toString() + 'em');
       withDate = (this.options.withDate) ? this._calendar() : this.calendar.hide();
-      this.clock = $('<div>').addClass('ui-datetime-clock ui-widget ui-widget-content ui-corner-all').appendTo(this.container);
+      this.clock = $('<div>').addClass('ui-widget ui-widget-content ui-corner-all ui-datetime-clock').appendTo(this.container);
       withTime = (this.options.withTime) ? this._clock() : this.clock.hide();
     },
 
