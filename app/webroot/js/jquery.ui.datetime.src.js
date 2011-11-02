@@ -421,7 +421,7 @@
 
     format: function(format){
       var date = this;
-      format = format.replace(new RegExp("('[^']*)?((yy|y|mm|m|MM|M|dd|d|DD|D|hh|h|gg|g|ii|i|a|A|O)|')", "g"),
+      format = format.replace(new RegExp("('[^']*)?((yy|y|mm|m|MM|M|dd|d|DD|D|hh|h|gg|g|ii|i|ss|a|A|O)|')", "g"),
         function(needle, match){
           if(!match){
             switch(needle){
@@ -440,6 +440,7 @@
               case 'gg': return ('0' + date.get12Hours()).substrOffset(-2);
               case 'g' : return date.get12Hours();
               case 'ii': return ('0' + date.getMinutes()).substrOffset(-2);
+              case 'ss': return ('0' + date.getSeconds()).substrOffset(-2);
               case 'i' : return date.getMinutes();
               case 'a' : return date.getMeridiem();
               case 'A' : return date.getMeridiem().toUpperCase();

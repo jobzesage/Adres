@@ -310,7 +310,7 @@ jQuery(document).ready(function() {
 	});
 
 	$('input.date_time').live('click',function(e){
-		$(this).datetime({ format: 'yy:mm:dd hh:ii' }).focus();
+		$(this).datetime({value:'+1min', format: 'yy-mm-dd hh:ii:ss' }).focus();
 	});
 	
 
