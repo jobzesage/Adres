@@ -20,7 +20,8 @@
 		<?php echo $html->css(array(
 				'adres.default',
 				'jquery-ui-1.7.2.modified',
-				'jquery.ui.selectmenu'
+				'jquery.ui.selectmenu',
+				'jquery-ui-datetime'
 			)) ?>
 
 		<?php	echo $html->css('theme1/default') ?>
@@ -33,7 +34,6 @@
 				'jquery.cookie',
 				'jquery.jstree',
 				'jquery.validate.pack',
-				'jquery.ui.selectmenu',
 				'adres.core'
 			));
 

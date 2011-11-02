@@ -310,12 +310,9 @@ jQuery(document).ready(function() {
 	});
 
 	$('input.date_time').live('click',function(e){
-		$(this).datepicker({
-			buttonImage: '/img/ui/calendar.gif',
-			buttonImageOnly: true,
-			dateFormat:'yy:mm:dd'
-		}).focus();
+		$(this).datetime({ format: 'yy:mm:dd hh:ii' }).focus();
 	});
+	
 
     $('.adres-trash').live("click",function(e){
         var link = $(this).attr('href');
