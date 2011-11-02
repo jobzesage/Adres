@@ -16,4 +16,5 @@
 	<?php endif ?>
 </div>
 
+
 <?php //echo $this->element('contacts_details'); ?>

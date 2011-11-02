@@ -210,7 +210,7 @@ ADres.DIALOG={
 	open:function(){
 		$('#adres-dialog').dialog({
 			modal:true,
-			width:800
+			width:380
 		});
 	},
 	close:function(){
@@ -310,7 +310,7 @@ jQuery(document).ready(function() {
 	});
 
 	$('input.date_time').live('click',function(e){
-		$(this).datetime({value:'+1min', format: 'yy-mm-dd hh:ii:ss' }).focus();
+		$(this).datetime({value:'+1min', format: 'yy-mm-dd hh:ii:ss' });
 	});
 	
 
