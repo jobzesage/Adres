@@ -31,21 +31,25 @@ class TypeDate extends Plugin{
 			$formatted_result = ClassRegistry::init('TypeDateOption')->getField($dataum);
 			$_SESSION['Contact']['dates'][$formatted_result[0]['TypeDateOption']['field_id']]=$formatted_result[0]['TypeDateOption'];
 		}
-
+		
 		$date = array_values($dataum['data']);
 		
         $output= self::EMPTY_DATE;
-
-		$method_name = $_SESSION['Contact']['dates'][$dataum['field_id']]['format'];
-
-		if(empty($method_name)){
-			$method_name="ddmmyyyy";
+		
+		$date_format = $_SESSION['Contact']['dates'][$dataum['field_id']]['format'];
+		
+		if(empty($date_format)){
+			$date_format="d.m.y";
 		}
 		
-		if(!empty($date[0]) && strtotime($date[0])){
-			$output = $this->_time->{$method_name}($date[0]);
+		$date_stamp = strtotime($date[0]);
+		
+		
+		if(!empty($date[0]) && $date_stamp){
+			$output = date($date_format, $date_stamp);
      	}
-
+		
+     	
 		$key = array_keys($dataum['data']);
 		
 		return array($key[0]=>$output);
@@ -159,8 +163,9 @@ class TypeDate extends Plugin{
 			$output.= '<'.$wrapper['tag'].'>';
 			
 			$date_value = $value[$this->name][$data_column];
-			if(strtotime($date_value)){
-				$output.= $this->_time->{$_SESSION['Contact']['dates'][$value[$this->name]['field_id']]['format']}($date_value) ;
+			$date_stamp = strtotime($date_value);
+			if($date_stamp){
+				$output.= date( $_SESSION['Contact']['dates'][$value[$this->name]['field_id']]['format'], $date_stamp) ;
 			}else{
 				$output.="Not Set";
 			}
