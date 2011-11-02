@@ -124,6 +124,11 @@ class TypeDate extends Plugin{
 		
 		$output .= (int)$plugin['Field']['required'] ? " class ='required date_time text   ui-corner-all' " : " class='text date_time   ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
+		
+		if(!strtotime($data)){
+			$data = "";
+		}
+		
 		$output .= ' value="'.$data.'"';
 		$output .='/>';
 		$output .='</'.$wrapper['tag'].'>';
@@ -145,13 +150,21 @@ class TypeDate extends Plugin{
 		$data_field_name = $optionsClass->_data_field;
 		$data = $select_data[$optionsClass->name][$data_field_name];
 		
+		
 		if($value){
 			$output.= '<th>';
 			$output.= $field_name;
 			$output.= " : ";
 			$output.= '</th>';		
 			$output.= '<'.$wrapper['tag'].'>';
-			$output.= $this->_time->{$_SESSION['Contact']['dates'][$value[$this->name]['field_id']]['format']}($value[$this->name][$data_column]) ;
+			
+			$date_value = $value[$this->name][$data_column];
+			if(strtotime($date_value)){
+				$output.= $this->_time->{$_SESSION['Contact']['dates'][$value[$this->name]['field_id']]['format']}($date_value) ;
+			}else{
+				$output.="Not Set";
+			}
+			
 			$output.= '</'.$wrapper['tag'].'>';
 		}
 		return '<tr>'.$output.'</tr>';
