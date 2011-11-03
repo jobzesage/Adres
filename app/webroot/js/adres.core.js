@@ -173,6 +173,8 @@ ADres.AJAX={
 					}else if($link.is('#send_email')){
 						$('#adres-dialog').html(resp.data);
 						ADres.DIALOG.open();
+                    }else if($link.hasClass('affiliation_delete')){
+                    	$link.closest('tr').remove();
                     }
 					else{
 						$('div#contacts').html(resp.data);

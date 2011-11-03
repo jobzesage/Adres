@@ -267,8 +267,10 @@ class Contact extends AppModel {
 		$i=0;
 		foreach ($affiliations as $affliation_name => $con) {
 			foreach ($contacts[$affliation_name] as $value){
+
 				$data[$i]['affiliated_contact_id']= $value['AffiliationsContact'][$con['contact_id']];
 				$data[$i]['affiliation_type']=$value[$con['affiliated']];
+				$data[$i]['affiliations_contacts_id'] = $value['AffiliationsContact']['id'];
 				$i++;
 			}
 		}

@@ -77,6 +77,16 @@ class AffiliationsController extends AppController {
 		$this->Session->setFlash(__('The Affiliation could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	
+	public function delete_association($id=null){
+		if($id){
+			$this->Affiliation->query("delete from affiliations_contacts where id=$id");
+			$this->set('status',true);
+			$this->layout = 'default';
+			$this->render('/elements/empty');
+		}
+	}
 
 }
 ?>

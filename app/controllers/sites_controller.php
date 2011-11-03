@@ -331,18 +331,18 @@ class SitesController extends AppController {
 	protected function affiliationContacts($contact_id,$p){
 		
 		$contact= $this->Contact->getContactAffiliations($contact_id);
-		$test = array();
+		$affiliations = array();
 		
 		foreach ($contact as $data) {
 			$c = $this->Contact->read(null,$data['affiliated_contact_id']);
 			$plugins = $this->Field->getPluginTypes($c['Contact']['contact_type_id'],null,array(
 				'Field.is_descriptive'=>1	
 			));
+			
 			$data['affiliated_to'] = $this->getTitle($data['affiliated_contact_id'],$plugins);
-			$test[] = $data;
+			$affiliations[] = $data;
 		}
-		$contact = $test;
 		
-		return $contact;
+		return $affiliations;
 	}
 }
