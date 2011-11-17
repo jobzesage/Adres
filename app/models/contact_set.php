@@ -98,7 +98,7 @@ class ContactSet extends AppModel
 			
 			
 			
-		$select = 'SELECT DISTINCT (Contact.id) AS id ';
+		$select = 'SELECT (Contact.id) AS id ';
 		
 		$from = ' FROM contacts AS Contact 
 			LEFT JOIN contacts_groups AS ContactGroup 
@@ -156,18 +156,23 @@ class ContactSet extends AppModel
 				'field_id' =>$field['Field']['id']	
 			);
 			
-			$select .= ' , '.$plugin->getDisplayFieldName($metaOptions) ;
 			
+			// If the plugin is using a table, fetch the values to buld the SQL SELECT and FROM statements
+			if($plugin->useTable){
+				
+				$select .= ' , '.$plugin->getDisplayFieldName($metaOptions) ;
+				$select .= '  AS "'.$field['Field']['name'].'"';
 			
-			$select .= '  AS "'.$field['Field']['name'].'"';
-			
-			$from.= ' LEFT JOIN '.$plugin->useTable .' AS ';
-			$from.= $plugin->name.'_'.$field['Field']['id'];
-			
-			#change it to a func
-			$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';
-			#change it to a func
-			$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';
+				$from.= ' LEFT JOIN '.$plugin->useTable .' AS ';
+				$from.= $plugin->name.'_'.$field['Field']['id'];
+				
+				#change it to a func
+				$from.= ' ON (Contact.id ='.$plugin->name.'_'.$field['Field']['id'].'.contact_id';
+				#change it to a func
+				$from.= ' AND '.$plugin->name.'_'.$field['Field']['id'].'.field_id = '.$field['Field']['id'] .' )';
+			}
+			//Adds up to the select clause as extension
+			$select.= $plugin->selectExt($metaOptions);
 			
 			//Adds up to the from clause as extension
 			$from.= $plugin->joinExt($metaOptions);
@@ -221,7 +226,7 @@ class ContactSet extends AppModel
 		
 		
 		//Build the SQL query that can display the contacts
-		$sql = $select.$from.$where.$ordering.$limit;
+		$sql = $select.$from.$where." GROUP BY Contact.id ".$ordering.$limit;
 		
 		return $sql;
     }

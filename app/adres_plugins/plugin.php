@@ -67,6 +67,10 @@ class Plugin extends AppModel{
 		return $this->_join_field_name;
 	}
 
+	public function selectExt($data=array()){
+		return "";
+	}
+
 	public function joinExt($data=array()){
 		return "";
 	}
