@@ -227,7 +227,7 @@ class ContactSet extends AppModel
 		
 		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where." GROUP BY Contact.id ".$ordering.$limit;
-		debug($sql);
+		//debug($sql);
 		return $sql;
     }
 
