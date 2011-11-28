@@ -212,7 +212,7 @@ class ContactSet extends AppModel
 		
 			
 		//Adds extention to the where clause from plugin
-		$where.=$plugin->whereExt();	
+		$where.=$plugin->whereExt($metaOptions);	
 		
 		//sorting options
 		$ordering = " ";
@@ -227,7 +227,7 @@ class ContactSet extends AppModel
 		
 		//Build the SQL query that can display the contacts
 		$sql = $select.$from.$where." GROUP BY Contact.id ".$ordering.$limit;
-		
+		debug($sql);
 		return $sql;
     }
 
