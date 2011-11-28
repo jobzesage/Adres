@@ -298,14 +298,18 @@ class SitesController extends AppController {
 			$field_id 		= $field['Field']['id'];
 			$contact_field 	= ClassRegistry::init($pluginName)->getJoinContact();
 			$join_field		= ClassRegistry::init($pluginName)->getJoinField();
+			$useTable		= ClassRegistry::init($pluginName)->useTable;
 			
-			$value = ClassRegistry::init($pluginName)->find('first',array(
-				//'contain'=>array('Field'),
-				'conditions'=>array(
-				$pluginName.'.'.$contact_field .' = '.$id,
-				$pluginName.'.'.$join_field .' = '.$field_id 
-				)	
-			));
+			
+			if($useTable){ //Workaround from Jonathan Bigler - Nov 2011, for plugins not using tables
+				$value = ClassRegistry::init($pluginName)->find('first',array(
+					//'contain'=>array('Field'),
+					'conditions'=>array(
+					$pluginName.'.'.$contact_field .' = '.$id,
+					$pluginName.'.'.$join_field .' = '.$field_id 
+					)	
+				));
+			}
 			
 			if(empty($value)){
 				ClassRegistry::init($pluginName)->save(
