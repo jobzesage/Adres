@@ -33,25 +33,38 @@ class ContactSet extends AppModel
 		$sql = $this->build_query($contact_type_id,$options);
         
         
-		$contacts['data'] = $this->query($sql);
+		$contacts['data'] = $this->query($sql['query']);
 		
+		/*UPDATE by Jonathan Bigler, 20 January 2012 :
+		  I removed the cache implementation as it caused some problems with the new plugin mechanism
+		  and it would tend to be outdated quite easily showing wrong information
+		  but instead of re-running the whole transformed query is implemented in Rajib's code
+		  I use PHP to mesure the size of the result array.*/
+		  
 		//Counter Cache implementation
+		/*
 		if(empty($options['filters']) && empty($options['searchKeyword']))
 		{
 			$contacts['count'] = $ctype['ContactType']['contact_counter'];
 		}
 		else{
+			
 			$patterns[0] = "/DISTINCT\s/";
 			$matches[0] = "COUNT";
 			$patterns[1]="/order.+$/" ;
 			$matches[1] = "";
 			$sql = preg_replace($patterns,$matches,$sql);
+			//There's a problem here !!!!!
+			debug($sql);
 			$data = $this->query($sql);
+			debug($data);
 			$contacts['count']=$data[0][0]['id'];
 		}
+		*/
+		$count= $this->query($sql['count']);
+		$contacts['count']=$count[0][0]['COUNT(*)'];
 		
-		
-		$contacts = $this->after($contacts);
+		$contacts = $this->after($contacts,$contact_type_id);
 		
 		return $contacts;
 	}
@@ -64,7 +77,10 @@ class ContactSet extends AppModel
 	 * @return mixed the string/integer/date value only formatted one
 	 * @author Rajib
 	 **/
-	private function after(Array $results){
+	private function after(Array $results,$contact_type_id){
+	
+		$results = $this->workaround($results, $contact_type_id);
+	
 		$formatterData=array();
 		foreach ($results['data'] as $data) {
 			$keys = array_keys($data);
@@ -85,6 +101,8 @@ class ContactSet extends AppModel
 			$formatterData[]=$data;
 		}
 		$results['data'] = $formatterData;
+		
+		//debug($results);
 		return $results;
 	}
 
@@ -98,7 +116,7 @@ class ContactSet extends AppModel
 			
 			
 			
-		$select = 'SELECT (Contact.id) AS id ';
+		$select = 'SELECT DISTINCT (Contact.id) AS id ';
 		
 		$from = ' FROM contacts AS Contact 
 			LEFT JOIN contacts_groups AS ContactGroup 
@@ -181,16 +199,16 @@ class ContactSet extends AppModel
 			//stores the Types undersore name and data column to the field name association
 			//ie $order['name'] = 'TypeString_4.data'
 			$orders[$field['Field']['name']] = $pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName(); 
-			
-			if($searchKeyword!=null){
+			if($searchKeyword!=null && $plugin->useTable){
 				#change it to session keyword
 				if($i != 0)	$keyword = $keyword." OR ";
 				$keyword = $keyword.$pluginName.'_'.$field['Field']['id'].'.'.$plugin->getDisplayFieldName();
 				//$pluginName.'_'.$field['Field']['id'].'.'. $plugin->getDisplayFieldName();
 				$keyword = $keyword." LIKE \"%".$searchKeyword."%\" ";
+				
+				$i++;
 			}
 			
-			$i++;
 		}
 		
 		//For adding search by global contact ID
@@ -226,8 +244,11 @@ class ContactSet extends AppModel
 		
 		
 		//Build the SQL query that can display the contacts
-		$sql = $select.$from.$where." GROUP BY Contact.id ".$ordering.$limit;
-		//debug($sql);
+		$sql['query'] = $select.$from.$where." GROUP BY Contact.id ".$ordering.$limit;
+		
+		//Builds the SQL query that counts the quantity of returned contacts
+		$sql['count'] = "SELECT COUNT(*) ".$from.$where;
+		
 		return $sql;
     }
 
@@ -236,7 +257,7 @@ class ContactSet extends AppModel
         $options = am($this->_defaults,$options);
 	    $options['paging'] = 0;	
 		$sql = $this->build_query($contact_type_id,$options);
-        $contacts = $this->query($sql);
+        $contacts = $this->query($sql['query']);
         $ids =array();
         $i = 0;
 
@@ -258,5 +279,82 @@ class ContactSet extends AppModel
 	
 	public function getByIdAndType($contact_id,$contact_type_id,$plugins){
 		return $this->getContactSet($contact_type_id, array('searchKeyword'=>(int) $contact_id, 'filters'=>null,'plugins'=>$plugins, 'affiliation'=>null ));
+	}
+	
+	
+	// With the development of new plugins such as DisplayAffiliation and DisplayGroup, using the SQL command GROUP_CONCAT, CakePHP isn't able to relate the results from the query to classes from the model
+	// See forum post : http://cakephp.lighthouseapp.com/projects/42648/tickets/2309-group_concat-and-query
+	// When we update to CakePHP 1.3, we can then create virtualFields and this workaround won't be necessary anymore.
+	private function workaround(Array $results, $contact_type_id){
+
+	
+		//Example of Array where three columns aren't related (indice 0) :
+    	//[data] => Array
+    	//    (
+    	//        [0] => Array
+    	//            (
+    	//                [Contact] => Array
+    	//                    (
+    	//                        [id] => 1
+    	//                    )
+	    //                [0] => Array
+	    //                    (
+	    //                        [Affiliated record] => 
+	    //                        [SPORT GROUPS] => 
+	    //                        [Work group] => 
+	    //                    )
+	    //                [TypeString_4] => Array
+	    //                    (
+	    //                        [Last Name] => Ahmedi
+	    //                    )
+	    //We will us the column's label to find the alias' name. Then we need to split those
+	    //three column with each their indice.
+	    //
+	    //For the system to work properly, the columns have to be sorted according to their "order" attribute
+	    //The unrelated columns are all in the indice [0], so they're not sorted. We need to find their "order" attribute
+	    //and place them properly in the newResult array.
+	    
+	    //Get the list of the columns with the proper order
+		$columnRefs = ClassRegistry::init('Field')->find('all',array('conditions'=>array('contact_type_id'=>$contact_type_id), 'order'=>array('order ASC')));
+		//Reformat the list in a more practical way
+		$cleanColumnRefs = array();
+		foreach($columnRefs as $columnRef){
+			$cleanColumnRefs[$columnRef['Field']['name']] = 
+				array(
+					'order' => $columnRef['Field']['order'],
+					'field_type_class_name' => $columnRef['Field']['field_type_class_name'],
+					'id' => $columnRef['Field']['id'],
+				);
+		}		
+		
+	    
+		//Split the unrelated columns
+		$newResult=array();
+		foreach($results['data'] as $keyRow => $row){
+			
+			$columns=array();
+			foreach($row as $keyColumn=>$column){
+				if($keyColumn == '0'){ //Unrelated column
+					//Search for the table's alias
+					foreach($column as $keyProblemCol => $problemCol)
+						$columns[$cleanColumnRefs[$keyProblemCol]['field_type_class_name']."_".$cleanColumnRefs[$keyProblemCol]['id']][$keyProblemCol]=$problemCol;
+				}
+				else //Normal column
+					$columns[$keyColumn]=$column;
+			}
+			
+			$newResult['data'][$keyRow]['Contact'] = $columns['Contact'];
+			//Sort the list "columns" according to the reference list "cleanColumnRefs" in "newResult"
+			foreach($cleanColumnRefs as $columnRef){
+				$key=$columnRef['field_type_class_name']."_".$columnRef['id'];
+				if(array_key_exists($key,$columns))
+					$newResult['data'][$keyRow][$key] = $columns[$key];
+			}
+		}
+		
+		//Add the "count" information to the new list
+		$newResult['count'] = $results['count'];
+		
+		return $newResult;
 	}
 }

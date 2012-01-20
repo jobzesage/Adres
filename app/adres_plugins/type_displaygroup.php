@@ -13,16 +13,6 @@ class TypeDisplaygroup extends Plugin{
 	var $useTable = false;
 	
 	public $optionsClass = 'TypeDisplaygroupOption';
-	
-//	public $belongsTo = array('Contact');
-/*
-	public $_adresValidate=array(
-        'notEmptyFields'=>array(
-            'rule'=>'notEmpty',
-            'message'=>'field can not be blank'
-        )
-    );
-  */  
     
     
     
@@ -58,6 +48,10 @@ class TypeDisplaygroup extends Plugin{
 
 
 
+	
+	public function renderEditForm(){
+		// No edit
+	}
 		
 	public function processEditForm()
     {    
@@ -65,11 +59,13 @@ class TypeDisplaygroup extends Plugin{
 	}
 	
 	
-	
-	public function renderEditForm(){
-		// No edit
+	public function renderShowDetail(){
+		// No detailed view
 	}
 
+	public function advanceSearchFormField(){
+		// No advanced search
+	}
 
 }
 ?>
