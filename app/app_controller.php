@@ -28,7 +28,8 @@ abstract class AppController extends Controller {
             'username' => 'username',
             'password' => 'password'
         );
-		$this->Auth->allow('register','login');
+
+        $this->Auth->allow('register','login');
 
         #$this->Auth->userScope = array('User.is_active' => 1);
         $this->Auth->authorize = 'controller';
@@ -37,6 +38,7 @@ abstract class AppController extends Controller {
         $this->Auth->userModel = 'User';
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'home');
+
 
         parent::beforeFilter();
 
@@ -131,12 +133,8 @@ abstract class AppController extends Controller {
 			$this->Session->write('Implementation',$implementation['Implementation']);
     	}
     }
-    
 
-	
 
-	
-	
 	protected function disableDebugger(){
 		if (Configure::read('debug') > 0) {
 			Configure::write('debug',0);

@@ -9,7 +9,10 @@ class ServicesController extends AppController{
 
     public function beforeFilter()
     {
-      $this->disableDebugger();
+        parent::beforeFilter();
+
+        $this->disableDebugger();
+        $this->Auth->allow('*');
     }
 
     public function index($contact_type_id=null)
@@ -17,7 +20,7 @@ class ServicesController extends AppController{
         $this->layout = 'api';
         if( $this->RequestHandler->ext == 'json')
         {
-            $this->set('data', $this->params['url']);
+            $this->set('data', array('fields'=>array('Name','Age'), 'data'=>array(array('Rajib','28'),array('Utpol','27'))));
         }
     }
 
@@ -35,5 +38,8 @@ class ServicesController extends AppController{
 
 	public function delete()
 	{
-	}
+    }
+
+
+
 }

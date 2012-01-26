@@ -14,7 +14,7 @@
 	Router::connect('/data_structure/:action',	array('controller' => 'fields','action'=>'index'));
 
         //need to create an api for this application
-        Router::connect('/v1/contacts/:contact_type_id', array('controller'=>'services','action'=>'index'))
+        Router::connect('/v1/contacts/:contact_type_id', array('controller'=>'services','action'=>'index','api'=>true))
 
 	// Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 ?>

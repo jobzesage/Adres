@@ -1,67 +1,72 @@
 <?php
+
 class User extends AppModel {
 
 	public $name = 'User';
 
 	public $actsAs = array('Containable');
-	
-	// public $validate = array(
-	// 	'first_name' => array('notempty'),
-	// 	'last_name' => array('notempty'),
-	// 	'username' => array('notempty'),
-	// 	'email' => array('email'),
-	// 	'password' => array('notempty'),
-	// 	'is_active' => array('numeric')
-	// );
-	
+
+    public $validate = array(
+        'first_name' => array('notempty'),
+        'last_name' => array('notempty'),
+        'username' => array('notempty','unique'),
+        'email' => array('email','unique'),
+        'password' => array('notempty'),
+        'is_active' => array('numeric'),
+        'api_key' => array('notempty')
+    );
+
 /*
-	public $validate = array( 
+	public $validate = array(
 		'email' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Email can not be blank', 
-			), 
+				'message' => 'Email can not be blank',
+			),
 			'rule2' => array(
-				'rule' => 'email', 
+				'rule' => 'email',
 				'last'=>true,
-				'message' => 'Must be a valid email address', 
+				'message' => 'Must be a valid email address',
 			),
 			'rule3' => array(
-				'rule' => "isUnique", 
+				'rule' => "isUnique",
 				'message'=>"This email address is alredy registered"
-			) 
+			)
 		),
 		'first_name' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Please provide your first name',  
+				'message' => 'Please provide your first name',
 			),
 			'rule2' => array(
 				'rule' => array('minLength', '2'),
 				'message' => 'Mimimum 2 characters long'
-			)  
-		), 	
+			)
+		),
 		'last_name' => array(
 			'rule1' => array(
 				'rule' => 'notEmpty',
-				'message' => 'Please provide your last name',  
+				'message' => 'Please provide your last name',
 			),
 			'rule2' => array(
 				'rule' => array('minLength', '2'),
 				'message' => 'Mimimum 2 characters long'
-			)  
+			)
 		),
 		'password' => array(
 			'rule1' => array(
 				'rule' => array('minLength',4),
 				'message' => "Password should be more than 4 characters"
 			)
-		) 
+		)
 	);
 
 
 */
-		
+
+
+
+
 	public $hasMany = array(
 		'Log' => array(
 			'className' => 'Log',
@@ -71,8 +76,16 @@ class User extends AppModel {
 			'className' => 'HiddenField'
 		)
 	);
-	
-	
+
+
+    public function afterSave($created)
+    {
+        if($created){
+            $this->data['User']['api_key'] = $this->getApiKey($this->id, $this->data['User']['username']);
+            $this->save($this->data['User']);
+        }
+    }
+
 	public function getHiddenFieldsByContactType($contact_type_id)
 	{
 		$hidden_fields = $this->find('first',array(
@@ -80,13 +93,18 @@ class User extends AppModel {
 				'HiddenField'=>array(
 					'conditions'=>array(
 						'HiddenField.contact_type_id' => $contact_type_id,
-						'HiddenField.user_id'=>$this->id 
+						'HiddenField.user_id'=>$this->id
 					)
 				)
 			)
 		));
-		
+
 		return Set::extract('/HiddenField/field_id',$hidden_fields);
-	}
+    }
+
+
+    private function getApiKey($id, $name)
+    {
+        return Security::hash($id.$name);
+    }
 }
-?>
