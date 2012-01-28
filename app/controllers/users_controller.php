@@ -641,18 +641,4 @@ class UsersController extends AppController {
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
     }
 
-    public function read_from_json($url='http://adres.dev/v1/contacts/1.json')
-    {
-        $curl_handle = curl_init();
-        $curl_options = array(
-            CURLOPT_RETURNTRANSFER  => true,
-            CURLOPT_URL             => $url
-        );
-
-        curl_setopt_array($curl_handle,$curl_options);
-        $result = curl_exec($curl_handle);
-        debug(json_decode($result));
-        curl_close($curl_handle);
-        $this->render(null);
-    }
-}
+ }

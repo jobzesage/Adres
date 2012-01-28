@@ -7,7 +7,7 @@ abstract class AppController extends Controller {
 
     public $layout = "administrator"; #layout file for all administraive panel
 
-    public $helpers =array('Html','Form','Session','Javascript','Time','Text','Tree');
+    public $helpers =array('Html','Form','Session','Javascript','Time','Text','Tree','Csv');
 
     public $components = array(
     	'Auth',
@@ -134,6 +134,20 @@ abstract class AppController extends Controller {
     	}
     }
 
+    protected function get_api($url){
+
+        $curl_handle = curl_init();
+        $curl_options = array(
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_URL             => Configure::read('ADres.host').$url
+        );
+
+        curl_setopt_array($curl_handle,$curl_options);
+        $result = curl_exec($curl_handle);
+        curl_close($curl_handle);
+
+        return json_decode($result, true);
+    }
 
 	protected function disableDebugger(){
 		if (Configure::read('debug') > 0) {

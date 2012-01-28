@@ -6,6 +6,9 @@
     Configure::write('ADres.url','url');
     Configure::write('ADres.language','en');
 
+    Configure::write('ADres.host','http://adres.dev');
+    Configure::write('ADres.api_key', 'ee89026a6c5603c51b4504d218ac60f6874b7750');
+
     Configure::write('ADres.encryptor_vi','1q2w3e4r5t6y7u8i');
 
 	/**

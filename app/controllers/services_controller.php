@@ -5,23 +5,23 @@
 
 class ServicesController extends AppController{
 
-    public $uses = array('User','ContactSet');
+    public $uses = array('ContactSet');
+    public $layout = 'api';
+
+    public $options = array();
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-
-        $this->disableDebugger();
+        //$this->disableDebugger();
         $this->Auth->allow('*');
+        $this->verifyApiKey();
     }
 
-    public function index($contact_type_id=null)
+    public function index($id=null)
     {
-        $this->layout = 'api';
-        if( $this->RequestHandler->ext == 'json')
-        {
-            $this->set('data', array('fields'=>array('Name','Age'), 'data'=>array(array('Rajib','28'),array('Utpol','27'))));
-        }
+        //if( $this->RequestHandler->ext != 'json')
+            debug($this->ContactSet->getContactSet($id));
     }
 
     public function show($id=null)
@@ -39,6 +39,16 @@ class ServicesController extends AppController{
 	public function delete()
 	{
     }
+
+    private function verifyApiKey()
+    {
+        if($this->params['url']['api_key']==$this->Auth->user('api_key')){
+            return true;
+        }else{
+
+        }
+    }
+
 
 
 

@@ -115,7 +115,7 @@ class CsvHelper extends Helper {
 						}
 						$this->endRow();
 				}
-                foreach ($data as $row) {
+				foreach ($data as $row) {
 					foreach ($fieldList as $fieldName) {
 						@$this->addField($row[$fieldName]);
 					}
@@ -138,9 +138,21 @@ class CsvHelper extends Helper {
 			}
 		}
 
+	}
+
+
+
+    function myGrid($data, $fieldList)
+    {
+        if ($fieldList) {
+            foreach ($data as $row) {
+                foreach ($fieldList as $fieldName) {
+                    @$this->addField($row[$fieldName]);
+                }
+                $this->endRow();
+            }
         }
-
-
+    }
 
 /**
  * Adds a single field value to the buffer. You must call $csv->endRow() to commit fields to the buffer.
@@ -168,8 +180,7 @@ class CsvHelper extends Helper {
  * @param array $row Data to be added
  * @access public
  */
-    function addRow($row) {
-        $row = (Array) $row;
+	function addRow($row) {
 		if ($this->preserveLeadingZerosInExcel) {
 			// convert the number to a string formula
 			foreach ($row as $key => $value){
