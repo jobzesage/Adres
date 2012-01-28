@@ -9,6 +9,16 @@ class TypeDisplayaffiliationOption extends AppModel{
 	//and the number following is the id of the affiliation.
 	public $_data_field = 'affiliation';
 	
+	public function getField($params){
+		return $this->find('all',array(
+			'conditions' => array(
+				'contact_type_id' => $params['contact_type_id'],
+				'field_id'=>$params['field_id'] 
+			) 
+		));
+		
+	}
+	
 	//Returns wether the affiliation should be seen from a father perspective 
 	//(in opposition to a child perspective)
 	public function isFatherAffiliation($field_id){
