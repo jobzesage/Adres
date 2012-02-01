@@ -29,7 +29,7 @@ class TypeDisplayaffiliation extends Plugin{
 		//Get the label of the field
 		$fieldname = ClassRegistry::init('Field')->read('name',$data['field_id']);
 		
-		$sqlSelect = ", GROUP_CONCAT(CONCAT_WS(' '";
+		$sqlSelect = ", GROUP_CONCAT(DISTINCT CONCAT_WS(' '";
 		
 		foreach($fields as $field){
 			$plugin = ClassRegistry::init($field['Field']['field_type_class_name']);
@@ -44,25 +44,53 @@ class TypeDisplayaffiliation extends Plugin{
 	
 
 	public function joinExt($data=array()){
-		
+	
 		$affiliationId = $this->getAffiliationId($data);
+	
+		//An affiliation can be see from two direction, from father to son, or from son to father.
+		//This variable defines if we're looking at the relation from the father direction.
+		//In a father affiliation, the current record is the father and we want to display the child in the column.
+		$fatherAffiliation = $this->isAffiliationFather($data);
 		
-		$sqlJoin = " LEFT JOIN affiliations_contacts AS affiliationFather_".$data['field_id'];
-		$sqlJoin .= " ON(affiliationFather_".$data['field_id'].".contact_father_id = Contact.id AND affiliationFather_".$data['field_id'].".affiliation_id = ".$affiliationId.") ";
-		$sqlJoin .= " LEFT JOIN contacts AS contactChild_".$data['field_id']." ON(affiliationFather_".$data['field_id'].".contact_child_id = contactChild_".$data['field_id'].".id) ";
+		if($fatherAffiliation) { //The current contact is on the father side of the affiliation
 		
-		
-		//Find the descriptive fields of the affiliated contact type
-		$fields = $this->getDescriptiveFields($data);
-
-		
-		//Generate the SQL statement to link to those fields
-		foreach($fields as $field){
-			$plugin = ClassRegistry::init($field['Field']['field_type_class_name']);
-			$sqlJoin .= " LEFT JOIN ".$plugin->useTable;
-			$sqlJoin .= " AS affiliateField_".$affiliationId."_".$field['Field']['id'];
-			$sqlJoin .= " ON(contactChild_".$data['field_id'].".id = affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinContact();
-			$sqlJoin .= " AND affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinField()." = ".$field['Field']['id']." ) "; 
+			$sqlJoin = " LEFT JOIN affiliations_contacts AS affiliationFather_".$data['field_id'];
+			$sqlJoin .= " ON(affiliationFather_".$data['field_id'].".contact_father_id = Contact.id AND affiliationFather_".$data['field_id'].".affiliation_id = ".$affiliationId.") ";
+			$sqlJoin .= " LEFT JOIN contacts AS contactChild_".$data['field_id']." ON(affiliationFather_".$data['field_id'].".contact_child_id = contactChild_".$data['field_id'].".id) ";
+			
+			
+			//Find the descriptive fields of the affiliated contact type
+			$fields = $this->getDescriptiveFields($data);
+	
+			
+			//Generate the SQL statement to link to those fields
+			foreach($fields as $field){
+				$plugin = ClassRegistry::init($field['Field']['field_type_class_name']);
+				$sqlJoin .= " LEFT JOIN ".$plugin->useTable;
+				$sqlJoin .= " AS affiliateField_".$affiliationId."_".$field['Field']['id'];
+				$sqlJoin .= " ON(contactChild_".$data['field_id'].".id = affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinContact();
+				$sqlJoin .= " AND affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinField()." = ".$field['Field']['id']." ) "; 
+			}
+		}
+		else{ //The current contact is on the child side of the affiliation
+				
+			$sqlJoin = " LEFT JOIN affiliations_contacts AS affiliationChild_".$data['field_id'];
+			$sqlJoin .= " ON(affiliationChild_".$data['field_id'].".contact_child_id = Contact.id AND affiliationChild_".$data['field_id'].".affiliation_id = ".$affiliationId.") ";
+			$sqlJoin .= " LEFT JOIN contacts AS contactFather_".$data['field_id']." ON(affiliationChild_".$data['field_id'].".contact_father_id = contactFather_".$data['field_id'].".id) ";
+			
+			
+			//Find the descriptive fields of the affiliated contact type
+			$fields = $this->getDescriptiveFields($data);
+	
+			
+			//Generate the SQL statement to link to those fields
+			foreach($fields as $field){
+				$plugin = ClassRegistry::init($field['Field']['field_type_class_name']);
+				$sqlJoin .= " LEFT JOIN ".$plugin->useTable;
+				$sqlJoin .= " AS affiliateField_".$affiliationId."_".$field['Field']['id'];
+				$sqlJoin .= " ON(contactFather_".$data['field_id'].".id = affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinContact();
+				$sqlJoin .= " AND affiliateField_".$affiliationId."_".$field['Field']['id'].".".$plugin->getJoinField()." = ".$field['Field']['id']." ) "; 
+			}
 		}
 
 		return $sqlJoin;
@@ -86,7 +114,7 @@ class TypeDisplayaffiliation extends Plugin{
 		
 		//Find the descriptive fields related to this affiliation
 		$condition = "is_descriptive AND contact_type_id = ";
-		if($fatherAffiliation) //Determines weather we take the contact type of the father or the son
+		if($fatherAffiliation) //Determines whether we take the contact type of the father or the son
 			$condition = $condition.$affiliation['Affiliation']['contact_type_child_id'];
 		else
 			$condition = $condition.$affiliation['Affiliation']['contact_type_father_id'];

@@ -288,7 +288,6 @@ class ContactSet extends AppModel
 	// When we update to CakePHP 1.3, we can then create virtualFields and this workaround won't be necessary anymore.
 	private function workaround(Array $results, $contact_type_id){
 
-
 		//Example of Array where three columns aren't related (indice 0) :
     	//[data] => Array
     	//    (
@@ -328,7 +327,6 @@ class ContactSet extends AppModel
 				);
 		}
 
-
 		//Split the unrelated columns
 		$newResult=array();
 		foreach($results['data'] as $keyRow => $row){
@@ -350,12 +348,17 @@ class ContactSet extends AppModel
 				$key=$columnRef['field_type_class_name']."_".$columnRef['id'];
 				if(array_key_exists($key,$columns))
 					$newResult['data'][$keyRow][$key] = $columns[$key];
+
+				//Workaround of field displaying from their option table
+				$keyOption=$columnRef['field_type_class_name']."Option_".$columnRef['id'];
+				if(array_key_exists($keyOption,$columns))
+					$newResult['data'][$keyRow][$key] = $columns[$keyOption];
 			}
 		}
 
 		//Add the "count" information to the new list
 		$newResult['count'] = $results['count'];
-
+		//debug($newResult['data'][0]);
 		return $newResult;
     }
 

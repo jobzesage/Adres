@@ -11,7 +11,7 @@ class TypeSelect extends Plugin {
 	{
 		$table = '';
 		if(array_key_exists('custom_table',$options)){
-			return $table = 'tso_'.$options['field_id'].'.value';
+			return $table = 'TypeSelectOption_'.$options['field_id'].'.value';
 		}
 		return $this->_display_field_name;
 	}	
@@ -19,7 +19,7 @@ class TypeSelect extends Plugin {
 	
 	public function joinExt($options){
 		extract($options);
-		return ' LEFT JOIN type_select_options AS tso_'.$field_id.' ON ('.$custom_table.'.data = tso_'.$field_id.'.id ) ';
+		return ' LEFT JOIN type_select_options AS TypeSelectOption_'.$field_id.' ON ('.$custom_table.'.data = TypeSelectOption_'.$field_id.'.id ) ';
 	}
 	
 	public function renderEditForm($contact_id,$plugin,$options=array()){

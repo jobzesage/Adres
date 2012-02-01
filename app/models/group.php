@@ -19,7 +19,38 @@ class Group extends AppModel {
 			'foreignKey' => 'group_id',
 			'associationForeignKey' => 'contact_id'
 	));
+	//This constructor aims at creating a virtualField for the list of groups
+	//sadly this feature only comes with CakePHP 1.3, it might be useful after the migration
+	/*
+	function __construct($id = false, $table = null, $ds = null) {
+    	parent::__construct($id, $table, $ds);
+    	$this->virtualFields['group_list'] = sprintf('GROUP_CONCAT(%s.name SEPARATOR ", ")', $this->alias);
+    	echo("ALIAS:".$this->alias."   TABLE:".$table."    ID:".$id."    DS:".$ds."</br>");
+    	debug($id);debug($table);debug($ds);
+    	//debug($this);
+    }
+    */
 	
+	//Returns a flat list of the ids of all the children of a parent
+	//Jonathan Bigler Nov. 2011
+	public function getSubgroups($parentGroupId){
+	
+		$subgroups = $this->find('all',array(
+			'conditions' => array(
+				'Group.parent_id' => $parentGroupId, 
+			)
+		));
+		
+		$result = array();
+		
+		foreach ($subgroups as $subgroup) {
+			
+			$result = array_merge($result, array($subgroup['Group']['id']), $this->getSubgroups($subgroup['Group']['id']));
+		}
+			
+		return $result;
+		
+	}
 	
 	
 	protected function getGroupsRecrusively($group){
