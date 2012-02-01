@@ -5,7 +5,7 @@
 
 class ServicesController extends AppController{
 
-    public $uses = array('ContactSet');
+    public $uses = array('ContactSet','Field');
     public $layout = 'api';
 
     public $options = array();
@@ -13,15 +13,24 @@ class ServicesController extends AppController{
     public function beforeFilter()
     {
         parent::beforeFilter();
-        //$this->disableDebugger();
+        $this->disableDebugger();
         $this->Auth->allow('*');
-        $this->verifyApiKey();
     }
 
-    public function index($id=null)
+    public function api_index($id=null)
     {
-        //if( $this->RequestHandler->ext != 'json')
-            debug($this->ContactSet->getContactSet($id));
+        //if( $this->RequestHandler->ext == 'json')
+        $this->layout = 'api';
+        $fields = $this->Field->getPluginTypes($id);
+        $data = $this->ContactSet->getContactSet($id,array(
+            'toJson'=>true,
+            'searchKeyword'=>'',
+            'filters'=>'',
+            'plugins'=>$fields,
+            'paging'=>false,
+            'affiliation'=>'')
+          );
+        $this->set(compact('data'));
     }
 
     public function show($id=null)
