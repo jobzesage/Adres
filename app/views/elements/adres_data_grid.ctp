@@ -15,7 +15,17 @@
 			),array(
 				'class' => 'adres-button small ui-state-default ui-corner-all basic' )
 		) ?>
-
+		
+		<?php echo $html->link('Export Beta ('.$count.')', array(
+			'plugin'=>'csv',
+			'controller'=>'main',
+			'action'=>'view',
+			'id'=>$contactTypeId,
+			'ext' => 'csv', 
+			),array(
+				'class' => 'adres-button small ui-state-default ui-corner-all basic' )
+		) ?>
+		
         <?php
             $email='';
             foreach ($fields as $field){
