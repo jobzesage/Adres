@@ -540,44 +540,6 @@ class UsersController extends AppController {
     }
 
 
-
-    public function setContactSet($options = array())
-    {
-    	$contact_type_id = $this->Session->read('Contact.contact_type_id');
-
-		$this->User->id = $this->Auth->user('id');
-
-		$hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
-
-		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
-
-		# query optimization
-		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
-
-		$this->set('fields',$fields);
-
-		$this->set('hidden_fields',$hidden_fields_list);
-
-		$keyword  = "";
-		$criteria = "";
-		$affiliation= "";
-
-		if($this->Session->check('Filter.criteria'))
-		{
-			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
-		}
-
-		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
-
-		// if($this->Session->check('Filter.affiliation')) $affiliation = $this->Session->read('Filter.affiliation');
-
-		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields, 'affiliation'=>$affiliation);
-
-		return am($search,$options);
-
-    }
-
-
     public function add_to_group()
     {
 	    $contact_type_id = $this->Session->read('Contact.contact_type_id');

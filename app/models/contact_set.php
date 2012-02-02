@@ -14,7 +14,7 @@ class ContactSet extends AppModel
 			'order'=>'asc',
 			'paging'=>true,
             'include_trash'=>false,
-            'toJson' =>false
+            'toJSON' =>false
     );
 
 
@@ -67,7 +67,7 @@ class ContactSet extends AppModel
 
 		$contacts = $this->after($contacts,$contact_type_id);
 
-        return !($options['toJson']) ? $contacts : $this->toJSON($contacts, $options['plugins'] );
+        return !($options['toJSON']) ? $contacts : $this->toJSON($contacts, $options['plugins'] );
 	}
 
 

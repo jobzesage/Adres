@@ -21,15 +21,7 @@ class ServicesController extends AppController{
     {
         //if( $this->RequestHandler->ext == 'json')
         $this->layout = 'api';
-        $fields = $this->Field->getPluginTypes($id);
-        $data = $this->ContactSet->getContactSet($id,array(
-            'toJson'=>true,
-            'searchKeyword'=>'',
-            'filters'=>'',
-            'plugins'=>$fields,
-            'paging'=>false,
-            'affiliation'=>'')
-          );
+        $data = $this->ContactSet->getContactSet($id,$this->setContactSet(array('toJSON'=>true), $id));
         $this->set(compact('data'));
     }
 
