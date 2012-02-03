@@ -213,6 +213,8 @@ class ContactSet extends AppModel
 		}
 
 		//For adding search by global contact ID
+		//This feature is not in use anymore - Jonathan Bigler Feb 2012
+		/*
 		if (!empty($searchKeyword) && is_numeric($searchKeyword)) {
 			$contact_id = (int) $searchKeyword;
 			//Had clear number search on data column
@@ -221,6 +223,7 @@ class ContactSet extends AppModel
 				$keyword =" Contact.id=".$contact_id;
 			}
 		}
+		*/
 
 		$where = $where.$filters;
 
