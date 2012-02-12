@@ -83,7 +83,9 @@ class ContactSet extends AppModel
 		$results = $this->workaround($results, $contact_type_id);
 
 		$formatterData=array();
-		foreach ($results['data'] as $data) {
+
+                if(!array_key_exists('data',$results)) $results['data'] =array();
+                foreach ($results['data'] as $data) {
 			$keys = array_keys($data);
 			foreach ($keys as $key) {
 				$pluginType = preg_split('/_/',$key);
@@ -371,7 +373,9 @@ class ContactSet extends AppModel
     public function toJSON($contacts, $fields)
     {
         $fields = Set::extract('{n}/Field/name', $fields);
+
         $formatted_contacts = array();
+
         foreach ($contacts['data'] as $contact){
             $data = Set::classicExtract($contact,'{s}');
             $temp = array();

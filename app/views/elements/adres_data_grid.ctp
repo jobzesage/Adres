@@ -1,6 +1,7 @@
 <?php if (!isset($contactTypeId)): ?>
 	<?php $contactTypeId = $session->read("Contact.contact_type_id") ?>
 <?php endif ?>
+<?php $includeTrash = $session->read('Contact.include_trash')?>
 <div id="datagrid">
 	<div id="adres-basic-panel" class="adres-panel">
 		<?php echo $html->link('New', array(

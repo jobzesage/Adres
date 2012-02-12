@@ -133,14 +133,16 @@ abstract class AppController extends Controller {
 
     protected function setContactSet($options = array(), $contact_type_id=null)
     {
-
-        if(!$contact_type_id)
+        if(empty($contact_type_id))
             $contact_type_id =  $this->Session->read('Contact.contact_type_id');
 
 
 		$this->User->id = $this->Auth->user('id');
 
-		$hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
+        $hidden_fields = array();
+        if(!empty($this->User->id)){
+            $hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
+        }
 
 		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
 
@@ -160,14 +162,18 @@ abstract class AppController extends Controller {
 			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
 		}
 
-		if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
+        if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
+		if($this->Session->check('Filter.affiliation')) $affiliation = $this->Session->read('Filter.affiliation');
 
-		// if($this->Session->check('Filter.affiliation')) $affiliation = $this->Session->read('Filter.affiliation');
-
-		$search=array('searchKeyword'=>$keyword,'filters'=>$criteria,'plugins'=>$fields, 'affiliation'=>$affiliation);
+        $search=array(
+            'searchKeyword'=>$keyword,
+            'filters'=>$criteria,
+            'plugins'=>$fields,
+            'affiliation'=>$affiliation,
+            'include_trash'=> (bool) $this->Session->read('Contact.include_trash')
+        );
 
 		return am($search,$options);
-
     }
 
     protected function get_api($url){

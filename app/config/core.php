@@ -7,7 +7,7 @@
     Configure::write('ADres.language','en');
 
     Configure::write('ADres.host','http://adres.dev');
-    Configure::write('ADres.api_key', 'ee89026a6c5603c51b4504d218ac60f6874b7750');
+    Configure::write('ADres.internal_api_key', 'ee89026a6');
 
     Configure::write('ADres.encryptor_vi','1q2w3e4r5t6y7u8i');
 
@@ -36,11 +36,11 @@
 
 	Configure::write('Session.cookie', 'ADRES');
 
-	Configure::write('Session.timeout', 120);
+	Configure::write('Session.timeout', '120');
 
-        Configure::write('Session.start', true);
+    Configure::write('Session.start', true);
 
-        Configure::write('Session.save', 'cake');
+    Configure::write('Session.save', 'cake');
 
 	Configure::write('Session.checkAgent', true);
 

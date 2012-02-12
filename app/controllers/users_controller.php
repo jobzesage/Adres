@@ -96,7 +96,8 @@ class UsersController extends AppController {
 
 		//for implementing the date on session
 		$this->Session->write('Contact.dates',array());
-		$this->Session->write('Contact.encrytor_key',null);
+        $this->Session->write('Contact.encrytor_key',null);
+
 
 		if(!$this->Session->check('Filter')){
 		    //TODO have to implement Session filters
@@ -204,10 +205,11 @@ class UsersController extends AppController {
             $this->Session->write('Contact.dates');
 		}
 
-		$options = array();
-		if(isset($this->params['url']['include_trash'])){
-			$options = array('include_trash'=>true);
-			$include_trash=true;
+
+        $options = array();
+        if(array_key_exists('include_trash',$this->params['url'])){
+            $include_trash= $this->params['url']['include_trash'];
+            $this->Session->write('Contact.include_trash',(bool) $include_trash);
 		}
 
 		$search = $this->setContactSet($options);
@@ -229,8 +231,8 @@ class UsersController extends AppController {
 
     	$this->set(compact(
     		'fields','filters','paging','count',
-    		'contact_types','contact_type_id',
-    		'include_trash'
+            'contact_types','contact_type_id',
+            'include_trash'
     	));
 
 		$this->render('/elements/contacts');

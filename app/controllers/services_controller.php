@@ -5,8 +5,9 @@
 
 class ServicesController extends AppController{
 
-    public $uses = array('ContactSet','Field');
+    public $uses = array('ContactSet','Field', 'User');
     public $layout = 'api';
+    private $verified = false;
 
     public $options = array();
 
@@ -14,15 +15,16 @@ class ServicesController extends AppController{
     {
         parent::beforeFilter();
         $this->disableDebugger();
+        $this->verifyApiKey();
         $this->Auth->allow('*');
     }
 
     public function api_index($id=null)
     {
-        //if( $this->RequestHandler->ext == 'json')
-        $this->layout = 'api';
-        $data = $this->ContactSet->getContactSet($id,$this->setContactSet(array('toJSON'=>true), $id));
-        $this->set(compact('data'));
+        if( $this->RequestHandler->ext == 'json' && $this->verified ){
+            $data = $this->ContactSet->getContactSet($id,$this->setContactSet(array('toJSON'=>true), $id));
+            $this->set(compact('data'));
+        }
     }
 
     public function show($id=null)
@@ -43,14 +45,9 @@ class ServicesController extends AppController{
 
     private function verifyApiKey()
     {
-        if($this->params['url']['api_key']==$this->Auth->user('api_key')){
-            return true;
-        }else{
-
+        if($this->params['url']['api_key'] == Configure::read("ADres.internal_api_key")){
+            $this->verified = true;
         }
     }
-
-
-
 
 }
