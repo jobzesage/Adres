@@ -372,7 +372,11 @@ class ContactSet extends AppModel
 
     public function toJSON($contacts, $fields)
     {
-        $fields = Set::extract('{n}/Field/name', $fields);
+        #$fields = Set::extract('{n}/Field/name', $fields);
+        $fields_temp = array();
+        foreach ($fields as $field){
+            $fields_temp[$field['Field']['name']] = $field['Field'];
+        }
 
         $formatted_contacts = array();
 
@@ -384,6 +388,6 @@ class ContactSet extends AppModel
             }
             array_push($formatted_contacts,$temp);
         }
-        return array('fields'=>$fields, 'data'=>$formatted_contacts);
+        return array('fields'=>$fields_temp, 'data'=>$formatted_contacts);
     }
 }
