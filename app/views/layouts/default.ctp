@@ -33,7 +33,8 @@
 				'jquery.ba-bbq.min',
 				'jquery.cookie',
 				'jquery.jstree',
-				'jquery.validate.pack',
+                                'jquery.validate.pack',
+                                'dust-full-0.3.0.min',
 				'adres.core'
 			));
 

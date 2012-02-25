@@ -29,6 +29,7 @@
 				'jquery.jstree',
 				'jquery.validate.pack',
 				'jquery.ui.selectmenu',
+                'dust-full-0.3.0.min',
 				'adres.core'
 			));
 

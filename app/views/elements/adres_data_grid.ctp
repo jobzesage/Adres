@@ -1,7 +1,9 @@
 <?php if (!isset($contactTypeId)): ?>
 	<?php $contactTypeId = $session->read("Contact.contact_type_id") ?>
 <?php endif ?>
-<?php $includeTrash = $session->read('Contact.include_trash')?>
+<?php $includeTrash =(bool) $session->read('Contact.include_trash')?>
+<?php
+?>
 <div id="datagrid">
 	<div id="adres-basic-panel" class="adres-panel">
 		<?php echo $html->link('New', array(
@@ -162,7 +164,7 @@
 
 
 
-						<?php if (isset($includeTrash)): ?>
+						<?php if (isset($includeTrash) && $includeTrash): ?>
 							<?php $img_restore = $html->image("/css/theme1/images/restore.png", array("title"=>"Restore")) ?>
 							<?php echo $html->link($img_restore,array(
 							'controller'=>'contacts',

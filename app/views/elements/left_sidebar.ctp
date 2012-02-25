@@ -57,12 +57,18 @@
 				)) ?>
 
 				<?php if($includeTrash): ?>
-					<?php echo $html->link("Show contact",array("{$contactTypeId}?include_trash=0"),array(
+                    <?php echo $html->link("Show contact",array( "controller"=>"users",
+                        "action"=>"display_contacts",
+                        "{$contactTypeId}",
+                        "?"=>"include_trash=0"),array(
 						'id' => 'show_trashed',
 						'class' => 'advance adres-trash-icon'
 					)) ?>
 				<?php else: ?>
-					<?php echo $html->link("Show trashed",array("{$contactTypeId}?include_trash=1"),array(
+                    <?php echo $html->link("Show trashed",array("controller"=>"users",
+                        "action"=>"display_contacts",
+                        "{$contactTypeId}",
+                        "?"=>"include_trash=1"),array(
 						'id' => 'show_trashed',
 						'class' => 'advance adres-trash-icon'
 					)) ?>
