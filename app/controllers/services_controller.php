@@ -5,17 +5,24 @@
 
 class ServicesController extends AppController{
 
-    public $uses = array('ContactSet','Field', 'User');
+    public $uses = array(
+        'ContactSet',
+        'Field',
+        'User',
+        'TypeString',
+        'TypeSelect',
+
+    );
     public $layout = 'api';
-    private $verified = false;
+    private $verified = true;
 
     public $options = array();
 
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->disableDebugger();
-        $this->verifyApiKey();
+        #$this->disableDebugger();
+        #$this->verifyApiKey();
         $this->Auth->allow('*');
     }
 
@@ -31,8 +38,9 @@ class ServicesController extends AppController{
     {
 	}
 
-	public function create($data)
-	{
+	public function api_new_contact($data=null)
+    {
+        debug($this->Field->getPluginTypes(5));
 	}
 
 	public function update($data)

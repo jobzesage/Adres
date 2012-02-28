@@ -2,7 +2,7 @@
 class FieldsController extends AppController {
 
 	public $name = 'Fields';
-	
+
 	public $uses = array('Field','HiddenField');
 
 	public function index() {
@@ -13,7 +13,7 @@ class FieldsController extends AppController {
 				),
 				'order'=>array('ContactType.name','Field.order')
 			));
-		
+
 		$this->set('contactTypes', ClassRegistry::init('ContactType')->getList());
 		$this->set('fields', $this->paginate('Field'));
 	}
@@ -27,11 +27,11 @@ class FieldsController extends AppController {
 	}
 
 	public function add() {
-		
+
 		$this->set('contact_types',$this->_setContactTypeList());
-		
+
 		$this->set('field_types',$this->_setFieldTypeList());
-		
+
 		if (!empty($this->data)) {
 			$this->Field->create();
 			if ($this->Field->save($this->data)) {
@@ -56,10 +56,10 @@ class FieldsController extends AppController {
 				$this->Session->setFlash(__('The Field could not be saved. Please, try again.', true));
 			}
 		}
-		
+
 		if (empty($this->data)) {
 			$this->set('contact_types',$this->_setContactTypeList());
-			$this->set('field_types',$this->_setFieldTypeList());			
+			$this->set('field_types',$this->_setFieldTypeList());
 			$this->data = $this->Field->read(null, $id);
 		}
 	}
@@ -76,43 +76,47 @@ class FieldsController extends AppController {
 		$this->Session->setFlash(__('The Field could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
+
 	public function update_hidden()
 	{
 		if ($this->data) {
 			$user_id = $this->Auth->user('id');
 			$contact_type_id = $this->Session->read('Contact.contact_type_id');
-			
+
 			$this->HiddenField->deleteAll(array(
 				'field_id' => $this->data['Field']['id'],
 				'user_id' => $user_id,
-				'contact_type_id' => $contact_type_id  
+				'contact_type_id' => $contact_type_id
 			));
 		}
 		$this->redirect(array('controller' => 'users', 'action' => 'home'));
 	}
-	
+
 	public function hide()
 	{
 		if ($this->data) {
 			$user_id = $this->Auth->user('id');
 			$contact_type_id = $this->Session->read('Contact.contact_type_id');
-			
+
 			$this->HiddenField->save(array(
 				'field_id' => $this->data['Field']['id'],
 				'user_id' => $user_id,
-				'contact_type_id' => $contact_type_id  
+				'contact_type_id' => $contact_type_id
 			));
 		}
 		$this->redirect(array('controller' => 'users', 'action' => 'home'));
 	}
-	
+
 	protected function _setContactTypeList(){
-		return	ClassRegistry::init('ContactType')->find('list');	
+		return	ClassRegistry::init('ContactType')->find('list');
 	}
 
 	protected function _setFieldTypeList(){
-		return	ClassRegistry::init('FieldType')->find('list',array('fields'=>array('class_name','nice_name')));	
-	}
+		return	ClassRegistry::init('FieldType')->find('list',array('fields'=>array('class_name','nice_name')));
+    }
+
+
+    public function api_list()
+    {
+    }
 }
-?>
