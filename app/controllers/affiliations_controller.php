@@ -90,9 +90,12 @@ class AffiliationsController extends AppController {
 
 
 
-    public function api_list()
-    {
-
+    public function collection($contact_type_id){
+        $this->layout = 'api';
+        $this->disableDebugger();
+        $data['Affiliations'] = $this->Affiliation->getList($contact_type_id);
+        $this->set('data', $data);
+        $this->render('/elements/json_data');
     }
 
 

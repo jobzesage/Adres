@@ -42,12 +42,9 @@
 
 
     <script type="text/x-handlebars-template" language="javascript" id="affilliation_temp" >
-            <div class="entry">
-              <h1>{{title}}</h1>
-              <div class="body">
-                {{body}}
-              </div>
-              </div>
+            <div class="affiliations">
+              {{#select Affiliations id="select_affiliation" }} {{/select}}
+            </div>
     </script>
 	<body>
 

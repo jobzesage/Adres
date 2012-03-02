@@ -43,7 +43,16 @@ class AppHelper extends Helper {
      *
      */
     public function addSortingClassToColumn(){
-        // code...
+    }
+
+
+    public function getAffliationSelectValues($affiliations)
+    {
+      $data=array('Select One');
+      foreach ($affiliations as $aff){
+	$data[$aff['value']] = $aff['option'];
+      }
+      return $data;
     }
 }
 

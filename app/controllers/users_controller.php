@@ -241,20 +241,22 @@ class UsersController extends AppController {
 
 
 
-	public function add_record(){
+	public function add_record($contact_type_id=null){
 		$this->set('status',true);
 
 
 		if(empty($this->data)){
 
 			$this->Contact->user_id = $this->Auth->user('id');
-			$this->Contact->ContactType->id = $this->Session->read('Contact.contact_type_id');
+			$this->Contact->ContactType->id = $contact_type_id ;
+
 
 			$this->Contact->save(array(
 				'contact_type_id'=>$this->Contact->ContactType->id
-			));
+            ));
+
 			$contact_id = $this->Contact->getLastInsertID();
-			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+			$plugins = $this->Field->getPluginTypes($contact_type_id);
 
 			$data = array();
 			foreach($plugins as $field){
@@ -274,13 +276,18 @@ class UsersController extends AppController {
 			}
 			foreach ($data as $pluginName => $value) {
 				ClassRegistry::init($pluginName)->saveAll($value);
-			}
-			$form_inputs = "";
+            }
+
+
+            $form_inputs = "";
 			foreach ($plugins as $plugin) {
 				$className = $plugin['Field']['field_type_class_name'];
-				$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin);
+                $form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin,array(
+                        'contact_type_id'=>$contact_type_id
+                    ));
 			}
 			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
+			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_type_id]' value='$contact_type_id'>";
 
 			$this->set('form_inputs',$form_inputs);
 			$this->set('contactId',$contact_id);
@@ -292,6 +299,18 @@ class UsersController extends AppController {
 	}
 
 
+    public function new_record(){
+
+        $aff = $this->params['url']['affiliation'];
+        $affiliation_id = (int) substr($aff,1);
+        $affiliation_type = substr($aff,0,1);
+        $affiliation = $this->Contact->Affiliation->read(null,$affiliation_id);
+        $contact_type_id = $affiliation['Affiliation']['contact_type_father_id'];
+        if($affiliation_type=='f'){
+            $contact_type_id = $affiliation['Affiliation']['contact_type_child_id'];
+        }
+        $this->add_record($contact_type_id);
+    }
 
 	public function show_details($contact_id){
 		$contact = $this->Contact->getContact($contact_id);
@@ -312,11 +331,12 @@ class UsersController extends AppController {
 		$this->layout = "users";
 		$this->set('status',true);
 		if(!empty($this->data)){
-			$plugins = $this->Field->getPluginTypes($this->Session->read("Contact.contact_type_id"));
+			$plugins = $this->Field->getPluginTypes($this->data['contact_type_id']);
 			//clear unparsable data
 			$data = $this->data;
 			unset($data['_Token']);
 			unset($data['contact_id']);
+			unset($data['contact_type_id']);
 
 			foreach ($plugins as $field) {
 				$field_name = $field['Field']['name'];

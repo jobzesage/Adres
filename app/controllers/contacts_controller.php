@@ -1,10 +1,10 @@
 <?php
 class ContactsController extends AppController {
-	
+
 	public $layout = 'default';
 
 	public $name = 'Contacts';
-	
+
 	public $uses = array('Contact');
 
 	public function index() {
@@ -15,7 +15,7 @@ class ContactsController extends AppController {
 					'Group'
 					#'Field'
 			)));
-		
+
 		$this->set('contacts', $this->paginate('Contact'));
 	}
 
@@ -69,12 +69,12 @@ class ContactsController extends AppController {
 		$this->Session->setFlash(__('The Contact could not be deleted. Please, try again.', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
+
 
 	public function trash(){
         $this->layout = "administrator";
 
-        $this->paginate= $this->Contact->findTrashed(); 
+        $this->paginate= $this->Contact->findTrashed();
         $this->set('trashed',$this->paginate('Contact'));
     }
 
@@ -91,12 +91,23 @@ class ContactsController extends AppController {
                 'description'=>$this->data['Contact']['message']
             );
 			$contact['Contact']['trash_id']=0;
-			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],1); 
+			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],1);
 			#adds a record to counter cache for restoring a contact
             if($this->Contact->save($contact)){
-                $this->Contact->Log->save($log); 
+                $this->Contact->Log->save($log);
             }
             $this->redirect(array('action'=>'trash'));
 		}
-	}
+    }
+
+
+    public function get($contact_type_id){
+        $this->layout = 'api';
+        $fields = $this->Contact->ContactType->Field->getPluginTypes($contact_type_id);
+        $plugin_classes = array_values(array_unique(Set::extract('/Field/field_type_class_name',$fields)));
+        $data = $this->TypeString->find('first');
+
+        $this->set('data',$data);
+        $this->render('/elements/json_data');
+    }
 }

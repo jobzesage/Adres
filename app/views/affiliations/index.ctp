@@ -1,5 +1,5 @@
 <div class="affiliations index">
-	
+
 <h2><?php __('Affiliations');?></h2>
 
 
@@ -42,18 +42,18 @@ foreach ($affiliations as $affiliation):
 			<?php echo $affiliation['Affiliation']['created']; ?>
 		</td>
 		<td>
-			<?php echo $affiliation['Affiliation']['modified']; ?>
+			<?php echo strftime("%Y-%m-%d", $affiliation['Affiliation']['modified']) ?>
 		</td>
 		<td class="actions">
-			
+
 <?php $img_view = $html->image("/css/theme1/images/view.gif", array("title"=>"View")) ?>
 <?php $img_edit = $html->image("/css/theme1/images/edit.png", array("title"=>"Edit")) ?>
 <?php $img_delete = $html->image("/css/theme1/images/delete.png", array("title"=>"Delete")) ?>
 
-<?php echo $html->link(__($img_view, true), array('action' => 'view', $affiliation['Affiliation']['id']), null, null, false)  ?> 
-<?php echo $html->link(__($img_edit, true), array('action' => 'edit', $affiliation['Affiliation']['id']), null, null, false)  ?> 
+<?php echo $html->link(__($img_view, true), array('action' => 'view', $affiliation['Affiliation']['id']), null, null, false)  ?>
+<?php echo $html->link(__($img_edit, true), array('action' => 'edit', $affiliation['Affiliation']['id']), null, null, false)  ?>
 <?php echo $html->link(__($img_delete, true), array('action' => 'delete', $affiliation['Affiliation']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $affiliation['Affiliation']['id']), null, null, false)  ?>
-			 
+
 		</td>
 	</tr>
 <?php endforeach; ?>

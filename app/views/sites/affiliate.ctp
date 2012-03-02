@@ -1,6 +1,8 @@
 	<div id="adres-affiliation" class="affiliation_container">
 		<?php //echo $html->tag('h3',__('Affiliations',true)) ?>
-		
+
+        <?php $affiliations = $html->getAffliationSelectValues($affiliations) ?>
+
 		<?php echo $form->create('Affiliate',array(
 			'url'=>array(
 				'controller'=>'sites',
@@ -21,33 +23,33 @@
 				'value'=>$contactId
 			)) ?>
 		<?php echo $form->end('Affiliate') ?>
-		
+
 	<table>
 			<tr>
-				<th><?php echo $descriptiveFields ?></th>	
+				<th><?php echo $descriptiveFields ?></th>
 				<th>Affiliations</th>
-			</tr>	
-		
+			</tr>
+
 			<?php foreach ($contact as $affiliation): ?>
 			<tr>
 				<td>
-					<?php 
-					echo $name ." &nbsp";	
+					<?php
+					echo $name ." &nbsp";
 				 	?>
 				</td>
-				<td> 
+				<td>
 					<div class="adres-affiliations">
 						<?php echo $affiliation['affiliation_type'] ?>
-						
+
 						<?php $pid = $affiliation['affiliated_contact_id'] ?>
 						<?php echo $html->link($affiliation['affiliated_to'],array(
 							'controller'=>'users',
-							'action' => 'show_record', 
+							'action' => 'show_record',
 							$pid
 						),array(
 							'class'=>'adres-ajax-anchor adres-show',
 						)) ?>
-						
+
 					   &nbsp &nbsp <?php echo $html->link('x',array(
 					   		'controller'=>"affiliations",
 					   		"action"=>"delete_association",
@@ -59,9 +61,9 @@
 				</td>
 			</tr>
 			<?php endforeach ?>
-		
+
 		</table>
 	<script type="text/javascript" src="/js/adres-contact-autocompleter.js.php"></script>
 	</div>
 	<div class="clear"></div>
-	
+

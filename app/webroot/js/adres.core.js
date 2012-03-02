@@ -7,22 +7,22 @@ ADres.SELECT = {
 		ADres.SELECT.autocomplete_affliation($(this).val());
 	},
 	autocomplete_affliation:function(contact_id){
-		
+
 		$('#AffiliateAutocompleter, input.adres-contact-picker').autocomplete({
 	  		source: '/sites/contact_picker.json?affiliation_id='+ contact_id,
 	  		select: function( event, ui ) {
 	  			$('input#AffiliateContactId').val(ui.item.id);
 	  		}
 	  	});
-	  	
-	  	//ui autocomplete highlight hack 
+
+	  	//ui autocomplete highlight hack
 	   	$.ui.autocomplete.prototype._renderItem = function (ul, item) {
 	  	     item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
 	  	     return $("<li></li>")
 	  	             .data("item.autocomplete", item)
 	  	             .append("<a>" + item.label + "</a>")
 	  	             .appendTo(ul);
-	  	 };		
+	  	 };
 	}
 }
 
@@ -72,7 +72,7 @@ ADres.AJAX={
 						$('#adres-record').html(resp.data);
 					}
 					else if($form.hasClass('settings_form')){
-						adresTabReload();	
+						adresTabReload();
 					}
 					else if($form.is('#AdvanceSearchAddForm') || $form.is('#AffiliationAddForm') ){
 						$('div#contacts').html(resp.data);
@@ -233,7 +233,7 @@ jQuery(document).ready(function() {
 		beforeSend:ADres.LOADER.enable,
 		complete:ADres.LOADER.disable
 	};
-	
+
 
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
@@ -314,14 +314,14 @@ jQuery(document).ready(function() {
 	$('input.date_time').live('click',function(e){
 		$(this).datetime({value:'+1min', format: 'yy-mm-dd hh:ii:ss' });
 	});
-	
+
 
     $('.adres-trash').live("click",function(e){
         var link = $(this).attr('href');
         $('form#adres-restore-form').attr('action',link);
         $('#trash-dialog').dialog({title:'Restore Window'});
         return false;
-    }); 	
+    });
 
 	$("a.adres-trash-icon").live("click",function(e){
 		var $link= $(this);
@@ -354,14 +354,14 @@ jQuery(document).ready(function() {
 			});
 		}
 	});
-	
+
 	//For the setting on per field column
 	$('a.settings').live('click',function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		$(this).next('.holders').toggle();
 	});
-	
+
 	$('table.adres-datagrid tr').each(function(i,d){
 			 $(d).find('td:last').css({borderRight:'1px solid #e2dfdf'});
 			 $(d).find('th:last').css({borderRight:'1px solid #ccc'});
@@ -376,13 +376,40 @@ jQuery(document).ready(function() {
 	$("a.adres-affiliate").live("click",function(e){
 		e.preventDefault();
 		var $link = $(this);
-		$link.siblings("div.adres-affiliate-box").show("slow");
+        var source = $("#affilliation_temp").html();
+        var template = Handlebars.compile(source);
+
+        $.getJSON($link.attr('href')+'.json', function(data){
+            $link
+            .siblings("div.adres-affiliate-box")
+            .append(template(data))
+            .show("slow");
+        });
 	});
-	
+
 	$("a.adres-box-closer").live("click",function(e){
 		e.preventDefault();
 		$(this).parent("div").hide("slow");
 	});
+
+
+    Handlebars.registerHelper('select', function(items, options) {
+        var out = "<select name="+options.hash.name+" id="+options.hash.id+">";
+        for(var i=0, l=items.length; i<l; i++) {
+            out = out + "<option value="+items[i].value+">" + items[i].option + "</option>";
+        }
+        return out + "</select>";
+    });
+
+    $('select#select_affiliation').live('change',function(e){
+
+        var $select = $(this);
+        var params = $select.val();
+
+        $.getJSON('/users/new_record.json?affiliation='+params,function(response){
+           $select.parent().append(response.data);
+        });
+    });
 
 });
 

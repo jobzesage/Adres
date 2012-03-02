@@ -5,9 +5,9 @@ require_once 'plugin_interface.php';
 App::import('Sanitize');
 
 class Plugin extends AppModel{
-	
+
 	public $actsAs=array('Containable');
-	
+
 	public $useTable = false;
 
 	public $primaryKey = false;
@@ -113,8 +113,9 @@ class Plugin extends AppModel{
 
 
 
-	public function renderEditForm($contact_id,$plugin,$wrapper=array('tag'=>'div')){
+	public function renderEditForm($contact_id,$plugin,$wrapper=array()){
 
+                $wrapper = am($wrapper, array('tag'=>'div'));
 		$data = $this->find('first',array('conditions'=>array(
 				'contact_id' 	=> $contact_id,
 				'field_id'		=>$plugin['Field']['id']
@@ -251,7 +252,7 @@ class Plugin extends AppModel{
         }
 
     }
-    
+
     public function search($keys=array())
     {
 		#$field = $this->getDisplayFieldName();
@@ -261,12 +262,12 @@ class Plugin extends AppModel{
 				$on_field =>$keys['fields'],
 				'Contact.trash_id=0'
 			),
-			'contain' => array('Contact'), 
+			'contain' => array('Contact'),
 			'fields' => array("DISTINCT contact_id, GROUP_CONCAT( {$this->name}.{$this->getDisplayFieldName()} SEPARATOR ' ') as data"),
 			'group' => "{$this->name}.contact_id having data like '%{$keys['term']}%'",
 			'limit'=> 10
 		));
     }
-    
+
 
 }

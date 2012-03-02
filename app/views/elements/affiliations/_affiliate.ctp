@@ -12,7 +12,7 @@
 		)) ?>
 			<?php echo $form->input('affiliation_id',array(
 				'type'=>'select',
-				'options'=>$affiliations
+				'options'=>$html->getAffliationSelectValues($affiliations)
 				)
 			) ?>
 			<?php echo $form->input('autocompleter') ?>

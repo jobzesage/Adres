@@ -8,7 +8,9 @@
 	<div id="adres-basic-panel" class="adres-panel">
 		<?php echo $html->link('New', array(
 			'controller'=>'users',
-			'action'=>'add_record'),array(
+            'action'=>'add_record',
+            $session->read('Contact.contact_type_id')
+        ),array(
 				'class'=>'adres-button  small adres-ajax-anchor  adres-add ui-state-default ui-corner-all basic' ))
 		 ?>
 
@@ -176,9 +178,13 @@
 						<?php else: ?>
 
 							<?php echo $html->link("affiliate",array(
-								"#") ,array(
+                                    'controller'=>'affiliations',
+                                    'action'=>'collection',
+                                    $contactTypeId
+                                ) ,array(
 									'title' => 'Affiliate',
-									'class' => 'adres-affiliate'
+                                    'class' => 'adres-affiliate',
+                                    'data-contact_type'=>$contactTypeId
 								),null,false)
 							?>
 
