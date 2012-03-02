@@ -395,6 +395,7 @@ jQuery(document).ready(function() {
 
     Handlebars.registerHelper('select', function(items, options) {
         var out = "<select name="+options.hash.name+" id="+options.hash.id+">";
+        out +="<option> Select ...</option>";
         for(var i=0, l=items.length; i<l; i++) {
             out = out + "<option value="+items[i].value+">" + items[i].option + "</option>";
         }
@@ -407,7 +408,7 @@ jQuery(document).ready(function() {
         var params = $select.val();
 
         $.getJSON('/users/new_record.json?affiliation='+params,function(response){
-           $select.parent().append(response.data);
+           $select.next('.new_record').html(response.data);
         });
     });
 

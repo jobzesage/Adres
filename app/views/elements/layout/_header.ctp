@@ -44,6 +44,7 @@
     <script type="text/x-handlebars-template" language="javascript" id="affilliation_temp" >
             <div class="affiliations">
               {{#select Affiliations id="select_affiliation" }} {{/select}}
+              <div class="new_record"></div>
             </div>
     </script>
 	<body>
