@@ -47,6 +47,11 @@
               <div class="new_record"></div>
             </div>
     </script>
+    <script type="text/x-handlebars-template" language="javascript" id="filters_template" >
+            <div class="filters">
+              {{#select Filters id="select_filters" name="testing" }} {{/select}}
+            </div>
+    </script>
 	<body>
 
 		<div class="container">

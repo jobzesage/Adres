@@ -209,6 +209,7 @@ class SitesController extends AppController {
 			$advance_search_form .= ClassRegistry::init($className)->advanceSearchFormField($field);
 		}
 
+        $this->set('filters', $this->Filter->getList($contact_type_id));
 		$this->set('advance_search_form',$advance_search_form);
 		$this->set('status',true);
 	}
@@ -229,7 +230,7 @@ class SitesController extends AppController {
     public function contact_picker()
     {
       	$this->layout=null;
-		$this->disableDebugger();
+		#$this->disableDebugger();
 
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
 			$affiliation_id = (int) substr($this->params['url']['affiliation_id'],1);

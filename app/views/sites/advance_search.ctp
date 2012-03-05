@@ -41,6 +41,13 @@
 			<?php echo $form->input('contact_id',array(
 				'class' => 'advance_search_contact adres-contact-picker'
 			)) ?>
+
+            <b>OR</b>
+            <?php echo $form->input('filter_id',array(
+                'type'=>'select',
+                'options'=>$filters,
+                'empty'=>'Select one
+            '))?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
 
@@ -54,11 +61,12 @@
 
 <script type="text/javascript">
 
-	$(function(){
-		$('.adres-tabs').tabs();
-		$('select').selectmenu({width:230});
-	});
+$(function(){
+    $('#AffiliationAffiliationId').bind("change",ADres.SELECT.update_contact_picker);
+	ADres.SELECT.autocomplete_affliation(null);
 
+    $('.adres-tabs').tabs();
+    $('select').selectmenu({width:230});
+});
 </script>
 
-<script src="/js/adres-contact-autocompleter.js" type="text/javascript" charset="utf-8"></script>

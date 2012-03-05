@@ -5,7 +5,7 @@ class FiltersController extends AppController {
 
         public function index() {
         	$this->paginate=array('Filter'=>array(
-        		'contain'=>array('ContactType')	
+        		'contain'=>array('ContactType')
         	));
             $this->set('filters', $this->paginate());
         }
@@ -63,6 +63,14 @@ class FiltersController extends AppController {
                 }
             }
 
+        }
+
+        public function collection($contact_type_id=null){
+            $this->layout = 'api';
+            $this->disableDebugger();
+            $data['Filters']=$this->Filter->getList($contact_type_id);
+            $this->set('data', $data);
+            $this->render('/elements/json_data');
         }
 
 }

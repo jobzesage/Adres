@@ -7,7 +7,6 @@ ADres.SELECT = {
 		ADres.SELECT.autocomplete_affliation($(this).val());
 	},
 	autocomplete_affliation:function(contact_id){
-
 		$('#AffiliateAutocompleter, input.adres-contact-picker').autocomplete({
 	  		source: '/sites/contact_picker.json?affiliation_id='+ contact_id,
 	  		select: function( event, ui ) {
@@ -396,6 +395,7 @@ jQuery(document).ready(function() {
     Handlebars.registerHelper('select', function(items, options) {
         var out = "<select name="+options.hash.name+" id="+options.hash.id+">";
         out +="<option> Select ...</option>";
+        console.log(items.length);
         for(var i=0, l=items.length; i<l; i++) {
             out = out + "<option value="+items[i].value+">" + items[i].option + "</option>";
         }
