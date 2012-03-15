@@ -5,10 +5,10 @@ App::import('Model', 'TypeStringOption');
 
 class TypeString extends Plugin {
 
-
+    protected $_activateDefaultValue = true;
 
 	public $useTable='type_string';
-	
+
 	public $belongsTo = array('Contact');
 
 	public $_adresValidate=array(

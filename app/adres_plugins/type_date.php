@@ -6,6 +6,10 @@ class TypeDate extends Plugin{
 
 	public $useTable = 'type_date';
 
+    protected $_activateDefaultValue = true;
+
+    protected $_dataNullable = false;
+
 	protected $_time;
 
     const EMPTY_DATE = "Not Set";
@@ -131,10 +135,12 @@ class TypeDate extends Plugin{
 		$output .= (int)$plugin['Field']['required'] ? " class ='required date_time text   ui-corner-all' " : " class='text date_time   ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
 
-		if(!strtotime($data)){
-			$data = "";
-		}
-
+		if( $this->getActivateDefaultValue() && !strtotime($data)){
+            $data = date('Y-m-d H:m:s'); //2012-03-15 20:22:00
+        }
+        if($this->_dataNullable){
+            $data = null;
+        }
 		$output .= ' value="'.$data.'"';
 		$output .='/>';
 		$output .='</'.$wrapper['tag'].'>';

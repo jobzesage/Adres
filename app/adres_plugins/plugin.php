@@ -22,6 +22,25 @@ class Plugin extends AppModel{
 
     protected $_field_id = null;
 
+    protected $_activateDefaultValue = false;
+
+    protected static $_defaultColumnValue= "N/A";
+
+
+    public function setActivateDefaultValue($value){ $this->_activateDefaultValue=$value;  }
+    public function getActivateDefaultValue(){       return $this->_activateDefaultValue ; }
+
+    public function setDefaultColumnValue($value){
+        self::$_defaultColumnValue = $value;
+    }
+
+
+    public function getDefaultColumnValue(){
+        return self::$_defaultColumnValue;
+    }
+
+
+
     //For accessing the default case to return true where there is no
     // validator defined
     protected $_adresValidate = array(
@@ -133,7 +152,13 @@ class Plugin extends AppModel{
 
 		$output .= (int)$plugin['Field']['required'] ? " class ='required text ui-corner-all' " : " class='text ui-corner-all'" ; # for jquery validtion
 		$output .= 'name="data['.$this->getJoinField().']['.$plugin['Field']['id'].']"';
+
+        if($this->getActivateDefaultValue() && empty($data)){
+            $data = $this->getDefaultColumnValue();
+        }
+
 		$output .= ' value="'.$data.'"';
+
 		$output .='/>';
 		$output .='</'.$wrapper['tag'].'>';
 
