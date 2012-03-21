@@ -20,9 +20,9 @@ class MainController extends EmailerAppController{
           'to_name'=>$to_names
       );
 
-      debug($this->chimp->sendEmail($message,true,false,array('Welcome Email')));
-      debug($this->chimp->getSendStatistics());
-      #debug($this->chimp->verifyEmailAddress("l.rajibahmed@gmail.com"));
+      #debug($this->chimp->sendEmail($message,true,false,array('Welcome Email')));
+      #debug($this->chimp->verifyEmailAddress("rajib@d32.com.bd"));
+      debug($this->chimp->listVerifiedEmailAddresses());
     }
 
     public function view($id=null){
