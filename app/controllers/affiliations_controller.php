@@ -99,4 +99,24 @@ class AffiliationsController extends AppController {
     }
 
 
+    public function relate()
+    {
+        $this->layout= 'default';
+        if( $this->data){
+            $affiliation= array();
+            $affiliation['id']                 = substr($this->data['Affiliate']['affiliation_id'],1);
+            $affiliation['type']               = substr($this->data['Affiliate']['affiliation_id'],0,1);
+            $affiliation['current_contact_id'] = $this->data['Affiliate']['current_contact_id'];
+            $affiliation['contact_id']         = $this->data['Affiliate']['contact_id'];
+            $relationship                      = $this->Affiliation->getRelationship($affiliation);
+
+            if($relationship){
+                $this->Affiliation->FatherContactType->Contact->log_message ='Contact '.$this->data['Affiliate']['contact_id'] .' and '.$this->data['Affiliate']['current_contact_id']. ' are now affiliated';
+                $this->Affiliation->FatherContactType->Contact->saveAfilliation($relationship);
+            }
+        }// used to affiliate
+
+        $this->render(false);
+    }
+
 }

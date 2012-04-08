@@ -1,13 +1,9 @@
 <html>
 	<head>
 		<?php echo $html->charset(); ?>
-
 		<title><?php echo isset($page_title) ? h($page_title) : __('ADres - Dashboard', true)?></title>
-
 		<?php echo $html->meta('icon') ?>
-
 		<?php	echo $html->css('blueprint/screen','stylesheet',array('media'=>'screen, projection')) ?>
-
 		<?php	echo $html->css('blueprint/print','stylesheet',array('media'=>'print')) ?>
 
 		<!--[if lte IE 7]>
@@ -40,17 +36,21 @@
 		?>
 	</head>
 
-
     <script type="text/x-handlebars-template" language="javascript" id="affilliation_temp" >
-            <div class="affiliations">
-              {{#select Affiliations id="select_affiliation" }} {{/select}}
-              <div class="new_record"></div>
-            </div>
+        <div class="affiliations">
+        <form action="/affiliations/relate" method="post" class='adres-ajax-form'>
+            {{#select Affiliations id="select_affiliation" name="data[Affiliate][affiliation_id]" }} {{/select}}
+            <input type="hidden" name="data[Affiliate][contact_id]" value="" class="related_to_id"/>
+            <input type="hidden" name="data[Affiliate][current_contact_id]" value="{{contact_id}}"/>
+            <input type="submit" value="Affiliate"/>
+        </form>
+	    <div class="new_record"></div>
+        </div>
     </script>
     <script type="text/x-handlebars-template" language="javascript" id="filters_template" >
-            <div class="filters">
-              {{#select Filters id="select_filters" name="testing" }} {{/select}}
-            </div>
+        <div class="filters">
+          {{#select Filters id="select_filters" name="testing" }} {{/select}}
+        </div>
     </script>
 	<body>
 

@@ -377,8 +377,10 @@ jQuery(document).ready(function() {
 		var $link = $(this);
         var source = $("#affilliation_temp").html();
         var template = Handlebars.compile(source);
-
+        var splited_url = $link.closest('td').siblings('td').find('a').eq(0).attr('href').split("/");
+        var contact_id = splited_url[splited_url.length - 1];
         $.getJSON($link.attr('href')+'.json', function(data){
+            data.contact_id = contact_id;
             $link
             .siblings("div.adres-affiliate-box")
             .append(template(data))
@@ -406,9 +408,12 @@ jQuery(document).ready(function() {
 
         var $select = $(this);
         var params = $select.val();
-
+        var contact_id = $select.next('input').val();
         $.getJSON('/users/new_record.json?affiliation='+params,function(response){
-           $select.next('.new_record').html(response.data);
+            $select.closest('div.affiliations').find('input.related_to_id').val(
+                $(response.data).find('#edit-contact-id').val()
+            );
+		    $select.parent().siblings('.new_record').html(response.data);
         });
     });
 

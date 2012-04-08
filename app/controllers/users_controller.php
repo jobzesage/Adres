@@ -604,7 +604,7 @@ class UsersController extends AppController {
 		}else{
 			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id ;
 			$affiliations= $this->User->query( $sql );
-			$contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_father_id');
+            $contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_father_id');
 		}
 
 		$ids = implode($contact_ids,',');

@@ -56,5 +56,25 @@ class Affiliation extends AppModel {
 		return am($list1,$list2);
 	}
 
+
+    public function getRelationship($affiliation){
+        switch($affiliation['type']){
+        case 'f':
+            $relation = array(
+                'contact_father_id'=>$affiliation['current_contact_id'],
+                'contact_child_id' => $affiliation['Affiliate']['contact_id'],
+                'affiliation_id'=>$affiliation['id']
+            );
+            break;
+        case 's':
+            $relation = array(
+                'contact_father_id'=>$affiliation['contact_id'],
+                'contact_child_id' => $affiliation['current_contact_id'],
+                'affiliation_id'=>$affiliation['id']
+            );
+            break;
+        }
+
+        return $relation;
+    }
 }
-?>
