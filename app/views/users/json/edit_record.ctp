@@ -14,6 +14,7 @@
 		<div style="clear: both;"></div>
 		<script type="text/javascript" src="/js/adres-contact-autocompleter.js.php"></script>
 	<?php endif ?>
+	<div class="clear"></div>
 </div>
 
 

@@ -1105,9 +1105,9 @@ form#goto_page input[type="submit"]
 .adres-affiliate-box
 				{
 				position: absolute;
-				margin: -5px 0 0 -220px;
+				margin: -5px 0 20px -395px;
 				padding: 2px 10px;
-				width: 190px;
+				width: 365px;
 				background-color: #f5f5f5;
 				border-radius: 			4px;
 				-moz-border-radius: 	4px;
@@ -1124,13 +1124,18 @@ form#goto_page input[type="submit"]
 .adres-affiliate-box .arrow
 				{
 				position: absolute;
-				margin: -3px 0 0 188px;
+				margin: -3px 0 0 364px;
 				}
 				
 .adres-affiliate-box .adres-box-closer
 				{
 				position: absolute;
-				margin: 0 0 0 190px;
+				margin: 0 0 0 366px;
+				}
+				
+.adres-affiliate-box label
+				{
+				display: block;
 				}
 				
 .encrypt div	{
