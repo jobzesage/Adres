@@ -3,7 +3,7 @@ a			{
 			color: #047;
 			outline: none;
 			}
-			
+
 input, select {
 			outline: none;
 			}
@@ -120,13 +120,13 @@ body		{
 							padding: 20px 15px 15px 25px;
 							background: url(images/login_mid.png) repeat-x;
 							text-align: left;
-							border-radius: 5px; 
-							-moz-border-radius: 5px; 
-							-webkit-border-radius: 5px; 
+							border-radius: 5px;
+							-moz-border-radius: 5px;
+							-webkit-border-radius: 5px;
 							-khtml-border-radius: 5px;
 							margin-bottom: 100px;
 							}
-							
+
 							.login_con .login_form	{
 													padding: 20px 0 0 0;
 													}
@@ -144,7 +144,7 @@ body		{
 													width: 235px;
 													outline: none;
 													}
-												
+
 							.login_con label		{
 													float: left;
 													margin-top: 8px;
@@ -212,9 +212,9 @@ body		{
 							margin-top: 5px;
 							overflow: hidden;
 							background: #F6F5F4 url(images/left_pannel_head.png) no-repeat;
-							border-radius: 3px; 
-							-moz-border-radius: 3px; 
-							-webkit-border-radius: 3px; 
+							border-radius: 3px;
+							-moz-border-radius: 3px;
+							-webkit-border-radius: 3px;
 							-khtml-border-radius: 3px;
 							}
 
@@ -265,7 +265,7 @@ body		{
 								text-indent: -9999px;
 								cursor: pointer;
 								height: 20px;
-								}	
+								}
 
 .adres-search a.advance			{
 								font: normal 11px Arial;
@@ -325,7 +325,7 @@ body		{
 									border: none;
 									margin-bottom: 10px;
 									}
-									
+
 .adres-filter-hold .filter-add		{
 									width: 99px;
 									height: 20px;
@@ -334,19 +334,19 @@ body		{
 									border: none;
 									margin: 10px 0 10px 10px;
 									}
-									
+
 .adres-filter-hold .group_list		{
 									font-size: 11px;
 									width: 160px;
 									margin: 5px 0 0 10px;
-									border-radius: 4px; 
-									-moz-border-radius: 4px; 
-									-webkit-border-radius: 4px; 
+									border-radius: 4px;
+									-moz-border-radius: 4px;
+									-webkit-border-radius: 4px;
 									-khtml-border-radius: 4px;
 									}
 
 /*/////////////////////////////// Adres Contacts Pannel ///////////////////////////////////*/
-			
+
 #adres-contacts-holder	{
 						padding: 5px;
 						}
@@ -356,9 +356,9 @@ body		{
 						overflow: hidden;
 						border: 1px solid #E9E6E5;
 						background: url(images/right_top.jpg) repeat-x;
-						border-radius: 0 4px 4px 4px; 
-						-moz-border-radius: 0 4px 4px 4px; 
-						-webkit-border-radius: 0 4px 4px 4px;  
+						border-radius: 0 4px 4px 4px;
+						-moz-border-radius: 0 4px 4px 4px;
+						-webkit-border-radius: 0 4px 4px 4px;
 						-khtml-border-radius: 0 4px 4px 4px;
 						}
 
@@ -369,7 +369,7 @@ body		{
 						background: url(images/basic_pannel.jpg) repeat-x;
 						margin-top: 2px;
 						}
-						
+
 						#adres-basic-panel a		{
 													float: left;
 													height: 20px;
@@ -405,9 +405,9 @@ body		{
 													background-color: #f1f1f1;
 													border: 1px solid #bbb;
 													outline: none;
-													border-radius: 3px; 
-													-moz-border-radius: 3px; 
-													-webkit-border-radius: 3px;  
+													border-radius: 3px;
+													-moz-border-radius: 3px;
+													-webkit-border-radius: 3px;
 													-khtml-border-radius: 3px;
 													}
 
@@ -421,9 +421,9 @@ body		{
 													background-color: #f1f1f1;
 													border: 1px solid #bbb;
 													outline: none;
-													border-radius: 3px; 
-													-moz-border-radius: 3px; 
-													-webkit-border-radius: 3px;  
+													border-radius: 3px;
+													-moz-border-radius: 3px;
+													-webkit-border-radius: 3px;
 													-khtml-border-radius: 3px;
 													}
 
@@ -442,7 +442,7 @@ body		{
 .adres-datagrid .tr-even	{
 							background-color: #f3f3f3;
 							}
-							
+
 a.adres-affiliate			{
 							float: left;
 							height: 16px;
@@ -478,7 +478,7 @@ a.adres-delete				{
 
 .up-down a					{
 							float: left;
-							padding-left: 0 !important; 
+							padding-left: 0 !important;
 							margin-top: -3px;
 							}
 
@@ -566,7 +566,7 @@ table.adres-datagrid td		{
 table.adres-datagrid td a	{
 							color: #555;
 							}
-							
+
 #TypeSelectOptionAddForm	{
 							padding: 12px 7px 12px 12px;
 							border: 1px solid #bcbcbc;
@@ -579,13 +579,13 @@ table.adres-datagrid td a	{
 							-webkit-border-radius: 0 4px 4px 4px;
 							-khtml-border-radius: 0 4px 4px 4px;
 							}
-							
+
 							#TypeSelectOptionAddForm input	{
 															padding: 3px 5px;
 															color: #555;
 															}
-															
-							#TypeSelectOptionAddForm .submit input	
+
+							#TypeSelectOptionAddForm .submit input
 															{
 															padding: 2px 10px;
 															}
@@ -683,7 +683,7 @@ table.adres-datagrid td a	{
 						color: #008AB0;
 						}
 
-.form fieldset label, .affiliations fieldset label	
+.form fieldset label, .affiliations fieldset label
 						{
 						float: left;
 						width: 130px;
@@ -700,7 +700,7 @@ table.adres-datagrid td a	{
 											padding: 2px;
 											}
 
-.form input, .form select, .affiliations input, .affiliations select	
+.form input, .form select, .affiliations input, .affiliations select
 							{
 							margin: 0 0 15px 0;
 							}
@@ -743,26 +743,26 @@ div#adres-dialog label	{
 						}
 
 .ui-dialog				{
-						border-radius: 4px; 
-						-moz-border-radius: 4px; 
-						-webkit-border-radius: 4px; 
+						border-radius: 4px;
+						-moz-border-radius: 4px;
+						-webkit-border-radius: 4px;
 						-khtml-border-radius: 4px;
 						background: #dbdbdb url(images/popup_bg.png) repeat-x;
 						}
 
-.ui-widget-content .ui-widget-content		
+.ui-widget-content .ui-widget-content
 						{
 						background: url(images/xpopup_bg.png) repeat-x;
 						}
 
-.ui-widget-content .ui-tabs .ui-tabs-nav		
+.ui-widget-content .ui-tabs .ui-tabs-nav
 						{
 						padding: 0;
 						margin-top: 4px;
 						}
 
-.ui-widget-content .ui-tabs .ui-tabs-nav li 
-						{ 
+.ui-widget-content .ui-tabs .ui-tabs-nav li
+						{
 						padding: 0;
 						}
 
@@ -772,10 +772,10 @@ div#adres-dialog label	{
 						padding: 5px 10px 0 10px;
 						}
 
-.ui-widget-content .ui-tabs .ui-tabs-nav li.ui-tabs-selected 
+.ui-widget-content .ui-tabs .ui-tabs-nav li.ui-tabs-selected
 						{
-						border-top: 1px solid #bcbcbc; 
-						border-left: 1px solid #bcbcbc; 
+						border-top: 1px solid #bcbcbc;
+						border-left: 1px solid #bcbcbc;
 						border-right: 1px solid #bcbcbc;
 						background: #fff url(images/xpopup_bg.png) repeat-x;
 						}
@@ -792,43 +792,43 @@ div#adres-dialog label	{
 						-webkit-border-radius: 0 4px 4px 4px;
 						-khtml-border-radius: 0 4px 4px 4px;
 						}
-						
+
 #contact-window table	{
 						margin-top: 5px;
 						border-right: 1px solid #e9e9e9;
 						border-bottom: 1px solid #e9e9e9;
 						}
-						
+
 #contact-window table th, #contact-window form th, #contact-window table td, #contact-window form td
 						{
 						border-top: 1px solid #e9e9e9;
 						border-left: 1px solid #e9e9e9;
 						padding: 5px;
 						}
-						
+
 #contact-window table th{
 						width: 150px;
 						}
-						
+
 #contact-window a		{
 						border-radius: 3px;
 						-moz-border-radius: 3px;
 						-webkit-border-radius: 3px;
 						-khtml-border-radius: 3px;
 						}
-						
+
 #contact-window a span, #AdvanceSearchAddForm a span, #AffiliationAddForm a span
 						{
 						xpadding: 4px 0 0 5px;
 						padding: 0;
 						}
-						
+
 .ui-datetime-calendar, .ui-datetime-clock
 						{
 						background: url(images/popup_bg.png) repeat-x !important;
 						overflow: hidden;
 						}
-						
+
 .ui-datetime-slider-hour, .ui-datetime-slider-mins
 						{
 						border: none;
@@ -848,11 +848,11 @@ div#adres-dialog label	{
 						-webkit-border-radius: 0 4px 4px 4px;
 						-khtml-border-radius: 0 4px 4px 4px;
 						}
-						
+
 .advance_search_contact	{
 						padding: 4px;
 						color: #555;
-						}						
+						}
 
 #adres-dialog			{
 						padding: 5px;
@@ -906,51 +906,51 @@ input[type="text"], input[type="password"], input.text, input.title, textarea, s
 							{
 							margin: 7px 0 4px 0;
 							}
-							
+
 							.submit input	{
 											padding: 2px 10px;
 											font: bold 11px Arial;
 											color: #444;
 											}
-							
-/*/////////////////////////////// Popup Group Joinning ///////////////////////////////////*/							
+
+/*/////////////////////////////// Popup Group Joinning ///////////////////////////////////*/
 
 .joined_group			{
 						border-bottom: 1px dotted #aaa;
 						margin-bottom: 10px;
 						padding-bottom: 10px;
 						}
-						
+
 						.joined_group p			{
 												font: bold 12px Verdana;
 												color: #00A7B8;
 												margin: 0px;
 												}
-												
+
 						.joined_group p.active	{
 												padding: 0 0 3px 0;
 												border-bottom: 1px dotted #aaa;
 												}
-												
+
 						.joined_group ul		{
 												margin: 10px 0 0 0;
 												padding: 0;
 												}
-												
+
 						.joined_group ul li		{
 												list-style: none;
 												line-height: 22px;
 												}
-												
+
 						.joined_group ul li span	{
 													font: normal 12px Verdana;
 													color: #666;
 													}
-													
+
 						.joined_group ul li a		{
 													color: #aaa;
 													}
-													
+
 						.joined_group ul li a:hover	{
 													color: #444;
 													}
@@ -1010,30 +1010,30 @@ dd			{
 .message_remove	{
 				border: 3px solid red;
 				}
-				
+
 /****************** Send Mail *****************/
 
 .mailer			{
 				margin: 0 5px;
 				}
-				
+
 				.mailer label		{
 									float: left;
 									width: 15px;
 									margin-bottom: 3px;
 									}
-				
+
 				.mailer textarea	{
 									width: 350px;
 									}
-				
+
 /****************** Main Table *****************/
 
 #main_table		{
 				overflow: auto;
 				margin: 0 5px 5px 5px;
 				}
-				
+
 /****************** Drop Down List *****************/
 
 .ui-selectmenu-menu li a{
@@ -1044,14 +1044,14 @@ dd			{
 						line-height: 19px;
 						padding: 0;
 						}
-						
+
 .ui-selectmenu-dropdown	{
 						border-radius: 3px;
 						-moz-border-radius: 3px;
 						-webkit-border-radius: 3px;
 						-khtml-border-radius: 3px;
 						}
-				
+
 /*<<<<<<< Updated upstream*/
 
 .highlight		{
@@ -1066,28 +1066,28 @@ form#goto_page	{
     			display: inline;
     			margin-left: 10px;
 				}
-				
+
 form#goto_page input[type="text"]
 				{
     			width: 50px;
     			font: normal 11px Arial;
     			padding: 2px;
 				}
-				
+
 form#goto_page input[type="submit"]
 				{
     			font: bold 11px Arial;
 				}
-				
+
 .settings_hold	{
 				float: right;
 				}
-				
+
 .settings		{
 				position: absolute;
 				margin: 2px 0 0 -55px;
 				}
-				
+
 .encrypt		{
 				position: absolute;
 				margin: 24px 0 0 -206px;
@@ -1101,7 +1101,7 @@ form#goto_page input[type="submit"]
 				font: bold 11px Arial;
 				border: 1px solid #E2DFDF;
 				}
-				
+
 .adres-affiliate-box
 				{
 				position: absolute;
@@ -1120,52 +1120,54 @@ form#goto_page input[type="submit"]
 				-webkit-box-shadow:	0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* Safari and Chrome */
 				-khtml-box-shadow:	0 0 3px 1px #aaa, 0 0 1px 1px #fafafa inset; /* Linux Browsers */
 				}
-				
+
 .adres-affiliate-box .arrow
 				{
 				position: absolute;
 				margin: -3px 0 0 364px;
 				}
-				
+
 .adres-affiliate-box .adres-box-closer
 				{
 				position: absolute;
 				margin: 0 0 0 366px;
 				}
-				
+
 .adres-affiliate-box label
 				{
 				display: block;
 				}
-				
+
 .encrypt div	{
     			float: left;
 				}
-				
+
 .encrypt input	{
     			margin-left: 5px;
 				}
-				
+
 .encrypt input[type="text"]
 				{
     			width: 100px;
     			font: normal 11px Arial;
     			padding: 4px 3px 3px 3px;
 				}
-				
+
 .encrypt input[type="submit"]
 				{
     			font: bold 10px Arial;
     			width: 50px;
 				}
-				
+
 .adres-double	{
     			float: left;
     			width: 380px;
 				}
-				
+
 .affiliation_container
 				{
+                border : #ccc 1px groove ;
     			float: left;
-    			width: 380px;
+    			width: 370px;
+                padding: 5px 0 0 5px;
 				}

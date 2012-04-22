@@ -55,4 +55,3 @@ SwiftMailer is added to the system as git submodule so
 	git submodule init
 	git submodule update
 this will install the proper library
-

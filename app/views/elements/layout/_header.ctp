@@ -38,12 +38,15 @@
 
     <script type="text/x-handlebars-template" language="javascript" id="affilliation_temp" >
         <div class="affiliations">
+        <h3>Choose an affiliation</h3>
         <form action="/affiliations/relate" method="post" class='adres-ajax-form'>
             {{#select Affiliations id="select_affiliation" name="data[Affiliate][affiliation_id]" }} {{/select}}
             <input type="hidden" name="data[Affiliate][contact_id]" value="" class="related_to_id"/>
             <input type="hidden" name="data[Affiliate][current_contact_id]" value="{{contact_id}}"/>
             <input type="submit" value="Affiliate"/>
         </form>
+        <hr />
+        <h3> Create a new record</h3>
 	    <div class="new_record"></div>
         </div>
     </script>
