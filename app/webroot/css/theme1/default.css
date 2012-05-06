@@ -1168,6 +1168,5 @@ form#goto_page input[type="submit"]
 				{
                 border : #ccc 1px groove ;
     			float: left;
-    			width: 370px;
-                padding: 5px 0 0 5px;
+    			width: 380px;
 				}

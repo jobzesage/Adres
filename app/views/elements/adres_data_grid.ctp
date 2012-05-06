@@ -188,19 +188,21 @@
 								),null,false)
 							?>
 
-							<?php echo $html->link("del",array(
-								'controller' => 'sites',
+							<?php echo $html->link("edit",array(
+								'controller' => 'users',
 								'action' => 'show_contact_panel',
-								$value['Contact']['id']),array(
+								$value['Contact']['id']
+								),array(
 									'title' => 'Edit Contact',
-									'class' => 'adres-edit',
+									'class' => ' adres-edit adres-contact-tabs-panel',
 								),null,false)
 							?>
 
 							<?php echo $html->link("del",array(
 								'controller' => 'sites',
 								'action' => 'delete_record',
-								$value['Contact']['id']),array(
+								$value['Contact']['id']
+								),array(
 									'title' => 'Delete Contact',
 									'class' => 'adres-delete adres-ajax-anchor',
 								),null,false)

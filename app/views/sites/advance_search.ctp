@@ -63,10 +63,12 @@
 
 $(function(){
     $('#AffiliationAffiliationId').bind("change",ADres.SELECT.update_contact_picker);
+    $('#AffiliationAffiliationId').bind("change",ADres.SELECT.affiliated_filters);
 	ADres.SELECT.autocomplete_affliation(null);
 
     $('.adres-tabs').tabs();
     $('select').selectmenu({width:230});
+
 });
 </script>
 

@@ -33,15 +33,19 @@ class TypeDate extends Plugin{
 			}
 		}else{
 			$formatted_result = ClassRegistry::init('TypeDateOption')->getField($dataum);
-			$_SESSION['Contact']['dates'][$formatted_result[0]['TypeDateOption']['field_id']]=$formatted_result[0]['TypeDateOption'];
+			if($formatted_result){
+				$_SESSION['Contact']['dates'][$formatted_result[0]['TypeDateOption']['field_id']]=$formatted_result[0]['TypeDateOption'];
+			}
 		}
 
 		$date = array_values($dataum['data']);
 
         $output= self::EMPTY_DATE;
 
-		$date_format = $_SESSION['Contact']['dates'][$dataum['field_id']]['format'];
-
+		$date_format = null;
+		if(isset($_SESSION['Contact']['dates'])){
+			$date_format = $_SESSION['Contact']['dates'][$dataum['field_id']]['format'];
+		}
 		if(empty($date_format)){
 			$date_format="d.m.y";
 		}

@@ -11,22 +11,22 @@ class AppHelper extends Helper {
 
     public function generateDataGrid($columns,$contacts)
     {
-    	$output = "<table class='adres-datagrid' border='0'>\n ";
-    	$output .= "\t<th>ID</th>\n";
-    	foreach ($columns as $column) {
-			$output.= "\t<th>".$column['Field']['name']."</th>\n";
-    	}
+        $output = "<table class='adres-datagrid' border='0'>\n ";
+        $output .= "\t<th>ID</th>\n";
+        foreach ($columns as $column) {
+            $output.= "\t<th>".$column['Field']['name']."</th>\n";
+        }
 
-    	foreach ($contacts as $contact) {
-    		$output.= "\t<tr>\n";
-			foreach ($contact as $key => $data) {
-				$d = array_values($data);
-				$output.= "\t\t<td>".$d[0]."</td>\n";
-			}
-    		$output.= "\t</tr>\n";
-    	}
-    	$output .= "</table>\n ";
-    	return $output;
+        foreach ($contacts as $contact) {
+            $output.= "\t<tr>\n";
+            foreach ($contact as $key => $data) {
+                $d = array_values($data);
+                $output.= "\t\t<td>".$d[0]."</td>\n";
+            }
+            $output.= "\t</tr>\n";
+        }
+        $output .= "</table>\n ";
+        return $output;
     }
 
 
@@ -48,11 +48,11 @@ class AppHelper extends Helper {
 
     public function getAffliationSelectValues($affiliations)
     {
-      $data=array('Select One');
-      foreach ($affiliations as $aff){
-	$data[$aff['value']] = $aff['option'];
-      }
-      return $data;
+        $data=array('Select One');
+        foreach ($affiliations as $aff){
+            $data[$aff['value']] = $aff['option'];
+        }
+        return $data;
     }
 }
 

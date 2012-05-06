@@ -3,6 +3,14 @@ ADres.version=0.1;
 var UI=null
 
 ADres.SELECT = {
+    affiliated_filters:function(e){
+        var id = $(this).val();
+        $.getJSON('/filters/affiliations/'+id +'.json' ,function(data){
+            console.log(data);
+        },function(){
+            alert(this)
+        })
+    },
 	update_contact_picker:function(e){
 		ADres.SELECT.autocomplete_affliation($(this).val());
 	},

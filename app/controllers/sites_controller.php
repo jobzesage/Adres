@@ -18,21 +18,21 @@ class SitesController extends AppController {
     public $layout = "users";
 
     public function edit_record($contact_id=null){
-		$this->redirect_if_not_ajax_request();
-		$this->redirect_if_id_is_empty($contact_id);
+        $this->redirect_if_not_ajax_request();
+        $this->redirect_if_id_is_empty($contact_id);
 
-                $contact_type_id =$this->Session->read("Contact.contact_type_id");
-                $plugins = $this->Field->getPluginTypes($contact_type_id);
-                $option= array('contact_type_id'=>$contact_type_id);
-		$form_inputs = "";
-		foreach ($plugins as $plugin) {
-			$className = $plugin['Field']['field_type_class_name'];
-			$form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin,$option);
-		}
-		$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
-		$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_type_id]' value='$contact_type_id'>";
-		$this->set('form_inputs',$form_inputs);
-		$this->set('contactId',$contact_id);
+        $contact_type_id =$this->Session->read("Contact.contact_type_id");
+        $plugins = $this->Field->getPluginTypes($contact_type_id);
+        $option= array('contact_type_id'=>$contact_type_id);
+        $form_inputs = "";
+        foreach ($plugins as $plugin) {
+            $className = $plugin['Field']['field_type_class_name'];
+            $form_inputs .= ClassRegistry::init($className)->renderEditForm($contact_id,$plugin,$option);
+        }
+        $form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
+        $form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_type_id]' value='$contact_type_id'>";
+        $this->set('form_inputs',$form_inputs);
+        $this->set('contactId',$contact_id);
     }
 
 
@@ -54,14 +54,14 @@ class SitesController extends AppController {
     }
 
 
-	public function update_contact(){
-		$this->set('status',true);
+    public function update_contact(){
+        $this->set('status',true);
         if(!empty($this->data)){
-		    $plugins = $this->Field->getPluginTypes($this->data['contact_type_id']);
+            $plugins = $this->Field->getPluginTypes($this->data['contact_type_id']);
             ClassRegistry::init('Plugin')->processEditForm($this->data,$plugins,$this->Auth->User('id'));
-		}
-		$this->render(false);
-	}
+        }
+        $this->render(false);
+    }
 
 
 	public function group($contact_id)
@@ -75,43 +75,44 @@ class SitesController extends AppController {
 	}
 
 
-	public function affiliate($contact_id=null)
-	{
-		$this->redirect_if_not_ajax_request();
-		$contact = $this->Contact->read(null,$contact_id);
-		$contact_type_id = $contact['Contact']['contact_type_id'];
+    public function affiliate($contact_id=null)
+    {
+        $this->redirect_if_not_ajax_request();
+        $contact = $this->Contact->read(null,$contact_id);
+        $contact_type_id = $contact['Contact']['contact_type_id'];
 
-		$plugins = $this->Field->getPluginTypes($contact_type_id,null,array(
-			'Field.is_descriptive'=>1
-		));
+        $plugins = $this->Field->getPluginTypes($contact_type_id,null,array(
+            'Field.is_descriptive'=>1
+        ));
 
-		$contact_types = $this->Contact->ContactType->find('list');
+        $contact_types = $this->Contact->ContactType->find('list');
 
-		$descriptive_fields = "";
-		foreach ($plugins as $field) {
-			$descriptive_fields .= $field['Field']['name']. " ";
-		}
+        $descriptive_fields = "";
+        foreach ($plugins as $field) {
+            $descriptive_fields .= $field['Field']['name']. " ";
+        }
 
-		$name = $this->getTitle($contact_id,$plugins);
+        $name = $this->getTitle($contact_id,$plugins);
 
-    if( $this->data){
-      $affiliation= array();
-      $affiliation['id']                 = substr($this->data['Affiliate']['affiliation_id'],1);
-      $affiliation['type']               = substr($this->data['Affiliate']['affiliation_id'],0,1);
-      $affiliation['current_contact_id'] = $this->data['Affiliate']['current_contact_id'];
-      $affiliation['contact_id']         = $this->data['Affiliate']['contact_id'];
-      $relationship                      = $this->Affiliation->getRelationship($affiliation);
+        if( $this->data){
+            $affiliation= array();
+            $affiliation['id']                 = substr($this->data['Affiliate']['affiliation_id'],1);
+            $affiliation['type']               = substr($this->data['Affiliate']['affiliation_id'],0,1);
+            $affiliation['current_contact_id'] = $this->data['Affiliate']['current_contact_id'];
+            $affiliation['contact_id']         = $this->data['Affiliate']['contact_id'];
+            $relationship                      = $this->Affiliation->getRelationship($affiliation);
 
-      if($relationship){
-        $this->Contact->log_message ='Contact '.$this->data['Affiliate']['contact_id'] .' and '.$this->data['Affiliate']['current_contact_id']. ' are now affiliated';
-				$this->Contact->saveAfilliation($relationship);
-			}
-		}// used to affiliate
+            if($relationship){
+                var_dump($affiliation);
+                $this->Contact->log_message ='Contact '.$this->data['Affiliate']['contact_id'] .' and '.$this->data['Affiliate']['current_contact_id']. ' are now affiliated';
+                $this->Contact->saveAfilliation($relationship);
+            }
+        }// used to affiliate
 
-		$this->set('affiliations',$this->Affiliation->getList($contact_type_id));
-		$this->set("contact", $this->affiliationContacts($contact_id,$plugins));
-		$this->set(compact("contact_types",'descriptive_fields','name','contact_id'));
-	}
+        $this->set('affiliations',$this->Affiliation->getList($contact_type_id));
+        $this->set("contact", $this->affiliationContacts($contact_id,$plugins));
+        $this->set(compact("contact_types",'descriptive_fields','name','contact_id'));
+    }
 
 
 	public function history($contact_id)
@@ -123,55 +124,49 @@ class SitesController extends AppController {
 	}
 
     public function delete_record($id=null){
-		//$this->redirect_if_not_ajax_request();
-		//$this->redirect_if_id_is_empty($id);
-		$this->set('status',true);
-		$log = array();
-		if (!empty($this->data)){
+        //$this->redirect_if_not_ajax_request();
+        //$this->redirect_if_id_is_empty($id);
+        $this->set('status',true);
+        $log = array();
+        if (!empty($this->data)){
 
-			$this->Log->save(array(
-				'log_dt' 		=> date(AppModel::SQL_DTF),
-				'contact_id' => $this->data['ContactDelete']['contact_id']
-			));
-			$trash_id = $this->Log->id;
-			$contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
-			$contact['Contact']['trash_id']= $trash_id;
+            $this->Log->save(array(
+                'log_dt' 		=> date(AppModel::SQL_DTF),
+                'contact_id' => $this->data['ContactDelete']['contact_id']
+            ));
+            $trash_id = $this->Log->id;
+            $contact = $this->Contact->read(null,$this->data['ContactDelete']['contact_id']);
+            $contact['Contact']['trash_id']= $trash_id;
 
-			$this->Contact->counter_cache($contact['Contact']['contact_type_id'],-1);
+            $this->Contact->counter_cache($contact['Contact']['contact_type_id'],-1);
 
 
-			/**
-			 * this is done here because of afterSave call back is
-			 * used for record updating. So after saving a contact
-			 * generates a empty description and trash id
-			 * this is a work around for this problem
-			 */
-			$contact_log = $this->Contact->getCSVContact($contact);
-			$this->Contact->log_message =  $this->data['ContactDelete']['description'];
-			$this->Contact->user_id  = $this->Auth->user('id');
-			$this->Contact->cdata = $contact_log;
-			$this->Contact->save($contact);
+            /**
+             * this is done here because of afterSave call back is
+             * used for record updating. So after saving a contact
+             * generates a empty description and trash id
+             * this is a work around for this problem
+             */
+            $contact_log = $this->Contact->getCSVContact($contact);
+            $this->Contact->log_message =  $this->data['ContactDelete']['description'];
+            $this->Contact->user_id  = $this->Auth->user('id');
+            $this->Contact->cdata = $contact_log;
+            $this->Contact->save($contact);
 
-			$this->redirect(array('controller'=>'users','action'=>'home'));
-		}
-		$this->set('id',$id);
+            $this->redirect(array('controller'=>'users','action'=>'home'));
+        }
+        $this->set('id',$id);
     }
 
 
 
-
-
-
-	public function advance_search()
-	{
+	public function advance_search(){
 
 		$contact_type_id = $this->Session->read('Contact.contact_type_id');
-
 		$this->User->id = $this->Auth->user('id');
 
-		$hidden_fields = $this->User->getHiddenFieldsByContactType($contact_type_id);
-
-		$fields   = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
+		$hidden_fields  = $this->User->getHiddenFieldsByContactType($contact_type_id);
+		$fields         = $this->Field->getPluginTypes($contact_type_id,$hidden_fields);
 
 		# query optimization
 		$hidden_fields_list = !empty($hidden_fields) ? $this->Field->getList($hidden_fields): array();
@@ -181,7 +176,6 @@ class SitesController extends AppController {
 		$affiliations = ClassRegistry::init('Affiliation')->getList($contact_type_id);
 
 		$this->set('affiliations',$affiliations);
-
 		$this->set('hidden_fields',$hidden_fields_list);
 
 		$advance_search_form = "";
@@ -191,22 +185,22 @@ class SitesController extends AppController {
 			$advance_search_form .= ClassRegistry::init($className)->advanceSearchFormField($field);
 		}
 
-        $this->set('filters', $this->Filter->getList($contact_type_id));
+        $this->set('filters',null);
 		$this->set('advance_search_form',$advance_search_form);
 		$this->set('status',true);
 	}
 
 
 	public function plugin_options()
-	{
-		$params = $this->params['named'];
-		if(isset($params['contact_type_id']) && isset($params['field_id'])){
+    {
+        $params = $this->params['named'];
+        if(isset($params['contact_type_id']) && isset($params['field_id'])){
 
-			$className = $this->getFieldClassType($params['field_id']);
-			$optionsName = $className.'Option';
-			$output = ClassRegistry::init($optionsName)->displayOptions($params);
-			$this->set('output',$output);
-		}
+            $className = $this->getFieldClassType($params['field_id']);
+            $optionsName = $className.'Option';
+            $output = ClassRegistry::init($optionsName)->displayOptions($params);
+            $this->set('output',$output);
+        }
     }
 
     public function contact_picker()
@@ -241,10 +235,7 @@ class SitesController extends AppController {
 				$p[$i]['id']=$data['TypeString']['contact_id'];
 				$i++;
 			}
-
-
 			$this->set('hello',$p);
-
 		}else{
 			$this->redirect('/');
 		}
@@ -258,10 +249,6 @@ class SitesController extends AppController {
     	}
     	$this->set("status",true);
     }
-
-
-
-
 
 
 
