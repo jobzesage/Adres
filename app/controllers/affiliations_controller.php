@@ -104,8 +104,7 @@ class AffiliationsController extends AppController {
         $this->layout= 'default';
         if( $this->data){
             $affiliation= array();
-            $affiliation['id']                 = substr($this->data['Affiliate']['affiliation_id'],1);
-            $affiliation['type']               = substr($this->data['Affiliate']['affiliation_id'],0,1);
+            $affiliation = $this->Affiliation->getAffiliationArray($this->data['Affiliate']['affiliation_id']);
             $affiliation['current_contact_id'] = $this->data['Affiliate']['current_contact_id'];
             $affiliation['contact_id']         = $this->data['Affiliate']['contact_id'];
             $relationship                      = $this->Affiliation->getRelationship($affiliation);

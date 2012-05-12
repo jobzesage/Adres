@@ -32,4 +32,16 @@ class Filter extends AppModel {
 			)
 		));
     }
+
+    public function getTemplatedList($contact_type_id){
+        $filters = $this->getFilters($contact_type_id);
+        $temp = array();
+        foreach ($filters as $filter){
+            $temp[] = array(
+                'value'=>$filter['Filter']['id'],
+                'option'=>$filter['Filter']['name']
+            );
+        }
+        return $temp;
+    }
 }

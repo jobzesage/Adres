@@ -103,9 +103,11 @@ class SitesController extends AppController {
             $relationship                      = $this->Affiliation->getRelationship($affiliation);
 
             if($relationship){
-                var_dump($affiliation);
-                $this->Contact->log_message ='Contact '.$this->data['Affiliate']['contact_id'] .' and '.$this->data['Affiliate']['current_contact_id']. ' are now affiliated';
+                $this->User->id = $this->Auth->User('id');
+                $this->Contact->log_message = 'Contact '.$affiliation['id'] .' and '.$affiliation['current_contact_id']. ' are now affiliated';
                 $this->Contact->saveAfilliation($relationship);
+
+
             }
         }// used to affiliate
 

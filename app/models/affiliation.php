@@ -32,7 +32,7 @@ class Affiliation extends AppModel {
             'fields'=>array('Affiliation.id','Affiliation.father_name')
         ));
 
-        $childs = $this->find('all',array(
+        $children = $this->find('all',array(
             'conditions' => array(
                 'Affiliation.contact_type_child_id'=>$contactTypeId
             ),
@@ -48,7 +48,7 @@ class Affiliation extends AppModel {
         }
 
         $empty_select = array("Select one ..");
-        foreach ($childs as $child) {
+        foreach ($children as $child) {
             $list2[] = array('value'=>'s'.$child['Affiliation']['id'], 'option'=>$child['Affiliation']['child_name']);
             #$list2['s'.$child['Affiliation']['id']] = $child['Affiliation']['child_name'];
         }
@@ -76,5 +76,14 @@ class Affiliation extends AppModel {
         }
 
         return $relation;
+    }
+
+
+    public function getAffiliationArray( $affiliation_id )
+    {
+        return array(
+            'type' => substr($affiliation_id,0,1),
+            'id'   => (int) substr($affiliation_id,1),
+        );
     }
 }

@@ -5,10 +5,11 @@ var UI=null
 ADres.SELECT = {
     affiliated_filters:function(e){
         var id = $(this).val();
+        var source = $("#filters_template").html();
+        var template = Handlebars.compile(source);
+
         $.getJSON('/filters/affiliations/'+id +'.json' ,function(data){
-            console.log(data);
-        },function(){
-            alert(this)
+            $('#AffiliationFilterId').replaceWith(template(data));
         })
     },
 	update_contact_picker:function(e){
@@ -405,7 +406,6 @@ jQuery(document).ready(function() {
     Handlebars.registerHelper('select', function(items, options) {
         var out = "<select name="+options.hash.name+" id="+options.hash.id+">";
         out +="<option> Select ...</option>";
-        console.log(items.length);
         for(var i=0, l=items.length; i<l; i++) {
             out = out + "<option value="+items[i].value+">" + items[i].option + "</option>";
         }

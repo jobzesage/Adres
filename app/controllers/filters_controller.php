@@ -68,14 +68,33 @@ class FiltersController extends AppController {
     public function collection($contact_type_id=null){
         $this->layout = 'api';
         $this->disableDebugger();
-        $data['Filters']=$this->Filter->getList($contact_type_id);
+        $data['filters']=$this->Filter->getlist($contact_type_id);
         $this->set('data', $data);
         $this->render('/elements/json_data');
     }
 
     public function affiliations($affiliation_id=null){
-        $this->layout = 'default';
+        $this->layout = 'api';
+        $this->disableDebugger();
 
+        $Affiliation  = $this->Filter->ContactType->Contact->Affiliation;
+        $affiliation   = $Affiliation->getAffiliationArray($affiliation_id);
+        $affiliation  = $Affiliation->findById($affiliation['id']);
+        $contactTypes = null;
+        if( !empty($affiliation) ){
+            $contactTypes = array(
+                $affiliation['Affiliation']['contact_type_father_id'],
+                $affiliation['Affiliation']['contact_type_child_id'],
+            );
+        }
+        $current_contact_type = array($this->params['url']['current_contact_type']);
+        if(empty($current_contact_type)){
+            $current_contact_type = $this->Session->read('Contact.contact_type_id');
+        }
+        $affiliated_contact_type = array_pop(array_diff($contactTypes, $current_contact_type));
+        $data['Filters'] = $this->Filter->getTemplatedList($affiliated_contact_type);
+        $this->set('data', $data);
+        $this->render('/elements/json_data');
     }
 
 }
