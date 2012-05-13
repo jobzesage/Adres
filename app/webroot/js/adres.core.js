@@ -4,20 +4,28 @@ var UI=null
 
 ADres.SELECT = {
     affiliated_filters:function(e){
+        var $affiliation_select = $(this);
         var id = $(this).val();
         var source = $("#filters_template").html();
         var template = Handlebars.compile(source);
 
         $.getJSON('/filters/affiliations/'+id +'.json' ,function(data){
             $('#AffiliationFilterId').replaceWith(template(data));
-        })
+            $('#select_filters').bind('change',function(e){
+                var filter = $(this).val();
+                var affiliation = $('#AffiliationAffiliationId').val();
+                ADres.SELECT.autocomplete_affliation(affiliation, filter);
+            });
+        });
     },
 	update_contact_picker:function(e){
 		ADres.SELECT.autocomplete_affliation($(this).val());
 	},
-	autocomplete_affliation:function(contact_id){
+	autocomplete_affliation:function(contact_id, filter){
+        if(typeof filter === 'undefined') filter = 0;
+
 		$('#AffiliateAutocompleter, input.adres-contact-picker').autocomplete({
-	  		source: '/sites/contact_picker.json?affiliation_id='+ contact_id,
+	  		source: '/sites/contact_picker.json?affiliation_id='+ contact_id +'&filter='+ filter,
 	  		select: function( event, ui ) {
 	  			$('input#AffiliateContactId').val(ui.item.id);
 	  		}

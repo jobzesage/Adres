@@ -62,8 +62,8 @@
 <script type="text/javascript">
 
 $(function(){
-    $('#AffiliationAffiliationId').bind("change",ADres.SELECT.update_contact_picker);
     $('#AffiliationAffiliationId').bind("change",ADres.SELECT.affiliated_filters);
+    $('#AffiliationAffiliationId').bind("change",ADres.SELECT.update_contact_picker);
 	ADres.SELECT.autocomplete_affliation(null);
 
     $('.adres-tabs').tabs();

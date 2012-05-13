@@ -1,6 +1,6 @@
 <?php
 
-    Configure::write('debug',0);
+    Configure::write('debug',2);
     Configure::write('ADres.version','1.0.0beta');
     Configure::write('ADres.auto_install',false);
     Configure::write('ADres.url','url');

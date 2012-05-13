@@ -87,10 +87,10 @@ class FiltersController extends AppController {
                 $affiliation['Affiliation']['contact_type_child_id'],
             );
         }
-        $current_contact_type = array($this->params['url']['current_contact_type']);
-        if(empty($current_contact_type)){
-            $current_contact_type = $this->Session->read('Contact.contact_type_id');
-        }
+
+        //change the code
+        $current_contact_type = array($this->Session->read('Contact.contact_type_id'));
+
         $affiliated_contact_type = array_pop(array_diff($contactTypes, $current_contact_type));
         $data['Filters'] = $this->Filter->getTemplatedList($affiliated_contact_type);
         $this->set('data', $data);

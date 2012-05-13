@@ -221,12 +221,14 @@ class SitesController extends AppController {
 				$contact_type_id = $affiliation['Affiliation']['contact_type_child_id'];
 			}
 
-			$plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
+            $plugin_classes = $this->ContactType->Field->getDescriptivePluginNames($contact_type_id);
+            $filters = $this->ContactType->Filter->read(null, $this->params['url']['filter']);
 			$search_term = $this->params['url']['term'];
 
             $result = ClassRegistry::init('TypeString')->search(array(
-				'term'=>$search_term,
-				'fields'=>$plugin_classes['TypeString']['field_ids']
+				'term'   => $search_term,
+                'fields' => $plugin_classes['TypeString']['field_ids'],
+                'filters'=> $filters['Filter']
 			)) ;
 
 
