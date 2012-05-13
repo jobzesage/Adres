@@ -52,7 +52,7 @@
     </script>
     <script type="text/x-handlebars-template" language="javascript" id="filters_template" >
         <div class="filters">
-          {{#select Filters id="AffiliationFilterId"  data[Affiliation][filter_id]="testing" }} {{/select}}
+          {{#select Filters id="AffiliationFilterId"  name="data[Affiliation][filter_id]" }} {{/select}}
         </div>
     </script>
 	<body>
