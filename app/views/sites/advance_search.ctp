@@ -46,8 +46,9 @@
             <?php echo $form->input('filter_id',array(
                 'type'=>'select',
                 'options'=>$filters,
-                'empty'=>'Select one
-            '))?>
+                'empty'=>'Select One',
+                'class'=>'adres-filter-template'
+            ))?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
 

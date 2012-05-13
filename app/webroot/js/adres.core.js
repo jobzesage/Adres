@@ -10,8 +10,10 @@ ADres.SELECT = {
         var template = Handlebars.compile(source);
 
         $.getJSON('/filters/affiliations/'+id +'.json' ,function(data){
-            $('#AffiliationFilterId').replaceWith(template(data));
-            $('#select_filters').bind('change',function(e){
+            $('#AffiliationFilterId')
+              .replaceWith(template(data));
+            $('#AffiliationFilterId')
+              .bind('change',function(e){
                 var filter = $(this).val();
                 var affiliation = $('#AffiliationAffiliationId').val();
                 ADres.SELECT.autocomplete_affliation(affiliation, filter);
