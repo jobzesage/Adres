@@ -6,6 +6,8 @@ class ContactSet extends AppModel
 
     public $records = null;
 
+    public $_group = true;
+
     protected $_defaults = array(
  			'searchKeyword'=>null,
 			'plugins'=>null,
@@ -269,7 +271,9 @@ class ContactSet extends AppModel
 
         foreach ($contacts as $contact){
             $ids[$i]['contact_id'] = $contact['Contact']['id'];
-            $ids[$i]['group_id']   = $options['group_id'];
+            if($this->_group){
+                $ids[$i]['group_id']   = $options['group_id'];
+            }
             $i++;
         }
         return $ids;

@@ -591,16 +591,40 @@ class UsersController extends AppController {
 			$text = $af['Affiliation']['father_name'];
 		}else{
 			$text = $af['Affiliation']['child_name'];
-		}
+        }
+
+        if ( (int) $this->data['Affiliation']['filter_id']) {
+            $filter = $this->Filter->read(null,$this->data['Affiliation']['filter_id']);
+            $criteria = !empty($filter['Filter']['criteria']) ? $filter['Filter']['criteria'] : array();
+            $search = $this->setContactSet(array(
+                    'searchKeyword' => $filter['Filter']['keyword'],
+                    'filters'       => $criteria
+                ),
+                $filter['Filter']['contact_type_id']
+            );
+            $this->ContactSet->_group = false;
+            $ids = $this->ContactSet->getContactIds($filter['Filter']['contact_type_id'],$search);
+            $contact_child_ids = array();
+            foreach ($ids as $k => $v){
+                $contact_child_ids[] = $v['contact_id'];
+            }
+        }
 
 		if( !empty($contact_father_id) ){
-			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id .' and contact_father_id ='.$contact_father_id;
+            $sql = ' SELECT * FROM affiliations_contacts AffiliationContact
+                WHERE affiliation_id ='.$affiliation_id .' and contact_father_id ='.$contact_father_id;
 			$affiliations= $this->User->query( $sql );
 			$contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_child_id');
 			$tmp= $text;
 			$text = "contact ".$contact_father_id;
-			$text .=" ".$tmp;
-
+            $text .=" ".$tmp;
+        }
+        elseif(isset($contact_child_ids) && !empty($contact_child_ids)){
+            $sql = ' SELECT * FROM affiliations_contacts AffiliationContact
+                WHERE affiliation_id ='.$affiliation_id.'
+                AND contact_child_id in ('.implode(',', $contact_child_ids).')';
+            $affiliations = $this->User->query($sql);
+            $contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_father_id');
 		}else{
 			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id ;
 			$affiliations= $this->User->query( $sql );
@@ -615,13 +639,11 @@ class UsersController extends AppController {
 
 		$group_filter = array('name'=>$text,'sql'=>"Contact.id IN ($ids)");
 
-		if(!in_array($group_filter,$previous_criterias))
-		{
+		if(!in_array($group_filter,$previous_criterias)){
 			$previous_criterias[]=$group_filter;
 		}
 
 		$this->Session->write('Filter.criteria',serialize($previous_criterias));
-
 		$this->display_contacts($this->Session->read('Contact.contact_type_id'));
     }
 

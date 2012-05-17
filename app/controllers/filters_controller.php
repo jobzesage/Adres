@@ -91,7 +91,6 @@ class FiltersController extends AppController {
         //change the code
         $current_contact_type = array($this->Session->read('Contact.contact_type_id'));
 
-        FireCake::fb($contactTypes);
         $affiliated_contact_type = array_pop(array_diff($contactTypes, $current_contact_type));
         if(empty($affiliated_contact_type)){
             $affiliated_contact_type = $this->Session->read('Contact.contact_type_id');

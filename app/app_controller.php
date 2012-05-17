@@ -133,6 +133,7 @@ abstract class AppController extends Controller {
 
     protected function setContactSet($options = array(), $contact_type_id=null)
     {
+        $options = Set::filter($options);
         if(empty($contact_type_id))
             $contact_type_id =  $this->Session->read('Contact.contact_type_id');
 
@@ -157,10 +158,9 @@ abstract class AppController extends Controller {
 		$criteria = "";
 		$affiliation= "";
 
-		if($this->Session->check('Filter.criteria'))
-		{
+		if($this->Session->check('Filter.criteria')){
 			$criteria = $this->getSQL(unserialize($this->Session->read('Filter.criteria')));
-		}
+        }
 
         if($this->Session->check('Filter.keyword')) $keyword = $this->Session->read('Filter.keyword');
 		if($this->Session->check('Filter.affiliation')) $affiliation = $this->Session->read('Filter.affiliation');
@@ -172,7 +172,6 @@ abstract class AppController extends Controller {
             'affiliation'=>$affiliation,
             'include_trash'=> (bool) $this->Session->read('Contact.include_trash')
         );
-
 		return am($search,$options);
     }
 
