@@ -9,11 +9,9 @@ class User extends AppModel {
     public $validate = array(
         'first_name' => array('notempty'),
         'last_name' => array('notempty'),
-        'username' => array('notempty','unique'),
-        'email' => array('email','unique'),
+        'username' => array('notempty'),
+        'email' => array('email'),
         'password' => array('notempty'),
-        'is_active' => array('numeric'),
-        'api_key' => array('notempty')
     );
 
 /*

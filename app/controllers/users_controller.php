@@ -57,15 +57,11 @@ class UsersController extends AppController {
 
 
     public function edit($id=null){
-		if (!$id) {
-			$this->flash(__('Invalid User', true), array('action' => 'index'));
-		}
-
 		$user = $this->User->findById($id);
 
-		if (!empty($this->data)){
+        if (!empty($this->data)){
 			if($this->User->save($this->data)){
-				$this->flash(__("User updated", true), array('action'=>"index"));
+				$this->setFlash(__("User updated", true), array('action'=>"index"));
 			}
 		}
 		if(!empty($user)){

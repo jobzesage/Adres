@@ -36,7 +36,6 @@
 		 ?>
             <?php echo $form->input('affiliation_select',array(
                 'type' => 'radio',
-                'after'=>'<br/>',
                 'options'=> array(
                     'Affiliation',
                     'Affilition + Contact',
@@ -50,17 +49,20 @@
 			<?php echo $form->input('affiliation_id',array(
 				'type' => 'select',
                 'options' => $html->getAffliationSelectValues($affiliations),
-                'class'=>'adres-affiliation-input'
+                'class'=>'adres-affiliation-input hide',
+                'label'=>array('class'=>'hide')
 			)) ?>
 			<?php echo $form->input('contact_id',array(
-				'class' => 'advance_search_contact adres-contact-picker adres-affiliation-input'
+                'class' => 'advance_search_contact adres-contact-picker adres-affiliation-input hide',
+                'label'=>array('class'=>'hide')
 			)) ?>
 
             <?php echo $form->input('filter_id',array(
                 'type'=>'select',
                 'options'=>$filters,
                 'empty'=>'Select One',
-                'class'=>'adres-filter-template adres-affiliation-input'
+                'class'=>'adres-filter-template adres-affiliation-input hide',
+                'label'=>array('class'=>'hide')
             ))?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
@@ -82,7 +84,7 @@ $(function(){
 
     $('.adres-tabs').tabs();
     $('select').selectmenu({width:230});
-    $('.adres-affiliation-input').hide();
+    $('.adres-affiliation-input').prev('label').hide();
 });
 </script>
 
