@@ -34,6 +34,18 @@
 			'class' => 'adres-ajax-form',
 			))
 		 ?>
+			<?php echo $form->input('aff_selection_id',array(
+				'type' => 'radio',
+				'options' => 'Affiliation'
+			)) ?>
+			<?php echo $form->input('aff_selection_id',array(
+				'type' => 'radio',
+				'options' => 'Affiliation + Contact'
+			)) ?>
+			<?php echo $form->input('aff_selection_id',array(
+				'type' => 'radio',
+				'options' => 'Affiliation + Filter'
+			)) ?>
 			<?php echo $form->input('affiliation_id',array(
 				'type' => 'select',
 				'options' => $html->getAffliationSelectValues($affiliations)
