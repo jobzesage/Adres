@@ -34,32 +34,33 @@
 			'class' => 'adres-ajax-form',
 			))
 		 ?>
-			<?php echo $form->input('aff_selection_id',array(
-				'type' => 'radio',
-				'options' => 'Affiliation'
-			)) ?>
-			<?php echo $form->input('aff_selection_id',array(
-				'type' => 'radio',
-				'options' => 'Affiliation + Contact'
-			)) ?>
-			<?php echo $form->input('aff_selection_id',array(
-				'type' => 'radio',
-				'options' => 'Affiliation + Filter'
-			)) ?>
-			<?php echo $form->input('affiliation_id',array(
-				'type' => 'select',
-				'options' => $html->getAffliationSelectValues($affiliations)
-			)) ?>
-			<?php echo $form->input('contact_id',array(
-				'class' => 'advance_search_contact adres-contact-picker'
+            <?php echo $form->input('affiliation_select',array(
+                'type' => 'radio',
+                'after'=>'<br/>',
+                'options'=> array(
+                    'Affiliation',
+                    'Affilition + Contact',
+                    'Affiliation + Filter'
+                ),
+                'div'=>array('class'=>'input text adres-break'),
+                'class'=> 'adres-affiliation-switch'
 			)) ?>
 
-            <b>OR</b>
+
+			<?php echo $form->input('affiliation_id',array(
+				'type' => 'select',
+                'options' => $html->getAffliationSelectValues($affiliations),
+                'class'=>'adres-affiliation-input'
+			)) ?>
+			<?php echo $form->input('contact_id',array(
+				'class' => 'advance_search_contact adres-contact-picker adres-affiliation-input'
+			)) ?>
+
             <?php echo $form->input('filter_id',array(
                 'type'=>'select',
                 'options'=>$filters,
                 'empty'=>'Select One',
-                'class'=>'adres-filter-template'
+                'class'=>'adres-filter-template adres-affiliation-input'
             ))?>
 		<?php echo $form->end('Aff Search') ?>
 	</div>
@@ -81,7 +82,7 @@ $(function(){
 
     $('.adres-tabs').tabs();
     $('select').selectmenu({width:230});
-
+    $('.adres-affiliation-input').hide();
 });
 </script>
 

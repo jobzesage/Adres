@@ -387,6 +387,23 @@ jQuery(document).ready(function() {
 
 	$('table.adres-datagrid tr:last td').css({borderBottom:'1px solid #e2dfdf'});
 
+
+
+    $('.adres-affiliation-switch').live('click',function(e){
+        var $radio = $(this);
+        switch ( parseInt($radio.val()) ){
+            case 0: $('.adres-affiliation-input').hide().prev('label').hide();
+                    $('select#AffiliationAffiliationId').show().prev('label').show();
+                    break;
+            case 1: $('.adres-affiliation-input').hide().prev('label').hide();
+                    $('select#AffiliationAffiliationId,input#AffiliationContactId').show().prev('label').show();
+                    break;
+            case 2: $('.adres-affiliation-input').hide().prev('label').hide();
+                    $('select#AffiliationAffiliationId,select#AffiliationFilterId').show().prev('label').show();
+                    ;break;
+        }
+    });
+
 	setTimeout(function(){ $("#flashMessage").fadeOut() }, 5000);
 
 
