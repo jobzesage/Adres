@@ -4,6 +4,9 @@ var UI=null
 
 ADres.SELECT = {
     affiliated_filters:function(e){
+        if($('.adres-affiliation-switch').val() < 2){
+            return false; // for advance search not to trigger ajax call
+        }
         var $affiliation_select = $(this);
         var id = $(this).val();
         var source = $("#filters_template").html();
