@@ -4,7 +4,7 @@ var UI=null
 
 ADres.SELECT = {
     affiliated_filters:function(e){
-        if($('.adres-affiliation-switch').val() < 2){
+        if($('.adres-affiliation-switch:checked').val() < 2){
             return false; // for advance search not to trigger ajax call
         }
         var $affiliation_select = $(this);
@@ -395,11 +395,13 @@ jQuery(document).ready(function() {
     $('.adres-affiliation-switch').live('click',function(e){
         var $radio = $(this);
         switch ( parseInt($radio.val()) ){
-            case 0: $('.adres-affiliation-input').hide().prev('label').hide();
+            case 0: $('.adres-affiliation-input,div.filters').hide().prev('label').hide();
                     $('select#AffiliationAffiliationId').show().prev('label').show();
+                    $('select#AffiliationFilterId').val('');
                     break;
-            case 1: $('.adres-affiliation-input').hide().prev('label').hide();
+            case 1: $('.adres-affiliation-input,div.filters').hide().prev('label').hide();
                     $('select#AffiliationAffiliationId,input#AffiliationContactId').show().prev('label').show();
+                    $('select#AffiliationFilterId').val('');
                     break;
             case 2: $('.adres-affiliation-input').hide().prev('label').hide();
                     $('select#AffiliationAffiliationId,select#AffiliationFilterId').show().prev('label').show();
