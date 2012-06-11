@@ -209,17 +209,13 @@ class UsersController extends AppController {
 		}
 
 		$search = $this->setContactSet($options);
-
 		$values = $this->ContactSet->getContactSet($contact_type_id,$search);
 
 		$count = $values['count'];
-
 		$paging['pages'] = ceil($count/$this->ContactSet->page_size);
-
 		$this->set('values',$values['data']);
 
 		$filters = $this->Filter->getFilters($contact_type_id);
-
 
 		$this->set('groups',$this->Group->getTree($contact_type_id));
 
@@ -617,12 +613,20 @@ class UsersController extends AppController {
             $text .=" ".$tmp;
 
         }elseif(isset($contact_child_ids) && !empty($contact_child_ids)){
+            $current_contact_type_id = $this->Session->read('Contact.contact_type_id');
+            $column_name = 'contact_father_id';
+            $extract_by_depth = '/AffiliationContact/contact_child_id';
+            if((int) $aff['contact_type_father_id'] == (int) $current_contact_type_id ){
+                $column_name = 'contact_child_id';
+                $extract_by_depth = '/AffiliationContact/contact_father_id';
+            }
 
             $sql = ' SELECT * FROM affiliations_contacts AffiliationContact
                 WHERE affiliation_id ='.$affiliation_id.'
-                AND contact_father_id in ('.implode(',', $contact_child_ids).')';
+                AND '.$column_name.' in ('.implode(',', $contact_child_ids).')';
             $affiliations = $this->User->query($sql);
-            $contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_child_id');
+            $contact_ids = Set::extract($affiliations,$extract_by_depth);
+            $text .=' affiliated';
 		}else{
 			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id ;
 			$affiliations= $this->User->query( $sql );
@@ -634,9 +638,7 @@ class UsersController extends AppController {
 		$group_filter =array();
 		//add to stack
 		$previous_criterias = $this->Session->check('Filter.criteria') ? unserialize($this->Session->read('Filter.criteria')) : array();
-
-		$group_filter = array('name'=>$text,'sql'=>"Contact.id IN ($ids)");
-
+        $group_filter = array('name'=>$text,'sql'=>"Contact.id IN ($ids)");
 		if(!in_array($group_filter,$previous_criterias)){
 			$previous_criterias[]=$group_filter;
 		}
