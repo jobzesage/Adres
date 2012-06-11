@@ -583,11 +583,11 @@ class UsersController extends AppController {
 		$contact_father_id  = $this->data['Affiliation']['contact_id'] ;
 		$sql = "";
 
+        $text = $af['Affiliation']['child_name'];
 		if($affiliation_type == 'f'){
 			$text = $af['Affiliation']['father_name'];
-		}else{
-			$text = $af['Affiliation']['child_name'];
-        }
+		}
+
 
         if ( (int) $this->data['Affiliation']['filter_id']) {
             $filter = $this->Filter->read(null,$this->data['Affiliation']['filter_id']);
@@ -600,6 +600,7 @@ class UsersController extends AppController {
             );
             $this->ContactSet->_group = false;
             $ids = $this->ContactSet->getContactIds($filter['Filter']['contact_type_id'],$search);
+
             $contact_child_ids = array();
             foreach ($ids as $k => $v){
                 $contact_child_ids[] = $v['contact_id'];
@@ -614,13 +615,14 @@ class UsersController extends AppController {
 			$tmp= $text;
 			$text = "contact ".$contact_father_id;
             $text .=" ".$tmp;
-        }
-        elseif(isset($contact_child_ids) && !empty($contact_child_ids)){
+
+        }elseif(isset($contact_child_ids) && !empty($contact_child_ids)){
+
             $sql = ' SELECT * FROM affiliations_contacts AffiliationContact
                 WHERE affiliation_id ='.$affiliation_id.'
-                AND contact_child_id in ('.implode(',', $contact_child_ids).')';
+                AND contact_father_id in ('.implode(',', $contact_child_ids).')';
             $affiliations = $this->User->query($sql);
-            $contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_father_id');
+            $contact_ids = Set::extract($affiliations,'/AffiliationContact/contact_child_id');
 		}else{
 			$sql = ' SELECT * FROM affiliations_contacts AffiliationContact WHERE affiliation_id ='.$affiliation_id ;
 			$affiliations= $this->User->query( $sql );
