@@ -261,11 +261,13 @@ jQuery(document).ready(function() {
         e.preventDefault();
         var query = 'contact_id:' + $('input#edit-contact-id').val();
         query += '/contact_type_id:' + $('input#edit-contact-type-id').val();
+        var $input = $(this);
 
         $.ajax({
             url:'/sites/remove_empty_record/' + query,
             success:function(data){
                 ADres.DIALOG.close();
+                $input.closest('.adres-affiliate-box').hide();
             }
         });
     });

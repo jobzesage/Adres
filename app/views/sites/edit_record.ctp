@@ -12,5 +12,4 @@
 	))?>
 
     <?php echo $form_inputs ?>
-    <?php echo $form->button('test') ?>
 <?php echo $form->end(array('label'=>'Save','class'=>'adres-button')) ?>

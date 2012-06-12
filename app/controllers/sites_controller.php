@@ -225,7 +225,7 @@ class SitesController extends AppController {
     public function contact_picker()
     {
       	$this->layout=null;
-		#$this->disableDebugger();
+		$this->disableDebugger();
 
 		if($this->RequestHandler->isAjax() || !empty($this->params['url']['term'])){
 			$affiliation_id = (int) substr($this->params['url']['affiliation_id'],1);
