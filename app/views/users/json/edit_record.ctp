@@ -7,6 +7,13 @@
 		))?>
 	<?php echo $form_inputs ?>
 
+    <?php
+        echo $form->button('delete',array(
+            'class'=>'adres-button',
+            'id'   =>'adres-remove-contact'
+        ))
+    ?>
+
 	<?php echo $form->end(array('label'=>'Save','class'=>'adres-button')) ?>
 
     <?php if (preg_match('/add_record/', $this->here)): ?>

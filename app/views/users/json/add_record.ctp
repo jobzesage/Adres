@@ -1,14 +1,14 @@
 <div style="width:310px">
-	
-		
+
+
 	<?php echo $form->create('Contact',array(
 		'url'=>array(
-			'controller' => 'users', 
+			'controller' => 'users',
 			'action' => 'add_record'
 		),
-		'class' => '' 
+		'class' => ''
 		)) ?>
-		
-	<?php echo $form->end('Save') ?>
-	
+
+    <?php echo $form->end('Save') ?>
+
 </div>

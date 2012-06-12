@@ -279,7 +279,7 @@ class UsersController extends AppController {
                     ));
 			}
 			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_id]' value='$contact_id'>";
-			$form_inputs .= "<input id='edit-contact-id' type='hidden' name='data[contact_type_id]' value='$contact_type_id'>";
+			$form_inputs .= "<input id='edit-contact-type-id' type='hidden' name='data[contact_type_id]' value='$contact_type_id'>";
 
 			$this->set('form_inputs',$form_inputs);
 			$this->set('contactId',$contact_id);

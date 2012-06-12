@@ -256,6 +256,19 @@ jQuery(document).ready(function() {
 	};
 
 
+    $('input#adres-remove-contact').live('click',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var query = 'contact_id:' + $('input#edit-contact-id').val();
+        query += '/contact_type_id:' + $('input#edit-contact-type-id').val();
+
+        $.ajax({
+            url:'/sites/remove_empty_record/' + query,
+            success:function(data){
+                ADres.DIALOG.close();
+            }
+        });
+    });
 	//$('.adres-link-ajax').bind('click',ADres.AJAX.call)
 	$('.adres-ajax-implementation').bind('change',ADres.AJAX.selectImplementation);
 	$('form.adres-ajax-form').live('submit',ADres.AJAX.form_submit);

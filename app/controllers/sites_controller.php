@@ -17,6 +17,23 @@ class SitesController extends AppController {
 
     public $layout = "users";
 
+
+    public function remove_empty_record($id=null){
+        $this->redirect_if_not_ajax_request();
+        $contact_id      = $this->params['named']['contact_id'];
+        $contact_type_id = $this->params['named']['contact_type_id'];
+        $plugins = $this->Field->getPluginTypes($contact_type_id);
+        $sql = '';
+        foreach ($plugins as $plugin){
+            $table = Inflector::underscore( $plugin['Field']['field_type_class_name'] );
+            $sql = 'delete from '. $table
+                . ' WHERE '.$table.'.field_id='. (int) $plugin['Field']['id']
+                . ' AND '.$table.'.contact_id='. (int) $contact_id .' ;' ;
+            $this->Field->query($sql);
+        }
+        $this->render('/elements/empty');
+    }
+
     public function edit_record($contact_id=null){
         $this->redirect_if_not_ajax_request();
         $this->redirect_if_id_is_empty($contact_id);
