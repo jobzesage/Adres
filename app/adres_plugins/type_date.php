@@ -23,7 +23,7 @@ class TypeDate extends Plugin{
 
 
 	public function after(Array $dataum){
-		$dates = $_SESSION['Contact']['dates'];
+		$dates = isset($_SESSION['Contact']['dates']) ? $_SESSION['Contact']['dates']: array();
 
 
 		if(is_array($dates) && !empty($dates)){

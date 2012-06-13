@@ -183,6 +183,7 @@ abstract class AppController extends Controller {
             CURLOPT_URL             => Configure::read('ADres.host').$url
         );
 
+
         curl_setopt_array($curl_handle,$curl_options);
         $result = curl_exec($curl_handle);
         curl_close($curl_handle);

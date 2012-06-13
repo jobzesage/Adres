@@ -2,7 +2,7 @@
 require_once dirname(__FILE__).'/../vendors/Mchimp/chimp.php';
 
 class MainController extends EmailerAppController{
-    public $uses = array();
+    public $uses = array('EmailLog');
     private $chimp = null;
 
     public function index(){
@@ -28,21 +28,43 @@ class MainController extends EmailerAppController{
     public function view($id=null){
         $this->layout=null;
         #$this->disableDebugger();
+        $field_id = $this->params['named']['field_id'];
         $key = Configure::read('ADres.internal_api_key');
-        $data = (array) $this->get_api("/v1/index/{$this->params['pass'][0]}.json?api_key={$key}");
+        $url = "/v1/index/{$this->params['pass'][0]}.json?api_key={$key}";
+        $data = (array) $this->get_api($url);
 
-        $email_column = $this->extract_email_column($data['fields']);
-        $email_addresses = $this->extract_email_addresses($data['data'],$email_column);
-        debug($email_addresses);
+        $email_column = $this->extract_email_column($data['fields'], $field_id);
+        $email_addresses = Set::filter($this->extract_email_addresses($data['data'],$email_column));
+        if($this->data){
+            $this->chimp = new Chimp(EmailerAppController::chimp_api_key);
+            $message = array(
+                'text'=>$this->data['Mailer']['message'],
+                'subject'=>$this->data['Mailer']['subject'],
+                'from_name'=> $this->data['Mailer']['from'],
+                'from_email'=>'jonathan@mybigler.com',
+                'to_email'=>$email_addresses
+            );
 
-        $this->render(null);
+            $this->EmailLog->save(array(
+                'body'=>$this->data['Mailer']['message'],
+                'subject'=>$this->data['Mailer']['subject'],
+                'sent_to'=> implode(',',$email_addresses)
+            ));
+            $this->chimp->sendEmail($message,true,false,array('Welcome Email'));
+        }
+        $this->redirect($this->referer(), null, true);
     }
 
 
-    private function extract_email_column($fields){
+    public function update_email_status()
+    {
+        // code...
+    }
+
+    private function extract_email_column($fields,$field_id){
       $field_name = null;
       foreach ($fields as $key=>$value){
-        if($value['field_type_class_name']=='TypeEmail'){
+          if($value['id'] == $field_id){
           $field_name = $key;
           break;
         }

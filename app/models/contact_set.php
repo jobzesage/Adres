@@ -82,33 +82,33 @@ class ContactSet extends AppModel
 	 **/
 	private function after(Array $results,$contact_type_id){
 
-		$results = $this->workaround($results, $contact_type_id);
+        $results = $this->workaround($results, $contact_type_id);
 
-		$formatterData=array();
+        $formatterData=array();
 
-                if(!array_key_exists('data',$results)) $results['data'] =array();
-                foreach ($results['data'] as $data) {
-			$keys = array_keys($data);
-			foreach ($keys as $key) {
-				$pluginType = preg_split('/_/',$key);
-				if(preg_match('/Type\w/',$pluginType[0])){
-					$pluginName = $pluginType[0];
-					$column_info=array(
-						'plugin' => $pluginType[0],
-						'data'=>$data[$key],
-						'key'=>$key,
-						'field_id'=>$pluginType[1],
-						'contact_type_id'=>$_SESSION['Contact']['contact_type_id']
-					);
-					$data[$key] = ClassRegistry::init($pluginName)->after($column_info);
-				}
-			}
-			$formatterData[]=$data;
-		}
-		$results['data'] = $formatterData;
+        if(!array_key_exists('data',$results)) $results['data'] =array();
+        foreach ($results['data'] as $data) {
+            $keys = array_keys($data);
+            foreach ($keys as $key) {
+                $pluginType = preg_split('/_/',$key);
+                if(preg_match('/Type\w/',$pluginType[0])){
+                    $pluginName = $pluginType[0];
+                    $column_info=array(
+                        'plugin' => $pluginType[0],
+                        'data'=>$data[$key],
+                        'key'=>$key,
+                        'field_id'=>$pluginType[1],
+                        'contact_type_id'=>$contact_type_id
+                    );
+                    $data[$key] = ClassRegistry::init($pluginName)->after($column_info);
+                }
+            }
+            $formatterData[]=$data;
+        }
+        $results['data'] = $formatterData;
 
-		//debug($results);
-		return $results;
+        //debug($results);
+        return $results;
 	}
 
 
