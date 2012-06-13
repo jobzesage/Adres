@@ -2,26 +2,11 @@
 require_once dirname(__FILE__).'/../vendors/Mchimp/chimp.php';
 
 class MainController extends EmailerAppController{
-    public $uses = array('EmailLog');
+    public $uses = array('EmailLog','ContactType');
     private $chimp = null;
 
     public function index(){
       $this->chimp = new Chimp(EmailerAppController::chimp_api_key);
-
-      $to_emails = array('rajib@d32.com.bd', 'cool_rajib@hotmail.com');
-      $to_names = array('You', 'Your Mom');
-      $message = array(
-          'html'=>'Yo, this is the <b>html</b> portion',
-          'text'=>'Yo, this is the *text* portion',
-          'subject'=>'This is the subject',
-          'from_name'=>'Me!',
-          'from_email'=>'jonathan@mybigler.com',
-          'to_email'=>$to_emails,
-          'to_name'=>$to_names
-      );
-
-      #debug($this->chimp->sendEmail($message,true,false,array('Welcome Email')));
-      #debug($this->chimp->verifyEmailAddress("rajib@d32.com.bd"));
       debug($this->chimp->listVerifiedEmailAddresses());
     }
 
@@ -29,8 +14,9 @@ class MainController extends EmailerAppController{
         $this->layout=null;
         #$this->disableDebugger();
         $field_id = $this->params['named']['field_id'];
+        $contact_type_id = $this->params['pass'][0];
         $key = Configure::read('ADres.internal_api_key');
-        $url = "/v1/index/{$this->params['pass'][0]}.json?api_key={$key}";
+        $url = "/v1/index/{$contact_type_id}.json?api_key={$key}";
         $data = (array) $this->get_api($url);
 
         $email_column = $this->extract_email_column($data['fields'], $field_id);
@@ -48,7 +34,9 @@ class MainController extends EmailerAppController{
             $this->EmailLog->save(array(
                 'body'=>$this->data['Mailer']['message'],
                 'subject'=>$this->data['Mailer']['subject'],
-                'sent_to'=> implode(',',$email_addresses)
+                'sent_to'=> implode(',',$email_addresses),
+                'field_id'=> $field_id,
+                'contact_type_id'=>$contact_type_id
             ));
             $this->chimp->sendEmail($message,true,false,array('Welcome Email'));
         }
@@ -56,9 +44,16 @@ class MainController extends EmailerAppController{
     }
 
 
-    public function update_email_status()
+    public function show($id=null)
     {
-        // code...
+        if(!$id){
+            $this->set('contact_types', $this->ContactType->find('all'));
+        }else{
+           $logs=$this->EmailLog->find('all',array('conditions'=>array(
+                'contact_type_id'=> 0
+            )));
+           $this->set('logs', $logs);
+        }
     }
 
     private function extract_email_column($fields,$field_id){
