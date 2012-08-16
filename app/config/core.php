@@ -1,12 +1,12 @@
 <?php
 
-    Configure::write('debug',0);
+    Configure::write('debug',2);
     Configure::write('ADres.version','1.0.0beta');
     Configure::write('ADres.auto_install',false);
     Configure::write('ADres.url','url');
     Configure::write('ADres.language','en');
 
-    Configure::write('ADres.host','http://localhost');
+    Configure::write('ADres.host','http://adres.dev');
     Configure::write('ADres.internal_api_key', 'ee89026a6');
 
     Configure::write('ADres.encryptor_vi','1q2w3e4r5t6y7u8i');

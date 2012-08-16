@@ -5,7 +5,7 @@
 	 */
 	echo $form->create("Mailer",array(
         'url' => array(
-			'controller' => 'emailer/main/',
+			'controller' => 'aw_ses/main/',
             'action' => 'view',
             $session->read('Contact.contact_type_id'),
 			'field_id'=>$id
