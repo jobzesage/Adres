@@ -2,8 +2,7 @@
     <ul>
     <?php foreach ($contact_types as $contact_type) :?>
        <li><?php echo $html->link($contact_type['ContactType']['name'], array(
-            'plugin'=>'aw_ses',
-            'controller'=> 'main',
+            'controller'=> '/aw_ses/main',
             'action'=>'show',
             $contact_type['ContactType']['id']
         ))?>

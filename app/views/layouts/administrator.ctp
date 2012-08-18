@@ -46,27 +46,67 @@
 
 				<div class="adres-menu" style="margin: 2px 0 0 0;">
 
-				<?php echo $html->link(__('Home',true),array('controller'=>'users','action'=>'home'), array("class"=>"home top-button")) ?>
+                <?php echo $html->link(__('Home',true),array(
+                    'plugin'=>null,
+                    'controller'=>'users',
+                    'action'=>'home'
+                ), array("class"=>"home top-button")) ?>
 
-				<?php echo $html->link(__('Affiliations',true),array('controller'=>'affiliations','action'=>'index')) ?>
+                <?php echo $html->link(__('Affiliations',true),array(
+                    'plugin'=>null,
+                    'controller'=>'affiliations',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Implementations',true),array('controller'=>'implementations','action'=>'index')) ?>
+                <?php echo $html->link(__('Implementations',true),array(
+                    'plugin'=>null,
+                    'controller'=>'implementations',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Contact Types',true),array('controller'=>'contact_types','action'=>'index')) ?>
+                <?php echo $html->link(__('Contact Types',true),array(
+                    'plugin'=>null,
+                    'controller'=>'contact_types',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Groups',true),array('controller'=>'groups','action'=>'index')) ?>
+                <?php echo $html->link(__('Groups',true),array(
+                    'plugin'=>null,
+                    'controller'=>'groups',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Data Structure',true),array('controller'=>'fields','action'=>'index')) ?>
+                <?php echo $html->link(__('Data Structure',true),array(
+                    'plugin'=>null,
+                    'controller'=>'fields',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Field Types',true),array('controller'=>'field_types','action'=>'index')) ?>
+                <?php echo $html->link(__('Field Types',true),array(
+                    'plugin'=>null,
+                    'controller'=>'field_types',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Trash',true),array('controller'=>'contacts','action'=>'trash')) ?>
+                <?php echo $html->link(__('Trash',true),array(
+                    'plugin'=>null,
+                    'controller'=>'contacts',
+                    'action'=>'trash'
+                )) ?>
 
                 <?php echo $html->link(__('Email Log',true),array('plugin'=>'aw_ses','controller'=>'main','action'=>'show')) ?>
 
-<?php echo $html->link(__('Users',true),array('controller'=>'users','action'=>'index')) ?>
+                <?php echo $html->link(__('Users',true),array(
+                    'plugin'=>null,
+                    'controller'=>'users',
+                    'action'=>'index'
+                )) ?>
 
-				<?php echo $html->link(__('Logout',true),array('controller'=>'users','action'=>'logout'), array("class"=>"logout top-button")) ?>
+                <?php echo $html->link(__('Logout',true),array(
+                    'plugin'=>null,
+                    'controller'=>'users',
+                    'action'=>'logout'
+                    ), array("class"=>"logout top-button")) ?>
 
 	            </div>
 
