@@ -12,7 +12,7 @@
     </ul>
 <?php endif ?>
 
-<?php if($logs) : ?>
+<?php if(isset($logs)) : ?>
 <table class="adres-datagrid ui-widget">
 
 <?php

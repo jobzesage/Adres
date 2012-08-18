@@ -62,7 +62,7 @@
 
 				<?php echo $html->link(__('Trash',true),array('controller'=>'contacts','action'=>'trash')) ?>
 
-                <?php echo $html->link(__('Email Log',true),array('plugin'=>'emailer','controller'=>'main','action'=>'show')) ?>
+                <?php echo $html->link(__('Email Log',true),array('plugin'=>'aw_ses','controller'=>'main','action'=>'show')) ?>
 
 <?php echo $html->link(__('Users',true),array('controller'=>'users','action'=>'index')) ?>
 

@@ -65,8 +65,9 @@ class MainController extends AwSesAppController{
         if(!$id){
             $this->set('contact_types', $this->ContactType->find('all'));
         }else{
+            $id = $this->params['pass'][0];
            $logs=$this->EmailLog->find('all',array('conditions'=>array(
-                'contact_type_id'=> 0
+                'contact_type_id'=> $id
             )));
            $this->set('logs', $logs);
         }

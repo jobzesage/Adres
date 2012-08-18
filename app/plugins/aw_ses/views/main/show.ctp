@@ -2,7 +2,7 @@
     <ul>
     <?php foreach ($contact_types as $contact_type) :?>
        <li><?php echo $html->link($contact_type['ContactType']['name'], array(
-            'plugin'=>'emailer',
+            'plugin'=>'aw_ses',
             'controller'=> 'main',
             'action'=>'show',
             $contact_type['ContactType']['id']
@@ -12,7 +12,7 @@
     </ul>
 <?php endif ?>
 
-<?php if($logs) : ?>
+<?php if(isset($logs)) : ?>
 <table class="adres-datagrid ui-widget">
 
 <?php
